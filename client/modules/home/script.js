@@ -2,20 +2,23 @@
 // import { reactive, onMounted, ref} from 'vue';
 // import { ElTable, ElTableColumn } from "element-plus";
 // import 'element-plus/es/components/table/style/css';
+import changeItem from '@/components/changeItem.vue';
 
 
 export default {
     data() {
         return {
             img1: require('assets/image/octPlot.png'),
-            value1:'',
-            value2:''
+            img2: require('assets/image/wordcloud.png'),
+            value1: '',
+            value2: ''
             // todo
         };
     },
     components: {
         // ElTable,
         // ElTableColumn,
+        'change-item': changeItem
     },
     setup() {
 
