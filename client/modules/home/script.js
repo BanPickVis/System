@@ -5,42 +5,44 @@
 
 
 export default {
-    data () {
+    data() {
         return {
+            img1: require('assets/image/octPlot.png'),
+            value1:'',
+            value2:''
             // todo
         };
     },
-    components:{
+    components: {
         // ElTable,
         // ElTableColumn,
     },
     setup() {
 
-        const tableData = [
+        const options = [
             {
-                date: '2016-05-02',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1518 弄',
+                value: 'Option1',
+                label: 'Option1',
             },
             {
-                date: '2016-05-04',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1517 弄',
+                value: 'Option2',
+                label: 'Option2',
             },
             {
-                date: '2016-05-01',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1519 弄',
+                value: 'Option3',
+                label: 'Option3',
             },
             {
-                date: '2016-05-03',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1516 弄',
+                value: 'Option4',
+                label: 'Option4',
             },
-        ];
+            {
+                value: 'Option5',
+                label: 'Option5',
+            },];
 
         return {
-            tableData
+            options
         };
     }
 };
