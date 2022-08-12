@@ -48,6 +48,7 @@ module.exports = {
         "no-duplicate-case": "error",
         "no-duplicate-imports": "error",
         "no-empty": "error",
-        "vue/no-lone-template": "off"
+        "vue/no-lone-template": "off",
+        "no-unused-vars":"off"
     }
 };

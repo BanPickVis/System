@@ -1,6 +1,17 @@
 <template>
-  <div class="wrapper">
-    <h1>this is detail page</h1>
-  </div>
+    <div>
+        <h1>This is detail page.</h1>
+        <RadarChart />
+    </div>
 </template>
-<script src="./script.js"></script>
+
+<script>
+import RadarChart from "components/radarChart";
+
+export default {
+    name: "App",
+    components: {
+        RadarChart,
+    },
+};
+</script>
