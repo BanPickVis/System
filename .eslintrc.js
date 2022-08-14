@@ -26,9 +26,7 @@ module.exports = {
     },
     "extends": ["eslint:recommended", "plugin:vue/recommended"],
     "rules": {
-        "indent": ["error", 4, {
-            "SwitchCase": 1
-        }],
+        "indent": "off",
         "linebreak-style": ["error", "windows"],
         "semi": ["error", "always"],
         "comma-dangle": ["warn", {
@@ -49,6 +47,6 @@ module.exports = {
         "no-duplicate-imports": "error",
         "no-empty": "error",
         "vue/no-lone-template": "off",
-        "no-unused-vars":"off"
+        "no-unused-vars": "off"
     }
 };

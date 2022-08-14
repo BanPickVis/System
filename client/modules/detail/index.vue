@@ -376,8 +376,7 @@ export default {
             blobWrapper
                 .selectAll(".radarCircle")
                 .data(function (d, i) {
-                    console.log(d);
-                    for (var item in d) {
+                    for (var item in d) {// item: key
                         d[item].index = i;
                     }
                     return d;
