@@ -9,6 +9,9 @@ import changePlot from '@/components/changePlot.vue';
 export default {
     data() {
         return {
+            name1:"玩家1",
+            name2:"玩家2",
+            
             img1: require('assets/image/octPlot.png'),
             img2: require('assets/image/wordcloud.png'),
             value1: '',
