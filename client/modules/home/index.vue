@@ -1,5 +1,11 @@
 <template>
     <div>
+        <div class="bp_view">
+            <b>BP View</b>
+        </div>
+        <div class="seq_view">
+            <b>Sequence View</b>
+        </div>
         <div class="player_view">
             <b>Player View</b>
             <svg
@@ -503,32 +509,65 @@
         <div class="team_view">
             <b>Team View</b><br />
             <el-row :span="24">
+                <!-- Team Radar Part -->
                 <el-col :span="12">
-                    &nbsp;&nbsp;&nbsp;<el-select
-                        v-model="value1"
-                        multiple
-                        placeholder="Select"
-                        style="width: 240px"
+                    &nbsp;
+                    <div
+                        style="
+                            font-family: 'Apple Braille';
+                            font-style: normal;
+                            font-weight: 400;
+                            font-size: 19.2982px;
+                            line-height: 22px;
+                        "
                     >
-                        <el-option
-                            v-for="item in options"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value"
-                        /> </el-select
-                    ><br />
+                        &nbsp; Blue Side:
+                        <el-select
+                            v-model="blue_value"
+                            multiple
+                            placeholder="Select"
+                            style="width: 240px"
+                        >
+                            <el-option
+                                v-for="item in blue_options"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value"
+                            />
+                        </el-select>
+                        <br />
+                        &nbsp; Red Side:&nbsp;
+                        <el-select
+                            v-model="red_value"
+                            multiple
+                            placeholder="Select"
+                            style="width: 240px"
+                        >
+                            <el-option
+                                v-for="item in red_options"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value"
+                            />
+                        </el-select>
+                    </div>
+                    <br />
+
                     <!-- radar plot -->
                     <!-- <img :src="img1" />  -->
-                    <svg id="d3-radar-team" /> </el-col
-                ><el-col :span="12">
+                    <svg id="d3-radar-team" />
+                </el-col>
+
+                <!-- Team Wordcloud Part -->
+                <el-col :span="12">
                     &nbsp;&nbsp;&nbsp;<el-select
-                        v-model="value2"
+                        v-model="cloud_value"
                         multiple
                         placeholder="Select"
                         style="width: 240px"
                     >
                         <el-option
-                            v-for="item in options_2"
+                            v-for="item in cloud_options"
                             :key="item.value"
                             :label="item.label"
                             :value="item.value"
@@ -539,7 +578,10 @@
         </div>
         <div class="change_view">
             <b>In-game Change View</b><br />
-            <change-item id="change_1" change_txt="nonesense balabk abdwhf 20% dejovene" />
+            <change-item
+                id="change_1"
+                change_txt="nonesense balabk abdwhf 20% dejovene"
+            />
             <change-plot />
             <change-item id="change_2" arrow="down" />
             <change-item id="change_3" />
@@ -549,6 +591,32 @@
 <script src="./script.js"></script>
 
 <style lang="less">
+.bp_view {
+    /* BANPICK */
+    box-sizing: border-box;
+
+    position: absolute;
+    width: 24.96%;
+    height: 58.61%;
+    left: 0.4%;
+    top: 0.4%;
+
+    border: 0.981508px solid #000000;
+    border-radius: 15px;
+}
+.seq_view {
+    /* Sequence */
+    box-sizing: border-box;
+
+    position: absolute;
+    width: 73.2%;
+    height: 58.89%;
+    right: 0.4%;
+    top: 0.4%;
+
+    border: 0.982768px solid #000000;
+    border-radius: 15px;
+}
 .player_view {
     /* Player */
     position: absolute;
@@ -565,7 +633,7 @@
     /* Team */
     position: absolute;
     width: 41.17%;
-    height: 32.29%;
+    height: 38.68%;
     left: 26.21%;
     bottom: 0.4%;
 
@@ -577,12 +645,17 @@
     /* Change */
     position: absolute;
     width: 31.56%;
-    height: 32.29%;
+    height: 38.68%;
     right: 0.4%;
     bottom: 0.4%;
 
     border: 1px solid #000000;
     box-sizing: border-box;
     border-radius: 15px;
+}
+
+div.el-select {
+    // padding-top: 10px;
+    padding-bottom: 10px;
 }
 </style>

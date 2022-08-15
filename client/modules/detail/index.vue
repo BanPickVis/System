@@ -16,9 +16,9 @@ export default {
         RadarChart,
     },
     mounted() {
-        var margin = { top: 10, right: 10, bottom: 10, left: 10 },
-            width = 300,
-            height = 300;
+        var margin = { top: 100, right: 100, bottom: 100, left: 100 },
+            width = 400,
+            height = 400;
 
         //////////////////////////////////////////////////////////////
         ////////////////////////// Data //////////////////////////////
@@ -28,9 +28,9 @@ export default {
             [
                 //iPhone
                 { axis: "Battery Life", value: 2.2 },
-                { axis: "Brand", value: 2.8 },
+                { axis: "Brand", value: 4.8 },
                 { axis: "Contract Cost", value: 2.9 },
-                { axis: "Design And Quality", value: 1.7 },
+                { axis: "Design And Quality", value: 3.7 },
                 { axis: "Have Internet Connectivity", value: 2.2 },
                 { axis: "Large Screen", value: 0.2 },
             ],
@@ -40,8 +40,8 @@ export default {
                 { axis: "Brand", value: 5.0 },
                 { axis: "Contract Cost", value: 4.0 },
                 { axis: "Design And Quality", value: 1.3 },
-                { axis: "Have Internet Connectivity", value: 2 },
-                { axis: "Large Screen", value: 1.3 },
+                { axis: "Have Internet Connectivity", value: 0.5 },
+                { axis: "Large Screen", value: 4.3 },
             ],
         ];
         //////////////////////////////////////////////////////////////
@@ -376,7 +376,8 @@ export default {
             blobWrapper
                 .selectAll(".radarCircle")
                 .data(function (d, i) {
-                    for (var item in d) {// item: key
+                    for (var item in d) {
+                        // item: key
                         d[item].index = i;
                     }
                     return d;

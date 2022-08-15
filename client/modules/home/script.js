@@ -9,13 +9,14 @@ import changePlot from '@/components/changePlot.vue';
 export default {
     data() {
         return {
-            name1:"玩家1",
-            name2:"玩家2",
-            
+            name1: "玩家1",
+            name2: "玩家2",
+
             img1: require('assets/image/octPlot.png'),
             img2: require('assets/image/wordcloud.png'),
-            value1: '',
-            value2: ''
+            blue_value: '', // blue side
+            red_value: '', // red side
+            cloud_value: ''  // wordcloud side
             // todo
         };
     },
@@ -27,20 +28,33 @@ export default {
     },
     setup() {
 
-        const options = [
+        const blue_options = [
             {
-                value: 'Option1',
-                label: 'Option1',
+                value: '孙尚香',
+                label: 'Sun Shangxiang',
             },
             {
-                value: 'Option2',
-                label: 'Option2',
+                value: '太乙真人',
+                label: 'Taiyi Zhenren',
             },
             {
-                value: 'Option3',
-                label: 'Option3',
+                value: '姜子牙',
+                label: 'Jiang Ziya',
+            },
+            {
+                value: '鲁班大师',
+                label: 'Master Luban',
             },],
-            options_2 = [
+            red_options = [
+                {
+                    value: '东皇太一',
+                    label: 'Donghuang Taiyi',
+                },
+                {
+                    value: '吕布',
+                    label: 'Lv Bu',
+                },],
+            cloud_options = [
                 {
                     value: 'Option1',
                     label: 'Option1',
@@ -56,8 +70,9 @@ export default {
             ];
 
         return {
-            options,
-            options_2
+            blue_options,
+            red_options,
+            cloud_options
         };
     },
     mounted() {
