@@ -10,7 +10,7 @@
         </div>
         <div class="player_view">
             <b>Player View</b>
-            <player />
+            <player name1="虔诚" name2="花海" />
         </div>
         <div class="team_view">
             <b>Team View</b><br />
@@ -85,12 +85,12 @@
         <div class="change_view">
             <b>In-game Change View</b><br />
             <change-item
-                id="change_1"
+                id="zhangliang"
                 change_txt="nonesense balabk abdwhf 20% dejovene"
             />
             <change-plot />
-            <change-item id="change_2" arrow="down" />
-            <change-item id="change_3" />
+            <change-item id="gongsunli" arrow="down" />
+            <change-item id="makeboluo" />
         </div>
     </div>
 </template>

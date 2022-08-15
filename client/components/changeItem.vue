@@ -1,6 +1,6 @@
 <template>
     <svg
-        :class="id"
+        :id="id"
         width="709"
         height="74"
         viewBox="0 0 709 74"
@@ -66,7 +66,7 @@
 export default {
     setup() {},
     props: {
-        id: { type: String, default: "_" },
+        id: { type: String, default: "_" }, // class of svg
         img: { type: String, default: "avatar" },
         arrow: { type: String, default: "up" },
         change_txt: { type: String, default: "default change" },
@@ -77,18 +77,22 @@ export default {
         };
     },
     mounted() {
+        // avatar
+        const pattern = '#pattern_'+this.id;
+        d3.select("#" + this.id).select('rect').attr('fill', "url("+pattern+")");
+        // arrow
         if (this.arrow == "up") {
-            d3.select("." + this.id)
+            d3.select("#" + this.id)
                 .select("#arrow_up")
                 .style("display", "inline");
-            d3.select("." + this.id)
+            d3.select("#" + this.id)
                 .select("#arrow_down")
                 .style("display", "none");
         } else {
-            d3.select("." + this.id)
+            d3.select("#" + this.id)
                 .select("#arrow_down")
                 .style("display", "inline");
-            d3.select("." + this.id)
+            d3.select("#" + this.id)
                 .select("#arrow_up")
                 .style("display", "none");
         }
