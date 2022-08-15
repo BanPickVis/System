@@ -539,7 +539,7 @@
         </div>
         <div class="change_view">
             <b>In-game Change View</b><br />
-            <change-item id="change_1" />
+            <change-item id="change_1" change_txt="nonesense balabk abdwhf 20% dejovene" />
             <change-plot />
             <change-item id="change_2" arrow="down" />
             <change-item id="change_3" />
