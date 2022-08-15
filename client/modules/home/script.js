@@ -4,6 +4,7 @@
 // import 'element-plus/es/components/table/style/css';
 import changeItem from '@/components/changeItem.vue';
 import changePlot from '@/components/changePlot.vue';
+import player from '@/components/player.vue';
 
 
 export default {
@@ -23,6 +24,7 @@ export default {
     components: {
         // ElTable,
         // ElTableColumn,
+        player,
         'change-item': changeItem,
         'change-plot': changePlot,
     },
