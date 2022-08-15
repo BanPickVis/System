@@ -2,9 +2,11 @@
     <div>
         <div class="bp_view">
             <b>BP View</b>
+            <bp />
         </div>
         <div class="seq_view">
             <b>Sequence View</b>
+            <seq />
         </div>
         <div class="player_view">
             <b>Player View</b>

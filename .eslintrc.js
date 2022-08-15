@@ -27,6 +27,8 @@ module.exports = {
     "extends": ["eslint:recommended", "plugin:vue/recommended"],
     "rules": {
         "indent": "off",
+        "vue/html-indent":"off",
+        "vue/max-attributes-per-line":"off",
         "linebreak-style": ["error", "windows"],
         "semi": ["error", "always"],
         "comma-dangle": ["warn", {

@@ -2,9 +2,12 @@
 // import { reactive, onMounted, ref} from 'vue';
 // import { ElTable, ElTableColumn } from "element-plus";
 // import 'element-plus/es/components/table/style/css';
+import bp from '@/components/bp.vue';
+import seq from '@/components/seq.vue';
+import player from '@/components/player.vue';
 import changeItem from '@/components/changeItem.vue';
 import changePlot from '@/components/changePlot.vue';
-import player from '@/components/player.vue';
+
 
 
 export default {
@@ -24,6 +27,7 @@ export default {
     components: {
         // ElTable,
         // ElTableColumn,
+        bp, seq,
         player,
         'change-item': changeItem,
         'change-plot': changePlot,

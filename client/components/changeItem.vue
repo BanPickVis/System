@@ -1,5 +1,6 @@
 <template>
-    <svg :class="id"
+    <svg
+        :class="id"
         width="709"
         height="74"
         viewBox="0 0 709 74"
@@ -23,7 +24,14 @@
             {{ change_txt }}
         </text>
 
-        <rect x="8" width="70" height="70" rx="36.9124" fill="url(#pattern1)" />
+        <!-- avatar -->
+        <rect
+            x="8"
+            width="70"
+            height="70"
+            rx="36.9124"
+            fill="url(#pattern_zhangliang)"
+        />
 
         <!-- arrow -->
         <path
@@ -40,11 +48,16 @@
         <!-- avatar -->
         <defs>
             <pattern
-                id="pattern1"
-                patternContentUnits="objectBoundingBox"
-                width="1"
-                height="1"
-            ></pattern>
+                    id="pattern_zhangliang"
+                    patternContentUnits="objectBoundingBox"
+                    width="1"
+                    height="1"
+                >
+                    <use
+                        href="#image_zhangliang"
+                        transform="translate(0 -0.0280033) scale(0.0111111 0.0117334)"
+                    />
+                </pattern>
         </defs>
     </svg>
 </template>
@@ -53,7 +66,7 @@
 export default {
     setup() {},
     props: {
-        id:  { type: String, default: "_" },
+        id: { type: String, default: "_" },
         img: { type: String, default: "avatar" },
         arrow: { type: String, default: "up" },
         change_txt: { type: String, default: "default change" },
@@ -65,12 +78,19 @@ export default {
     },
     mounted() {
         if (this.arrow == "up") {
-            d3.select('.'+this.id).select("#arrow_up").style("display", "inline");
-            d3.select('.'+this.id).select("#arrow_down").style("display", "none");
-        }
-        else{
-            d3.select('.'+this.id).select("#arrow_down").style("display", "inline");
-            d3.select('.'+this.id).select("#arrow_up").style("display", "none");
+            d3.select("." + this.id)
+                .select("#arrow_up")
+                .style("display", "inline");
+            d3.select("." + this.id)
+                .select("#arrow_down")
+                .style("display", "none");
+        } else {
+            d3.select("." + this.id)
+                .select("#arrow_down")
+                .style("display", "inline");
+            d3.select("." + this.id)
+                .select("#arrow_up")
+                .style("display", "none");
         }
     },
 };
