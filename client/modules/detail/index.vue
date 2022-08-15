@@ -1,6 +1,7 @@
 <template>
     <div>
-        <h1>This is detail page.</h1>
+        <b>This is detail page.</b><br/>
+        <img :src="require('../../assets/image/octPlot.png')" />
         <RadarChart />
         <br />
         <svg id="d3-radar" />
