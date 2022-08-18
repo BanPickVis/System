@@ -85,49 +85,52 @@ export default {
         //////////////////////////////////////////////////////////////
         //////////////////// Plot Radar //////////////////////////////
         //////////////////////////////////////////////////////////////
-        var margin = { top: 50, right: 50, bottom: 60, left: 50 },
+        var margin = { top: 45, right: 50, bottom: 50, left: 50 },
             width = 300,
-            height = 300;
-
-        //////////////////////////////////////////////////////////////
-        //////////////////// Radar Data //////////////////////////////
-        //////////////////////////////////////////////////////////////
+            height = 300,
+            color = d3.scaleOrdinal().range(["#F76060", "#46A4E4"]),
+            radarChartOptions = {
+                w: width,
+                h: height,
+                margin: margin,
+                maxValue: 5,
+                levels: 5,
+                roundStrokes: true,
+                color: color,
+            };
 
         var radar_data = [
             [
                 //iPhone
-                { axis: "Win Rate", value: 2.2 },
-                { axis: "Brand", value: 3.8 },
-                { axis: "Contract Cost", value: 2.9 },
-                { axis: "Quality", value: 1.7 },
-                { axis: "Win Rate1", value: 2.2 },
-                { axis: "Large Screen", value: 4.2 },
+                { axis: "Winning Rate", value: 2.2 },
+                { axis: "team KDA ratio", value: 3.8 },
+                { axis: "# Average Tyrant", value: 2.9 },
+                { axis: "# Average Dragon", value: 1.7 },
+                { axis: "# Average Tower Destroyed", value: 2.2 },
+                { axis: "Average Game Duration", value: 4.2 },
             ],
             [
                 //Samsung
-                { axis: "Win Rate", value: 3.3 },
-                { axis: "Brand", value: 5.0 },
-                { axis: "Contract Cost", value: 4.0 },
-                { axis: "Quality", value: 1.3 },
-                { axis: "Win Rate1", value: 2 },
-                { axis: "Large Screen", value: 1.3 },
+                { axis: "Winning Rate", value: 3.3 },
+                { axis: "team KDA ratio", value: 5.0 },
+                { axis: "# Average Tyrant", value: 4.0 },
+                { axis: "# Average Dragon", value: 4.3 },
+                { axis: "# Average Tower Destroyed", value: 2 },
+                { axis: "Average Game Duration", value: 1.5 },
             ],
         ];
-        //////////////////////////////////////////////////////////////
-        //////////////////// Draw the Radar Chart ////////////////////
-        //////////////////////////////////////////////////////////////
 
-        var color = d3.scaleOrdinal().range(["#F76060", "#46A4E4"]);
-
-        var radarChartOptions = {
-            w: width,
-            h: height,
-            margin: margin,
-            maxValue: 5,
-            levels: 5,
-            roundStrokes: true,
-            color: color,
-        };
+        // standardize radar_data
+        const radar_range = [1, 9, 9, 9, 9, 30];
+        for (var i in d3.range(2)) {
+            for (let j in d3.range(6)) {
+                var rScale = d3
+                    .scaleLinear()
+                    .domain([0, radar_range[j]])
+                    .range([0, radarChartOptions.maxValue]);
+                radar_data[i][j].value = rScale(Object.values(radarJson)[i][j]);
+            }
+        }
 
         //Call function to draw the Radar chart
         return this.RadarChart("d3-radar-team", radar_data, radarChartOptions);
@@ -140,14 +143,13 @@ export default {
                 margin: { top: 20, right: 20, bottom: 20, left: 20 }, //The margins of the SVG
                 levels: 5, //How many levels or inner circles should there be drawn
                 maxValue: 0, //What is the value that the biggest circle will represent
-                labelFactor: 1.25, //How much farther than the radius of the outer circle should the labels be placed
+                labelFactor: 1.2, //How much farther than the radius of the outer circle should the labels be placed
                 wrapWidth: 60, //The number of pixels after which a label needs to be given a new line
                 opacityArea: 0.35, //The opacity of the area of the blob
                 dotRadius: 4, //The size of the colored circles of each blog
                 opacityCircles: 0.1, //The opacity of the circles of each blob
                 strokeWidth: 2, //The width of the stroke around each blob
                 roundStrokes: false, //If true the area and stroke will follow a round path (cardinal-closed)
-                color: d3.scaleOrdinal(d3.schemeCategory10), //Color function
             };
 
             //Put all of the options into a variable called cfg
@@ -314,7 +316,7 @@ export default {
                 .attr("y", function (d, i) {
                     return (
                         rScale(maxValue * cfg.labelFactor) *
-                        Math.sin(angleSlice * i - Math.PI / 2)
+                        Math.sin(angleSlice * i - Math.PI / 2)-8
                     );
                 })
                 .text(function (d) {

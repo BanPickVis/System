@@ -32,7 +32,7 @@
                             v-model="blue_value"
                             multiple
                             placeholder="Select"
-                            style="width: 240px"
+                            style="width: 300px"
                         >
                             <el-option
                                 v-for="item in blue_options"
@@ -47,7 +47,7 @@
                             v-model="red_value"
                             multiple
                             placeholder="Select"
-                            style="width: 240px"
+                            style="width: 300px"
                         >
                             <el-option
                                 v-for="item in red_options"
@@ -168,7 +168,6 @@
 }
 
 div.el-select {
-    // padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 10px;
 }
 </style>
