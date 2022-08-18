@@ -234,16 +234,28 @@ export default {
         var heros1 = Object.keys(playerJson["XYG.酷偕"]),
             heros2 = Object.keys(playerJson["重庆狼队.Fly"]);
 
-        return {heros1,heros2};
+        return { heros1, heros2 };
     },
     data() {
         return {
-            select_hero_1:"猪八戒",
-            select_hero_2:"廉颇",
+            select_hero_1: "猪八戒",
+            select_hero_2: "廉颇",
 
             hero_name1: "猪八戒",
             hero_name2: "廉颇",
         };
+    },
+    watch: {
+        select_hero_1(val, oldVal) {
+            this.hero_name1 = val;
+            // console.log(val);
+            this.plotBoxes();
+        },
+        select_hero_2(val, oldVal) {
+            this.hero_name2 = val;
+            // console.log(val);
+            this.plotBoxes();
+        },
     },
     props: {
         name1: { type: String, default: "Player 1" },
@@ -262,21 +274,23 @@ export default {
         ];
         this.plotTitle(titles);
 
-        // create dummy data
-        var player_data_b = playerJson[this.member_name1][this.hero_name1],
-            player_data_r = playerJson[this.member_name2][this.hero_name2];
-        // console.log(player_data_b);
-
-        // process data & plot
-        this.heros1 = Object.keys(playerJson[this.member_name1]);
-        d3.select("#player_box_plot").selectAll("g").remove();
-
-        for (var i in d3.range(5)) {
-            // plot i-th box
-            this.plotBox([player_data_b[i], player_data_r[i]], i);
-        }
+        this.plotBoxes();
     },
     methods: {
+        plotBoxes() {
+            d3.select("#player_box_plot").selectAll('g').remove();
+
+            // process data by member_name & hero_name
+            var player_data_b = playerJson[this.member_name1][this.hero_name1],
+                player_data_r = playerJson[this.member_name2][this.hero_name2];
+            // console.log(player_data_b);
+
+
+            for (var i in d3.range(5)) {
+                // plot i-th box
+                this.plotBox([player_data_b[i], player_data_r[i]], i);
+            }
+        },
         plotTitle(titles) {
             const box_plot = d3.select("#player_box_plot"),
                 height = box_plot.attr("width");
@@ -430,7 +444,7 @@ export default {
     line-height: 19px;
 }
 
-.hero_select{
+.hero_select {
     position: absolute;
     top: 18%;
     left: 28%;
