@@ -259,17 +259,17 @@ export default {
         },
 
         // select player
-        member_name1(val, _){
+        member_name1(val, _) {
             this.heros1 = Object.keys(playerJson[val]);
-            this.select_hero_1=this.heros1[0];
-            this.hero_name1=this.heros1[0];
+            this.select_hero_1 = this.heros1[0];
+            this.hero_name1 = this.heros1[0];
 
             this.plotBoxes();
         },
-        member_name2(val, _){
+        member_name2(val, _) {
             this.heros2 = Object.keys(playerJson[val]);
-            this.select_hero_2=this.heros2[0];
-            this.hero_name2=this.heros2[0];
+            this.select_hero_2 = this.heros2[0];
+            this.hero_name2 = this.heros2[0];
 
             this.plotBoxes();
         },
@@ -283,10 +283,10 @@ export default {
     },
     mounted() {
         const titles = [
-            "Average KDA",
-            "Average Damage",
-            "Average Hurt",
-            "Average Cash",
+            "KDA Ratio",
+            "Average Damage (/min)",
+            "Average Damage taken (/min)",
+            "Average Cash Gained (/min)",
             "Participation",
         ];
         this.plotTitle(titles);
@@ -295,13 +295,12 @@ export default {
     },
     methods: {
         plotBoxes() {
-            d3.select("#player_box_plot").selectAll('g').remove();
+            d3.select("#player_box_plot").selectAll("g").remove();
 
             // process data by member_name & hero_name
             var player_data_b = playerJson[this.member_name1][this.hero_name1],
                 player_data_r = playerJson[this.member_name2][this.hero_name2];
             // console.log(player_data_b);
-
 
             for (var i in d3.range(5)) {
                 // plot i-th box
@@ -315,18 +314,21 @@ export default {
                 box_plot
                     .append("text")
                     .text(titles[i])
-                    .attr("x", 10)
-                    .attr("y", 50 + (height / 8) * i)
-                    .attr("fill", "black");
+                    .attr("x", 145)
+                    .attr("y", 50 + (height / 8.5) * i)
+                    .attr("dy", "0.35em")
+                    .attr("text-anchor", "end")
+                    .attr("fill", "black")
+                    .call(this.wrap, 150);
             }
         },
         plotBox(double_data, box_id) {
             const box_plot = d3.select("#player_box_plot");
-            const margin = { top: 15, right: 30, bottom: 15, left: 150 },
+            const margin = { top: 18, right: 20, bottom: 8, left: 160 },
                 width = box_plot.attr("width") - margin.left - margin.right,
                 height =
                     box_plot.attr("height") / 5 - margin.top - margin.bottom,
-                h = height / 3; // height of the box
+                h = height / 2.5; // height of the box
             const svg = box_plot
                 .append("g")
                 .attr(
@@ -448,6 +450,43 @@ export default {
                     .attr("stroke", "#fff");
             }
         },
+        //Taken from http://bl.ocks.org/mbostock/7555321
+        //Wraps SVG text
+        wrap(text, width) {
+            text.each(function () {
+                var text = d3.select(this),
+                    words = text.text().split(/\s+/).reverse(),
+                    word,
+                    line = [],
+                    lineNumber = 0,
+                    lineHeight = 1.4, // ems
+                    y = text.attr("y"),
+                    x = text.attr("x"),
+                    dy = parseFloat(text.attr("dy")),
+                    tspan = text
+                        .text(null)
+                        .append("tspan")
+                        .attr("x", x)
+                        .attr("y", y)
+                        .attr("dy", dy + "em");
+
+                while ((word = words.pop())) {
+                    line.push(word);
+                    tspan.text(line.join(" "));
+                    if (tspan.node().getComputedTextLength() > width) {
+                        line.pop();
+                        tspan.text(line.join(" "));
+                        line = [word];
+                        tspan = text
+                            .append("tspan")
+                            .attr("x", x)
+                            .attr("y", y)
+                            .attr("dy", ++lineNumber * lineHeight + dy + "em")
+                            .text(word);
+                    }
+                }
+            });
+        }, //wrap
     },
 };
 </script>
