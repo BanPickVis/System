@@ -194,26 +194,23 @@
             viewBox="0 0 640 400"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-        >
-            <text fill="black">
-                <!-- titles -->
-                <!-- <tspan x="10" y="50">Average KDA</tspan>
-                <tspan x="10" y="120">Average Damage</tspan>
-                <tspan x="10" y="190">Average Hurt</tspan>
-                <tspan x="10" y="260">Average Cash</tspan>
-                <tspan x="10" y="330">Average Participation</tspan> -->
-            </text>
-        </svg>
+        ></svg>
     </div>
 </template>
 
 <script>
-import { random } from "lodash";
+import playerJson from "../assets/json/player_view_output_2021_2022.json";
+
 export default {
-    setup() {},
+    setup() {
+        // console.log("CW.Gin", playerJson["CW.Gin"]);
+    },
     props: {
         name1: { type: String, default: "Player 1" },
         name2: { type: String, default: "Player 2" },
+
+        member_name1: { type: String, default: "XYG.羲和" },
+        member_name2: { type: String, default: "嵊州SZG.挽余" },
     },
     mounted() {
         const titles = [
@@ -226,12 +223,27 @@ export default {
         this.plotTitle(titles);
 
         // create dummy data
-        var double_data = [
-            [12, 19, 11, 13, 12, 22, 13, 4, 15, 16, 18, 19, 20, 12, 11, 9],
-            [12, 9, 1, 15, 12, 22, 30, 14, 15, 16, 8, 9, 10, 12, 16, 9],
-        ];
+        var player_data_b = playerJson[this.member_name1];
+        var player_data_r = playerJson[this.member_name2];
+
+        // process data & plot
+        var box_data_b = [],
+            box_data_r = [];
+        d3.select("#player_box_plot").selectAll("g").remove();
         for (var i in d3.range(5)) {
-            this.plotBox(double_data, i);
+            // construct `box_data` for i-th box
+            for (var key in player_data_b) {
+                box_data_b.push(player_data_b[key][i]);
+            }
+            for (key in player_data_r) {
+                box_data_r.push(player_data_r[key][i]);
+            }
+
+            // plot i-th box
+            this.plotBox([box_data_b, box_data_r], i);
+
+            // clean `box_data`
+            (box_data_b = []), (box_data_r = []);
         }
     },
     methods: {
@@ -261,28 +273,25 @@ export default {
                     "translate(" +
                         margin.left +
                         "," +
-                        ((height + margin.top + margin.bottom) * box_id +
-                            margin.top) +
+                        (margin.top +
+                            (height + margin.top + margin.bottom) * box_id) +
                         ")"
                 );
 
             const color = ["#46A4E4", "#F76060"];
 
-            // Show the X scale
-            var x = d3
-                .scaleLinear()
-                .domain([
-                    0,
-                    d3.max([d3.max(double_data[0]), d3.max(double_data[1])]),
-                ])
-                .range([0, width]);
-            svg.append("g")
-                .attr(
-                    "transform",
-                    "translate(" + 0 + "," + (height + margin.bottom) + ")"
-                )
-                .call(d3.axisTop(x));
+            // init scale
+            var data_min = d3.min([
+                    d3.min(double_data[0]),
+                    d3.min(double_data[1]),
+                ]),
+                data_max = d3.max([
+                    d3.max(double_data[0]),
+                    d3.max(double_data[1]),
+                ]);
 
+            // calculate & update scale
+            let boxs = [];
             for (var i in d3.range(2)) {
                 var data = double_data[i];
                 // console.log(data);
@@ -295,30 +304,71 @@ export default {
                 var interQuantileRange = q3 - q1;
                 var min = q1 - 1.5 * interQuantileRange;
                 var max = q1 + 1.5 * interQuantileRange;
+                boxs.push({
+                    min: min,
+                    q1: q1,
+                    q2: median,
+                    q3: q3,
+                    max: max,
+                });
 
+                if (min < data_min) data_min = min;
+                if (max > data_max) data_max = max;
+
+                // console.log(data_sorted);
+                // console.log(d3.min(data), min, max, d3.max(data));
+            }
+
+            // Show the X scale
+            var x = d3
+                .scaleLinear()
+                .domain([data_min, data_max])
+                .range([0, width]);
+            svg.append("g")
+                .attr(
+                    "transform",
+                    "translate(" + 0 + "," + (height + margin.bottom) + ")"
+                )
+                .call(d3.axisTop(x).ticks(2));
+
+            for (i in d3.range(2)) {
                 // a few features for the box
                 var center = margin.top + (height / 2.5) * i;
+
+                // plot the points
+                svg.append("g")
+                    .selectAll("circle")
+                    .data(data)
+                    .enter()
+                    .append("circle")
+                    .attr("cx", function (d) {
+                        return x(d);
+                    })
+                    .attr("cy", center)
+                    .attr("r", 3)
+                    .attr("opacity", 0.6)
+                    .attr("fill", color[i]);
 
                 // Show the main vertical line
                 svg.append("line")
                     .attr("y1", center)
                     .attr("y2", center)
-                    .attr("x1", x(min))
-                    .attr("x2", x(max))
+                    .attr("x1", x(boxs[i].min))
+                    .attr("x2", x(boxs[i].max))
                     .attr("stroke", color[i]);
 
                 // Show the box
                 svg.append("rect")
-                    .attr("x", x(q1))
+                    .attr("x", x(boxs[i].q1))
                     .attr("y", center - h / 2)
-                    .attr("width", x(q3) - x(q1))
+                    .attr("width", x(boxs[i].q3) - x(boxs[i].q1))
                     .attr("height", h)
                     .attr("opacity", 0.5)
                     .style("fill", color[i]);
 
-                // show median, min and max horizontal lines
+                // show min and max lines
                 svg.selectAll("toto")
-                    .data([min, q1, q3, max])
+                    .data([boxs[i].min, boxs[i].q1, boxs[i].q3, boxs[i].max])
                     .enter()
                     .append("line")
                     .attr("y1", center - h / 2)
@@ -330,12 +380,13 @@ export default {
                         return x(d);
                     })
                     .attr("stroke", color[i]);
-
+                
+                // median lines
                 svg.append("line")
                     .attr("y1", center - h / 2)
                     .attr("y2", center + h / 2)
-                    .attr("x1", x(median))
-                    .attr("x2", x(median))
+                    .attr("x1", x(boxs[i].q2))
+                    .attr("x2", x(boxs[i].q2))
                     .attr("stroke", "#fff");
             }
         },
