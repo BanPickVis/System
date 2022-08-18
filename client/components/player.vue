@@ -246,14 +246,31 @@ export default {
         };
     },
     watch: {
-        select_hero_1(val, oldVal) {
+        // select hero
+        select_hero_1(val, _) {
             this.hero_name1 = val;
             // console.log(val);
             this.plotBoxes();
         },
-        select_hero_2(val, oldVal) {
+        select_hero_2(val, _) {
             this.hero_name2 = val;
             // console.log(val);
+            this.plotBoxes();
+        },
+
+        // select player
+        member_name1(val, _){
+            this.heros1 = Object.keys(playerJson[val]);
+            this.select_hero_1=this.heros1[0];
+            this.hero_name1=this.heros1[0];
+
+            this.plotBoxes();
+        },
+        member_name2(val, _){
+            this.heros2 = Object.keys(playerJson[val]);
+            this.select_hero_2=this.heros2[0];
+            this.hero_name2=this.heros2[0];
+
             this.plotBoxes();
         },
     },
