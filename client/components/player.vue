@@ -210,7 +210,7 @@ export default {
         name2: { type: String, default: "Player 2" },
 
         member_name1: { type: String, default: "XYG.羲和" },
-        member_name2: { type: String, default: "嵊州SZG.挽余" },
+        member_name2: { type: String, default: "XYG.秀豆" },
     },
     mounted() {
         const titles = [
@@ -261,7 +261,7 @@ export default {
         },
         plotBox(double_data, box_id) {
             const box_plot = d3.select("#player_box_plot");
-            const margin = { top: 8, right: 30, bottom: 8, left: 150 },
+            const margin = { top: 15, right: 30, bottom: 15, left: 150 },
                 width = box_plot.attr("width") - margin.left - margin.right,
                 height =
                     box_plot.attr("height") / 5 - margin.top - margin.bottom,
@@ -327,9 +327,9 @@ export default {
             svg.append("g")
                 .attr(
                     "transform",
-                    "translate(" + 0 + "," + (height + margin.bottom) + ")"
+                    "translate(" + 0 + "," + (height ) + ")"
                 )
-                .call(d3.axisTop(x).ticks(2));
+                .call(d3.axisBottom(x).ticks(2));
 
             for (i in d3.range(2)) {
                 // a few features for the box
@@ -338,7 +338,7 @@ export default {
                 // plot the points
                 svg.append("g")
                     .selectAll("circle")
-                    .data(data)
+                    .data(double_data[i])
                     .enter()
                     .append("circle")
                     .attr("cx", function (d) {

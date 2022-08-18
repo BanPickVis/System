@@ -86,11 +86,18 @@
             <b>In-game Change View</b><br />
             <change-item
                 id="zhangliang"
-                change_txt="nonesense balabk abdwhf 20% dejovene"
+                change_txt="被动：新增效果：自身处于移速受损时，被动回复效果翻倍"
+                arrow="down"
             />
             <change-plot />
-            <change-item id="gongsunli" arrow="down" />
-            <change-item id="makeboluo" />
+            <change-item
+                id="gongsunli"
+                arrow="up"
+                change_txt="二技能：子弹速度：4500 → 3500"
+            />
+            <change-item id="makeboluo" arrow="down"
+                change_txt="二技能：子弹速度：4500 → 3500"
+             />
         </div>
     </div>
 </template>
