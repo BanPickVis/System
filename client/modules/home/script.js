@@ -7,6 +7,7 @@ import seq from '@/components/seq.vue';
 import player from '@/components/player.vue';
 import changeItem from '@/components/changeItem.vue';
 import changePlot from '@/components/changePlot.vue';
+import radarJson from '@/assets/json/team_view_output.json';
 
 
 
@@ -33,7 +34,6 @@ export default {
         'change-plot': changePlot,
     },
     setup() {
-
         const blue_options = [
             {
                 value: '孙尚香',
@@ -134,51 +134,6 @@ export default {
     },
     methods: {
         RadarChart(id, data, options) {
-            /////////////////////////////////////////////////////////
-            /////////////////// Helper Function /////////////////////
-            /////////////////////////////////////////////////////////
-
-            //Taken from http://bl.ocks.org/mbostock/7555321
-            //Wraps SVG text
-            function wrap(text, width) {
-                text.each(function () {
-                    var text = d3.select(this),
-                        words = text.text().split(/\s+/).reverse(),
-                        word,
-                        line = [],
-                        lineNumber = 0,
-                        lineHeight = 1.4, // ems
-                        y = text.attr("y"),
-                        x = text.attr("x"),
-                        dy = parseFloat(text.attr("dy")),
-                        tspan = text
-                            .text(null)
-                            .append("tspan")
-                            .attr("x", x)
-                            .attr("y", y)
-                            .attr("dy", dy + "em");
-
-                    while ((word = words.pop())) {
-                        line.push(word);
-                        tspan.text(line.join(" "));
-                        if (tspan.node().getComputedTextLength() > width) {
-                            line.pop();
-                            tspan.text(line.join(" "));
-                            line = [word];
-                            tspan = text
-                                .append("tspan")
-                                .attr("x", x)
-                                .attr("y", y)
-                                .attr(
-                                    "dy",
-                                    ++lineNumber * lineHeight + dy + "em"
-                                )
-                                .text(word);
-                        }
-                    }
-                });
-            } //wrap
-
             var cfg = {
                 w: 600, //Width of the circle
                 h: 600, //Height of the circle
@@ -232,7 +187,6 @@ export default {
             /////////////////////////////////////////////////////////
             //////////// Create the container SVG and g /////////////
             /////////////////////////////////////////////////////////
-
             //Calculate width and height
             const height = cfg.h + cfg.margin.top + cfg.margin.bottom,
                 width = cfg.w + cfg.margin.left + cfg.margin.right;
@@ -366,7 +320,7 @@ export default {
                 .text(function (d) {
                     return d;
                 })
-                .call(wrap, cfg.wrapWidth);
+                .call(this.wrap, cfg.wrapWidth);
 
             /////////////////////////////////////////////////////////
             ///////////// Draw the radar chart blobs ////////////////
@@ -528,5 +482,46 @@ export default {
 
             return svg.node();
         }, //RadarChart
+
+        /////////////////////////////////////////////////////////
+        /////////////////// Helper Function /////////////////////
+        /////////////////////////////////////////////////////////
+        //Taken from http://bl.ocks.org/mbostock/7555321
+        //Wraps SVG text
+        wrap(text, width) {
+            text.each(function () {
+                var text = d3.select(this),
+                    words = text.text().split(/\s+/).reverse(),
+                    word,
+                    line = [],
+                    lineNumber = 0,
+                    lineHeight = 1.4, // ems
+                    y = text.attr("y"),
+                    x = text.attr("x"),
+                    dy = parseFloat(text.attr("dy")),
+                    tspan = text
+                        .text(null)
+                        .append("tspan")
+                        .attr("x", x)
+                        .attr("y", y)
+                        .attr("dy", dy + "em");
+
+                while ((word = words.pop())) {
+                    line.push(word);
+                    tspan.text(line.join(" "));
+                    if (tspan.node().getComputedTextLength() > width) {
+                        line.pop();
+                        tspan.text(line.join(" "));
+                        line = [word];
+                        tspan = text
+                            .append("tspan")
+                            .attr("x", x)
+                            .attr("y", y)
+                            .attr("dy", ++lineNumber * lineHeight + dy + "em")
+                            .text(word);
+                    }
+                }
+            });
+        }, //wrap
     }
 };
