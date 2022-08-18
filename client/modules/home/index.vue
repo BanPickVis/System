@@ -95,9 +95,11 @@
                 arrow="up"
                 change_txt="二技能：子弹速度：4500 → 3500"
             />
-            <change-item id="makeboluo" arrow="down"
-                change_txt="二技能：子弹速度：4500 → 3500"
-             />
+            <change-item
+                id="makeboluo"
+                arrow="down"
+                change_txt="一技能：加速效果：20% → 40%	 二技能：基础伤害：250(+40/Lv)(+0.4Ap) → 300(+48/Lv)(+0.48Ap)	 二技能：效果调整：重复命中效果衰减至50% → 25%"
+            />
         </div>
     </div>
 </template>
@@ -168,6 +170,7 @@
 }
 
 div.el-select {
-    padding-top: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 </style>

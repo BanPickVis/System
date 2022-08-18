@@ -227,6 +227,7 @@
 </template>
 
 <script>
+import wrap from "../components/wrap.js";
 import playerJson from "../assets/json/player_view_output_2021_2022.json";
 
 export default {
@@ -241,19 +242,15 @@ export default {
             select_hero_1: "猪八戒",
             select_hero_2: "廉颇",
 
-            hero_name1: "猪八戒",
-            hero_name2: "廉颇",
         };
     },
     watch: {
         // select hero
         select_hero_1(val, _) {
-            this.hero_name1 = val;
             // console.log(val);
             this.plotBoxes();
         },
         select_hero_2(val, _) {
-            this.hero_name2 = val;
             // console.log(val);
             this.plotBoxes();
         },
@@ -262,14 +259,12 @@ export default {
         member_name1(val, _) {
             this.heros1 = Object.keys(playerJson[val]);
             this.select_hero_1 = this.heros1[0];
-            this.hero_name1 = this.heros1[0];
 
             this.plotBoxes();
         },
         member_name2(val, _) {
             this.heros2 = Object.keys(playerJson[val]);
             this.select_hero_2 = this.heros2[0];
-            this.hero_name2 = this.heros2[0];
 
             this.plotBoxes();
         },
@@ -298,8 +293,8 @@ export default {
             d3.select("#player_box_plot").selectAll("g").remove();
 
             // process data by member_name & hero_name
-            var player_data_b = playerJson[this.member_name1][this.hero_name1],
-                player_data_r = playerJson[this.member_name2][this.hero_name2];
+            var player_data_b = playerJson[this.member_name1][this.select_hero_1],
+                player_data_r = playerJson[this.member_name2][this.select_hero_2];
             // console.log(player_data_b);
 
             for (var i in d3.range(5)) {
@@ -319,7 +314,7 @@ export default {
                     .attr("dy", "0.35em")
                     .attr("text-anchor", "end")
                     .attr("fill", "black")
-                    .call(this.wrap, 150);
+                    .call(wrap, 150);
             }
         },
         plotBox(double_data, box_id) {
@@ -450,43 +445,6 @@ export default {
                     .attr("stroke", "#fff");
             }
         },
-        //Taken from http://bl.ocks.org/mbostock/7555321
-        //Wraps SVG text
-        wrap(text, width) {
-            text.each(function () {
-                var text = d3.select(this),
-                    words = text.text().split(/\s+/).reverse(),
-                    word,
-                    line = [],
-                    lineNumber = 0,
-                    lineHeight = 1.4, // ems
-                    y = text.attr("y"),
-                    x = text.attr("x"),
-                    dy = parseFloat(text.attr("dy")),
-                    tspan = text
-                        .text(null)
-                        .append("tspan")
-                        .attr("x", x)
-                        .attr("y", y)
-                        .attr("dy", dy + "em");
-
-                while ((word = words.pop())) {
-                    line.push(word);
-                    tspan.text(line.join(" "));
-                    if (tspan.node().getComputedTextLength() > width) {
-                        line.pop();
-                        tspan.text(line.join(" "));
-                        line = [word];
-                        tspan = text
-                            .append("tspan")
-                            .attr("x", x)
-                            .attr("y", y)
-                            .attr("dy", ++lineNumber * lineHeight + dy + "em")
-                            .text(word);
-                    }
-                }
-            });
-        }, //wrap
     },
 };
 </script>

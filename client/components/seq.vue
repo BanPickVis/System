@@ -1,6 +1,6 @@
 <template>
     <div>
-        <svg
+        <svg id="seq_header"
             width="1451"
             height="73"
             viewBox="0 0 1451 73"

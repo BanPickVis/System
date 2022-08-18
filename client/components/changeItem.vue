@@ -8,22 +8,6 @@
         xmlns="http://www.w3.org/2000/svg"
         xmlns:xlink="http://www.w3.org/1999/xlink"
     >
-        <!-- description -->
-        <text
-            x="116"
-            y="40"
-            fill="#333333"
-            style="
-                font-family: 'Apple Braille';
-                font-style: normal;
-                font-weight: 400;
-                font-size: 16.4055px;
-                line-height: 18px;
-            "
-        >
-            {{ change_txt }}
-        </text>
-
         <!-- avatar -->
         <rect
             x="8"
@@ -63,6 +47,7 @@
 </template>
 
 <script>
+import wrap from "../components/wrap.js";
 export default {
     setup() {},
     props: {
@@ -77,9 +62,24 @@ export default {
         };
     },
     mounted() {
+        // text
+            d3.select("#" + this.id).append('text')
+            .attr('x',116)
+            .attr('y',40)
+            .attr("dy", '0.4em')
+            .attr('fill',"#333333")
+            .attr('font-family','Apple Braille')
+            .attr('font-style','normal')
+            .attr('font-weight','400')
+            .attr('font-size','16.4055px')
+            .attr('line-height','18px')
+            .text(this.change_txt)
+            .call(wrap, 600);
+
         // avatar
         const pattern = '#pattern_'+this.id;
         d3.select("#" + this.id).select('rect').attr('fill', "url("+pattern+")");
+
         // arrow
         if (this.arrow == "up") {
             d3.select("#" + this.id)
