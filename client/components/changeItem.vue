@@ -66,7 +66,7 @@
 export default {
     setup() {},
     props: {
-        id: { type: String, default: "_" }, // class of svg
+        id: { type: String, default: "zhangliang" }, // class of svg
         img: { type: String, default: "avatar" },
         arrow: { type: String, default: "up" },
         change_txt: { type: String, default: "default change" },
