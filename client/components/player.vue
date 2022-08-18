@@ -183,7 +183,35 @@
             </defs>
         </svg>
 
-        <br />
+        <!-- hero selector -->
+        <span class="hero_select">
+            <el-select
+                v-model="select_hero_1"
+                placeholder="Select"
+                style="width: 90px"
+            >
+                <el-option
+                    v-for="item in heros1"
+                    :key="item"
+                    :label="item"
+                    :value="item"
+                />
+            </el-select>
+            vs
+
+            <el-select
+                v-model="select_hero_2"
+                placeholder="Select"
+                style="width: 90px"
+            >
+                <el-option
+                    v-for="item in heros2"
+                    :key="item"
+                    :label="item"
+                    :value="item"
+                /> </el-select
+        ></span>
+
         <br />
 
         <!-- Box Plot -->
@@ -203,14 +231,26 @@ import playerJson from "../assets/json/player_view_output_2021_2022.json";
 
 export default {
     setup() {
-        // console.log("CW.Gin", playerJson["CW.Gin"]);
+        var heros1 = Object.keys(playerJson["XYG.酷偕"]),
+            heros2 = Object.keys(playerJson["重庆狼队.Fly"]);
+
+        return {heros1,heros2};
+    },
+    data() {
+        return {
+            select_hero_1:"猪八戒",
+            select_hero_2:"廉颇",
+
+            hero_name1: "猪八戒",
+            hero_name2: "廉颇",
+        };
     },
     props: {
         name1: { type: String, default: "Player 1" },
         name2: { type: String, default: "Player 2" },
 
-        member_name1: { type: String, default: "XYG.羲和" },
-        member_name2: { type: String, default: "XYG.秀豆" },
+        member_name1: { type: String, default: "XYG.酷偕" },
+        member_name2: { type: String, default: "重庆狼队.Fly" },
     },
     mounted() {
         const titles = [
@@ -223,27 +263,17 @@ export default {
         this.plotTitle(titles);
 
         // create dummy data
-        var player_data_b = playerJson[this.member_name1];
-        var player_data_r = playerJson[this.member_name2];
+        var player_data_b = playerJson[this.member_name1][this.hero_name1],
+            player_data_r = playerJson[this.member_name2][this.hero_name2];
+        // console.log(player_data_b);
 
         // process data & plot
-        var box_data_b = [],
-            box_data_r = [];
+        this.heros1 = Object.keys(playerJson[this.member_name1]);
         d3.select("#player_box_plot").selectAll("g").remove();
+
         for (var i in d3.range(5)) {
-            // construct `box_data` for i-th box
-            for (var key in player_data_b) {
-                box_data_b.push(player_data_b[key][i]);
-            }
-            for (key in player_data_r) {
-                box_data_r.push(player_data_r[key][i]);
-            }
-
             // plot i-th box
-            this.plotBox([box_data_b, box_data_r], i);
-
-            // clean `box_data`
-            (box_data_b = []), (box_data_r = []);
+            this.plotBox([player_data_b[i], player_data_r[i]], i);
         }
     },
     methods: {
@@ -325,10 +355,7 @@ export default {
                 .domain([data_min, data_max])
                 .range([0, width]);
             svg.append("g")
-                .attr(
-                    "transform",
-                    "translate(" + 0 + "," + (height ) + ")"
-                )
+                .attr("transform", "translate(" + 0 + "," + height + ")")
                 .call(d3.axisBottom(x).ticks(2));
 
             for (i in d3.range(2)) {
@@ -380,7 +407,7 @@ export default {
                         return x(d);
                     })
                     .attr("stroke", color[i]);
-                
+
                 // median lines
                 svg.append("line")
                     .attr("y1", center - h / 2)
@@ -401,5 +428,18 @@ export default {
     font-weight: 400;
     font-size: 18px;
     line-height: 19px;
+}
+
+.hero_select{
+    position: absolute;
+    top: 18%;
+    left: 28%;
+    opacity: 60%;
+    display: block;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+div.el-select {
+    padding: 0 10px 0 10px;
 }
 </style>

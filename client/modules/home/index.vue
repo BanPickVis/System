@@ -70,7 +70,7 @@
                         v-model="cloud_value"
                         multiple
                         placeholder="Select"
-                        style="width: 240px"
+                        style="width: 450px"
                     >
                         <el-option
                             v-for="item in cloud_options"
