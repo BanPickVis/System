@@ -49,6 +49,7 @@ module.exports = {
         "no-duplicate-imports": "error",
         "no-empty": "error",
         "vue/no-lone-template": "off",
+        "vue/html-self-closing":"off",
         "no-unused-vars": "off"
     }
 };

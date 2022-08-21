@@ -1,12 +1,14 @@
 // import HttpHelper from "common/utils/axios_helper.js";
-// import { reactive, onMounted, ref} from 'vue';
-// import { ElTable, ElTableColumn } from "element-plus";
-// import 'element-plus/es/components/table/style/css';
+
+// dependent components
 import bp from '@/components/bp.vue';
 import seq from '@/components/seq.vue';
 import player from '@/components/player.vue';
 import changeItem from '@/components/changeItem.vue';
 import changePlot from '@/components/changePlot.vue';
+import wordcloud from '@/components/wordcloud.vue';
+
+// dependent function & json files
 import wrap from "@/components/wrap.js";
 import radarJson from '@/assets/json/team_view_output.json';
 
@@ -31,6 +33,7 @@ export default {
         // ElTableColumn,
         bp, seq,
         player,
+        "word-cloud":wordcloud,
         'change-item': changeItem,
         'change-plot': changePlot,
     },

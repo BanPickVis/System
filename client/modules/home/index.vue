@@ -79,7 +79,9 @@
                             :value="item.value"
                         /> </el-select
                     ><br />
-                    <img :src="img2" /> </el-col
+                    <!-- <img :src="img2" /> -->
+                    <word-cloud />
+                     </el-col
             ></el-row>
         </div>
         <div class="change_view">
