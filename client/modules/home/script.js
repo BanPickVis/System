@@ -11,7 +11,7 @@ import wordcloud from '@/components/wordcloud.vue';
 // dependent function & json files
 import wrap from "@/components/wrap.js";
 import radarJson from '@/assets/json/team_view_output.json';
-
+import { Search } from '@element-plus/icons-vue';
 
 
 export default {
@@ -24,7 +24,9 @@ export default {
             img2: require('assets/image/wordcloud.png'),
             blue_value: '', // blue side
             red_value: '', // red side
-            cloud_value: ''  // wordcloud side
+            cloud_value: '',  // wordcloud side
+            cloud_words: []
+
             // todo
         };
     },
@@ -33,7 +35,7 @@ export default {
         // ElTableColumn,
         bp, seq,
         player,
-        "word-cloud":wordcloud,
+        "word-cloud": wordcloud,
         'change-item': changeItem,
         'change-plot': changePlot,
     },
@@ -138,6 +140,10 @@ export default {
 
         //Call function to draw the Radar chart
         return this.RadarChart("d3-radar-team", radar_data, radarChartOptions);
+    },
+    watch:{
+        cloud_value(val, oldVal)
+        { console.log(val); }
     },
     methods: {
         RadarChart(id, data, options) {
@@ -320,7 +326,7 @@ export default {
                 .attr("y", function (d, i) {
                     return (
                         rScale(maxValue * cfg.labelFactor) *
-                        Math.sin(angleSlice * i - Math.PI / 2)-8
+                        Math.sin(angleSlice * i - Math.PI / 2) - 8
                     );
                 })
                 .text(function (d) {

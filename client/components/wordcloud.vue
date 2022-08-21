@@ -6,47 +6,45 @@
 const cloud = require("d3-cloud");
 
 export default {
-    props: {
-        keyWords: {
-            type: Array,
-            default: () => [
-                {
-                    text: "雅典娜",
-                    size: "15",
-                },
-                {
-                    text: "位置",
-                    size: "40",
-                },
-                {
-                    text: "团战",
-                    size: "26",
-                },
-                { text: "中路", size: "30" },
-                {
-                    text: "伤害",
-                    size: "20",
-                },
-                { text: "野区", size: "30" },
-                {
-                    text: "输出",
-                    size: "20",
-                },
-                { text: "经济", size: "10" },
-                {
-                    text: "强势",
-                    size: "30",
-                },
-                {
-                    text: "赛前",
-                    size: "16",
-                },
-            ],
-        },
-    },
+    props: { keyWords: Array },
     data() {
         return {
-            data: this.keyWords,
+            data:
+                this.keyWords.length > 0
+                    ? this.keyWords
+                    : [
+                          {
+                              text: "雅典娜",
+                              size: "15",
+                          },
+                          {
+                              text: "位置",
+                              size: "40",
+                          },
+                          {
+                              text: "团战",
+                              size: "26",
+                          },
+                          { text: "中路", size: "30" },
+                          {
+                              text: "伤害",
+                              size: "20",
+                          },
+                          { text: "野区", size: "30" },
+                          {
+                              text: "输出",
+                              size: "20",
+                          },
+                          { text: "经济", size: "10" },
+                          {
+                              text: "强势",
+                              size: "30",
+                          },
+                          {
+                              text: "赛前",
+                              size: "16",
+                          },
+                      ],
         };
     },
     mounted() {
@@ -55,18 +53,18 @@ export default {
     },
     methods: {
         processDataWeights() {
-            this.data.sort((a, b) => (a.size - b.size));
+            this.data.sort((a, b) => a.size - b.size);
             // console.log(this.data);
 
             // peocess weights with a function
             const one = parseInt(this.data[0].size);
-            for(var i in this.data){
+            for (var i in this.data) {
                 this.data[i].size = calculateWeight(this.data[i].size);
             }
 
             function calculateWeight(weight) {
                 // console.log(weight)
-                var size = parseInt(4* Math.sqrt(weight / one));
+                var size = parseInt(4 * Math.sqrt(weight / one));
                 // console.log(size)
                 return size < 10 ? size * 10 : size;
             }
@@ -97,7 +95,7 @@ export default {
                 height = svgDom.clientHeight;
             var layout = cloud()
                 .size([width, height]) //size([x,y]) 词云显示的大小
-                .words(this.keyWords)
+                .words(this.data)
                 .padding(2) // between words
                 .rotate(function () {
                     return ~~(Math.random() * 2) * 0;
@@ -108,6 +106,7 @@ export default {
                 })
                 .on("end", draw);
             layout.start();
+
             function draw(words) {
                 svg.append("g")
                     .attr(
