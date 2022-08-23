@@ -116,7 +116,7 @@
     left: 0.4%;
     top: 0.4%;
 
-    border: 0.981508px solid #000000;
+    border: 1px solid #000000;
     border-radius: 15px;
 }
 .seq_view {
