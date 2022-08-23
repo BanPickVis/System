@@ -107,7 +107,7 @@
         <svg
             id="player_hero_plot"
             width="640"
-            height = "665"
+            height = "675"
             >
             <rect
                 filter = "url(#trans-shadow)"
@@ -427,9 +427,27 @@ export default {
         plotPlayerName(){
             d3.select("#player_hero_plot").selectAll("text").remove();
             const player_name_plot = d3.select("#player_hero_plot"),
-                height = 100;
+                height = 100,
+                width = 635;
+                        
             for (var i in d3.range(5)) {
                 if (i<=2){
+                    player_name_plot
+                        .append("rect")
+                        .attr("width",width)
+                        .attr("height",height)
+                        .attr("x",0)
+                        .attr("y",height * i+85)
+                        .attr("fill","transparent")
+                        .attr("opacity", 0.5)
+                        .on("mousemove",function(){
+                            d3.select(this)
+                            .attr("fill","url(#paint0_linear_0_1)");
+                        })
+                        .on("mouseleave",function(){
+                            d3.select(this)
+                            .attr("fill","transparent");
+                        });
                     player_name_plot
                         .append("text")
                         .text(this.teammember1[i]['id'])
@@ -450,6 +468,22 @@ export default {
                         .attr("font-size", "25");
                 }
                 else{
+                    player_name_plot
+                        .append("rect")
+                        .attr("width",width)
+                        .attr("height",height)
+                        .attr("x",0)
+                        .attr("y",height * i + 165)
+                        .attr("fill","transparent")
+                        .attr("opacity", 0.5)
+                        .on("mousemove",function(){
+                            d3.select(this)
+                            .attr("fill","url(#paint0_linear_0_1)");
+                        })
+                        .on("mouseleave",function(){
+                            d3.select(this)
+                            .attr("fill","transparent");
+                        });
                     player_name_plot
                         .append("text")
                         .text(this.teammember1[i]['id'])
