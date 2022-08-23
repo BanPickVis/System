@@ -1,0 +1,471 @@
+[
+    {
+        "team": "武汉eStarPro",
+        "abbr": "eStarPro",
+        "player":[
+            {
+                "id": "坦然",
+                "position": 1
+            },
+            {
+                "id": "花海",
+                "position": 2
+            },
+            {
+                "id": "清融",
+                "position": 3
+            },
+            {
+                "id": "易峥",
+                "position": 4
+            },
+            {
+                "id": "子阳",
+                "position": 5
+            }
+        ]
+    },
+    {
+        "team": "南京Hero久竞",
+        "abbr": "Hero",
+        "player":[
+            {
+                "id": "星痕",
+                "position": 1
+            },
+            {
+                "id": "无畏",
+                "position": 2
+            },
+            {
+                "id": "紫幻",
+                "position": 3
+            },
+            {
+                "id": "久酷",
+                "position": 4
+            },
+            {
+                "id": "明锅",
+                "position": 5
+            }
+        ]
+    },
+    {
+        "team": "北京WB",
+        "abbr": "WB",
+        "player":[
+            {
+                "id": "梓墨",
+                "position": 1
+            },
+            {
+                "id": "暖阳",
+                "position": 2
+            },
+            {
+                "id": "花卷",
+                "position": 3
+            },
+            {
+                "id": "乔兮",
+                "position": 4
+            },
+            {
+                "id": "星宇",
+                "position": 5
+            }
+        ]
+    },
+    {
+        "team": "XYG",
+        "abbr": "XYG",
+        "player":[
+            {
+                "id": "酷偕",
+                "position": 1
+            },
+            {
+                "id": "九月",
+                "position": 2
+            },
+            {
+                "id": "灵梦",
+                "position": 3
+            },
+            {
+                "id": "秀豆",
+                "position": 4
+            },
+            {
+                "id": "一门",
+                "position": 5
+            }
+        ]
+    },
+    {
+        "team": "苏州KSG",
+        "abbr": "KSG",
+        "player":[
+            {
+                "id": "啊泽",
+                "position": 1
+            },
+            {
+                "id": "晚星",
+                "position": 2
+            },
+            {
+                "id": "一曲",
+                "position": 3
+            },
+            {
+                "id": "小玖",
+                "position": 4
+            },
+            {
+                "id": "小A",
+                "position": 5
+            }
+        ]
+    },
+    {
+        "team": "上海EDG.M",
+        "abbr": "EDG.M",
+        "player":[
+            {
+                "id": "柠栀",
+                "position": 1
+            },
+            {
+                "id": "Yuan",
+                "position": 2
+            },
+            {
+                "id": "Ming",
+                "position": 3
+            },
+            {
+                "id": "Roc",
+                "position": 4
+            },
+            {
+                "id": "言梦",
+                "position": 5
+            }
+        ]
+    },
+    {
+        "team": "重庆狼队",
+        "abbr": "Wolves",
+        "player":[
+            {
+                "id": "Fly",
+                "position": 1
+            },
+            {
+                "id": "小胖",
+                "position": 2
+            },
+            {
+                "id": "向鱼",
+                "position": 3
+            },
+            {
+                "id": "妖刀",
+                "position": 4
+            },
+            {
+                "id": "帆帆",
+                "position": 5
+            }
+        ]
+    },
+    {
+        "team": "佛山DRG.GK",
+        "abbr": "DRG",
+        "player":[
+            {
+                "id": "GK百兽",
+                "position": 1
+            },
+            {
+                "id": "GK鹏鹏",
+                "position": 2
+            },
+            {
+                "id": "GK青枫",
+                "position": 3
+            },
+            {
+                "id": "GK梦岚",
+                "position": 4
+            },
+            {
+                "id": "GK阿改",
+                "position": 5
+            }
+        ]
+    },
+    {
+        "team": "成都AG超玩会",
+        "abbr": "AG",
+        "player":[
+            {
+                "id": "未央",
+                "position": 1
+            },
+            {
+                "id": "忆安",
+                "position": 2
+            },
+            {
+                "id": "笑影",
+                "position": 3
+            },
+            {
+                "id": "一诺",
+                "position": 4
+            },
+            {
+                "id": "爱思",
+                "position": 5
+            }
+        ]
+    },
+    {
+        "team": "广州TTG",
+        "abbr": "TTG",
+        "player":[
+            {
+                "id": "清清",
+                "position": 1
+            },
+            {
+                "id": "不然" ,
+                "position": 2
+            },
+            {
+                "id": "九尾",
+                "position": 3
+            },
+            {
+                "id": "钎城",
+                "position": 4
+            },
+            {
+                "id": "冰尘",
+                "position": 5
+            }
+        ]
+    },
+    {
+        "team": "济南RW侠",
+        "abbr": "RW",
+        "player":[
+            {
+                "id": "小宋",
+                "position": 1
+            },
+            {
+                "id": "傲神",
+                "position": 2
+            },
+            {
+                "id": "无心",
+                "position": 3
+            },
+            {
+                "id": "花云",
+                "position": 4
+            },
+            {
+                "id": "不弃",
+                "position": 5
+            }
+        ]
+    },
+    {
+        "team": "厦门VG",
+        "abbr": "VG",
+        "player":[
+            {
+                "id": "背影",
+                "position": 1
+            },
+            {
+                "id": "Qy",
+                "position": 2
+            },
+            {
+                "id": "末将",
+                "position": 3
+            },
+            {
+                "id": "小年",
+                "position": 4
+            },
+            {
+                "id": "小磊",
+                "position": 5
+            }
+        ]
+    },
+    {
+        "team": "杭州LGD大鹅",
+        "abbr": "LGD",
+        "player":[
+            {
+                "id": "久龙",
+                "position": 1
+            },
+            {
+                "id": "赤辰",
+                "position": 2
+            },
+            {
+                "id": "早点",
+                "position": 3
+            },
+            {
+                "id": "江城",
+                "position": 4
+            },
+            {
+                "id": "小北",
+                "position": 5
+            }
+        ]
+    },
+    {
+        "team": "深圳DYG",
+        "abbr": "DYG",
+        "player":[
+            {
+                "id": "情川",
+                "position": 1
+            },
+            {
+                "id": "小义",
+                "position": 2
+            },
+            {
+                "id": "决明",
+                "position": 3
+            },
+            {
+                "id": "华郴",
+                "position": 4
+            },
+            {
+                "id": "湘军",
+                "position": 5
+            }
+        ]
+    },
+    {
+        "team": "长沙TES.A",
+        "abbr": "TES",
+        "player":[
+            {
+                "id": "苏沫",
+                "position": 1
+            },
+            {
+                "id": "以然",
+                "position": 2
+            },
+            {
+                "id": "幕色",
+                "position": 3
+            },
+            {
+                "id": "小鹏",
+                "position": 4
+            },
+            {
+                "id": "小盾",
+                "position": 5
+            }
+        ]
+    },
+    {
+        "team": "西安WE",
+        "abbr": "WE",
+        "player":[
+            {
+                "id": "An",
+                "position": 1
+            },
+            {
+                "id": "玄影",
+                "position": 2
+            },
+            {
+                "id": "千世",
+                "position": 3
+            },
+            {
+                "id": "佩恩",
+                "position": 4
+            },
+            {
+                "id": "556",
+                "position": 5
+            }
+        ]
+    },
+    {
+        "team": "上海RNG.M",
+        "abbr": "RNG.M",
+        "player":[
+            {
+                "id": "阳阳",
+                "position": 1
+            },
+            {
+                "id": "晚秋",
+                "position": 2
+            },
+            {
+                "id": "小羽",
+                "position": 3
+            },
+            {
+                "id": "乐崽",
+                "position": 4
+            },
+            {
+                "id": "Zero",
+                "position": 5
+            }
+        ]
+    },
+    {
+        "team": "火豹",
+        "abbr": "Fire",
+        "player":[
+            {
+                "id": "林染",
+                "position": 1
+            },
+            {
+                "id": "初见",
+                "position": 2
+            },
+            {
+                "id": "剑心",
+                "position": 3
+            },
+            {
+                "id": "十八",
+                "position": 4
+            },
+            {
+                "id": "玖域",
+                "position": 5
+            }
+        ]
+    }
+    
+]
