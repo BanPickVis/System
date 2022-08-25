@@ -97,42 +97,42 @@
                 placeholder="Select"
                 style="width: 120px"
             >
-                <el-option
-                    v-for="item in teams2"
-                    :key="item"
-                    :label="item"
-                    :value="item"
-                /> </el-select
-        ></span>
+            <el-option
+                v-for="item in teams2"
+                :key="item"
+                :label="item"
+                :value="item"
+            /></el-select>
+        </span>
         <svg
             id="player_hero_plot"
             width="640"
-            height = "675"
+            height="675"
             >
             <rect
-                filter = "url(#trans-shadow)"
+                filter="url(#trans-shadow)"
                 x="15"
                 y="5"
                 rx="35"
                 width="70"
                 height="70"
-                fill= "#D9D9D9"
+                fill="#D9D9D9"
             />
 
             <rect
-                filter = "url(#trans-shadow)"
+                filter="url(#trans-shadow)"
                 x="90"
                 y="5"
                 rx="35"
                 width="70"
                 height="70"
-                fill= "#D9D9D9"
+                fill="#D9D9D9"
             />
             
             <image
                 id="image_ban"
-                x = "50"
-                y = "40"
+                x="50"
+                y="40"
                 width="40"
                 height="40"
                 :href="require('../assets/image/ban.png')"
@@ -140,37 +140,37 @@
 
             <image
                 id="image_ban"
-                x = "125"
-                y = "40"
+                x="125"
+                y="40"
                 width="40"
                 height="40"
                 :href="require('../assets/image/ban.png')"
             />
 
             <rect
-                filter = "url(#trans-shadow)"
+                filter="url(#trans-shadow)"
                 x="475"
                 y="5"
                 rx="35"
                 width="70"
                 height="70"
-                fill= "#D9D9D9"
+                fill="#D9D9D9"
             />
 
             <rect
-                filter = "url(#trans-shadow)"
+                filter="url(#trans-shadow)"
                 x="550"
                 y="5"
                 rx="35"
                 width="70"
                 height="70"
-                fill= "#D9D9D9"
+                fill="#D9D9D9"
             />
             
             <image
                 id="image_ban"
-                x = "510"
-                y = "40"
+                x="510"
+                y="40"
                 width="40"
                 height="40"
                 :href="require('../assets/image/ban.png')"
@@ -178,8 +178,8 @@
 
             <image
                 id="image_ban"
-                x = "585"
-                y = "40"
+                x="585"
+                y="40"
                 width="40"
                 height="40"
                 :href="require('../assets/image/ban.png')"
@@ -192,89 +192,89 @@
             </filter>
 
             <rect
-                filter = "url(#trans-shadow)"
+                filter="url(#trans-shadow)"
                 x="10"
                 y="95"
-                rx = "5"
+                rx="5"
                 width="80"
                 height="80"
-                fill= "#D9D9D9"
+                fill="#D9D9D9"
             />
 
             <rect
-                filter = "url(#trans-shadow)"
+                filter="url(#trans-shadow)"
                 x="540"
                 y="95"
-                rx = "5"
+                rx="5"
                 width="80"
                 height="80"
-                fill= "#D9D9D9"
+                fill="#D9D9D9"
             />
 
             <rect
-                filter = "url(#trans-shadow)"
+                filter="url(#trans-shadow)"
                 x="10"
                 y="195"
-                rx = "5"
+                rx="5"
                 width="80"
                 height="80"
-                fill= "#D9D9D9"
+                fill="#D9D9D9"
             />
 
             <rect
-                filter = "url(#trans-shadow)"
+                filter="url(#trans-shadow)"
                 x="540"
                 y="195"
-                rx = "5"
+                rx="5"
                 width="80"
                 height="80"
-                fill= "#D9D9D9"
+                fill="#D9D9D9"
             />
 
             <rect
-                filter = "url(#trans-shadow)"
+                filter="url(#trans-shadow)"
                 x="10"
                 y="295"
-                rx = "5"
+                rx="5"
                 width="80"
                 height="80"
-                fill= "#D9D9D9"
+                fill="#D9D9D9"
             />
 
             <rect
-                filter = "url(#trans-shadow)"
+                filter="url(#trans-shadow)"
                 x="540"
                 y="295"
-                rx = "5"
+                rx="5"
                 width="80"
                 height="80"
-                fill= "#D9D9D9"
+                fill="#D9D9D9"
             />
 
              <rect
-                filter = "url(#trans-shadow)"
+                filter="url(#trans-shadow)"
                 x="15"
                 y="390"
                 rx="35"
                 width="70"
                 height="70"
-                fill= "#D9D9D9"
+                fill="#D9D9D9"
             />
 
             <rect
-                filter = "url(#trans-shadow)"
+                filter="url(#trans-shadow)"
                 x="90"
                 y="390"
                 rx="35"
                 width="70"
                 height="70"
-                fill= "#D9D9D9"
+                fill="#D9D9D9"
             />
             
             <image
                 id="image_ban"
-                x = "50"
-                y = "425"
+                x="50"
+                y="425"
                 width="40"
                 height="40"
                 :href="require('../assets/image/ban.png')"
@@ -282,37 +282,37 @@
 
             <image
                 id="image_ban"
-                x = "125"
-                y = "425"
+                x="125"
+                y="425"
                 width="40"
                 height="40"
                 :href="require('../assets/image/ban.png')"
             />
 
             <rect
-                filter = "url(#trans-shadow)"
+                filter="url(#trans-shadow)"
                 x="475"
                 y="390"
                 rx="35"
                 width="70"
                 height="70"
-                fill= "#D9D9D9"
+                fill="#D9D9D9"
             />
 
             <rect
-                filter = "url(#trans-shadow)"
+                filter="url(#trans-shadow)"
                 x="550"
                 y="390"
                 rx="35"
                 width="70"
                 height="70"
-                fill= "#D9D9D9"
+                fill="#D9D9D9"
             />
             
             <image
                 id="image_ban"
-                x = "510"
-                y = "425"
+                x="510"
+                y="425"
                 width="40"
                 height="40"
                 :href="require('../assets/image/ban.png')"
@@ -320,62 +320,66 @@
 
             <image
                 id="image_ban"
-                x = "585"
-                y = "425"
+                x="585"
+                y="425"
                 width="40"
                 height="40"
                 :href="require('../assets/image/ban.png')"
             />
 
             <rect
-                filter = "url(#trans-shadow)"
+                filter="url(#trans-shadow)"
                 x="10"
                 y="475"
-                rx = "5"
+                rx="5"
                 width="80"
                 height="80"
-                fill= "#D9D9D9"
+                fill="#D9D9D9"
             />
 
             <rect
-                filter = "url(#trans-shadow)"
+                filter="url(#trans-shadow)"
                 x="540"
                 y="475"
-                rx = "5"
+                rx="5"
                 width="80"
                 height="80"
-                fill= "#D9D9D9"
+                fill="#D9D9D9"
             />
 
             <rect
-                filter = "url(#trans-shadow)"
+                filter="url(#trans-shadow)"
                 x="10"
                 y="575"
-                rx = "5"
+                rx="5"
                 width="80"
                 height="80"
-                fill= "#D9D9D9"
+                fill="#D9D9D9"
             />
 
             <rect
-                filter = "url(#trans-shadow)"
+                filter="url(#trans-shadow)"
                 x="540"
                 y="575"
-                rx = "5"
+                rx="5"
                 width="80"
                 height="80"
-                fill= "#D9D9D9"
+                fill="#D9D9D9"
             />
         </svg>
-
     </div>
 </template>
 
 <script>
 
 import teamJson from "../assets/json/team_player.json";
+// import request from "common/utils/request.js";
+import requesthelp from "common/utils/request.js";
+
 
 export default {
+    props: {
+    },
     setup() {
         var teams1 = new Array(),
             teams2 = new Array();
@@ -416,15 +420,15 @@ export default {
             }
         }
     },
-    props: {
-
-    },
     mounted() {
         this.plotPlayerName();
 
     },
     methods: {
-        plotPlayerName(){
+        async plotPlayerName(){
+            // var data = await HttpHelper.axiosPost("/api/loadData");
+            var data = await requesthelp.axiosGet('/loadData',{ name: JSON.stringify(this.teammember1) });
+            console.log(data);
             d3.select("#player_hero_plot").selectAll("text").remove();
             const player_name_plot = d3.select("#player_hero_plot"),
                 height = 100,

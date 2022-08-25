@@ -1,7 +1,7 @@
 
 // see http://vuejs-templates.github.io/webpack for documentation.
 let path = require("path");
-let proxyPort = 9002;
+let proxyPort = 5000;
 
 module.exports = {
     build: {
@@ -35,7 +35,7 @@ module.exports = {
         assetsPublicPath: "/",
         proxyTable: {
             '/api': {//入参
-                target: `http://localhost:${proxyPort}`,
+                target: `http://127.0.0.1:${proxyPort}`,
                 changeOrigin: true,
                 pathRewrite: {
                     '^/api': '/api'//入参代理的Url

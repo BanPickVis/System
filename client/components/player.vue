@@ -231,6 +231,13 @@ import wrap from "../components/wrap.js";
 import playerJson from "../assets/json/player_view_output_2021_2022.json";
 
 export default {
+    props: {
+        name1: { type: String, default: "Player 1" },
+        name2: { type: String, default: "Player 2" },
+
+        member_name1: { type: String, default: "XYG.酷偕" },
+        member_name2: { type: String, default: "重庆狼队.Fly" },
+    },
     setup() {
         var heros1 = Object.keys(playerJson["XYG.酷偕"]),
             heros2 = Object.keys(playerJson["重庆狼队.Fly"]);
@@ -268,13 +275,6 @@ export default {
 
             this.plotBoxes();
         },
-    },
-    props: {
-        name1: { type: String, default: "Player 1" },
-        name2: { type: String, default: "Player 2" },
-
-        member_name1: { type: String, default: "XYG.酷偕" },
-        member_name2: { type: String, default: "重庆狼队.Fly" },
     },
     mounted() {
         const titles = [

@@ -49,13 +49,13 @@
 <script>
 import wrap from "../components/wrap.js";
 export default {
-    setup() {},
     props: {
         id: { type: String, default: "zhangliang" }, // class of svg
         img: { type: String, default: "avatar" },
         arrow: { type: String, default: "up" },
-        change_txt: { type: String, default: "default change" },
+        changeTxt: { type: String, default: "default change" },
     },
+    setup() {},
     data() {
         return {
             // change: "default change",
@@ -73,7 +73,7 @@ export default {
             .attr('font-weight','400')
             .attr('font-size','16.4055px')
             .attr('line-height','18px')
-            .text(this.change_txt)
+            .text(this.changeTxt)
             .call(wrap, 600);
 
         // avatar

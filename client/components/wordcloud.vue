@@ -1,5 +1,6 @@
 <template>
-    <svg id="word_cloud" width="400" height="400" />
+    <svg id="word_cloud" width="400" height="400">
+    </svg>
 </template>
 
 <script>
