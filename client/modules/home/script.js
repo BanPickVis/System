@@ -12,6 +12,7 @@ import wordcloud from '@/components/wordcloud.vue';
 import wrap from "@/components/wrap.js";
 import radarJson from '@/assets/json/team_view_output.json';
 import { Search } from '@element-plus/icons-vue';
+import heroS from "@/components/heroselect/heroSelection.vue";
 
 
 export default {
@@ -38,6 +39,7 @@ export default {
         "word-cloud": wordcloud,
         'change-item': changeItem,
         'change-plot': changePlot,
+        heroS
     },
     setup() {
         const blue_options = [

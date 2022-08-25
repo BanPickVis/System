@@ -112,6 +112,9 @@
                 change_txt="一技能：加速效果：20% → 40%	 二技能：基础伤害：250(+40/Lv)(+0.4Ap) → 300(+48/Lv)(+0.48Ap)	 二技能：效果调整：重复命中效果衰减至50% → 25%"
             />
         </div>
+        <div id="selection_view">
+            <heroS />
+        </div>
     </div>
 </template>
 <script src="./script.js"></script>
@@ -129,6 +132,18 @@
 
     border: 1px solid #000000;
     border-radius: 15px;
+}
+#selection_view{
+    position: absolute;
+    width: 22%;
+    height: 25%;
+    border: 1px solid #000000;
+    border-radius: 15px;
+    overflow-x: auto;
+    background: white;
+    left:100px;
+    top:100px;
+    display:none;
 }
 .seq_view {
     /* Sequence */
@@ -174,7 +189,6 @@
     height: 38.68%;
     right: 0.4%;
     bottom: 0.4%;
-
     border: 1px solid #000000;
     box-sizing: border-box;
     border-radius: 15px;

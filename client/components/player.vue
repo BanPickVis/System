@@ -209,9 +209,8 @@
                     :key="item"
                     :label="item"
                     :value="item"
-                /> </el-select
-        ></span>
-
+                /></el-select>
+            </span>
         <br />
 
         <!-- Box Plot -->

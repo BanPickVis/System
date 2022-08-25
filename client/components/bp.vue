@@ -110,6 +110,7 @@
             height="675"
             >
             <rect
+                class="ban"
                 filter="url(#trans-shadow)"
                 x="15"
                 y="5"
@@ -117,9 +118,11 @@
                 width="70"
                 height="70"
                 fill="#D9D9D9"
+                @click="select(100,200)"
             />
 
             <rect
+                class="ban"
                 filter="url(#trans-shadow)"
                 x="90"
                 y="5"
@@ -127,6 +130,7 @@
                 width="70"
                 height="70"
                 fill="#D9D9D9"
+                @click="select(175,200)"
             />
             
             <image
@@ -136,6 +140,7 @@
                 width="40"
                 height="40"
                 :href="require('../assets/image/ban.png')"
+                @click="select(100,200)"
             />
 
             <image
@@ -145,9 +150,11 @@
                 width="40"
                 height="40"
                 :href="require('../assets/image/ban.png')"
+                @click="select(175,200)"
             />
 
             <rect
+                class="ban"
                 filter="url(#trans-shadow)"
                 x="475"
                 y="5"
@@ -155,9 +162,11 @@
                 width="70"
                 height="70"
                 fill="#D9D9D9"
+                @click="select(560,200)"
             />
 
             <rect
+                class="ban"
                 filter="url(#trans-shadow)"
                 x="550"
                 y="5"
@@ -165,6 +174,7 @@
                 width="70"
                 height="70"
                 fill="#D9D9D9"
+                @click="select(635,200)"
             />
             
             <image
@@ -174,6 +184,7 @@
                 width="40"
                 height="40"
                 :href="require('../assets/image/ban.png')"
+                @click="select(560,200)"
             />
 
             <image
@@ -183,6 +194,7 @@
                 width="40"
                 height="40"
                 :href="require('../assets/image/ban.png')"
+                @click="select(635,200)"
             />
 
             <filter id="trans-shadow" x="0" y="0" width="200%" height="200%">
@@ -199,6 +211,7 @@
                 width="80"
                 height="80"
                 fill="#D9D9D9"
+                @click="select(100,300)"
             />
 
             <rect
@@ -209,6 +222,7 @@
                 width="80"
                 height="80"
                 fill="#D9D9D9"
+                @click="select(635,300)"
             />
 
             <rect
@@ -219,6 +233,7 @@
                 width="80"
                 height="80"
                 fill="#D9D9D9"
+                @click="select(100,400)"
             />
 
             <rect
@@ -229,6 +244,7 @@
                 width="80"
                 height="80"
                 fill="#D9D9D9"
+                @click="select(635,400)"
             />
 
             <rect
@@ -239,6 +255,7 @@
                 width="80"
                 height="80"
                 fill="#D9D9D9"
+                @click="select(100,500)"
             />
 
             <rect
@@ -249,9 +266,11 @@
                 width="80"
                 height="80"
                 fill="#D9D9D9"
+                @click="select(635,500)"
             />
 
              <rect
+                class="ban"
                 filter="url(#trans-shadow)"
                 x="15"
                 y="390"
@@ -259,9 +278,11 @@
                 width="70"
                 height="70"
                 fill="#D9D9D9"
+                @click="select(100,600)"
             />
 
             <rect
+                class="ban"
                 filter="url(#trans-shadow)"
                 x="90"
                 y="390"
@@ -269,6 +290,7 @@
                 width="70"
                 height="70"
                 fill="#D9D9D9"
+                @click="select(175,600)"
             />
             
             <image
@@ -278,6 +300,7 @@
                 width="40"
                 height="40"
                 :href="require('../assets/image/ban.png')"
+                @click="select(100,600)"
             />
 
             <image
@@ -287,9 +310,11 @@
                 width="40"
                 height="40"
                 :href="require('../assets/image/ban.png')"
+                @click="select(175,600)"
             />
 
             <rect
+                class="ban"
                 filter="url(#trans-shadow)"
                 x="475"
                 y="390"
@@ -297,9 +322,11 @@
                 width="70"
                 height="70"
                 fill="#D9D9D9"
+                @click="select(560,600)"
             />
 
             <rect
+                class="ban"
                 filter="url(#trans-shadow)"
                 x="550"
                 y="390"
@@ -307,6 +334,7 @@
                 width="70"
                 height="70"
                 fill="#D9D9D9"
+                @click="select(635,600)"
             />
             
             <image
@@ -316,6 +344,7 @@
                 width="40"
                 height="40"
                 :href="require('../assets/image/ban.png')"
+                @click="select(560,600)"
             />
 
             <image
@@ -325,6 +354,7 @@
                 width="40"
                 height="40"
                 :href="require('../assets/image/ban.png')"
+                @click="select(635,600)"
             />
 
             <rect
@@ -335,6 +365,7 @@
                 width="80"
                 height="80"
                 fill="#D9D9D9"
+                @click="select(100,700)"
             />
 
             <rect
@@ -345,6 +376,7 @@
                 width="80"
                 height="80"
                 fill="#D9D9D9"
+                @click="select(635,700)"
             />
 
             <rect
@@ -355,6 +387,7 @@
                 width="80"
                 height="80"
                 fill="#D9D9D9"
+                @click="select(100,800)"
             />
 
             <rect
@@ -365,6 +398,7 @@
                 width="80"
                 height="80"
                 fill="#D9D9D9"
+                @click="select(635,800)"
             />
         </svg>
     </div>
@@ -375,7 +409,6 @@
 import teamJson from "../assets/json/team_player.json";
 // import request from "common/utils/request.js";
 import requesthelp from "common/utils/request.js";
-
 
 export default {
     props: {
@@ -436,22 +469,22 @@ export default {
                         
             for (var i in d3.range(5)) {
                 if (i<=2){
-                    player_name_plot
-                        .append("rect")
-                        .attr("width",width)
-                        .attr("height",height)
-                        .attr("x",0)
-                        .attr("y",height * i+85)
-                        .attr("fill","transparent")
-                        .attr("opacity", 0.5)
-                        .on("mousemove",function(){
-                            d3.select(this)
-                            .attr("fill","url(#paint0_linear_0_1)");
-                        })
-                        .on("mouseleave",function(){
-                            d3.select(this)
-                            .attr("fill","transparent");
-                        });
+                    // player_name_plot
+                    //     .append("rect")
+                    //     .attr("width",width)
+                    //     .attr("height",height)
+                    //     .attr("x",0)
+                    //     .attr("y",height * i+85)
+                    //     .attr("fill","transparent")
+                    //     .attr("opacity", 0.5)
+                    //     .on("mousemove",function(){
+                    //         d3.select(this)
+                    //         .attr("fill","url(#paint0_linear_0_1)");
+                    //     })
+                    //     .on("mouseleave",function(){
+                    //         d3.select(this)
+                    //         .attr("fill","transparent");
+                    //     });
                     player_name_plot
                         .append("text")
                         .text(this.teammember1[i]['id'])
@@ -472,22 +505,22 @@ export default {
                         .attr("font-size", "25");
                 }
                 else{
-                    player_name_plot
-                        .append("rect")
-                        .attr("width",width)
-                        .attr("height",height)
-                        .attr("x",0)
-                        .attr("y",height * i + 165)
-                        .attr("fill","transparent")
-                        .attr("opacity", 0.5)
-                        .on("mousemove",function(){
-                            d3.select(this)
-                            .attr("fill","url(#paint0_linear_0_1)");
-                        })
-                        .on("mouseleave",function(){
-                            d3.select(this)
-                            .attr("fill","transparent");
-                        });
+                    // player_name_plot
+                    //     .append("rect")
+                    //     .attr("width",width)
+                    //     .attr("height",height)
+                    //     .attr("x",0)
+                    //     .attr("y",height * i + 165)
+                    //     .attr("fill","transparent")
+                    //     .attr("opacity", 0.5)
+                    //     .on("mousemove",function(){
+                    //         d3.select(this)
+                    //         .attr("fill","url(#paint0_linear_0_1)");
+                    //     })
+                    //     .on("mouseleave",function(){
+                    //         d3.select(this)
+                    //         .attr("fill","transparent");
+                    //     });
                     player_name_plot
                         .append("text")
                         .text(this.teammember1[i]['id'])
@@ -508,14 +541,19 @@ export default {
                         .attr("font-size", "25");
                 }
             }
+        },
+        select(x,y){
+            let block = document.getElementById("selection_view");
+            // console.log(x);
+            block.style.left=x+"px";
+            block.style.top=y+"px";
+            block.style.display="inline-block";
         }
 
     },
 };
 </script>
-
-
-<style scoped>
+<style>
 .team_select {
     position: absolute;
     top: 10%;
@@ -525,9 +563,7 @@ export default {
     font-size: 14px;
     margin-bottom: 20px;
 }
-
 div.el-select {
     padding: 0 10px 0 10px;
 }
-
 </style>
