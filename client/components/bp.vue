@@ -14,36 +14,38 @@
                 x="21.7041"
                 width="118.108"
                 height="111.844"
-                fill="url(#pattern_RNG_M)"
+                rx="60"
+                fill="url(#pattern_team1)"
             />
             
             <rect
                 x="490.593"
                 width="117.994"
                 height="111.736"
-                fill="url(#pattern_estarpro)"
+                rx="60"
+                fill="url(#pattern_team2)"
             />
             
             <defs>
                 <pattern
-                    id="pattern_RNG_M"
+                    id="pattern_team1"
                     patternContentUnits="objectBoundingBox"
                     width="1"
                     height="1"
                 >
                     <use
-                        xlink:href="#image_RNG_M"
+                        xlink:href="#image_team1"
                         transform="translate(0 -0.0280033) scale(0.00666667 0.00666667)"
                     />
                 </pattern>
                 <pattern
-                    id="pattern_estarpro"
+                    id="pattern_team2"
                     patternContentUnits="objectBoundingBox"
                     width="1"
                     height="1"
                 >
                     <use
-                        xlink:href="#image_estarpro"
+                        xlink:href="#image_team2"
                         transform="translate(0 -0.0280033) scale(0.00666667 0.00666667)"
                     />
                 </pattern>
@@ -61,16 +63,16 @@
                     <stop offset="1" stop-color="#F76060" stop-opacity="0.5" />
                 </linearGradient>
                 <image
-                    id="image_RNG_M"
+                    id="image_team1"
                     width="150"
                     height="160"
-                    :href="require('../assets/image/team_icon/RNG.png')"
+                    :href="require('../assets/image/team_icon/'+team1+'.png')"
                 />
                 <image
-                    id="image_estarpro"
+                    id="image_team2"
                     width="150"
                     height="160"
-                    :href="require('../assets/image/team_icon/eStarPro.png')"
+                    :href="require('../assets/image/team_icon/'+team2+'.png')"
                 />
             </defs>
 
@@ -108,349 +110,70 @@
             id="player_hero_plot"
             width="640"
             height="675"
-            >
-            <rect
-                class="ban"
-                filter="url(#trans-shadow)"
-                x="15"
-                y="5"
-                rx="35"
-                width="70"
-                height="70"
-                fill="#D9D9D9"
-                @click="select(100,200)"
-            />
-
-            <rect
-                class="ban"
-                filter="url(#trans-shadow)"
-                x="90"
-                y="5"
-                rx="35"
-                width="70"
-                height="70"
-                fill="#D9D9D9"
-                @click="select(175,200)"
-            />
-            
-            <image
-                id="image_ban"
-                x="50"
-                y="40"
-                width="40"
-                height="40"
-                :href="require('../assets/image/ban.png')"
-                @click="select(100,200)"
-            />
-
-            <image
-                id="image_ban"
-                x="125"
-                y="40"
-                width="40"
-                height="40"
-                :href="require('../assets/image/ban.png')"
-                @click="select(175,200)"
-            />
-
-            <rect
-                class="ban"
-                filter="url(#trans-shadow)"
-                x="475"
-                y="5"
-                rx="35"
-                width="70"
-                height="70"
-                fill="#D9D9D9"
-                @click="select(560,200)"
-            />
-
-            <rect
-                class="ban"
-                filter="url(#trans-shadow)"
-                x="550"
-                y="5"
-                rx="35"
-                width="70"
-                height="70"
-                fill="#D9D9D9"
-                @click="select(635,200)"
-            />
-            
-            <image
-                id="image_ban"
-                x="510"
-                y="40"
-                width="40"
-                height="40"
-                :href="require('../assets/image/ban.png')"
-                @click="select(560,200)"
-            />
-
-            <image
-                id="image_ban"
-                x="585"
-                y="40"
-                width="40"
-                height="40"
-                :href="require('../assets/image/ban.png')"
-                @click="select(635,200)"
-            />
-
-            <filter id="trans-shadow" x="0" y="0" width="200%" height="200%">
-                <feOffset result="offOut" in="SourceGraphic" dx="3" dy="3"></feOffset>
-                <feGaussianBlur result="blurOut" in="offOut" stdDeviation="5"></feGaussianBlur>
-                <feBlend in="SourceGraphic" in2="blurOut" mode="normal"></feBlend>
-            </filter>
-
-            <rect
-                filter="url(#trans-shadow)"
-                x="10"
-                y="95"
-                rx="5"
-                width="80"
-                height="80"
-                fill="#D9D9D9"
-                @click="select(100,300)"
-            />
-
-            <rect
-                filter="url(#trans-shadow)"
-                x="540"
-                y="95"
-                rx="5"
-                width="80"
-                height="80"
-                fill="#D9D9D9"
-                @click="select(635,300)"
-            />
-
-            <rect
-                filter="url(#trans-shadow)"
-                x="10"
-                y="195"
-                rx="5"
-                width="80"
-                height="80"
-                fill="#D9D9D9"
-                @click="select(100,400)"
-            />
-
-            <rect
-                filter="url(#trans-shadow)"
-                x="540"
-                y="195"
-                rx="5"
-                width="80"
-                height="80"
-                fill="#D9D9D9"
-                @click="select(635,400)"
-            />
-
-            <rect
-                filter="url(#trans-shadow)"
-                x="10"
-                y="295"
-                rx="5"
-                width="80"
-                height="80"
-                fill="#D9D9D9"
-                @click="select(100,500)"
-            />
-
-            <rect
-                filter="url(#trans-shadow)"
-                x="540"
-                y="295"
-                rx="5"
-                width="80"
-                height="80"
-                fill="#D9D9D9"
-                @click="select(635,500)"
-            />
-
-             <rect
-                class="ban"
-                filter="url(#trans-shadow)"
-                x="15"
-                y="390"
-                rx="35"
-                width="70"
-                height="70"
-                fill="#D9D9D9"
-                @click="select(100,600)"
-            />
-
-            <rect
-                class="ban"
-                filter="url(#trans-shadow)"
-                x="90"
-                y="390"
-                rx="35"
-                width="70"
-                height="70"
-                fill="#D9D9D9"
-                @click="select(175,600)"
-            />
-            
-            <image
-                id="image_ban"
-                x="50"
-                y="425"
-                width="40"
-                height="40"
-                :href="require('../assets/image/ban.png')"
-                @click="select(100,600)"
-            />
-
-            <image
-                id="image_ban"
-                x="125"
-                y="425"
-                width="40"
-                height="40"
-                :href="require('../assets/image/ban.png')"
-                @click="select(175,600)"
-            />
-
-            <rect
-                class="ban"
-                filter="url(#trans-shadow)"
-                x="475"
-                y="390"
-                rx="35"
-                width="70"
-                height="70"
-                fill="#D9D9D9"
-                @click="select(560,600)"
-            />
-
-            <rect
-                class="ban"
-                filter="url(#trans-shadow)"
-                x="550"
-                y="390"
-                rx="35"
-                width="70"
-                height="70"
-                fill="#D9D9D9"
-                @click="select(635,600)"
-            />
-            
-            <image
-                id="image_ban"
-                x="510"
-                y="425"
-                width="40"
-                height="40"
-                :href="require('../assets/image/ban.png')"
-                @click="select(560,600)"
-            />
-
-            <image
-                id="image_ban"
-                x="585"
-                y="425"
-                width="40"
-                height="40"
-                :href="require('../assets/image/ban.png')"
-                @click="select(635,600)"
-            />
-
-            <rect
-                filter="url(#trans-shadow)"
-                x="10"
-                y="475"
-                rx="5"
-                width="80"
-                height="80"
-                fill="#D9D9D9"
-                @click="select(100,700)"
-            />
-
-            <rect
-                filter="url(#trans-shadow)"
-                x="540"
-                y="475"
-                rx="5"
-                width="80"
-                height="80"
-                fill="#D9D9D9"
-                @click="select(635,700)"
-            />
-
-            <rect
-                filter="url(#trans-shadow)"
-                x="10"
-                y="575"
-                rx="5"
-                width="80"
-                height="80"
-                fill="#D9D9D9"
-                @click="select(100,800)"
-            />
-
-            <rect
-                filter="url(#trans-shadow)"
-                x="540"
-                y="575"
-                rx="5"
-                width="80"
-                height="80"
-                fill="#D9D9D9"
-                @click="select(635,800)"
-            />
+            >        
+            <round />
         </svg>
+
     </div>
 </template>
 
 <script>
 
-import teamJson from "../assets/json/team_player.json";
+// import teamJson from "../assets/json/team_player.json";
 // import request from "common/utils/request.js";
 import requesthelp from "common/utils/request.js";
+import round from "@/components/round.vue";
 
 export default {
+    components:{
+        round,
+    },
     props: {
     },
+    computed: {
+          team1: function() {
+            return this.team1abbr;
+          },
+          team2: function() {
+            return this.team2abbr;
+          },
+          hero1: function() {
+            return "貂蝉";
+          }
+        },
     setup() {
-        var teams1 = new Array(),
-            teams2 = new Array();
-
-        for (var i=0;i<18;i++){
-            teams1[i] = teamJson[i]["team"];
-            teams2[i] = teamJson[i]["team"];
-        }
+        var teams1 = ['武汉eStarPro', '南京Hero久竞', '北京WB', 'XYG', '苏州KSG', '上海EDG.M', '重庆狼队', '佛山DRG.GK', '成都AG超玩会', '广州TTG', '济南RW侠', '厦门VG', '杭州LGD大鹅', '深圳DYG', '长沙TES.A', '西安WE', '上海RNG.M', '火豹'],
+        teams2 = ['武汉eStarPro', '南京Hero久竞', '北京WB', 'XYG', '苏州KSG', '上海EDG.M', '重庆狼队', '佛山DRG.GK', '成都AG超玩会', '广州TTG', '济南RW侠', '厦门VG', '杭州LGD大鹅', '深圳DYG', '长沙TES.A', '西安WE', '上海RNG.M', '火豹'];
 
         return { teams1, teams2 };
 
     },
     data() {
         return {
-            select_team_1: "上海RNG.M",
-            select_team_2: "武汉eStarPro",
-            teammember1 : teamJson[1]["player"],
-            teammember2 : teamJson[0]["player"],
+            select_team_1: "",
+            select_team_2: "",
+            team1abbr: "KPL",
+            team2abbr: "KPL",
+            teammember1 : ["清清", "不然", "九尾", "钎城", "冰尘"],
+            teammember2 : ["坦然", "花海", "清融", "易峥", "子阳"],
         };
     },
     watch: {
-        select_team_1(val,_) {
-            for (var i=0;i<18;i++){
-                if (val == teamJson[i]["team"]){
-                    this.teammember1 = teamJson[i]["player"];
-                    this.plotPlayerName();
-                    break;
-                }
-            }
+        async select_team_1(val,_) {
+            // console.log(val);
+            var teamJson = await requesthelp.axiosGet('/loadData',{ name: val });
+            // console.log(teamJson);
+            this.teammember1 = teamJson["player"];
+            this.team1abbr = teamJson["abbr"];
+            this.plotPlayerName();
         },
-        select_team_2(val,_) {
-            for (var i=0;i<18;i++){
-                if (val == teamJson[i]["team"]){
-                    this.teammember2 = teamJson[i]["player"];
-                    this.plotPlayerName();
-                    break;
-                }
-            }
+        async select_team_2(val,_) {
+            // console.log(val);
+            var teamJson = await requesthelp.axiosGet('/loadData',{ name: val });
+            // console.log(teamJson);
+            this.teammember2 = teamJson["player"];
+            this.team2abbr = teamJson["abbr"];
+            this.plotPlayerName();
         }
     },
     mounted() {
@@ -458,10 +181,8 @@ export default {
 
     },
     methods: {
-        async plotPlayerName(){
-            // var data = await HttpHelper.axiosPost("/api/loadData");
-            var data = await requesthelp.axiosGet('/loadData',{ name: JSON.stringify(this.teammember1) });
-            console.log(data);
+        plotPlayerName(){
+            // console.log(data);
             d3.select("#player_hero_plot").selectAll("text").remove();
             const player_name_plot = d3.select("#player_hero_plot"),
                 height = 100,
@@ -469,22 +190,6 @@ export default {
                         
             for (var i in d3.range(5)) {
                 if (i<=2){
-                    // player_name_plot
-                    //     .append("rect")
-                    //     .attr("width",width)
-                    //     .attr("height",height)
-                    //     .attr("x",0)
-                    //     .attr("y",height * i+85)
-                    //     .attr("fill","transparent")
-                    //     .attr("opacity", 0.5)
-                    //     .on("mousemove",function(){
-                    //         d3.select(this)
-                    //         .attr("fill","url(#paint0_linear_0_1)");
-                    //     })
-                    //     .on("mouseleave",function(){
-                    //         d3.select(this)
-                    //         .attr("fill","transparent");
-                    //     });
                     player_name_plot
                         .append("text")
                         .text(this.teammember1[i]['id'])
@@ -505,22 +210,6 @@ export default {
                         .attr("font-size", "25");
                 }
                 else{
-                    // player_name_plot
-                    //     .append("rect")
-                    //     .attr("width",width)
-                    //     .attr("height",height)
-                    //     .attr("x",0)
-                    //     .attr("y",height * i + 165)
-                    //     .attr("fill","transparent")
-                    //     .attr("opacity", 0.5)
-                    //     .on("mousemove",function(){
-                    //         d3.select(this)
-                    //         .attr("fill","url(#paint0_linear_0_1)");
-                    //     })
-                    //     .on("mouseleave",function(){
-                    //         d3.select(this)
-                    //         .attr("fill","transparent");
-                    //     });
                     player_name_plot
                         .append("text")
                         .text(this.teammember1[i]['id'])
@@ -542,14 +231,6 @@ export default {
                 }
             }
         },
-        select(x,y){
-            let block = document.getElementById("selection_view");
-            // console.log(x);
-            block.style.left=x+"px";
-            block.style.top=y+"px";
-            block.style.display="inline-block";
-        }
-
     },
 };
 </script>
