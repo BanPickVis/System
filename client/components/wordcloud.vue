@@ -1,5 +1,5 @@
 <template>
-    <svg id="word_cloud" width="400" height="400">
+    <svg id="word_cloud" width="640" height="500">
     </svg>
 </template>
 
@@ -11,45 +11,14 @@ export default {
     data() {
         return {
             data:
-                this.keyWords.length > 0
-                    ? this.keyWords
-                    : [
-                          {
-                              text: "雅典娜",
-                              size: "15",
-                          },
-                          {
-                              text: "位置",
-                              size: "40",
-                          },
-                          {
-                              text: "团战",
-                              size: "26",
-                          },
-                          { text: "中路", size: "30" },
-                          {
-                              text: "伤害",
-                              size: "20",
-                          },
-                          { text: "野区", size: "30" },
-                          {
-                              text: "输出",
-                              size: "20",
-                          },
-                          { text: "经济", size: "10" },
-                          {
-                              text: "强势",
-                              size: "30",
-                          },
-                          {
-                              text: "赛前",
-                              size: "16",
-                          },
-                      ],
-        };
+                this.keyWords.length > 0 ?
+                    this.keyWords
+                    : [{"text":"club transfer","size":68},{"text":"JiuZhe (C)","size":63},{"text":"league","size":61},{"text":"temporal","size":58},{"text":"coach","size":54},{"text":"home","size":43},{"text":"state (TE)","size":40},{"text":"sweep","size":38},{"text":"WorldCup","size":36},{"text":"AP (TE)","size":31},{"text":"stuck pos (TE)","size":29},{"text":"semifinal","size":29},{"text":"2nd team","size":28},{"text":"city","size":28},{"text":"Jungle (TE)","size":24},{"text":"Peek","size":24},{"text":"streak","size":23},{"text":"score","size":23},{"text":"eliminate","size":22},{"text":"popularity","size":22},{"text":"optimistic","size":21},{"text":"struggle through","size":20},{"text":"record (TE)","size":20},{"text":"schedule","size":20},{"text":"settle down","size":20},{"text":"Come Back","size":19},{"text":"before game","size":19},{"text":"lock at","size":19},{"text":"small round (TE)","size":19},{"text":"position (TE)","size":18},{"text":"possibility","size":18},{"text":"focus on","size":18},{"text":"officially announce","size":18},{"text":"qualifier","size":18},{"text":"JiuCheng (P)","size":17},{"text":"participate","size":17},{"text":"choice","size":17},{"text":"championship","size":16},{"text":"exert","size":16},{"text":"win crown","size":16},{"text":"information","size":16},{"text":"own","size":15},{"text":"develop","size":15},{"text":"forecast","size":15},{"text":"coach team","size":15},{"text":"back to","size":15},{"text":"switch","size":15},{"text":"operate (TE)","size":15},{"text":"version (TE)","size":15},{"text":"QingRong (P)","size":15},{"text":"leave","size":15},{"text":"JiuKu (P)","size":15},{"text":"Team Owner","size":15},{"text":"lose","size":15},{"text":"big guy","size":15},{"text":"pity","size":15},{"text":"Gemini (P)","size":15},{"text":"Scrim (TE)","size":15},{"text":"including","size":15},{"text":"encounter","size":15}],
+                    // default: search result of "KPL"
+                };
     },
     mounted() {
-        this.processDataWeights();
+        // this.processDataWeights();
         this.drawWordCloud();
     },
     methods: {
@@ -67,7 +36,8 @@ export default {
                 // console.log(weight)
                 var size = parseInt(4 * Math.sqrt(weight / one));
                 // console.log(size)
-                return size < 10 ? size * 10 : size;
+                // Notice: adjust the number to refit
+                return size < 7 ? size * 7 : size;
             }
         },
 
