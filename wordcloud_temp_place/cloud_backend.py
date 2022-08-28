@@ -128,8 +128,18 @@ def key_related_word_frequency(input_keywords):
             output_df['text'] = output_df['text'].replace([wd], defined_words_dict[defined_words_dict['chinese'].isin([wd])]['english'])
     # save to the output csv
     # output_df.to_csv('words_frequency.csv')
-    # return json "index" = {"row 1": {"col 1": "a","col 2": "b"},"row 2": {"col 1": "c","col 2": "d"}}
-    return output_df.to_json(orient="index")  
+
+    # map frequency to font size
+    output_df_size = output_df.rename(columns={"text": "text", "count": "size"})
+    max_count = int(output_df['count'].iat[0])
+    max_font = 30
+    min_font = 5
+    # if (x_count/max_count)*max_font (relavtive font size) > min font size, return relative size, else return minimum size
+    output_df_size["size"] = output_df_size["size"].apply(lambda x: int(x*max_font/max_count) if int(x*max_font/max_count)>=min_font else min_font)
+    # return json "recods" = [{"col 1": "a","col 2": "b"},{"col 1": "c","col 2": "d"}]    
+    return output_df_size(orient = "records")
+    # optional: save json
+    # output_df_size.to_json(orient="records",path_or_buf = 'words_size.json')
 
 if __name__=="__main__":
     # input: keyword list
