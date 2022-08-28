@@ -1,5 +1,5 @@
 <template>
-    <svg id="word_cloud" width="400" height="400">
+    <svg id="word_cloud" width="640" height="600">
     </svg>
 </template>
 
@@ -13,39 +13,7 @@ export default {
             data:
                 this.keyWords.length > 0
                     ? this.keyWords
-                    : [
-                          {
-                              text: "雅典娜",
-                              size: "15",
-                          },
-                          {
-                              text: "位置",
-                              size: "40",
-                          },
-                          {
-                              text: "团战",
-                              size: "26",
-                          },
-                          { text: "中路", size: "30" },
-                          {
-                              text: "伤害",
-                              size: "20",
-                          },
-                          { text: "野区", size: "30" },
-                          {
-                              text: "输出",
-                              size: "20",
-                          },
-                          { text: "经济", size: "10" },
-                          {
-                              text: "强势",
-                              size: "30",
-                          },
-                          {
-                              text: "赛前",
-                              size: "16",
-                          },
-                      ],
+                    : [{"text":"club transfer","size":30},{"text":"JiuZhe (C)","size":28},{"text":"league","size":27},{"text":"temporal","size":26},{"text":"coach","size":24},{"text":"home","size":19},{"text":"state (TE)","size":17},{"text":"sweep","size":17},{"text":"WorldCup","size":15},{"text":"AP (TE)","size":14},{"text":"semifinal","size":13},{"text":"stuck pos (TE)","size":12},{"text":"2nd team","size":12},{"text":"city","size":12},{"text":"Peek","size":10},{"text":"Jungle (TE)","size":10},{"text":"streak","size":10},{"text":"score","size":10},{"text":"eliminate","size":10},{"text":"popularity","size":9},{"text":"optimistic","size":9},{"text":"struggle through","size":9},{"text":"record (TE)","size":9},{"text":"schedule","size":8},{"text":"settle down","size":8},{"text":"Come Back","size":8},{"text":"before game","size":8},{"text":"lock at","size":8},{"text":"small round (TE)","size":8},{"text":"position (TE)","size":8},{"text":"possibility","size":8},{"text":"focus on","size":7},{"text":"officially announce","size":7},{"text":"qualifier","size":7},{"text":"JiuCheng (P)","size":7},{"text":"participate","size":7},{"text":"choice","size":7},{"text":"championship","size":7},{"text":"exert","size":7},{"text":"win crown","size":7},{"text":"information","size":7},{"text":"own","size":7},{"text":"develop","size":6},{"text":"forecast","size":6},{"text":"coach team","size":6},{"text":"back to","size":6},{"text":"switch","size":6},{"text":"operate (TE)","size":6},{"text":"version (TE)","size":6},{"text":"leave","size":6},{"text":"JiuKu (P)","size":6},{"text":"Team Owner","size":6},{"text":"lose","size":6},{"text":"big guy","size":6},{"text":"QingRong (P)","size":6},{"text":"pity","size":6},{"text":"Gemini (P)","size":6},{"text":"Scrim (TE)","size":6},{"text":"including","size":5},{"text":"encounter","size":5}],
         };
     },
     mounted() {
@@ -67,7 +35,8 @@ export default {
                 // console.log(weight)
                 var size = parseInt(4 * Math.sqrt(weight / one));
                 // console.log(size)
-                return size < 10 ? size * 10 : size;
+                // Notice: adjust the number to refit
+                return size < 7 ? size * 7 : size;
             }
         },
 
