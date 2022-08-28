@@ -1,5 +1,5 @@
 <template>
-    <svg id="word_cloud" width="670" height="630">
+    <svg id="word_cloud" width="640" height="500">
     </svg>
 </template>
 
