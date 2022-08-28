@@ -185,7 +185,7 @@
 .team_view {
     /* Team */
     position: absolute;
-    width: 41.17%;
+    width: 43.5%;
     height: 38.68%;
     left: 26.21%;
     bottom: 0.4%;
@@ -197,7 +197,7 @@
 .change_view {
     /* Change */
     position: absolute;
-    width: 31.56%;
+    width: 29%;
     height: 38.68%;
     right: 0.4%;
     bottom: 0.4%;
