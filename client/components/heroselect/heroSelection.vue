@@ -2,13 +2,13 @@
     <div id="dynamic-component-demo" class="demo">
       <button
         v-for="tab in tabs"
-        v-bind:key="tab"
-        v-bind:class="['tab-button', { active: currentTab === tab }]"
-        v-on:click="currentTab = tab"
+        :key="tab"
+        :class="['tab-button', { active: currentTab === tab }]"
+        @click="currentTab = tab"
       >
         {{ tab }}
       </button>
-      <component v-bind:is="currentTabComponent" class="tab"></component>
+      <component :is="currentTabComponent" class="tab"></component>
     </div>
 </template>
 
@@ -33,12 +33,6 @@ export default({
         marksman,
         tank
     },
-    computed: {
-          currentTabComponent: function() {
-            return this.currentTab;
-          }
-        },
-
     setup() {
     },
     data() {
@@ -49,6 +43,11 @@ export default({
             tabs: ["all","tank","warrior","assassin","mage","marksman","support"],
         };
     },
+    computed: {
+        currentTabComponent: function() {
+            return this.currentTab;
+          }
+        },
     watch: {
     },
     methods:{

@@ -14,7 +14,7 @@
             width="70"
             height="70"
             rx="36.9124"
-            fill="url(#pattern_zhangliang)"
+            fill="url(#p张良)"
         />
 
         <!-- arrow -->
@@ -53,7 +53,7 @@ export default {
         id: { type: String, default: "zhangliang" }, // class of svg
         img: { type: String, default: "avatar" },
         arrow: { type: String, default: "up" },
-        changeTxt: { type: String, default: "default change" },
+        change_txt: { type: String, default: "default change" },
     },
     setup() {},
     data() {
@@ -73,7 +73,7 @@ export default {
             .attr('font-weight','400')
             .attr('font-size','16.4055px')
             .attr('line-height','18px')
-            .text(this.changeTxt)
+            .text(this.change_txt)
             .call(wrap, 600);
 
         // avatar

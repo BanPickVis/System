@@ -7,15 +7,21 @@ import player from '@/components/player.vue';
 import changeItem from '@/components/changeItem.vue';
 import changePlot from '@/components/changePlot.vue';
 import wordcloud from '@/components/wordcloud.vue';
+import heroS from "@/components/heroselect/heroSelection.vue";
+import heroMS1 from "@/components/heromultiselect/heroSelection.vue";
+import heroMS2 from "@/components/heromultiselect2/heroSelection.vue";
 
 // dependent function & json files
 import wrap from "@/components/wrap.js";
 import radarJson from '@/assets/json/team_view_output.json';
 import { Search } from '@element-plus/icons-vue';
-import heroS from "@/components/heroselect/heroSelection.vue";
+import requesthelp from "common/utils/request.js";
 
 
 export default {
+    props:{
+    },
+    
     data() {
         return {
             name1: "玩家1",
@@ -26,9 +32,18 @@ export default {
             blue_value: '', // blue side
             red_value: '', // red side
             cloud_value: '',  // wordcloud side
-            cloud_words: []
-
-            // todo
+            cloud_words: [],
+            Player_1: "Player 1",
+            Player_2: "Player 2",
+            SequenceNum: "0",
+            keywords_blue:[],
+            Team_1:"",
+            Team_2:"",
+            radarkeylength:0,
+            keywords_red:[],
+            radarkeylength_red:0,
+            keywords_blue_string:"Please select heroes ⇪",
+            keywords_red_string:"Please select heroes ⇪"
         };
     },
     components: {
@@ -39,36 +54,12 @@ export default {
         "word-cloud": wordcloud,
         'change-item': changeItem,
         'change-plot': changePlot,
-        heroS
+        heroS,
+        heroMS1,
+        heroMS2
     },
     setup() {
-        const blue_options = [
-            {
-                value: '孙尚香',
-                label: 'Sun Shangxiang',
-            },
-            {
-                value: '太乙真人',
-                label: 'Taiyi Zhenren',
-            },
-            {
-                value: '姜子牙',
-                label: 'Jiang Ziya',
-            },
-            {
-                value: '鲁班大师',
-                label: 'Master Luban',
-            },],
-            red_options = [
-                {
-                    value: '东皇太一',
-                    label: 'Donghuang Taiyi',
-                },
-                {
-                    value: '吕布',
-                    label: 'Lv Bu',
-                },],
-            cloud_options = [
+        const cloud_options = [
                 {
                     value: 'Option1',
                     label: 'Option1',
@@ -84,71 +75,98 @@ export default {
             ];
 
         return {
-            blue_options,
-            red_options,
             cloud_options
         };
     },
     mounted() {
-        //////////////////////////////////////////////////////////////
-        //////////////////// Plot Radar //////////////////////////////
-        //////////////////////////////////////////////////////////////
-        var margin = { top: 45, right: 50, bottom: 50, left: 50 },
+    },
+    watch:{
+        cloud_value(val, oldVal)
+        { console.log(val); },
+        radarkeylength_red(val){
+            this.DrawRadar();
+            // this.keywords_red_string = this.keywords_red.toString();
+            // console.log(this.keywords_blue_string);
+        },
+        radarkeylength(val){
+            this.DrawRadar();
+            // this.keywords_blue_string = this.keywords_blue.toString()
+            },
+        Team_1(val){
+            if (this.Team_2!=""){
+                this.DrawRadar();
+            }
+            },
+        Team_2(val){
+            if (this.Team_2!=""){
+                this.DrawRadar();
+            }
+            },
+    },
+    methods: {
+        async DrawRadar(){
+            var data = await requesthelp.axiosGet('/teamView',{ team1: this.Team_1, team2: this.Team_2, keywords_blue:JSON.stringify(this.keywords_blue), keywords_red:JSON.stringify(this.keywords_red)});
+            // console.log(data);
+            // console.log(data[this.Team_1]);
+            //////////////////////////////////////////////////////////////
+            //////////////////// Plot Radar //////////////////////////////
+            //////////////////////////////////////////////////////////////
+            var margin = { top: 45, right: 50, bottom: 50, left: 50 },
             width = 300,
             height = 300,
-            color = d3.scaleOrdinal().range(["#F76060", "#46A4E4"]),
+            color = d3.scaleOrdinal().range(["#46A4E4","#F76060"]),
             radarChartOptions = {
                 w: width,
                 h: height,
                 margin: margin,
-                maxValue: 5,
+                maxValue: 100,
                 levels: 5,
                 roundStrokes: true,
                 color: color,
             };
 
-        var radar_data = [
-            [
-                //iPhone
-                { axis: "Winning Rate", value: 2.2 },
-                { axis: "team KDA ratio", value: 3.8 },
-                { axis: "# Average Tyrant", value: 2.9 },
-                { axis: "# Average Dragon", value: 1.7 },
-                { axis: "# Average Tower Destroyed", value: 2.2 },
-                { axis: "Average Game Duration", value: 4.2 },
-            ],
-            [
-                //Samsung
-                { axis: "Winning Rate", value: 3.3 },
-                { axis: "team KDA ratio", value: 5.0 },
-                { axis: "# Average Tyrant", value: 4.0 },
-                { axis: "# Average Dragon", value: 4.3 },
-                { axis: "# Average Tower Destroyed", value: 2 },
-                { axis: "Average Game Duration", value: 1.5 },
-            ],
-        ];
-
-        // standardize radar_data
-        const radar_range = [1, 9, 9, 9, 9, 30];
-        for (var i in d3.range(2)) {
-            for (let j in d3.range(6)) {
-                var rScale = d3
-                    .scaleLinear()
-                    .domain([0, radar_range[j]])
-                    .range([0, radarChartOptions.maxValue]);
-                radar_data[i][j].value = rScale(Object.values(radarJson)[i][j]);
+            var radar_data = [
+                [
+                    // team1
+                    { axis: "Winning Rate", value: data[this.Team_1][0],  rvalue: data[this.Team_1][0], },
+                    { axis: "team KDA ratio", value: data[this.Team_1][1], rvalue: data[this.Team_1][1] },
+                    { axis: "# Average Tyrant", value: data[this.Team_1][2], rvalue: data[this.Team_1][2] },
+                    { axis: "# Average Dragon", value: data[this.Team_1][3], rvalue: data[this.Team_1][3] },
+                    { axis: "# Average Tower Destroyed",value: data[this.Team_1][4], rvalue: data[this.Team_1][4] },
+                    { axis: "Average Game Duration", value: data[this.Team_1][5], rvalue: data[this.Team_1][5]},
+                ],
+                [
+                    { axis: "Winning Rate", value: data[this.Team_2][0], rvalue: data[this.Team_2][0] },
+                    { axis: "team KDA ratio", value: data[this.Team_2][1], rvalue: data[this.Team_2][1] },
+                    { axis: "# Average Tyrant", value: data[this.Team_2][2], rvalue: data[this.Team_2][2] },
+                    { axis: "# Average Dragon", value: data[this.Team_2][3], rvalue: data[this.Team_2][3] },
+                    { axis: "# Average Tower Destroyed",value: data[this.Team_2][4], rvalue: data[this.Team_2][4] },
+                    { axis: "Average Game Duration", value: data[this.Team_2][5], rvalue: data[this.Team_2][5]},
+                ],
+            ];
+            // standardize radar_data
+            // console.log(radar_data[0][0].value);
+            const radar_range = [1, 9, 3, 3, 9, 30];
+            for (var i in d3.range(2)) {
+                for (let j in d3.range(6)) {
+                    // console.log(radar_range[j]);
+                    var rScale = d3
+                        .scaleLinear()
+                        .domain([0, radar_range[j]])
+                        .range([0, radarChartOptions.maxValue]);
+                    var temp = radar_data[i][j].value;
+                    radar_data[i][j].value = rScale(temp);
+                }
             }
-        }
+            
+            // console.log(radar_data);
 
-        //Call function to draw the Radar chart
-        return this.RadarChart("d3-radar-team", radar_data, radarChartOptions);
-    },
-    watch:{
-        cloud_value(val, oldVal)
-        { console.log(val); }
-    },
-    methods: {
+            //Call function to draw the Radar chart
+            this.RadarChart("d3-radar-team", radar_data, radarChartOptions);
+        },
+
         RadarChart(id, data, options) {
+            // console.log(this.keywords_blue);
             var cfg = {
                 w: 600, //Width of the circle
                 h: 600, //Height of the circle
@@ -212,6 +230,7 @@ export default {
                 .attr("height", height);
 
             //Append a g element
+            svg.selectAll("g").remove();
             var g = svg
                 .append("g")
                 .attr(
@@ -264,22 +283,22 @@ export default {
                 .style("filter", "url(#glow)");
 
             //Text indicating at what % each level is
-            axisGrid
-                .selectAll(".axisLabel")
-                .data(d3.range(1, cfg.levels + 1).reverse())
-                .enter()
-                .append("text")
-                .attr("class", "axisLabel")
-                .attr("x", 4)
-                .attr("y", function (d) {
-                    return (-d * radius) / cfg.levels;
-                })
-                .attr("dy", "0.4em")
-                .style("font-size", "10px")
-                .attr("fill", "#737373")
-                .text(function (d, i) {
-                    return (maxValue * d) / cfg.levels;
-                });
+            // axisGrid
+            //     .selectAll(".axisLabel")
+            //     .data(d3.range(1, cfg.levels + 1).reverse())
+            //     .enter()
+            //     .append("text")
+            //     .attr("class", "axisLabel")
+            //     .attr("x", 4)
+            //     .attr("y", function (d) {
+            //         return (-d * radius) / cfg.levels;
+            //     })
+            //     .attr("dy", "0.4em")
+            //     .style("font-size", "10px")
+            //     .attr("fill", "#737373")
+            //     .text(function (d, i) {
+            //         return (maxValue * d) / cfg.levels;
+            //     });
 
             /////////////////////////////////////////////////////////
             //////////////////// Draw the axes //////////////////////
@@ -479,7 +498,7 @@ export default {
                     tooltip
                         .attr("x", newX)
                         .attr("y", newY)
-                        .text(d.value)
+                        .text(d.rvalue)
                         .transition()
                         .duration(200)
                         .style("opacity", 1);
@@ -496,5 +515,81 @@ export default {
 
             return svg.node();
         }, //RadarChart
+        changeName1(name) {
+            this.Player_1 = name;
+        },
+        changeName2(name) {
+            this.Player_2 = name;
+        },
+        changeTeam1(name) {
+            this.Team_1 = name;
+            // console.log(this.Team_1);
+        },
+        changeTeam2(name) {
+            this.Team_2 = name;
+        },
+        keywordsel1(keywords){
+            // console.log(this.keywords_blue);
+            this.keywords_blue.splice(0,this.keywords_blue.length);
+            this.radarkeylength=0;
+            for (var i=0;i<keywords.length;i++){
+                this.keywords_blue.push(keywords[i]);
+                // console.log(this.keywords_blue);
+            this.radarkeylength = keywords.length;
+            }
+            // console.log(this.radarkeylength);
+            // console.log(this.keywords_blue);
+        },
+        keywordsel2(keywords){
+            // console.log(this.keywords_blue);
+            this.keywords_red.splice(0,this.keywords_red.length);
+            this.radarkeylength_red=0;
+            for (var i=0;i<keywords.length;i++){
+                this.keywords_red.push(keywords[i]);
+                // console.log(this.keywords_red);
+            this.radarkeylength_red = keywords.length;
+            // console.log(keywords);
+            }
+            // console.log(this.keywords_red);
+        },
+        selectheroes(side){
+            var block;
+            if (side=="blue"){
+                block = document.getElementById("multi_selection_view1");
+                if (block.style.display=="block"){
+                    block.style.display="none";
+                    this.keywords_blue_string = this.keywords_blue.toString();
+                    if (this.keywords_blue.length==0){
+                        this.keywords_blue_string = "Please select heroes ⇪";
+                    }
+                } 
+                else {
+                    block.style.display="block";
+                    this.keywords_blue_string = "Close ⇩";
+                } 
+                block = document.getElementById("multi_selection_view2");
+                if (block.style.display=="block"){
+                    block.style.display="none";
+                }
+            }
+            if (side=="red"){
+                block = document.getElementById("multi_selection_view2");
+                if (block.style.display=="block"){
+                    block.style.display="none";
+                    this.keywords_red_string = this.keywords_red.toString();
+                    if (this.keywords_red.length==0){
+                        this.keywords_red_string = "Please select heroes ⇪";
+                    }
+                } 
+                else{
+                    block.style.display="block";
+                    this.keywords_red_string = "Close ⇩";
+                } 
+                block = document.getElementById("multi_selection_view1");
+                if (block.style.display=="block"){
+                    block.style.display="none";
+                }
+            }
+        }
     }
 };

@@ -1,5 +1,5 @@
 <template>
-<div class="herolist')">
+<div class="herolist">
         <img :src="require('../../assets/image/icon/曹操.jpg')" width=" 70" height=" 70" @click="select('曹操')">
         <img :src="require('../../assets/image/icon/程咬金.jpg')" width=" 70" height=" 70" @click="select('程咬金')">
         <img :src="require('../../assets/image/icon/达摩.jpg')" width=" 70" height=" 70" @click="select('达摩')">

@@ -1,5 +1,5 @@
 <template>
-    <div class="herolist')">
+    <div class="herolist">
         <img :src="require('../../assets/image/icon/阿古朵.jpg')" width=" 70" height=" 70" @click="select('阿古朵')">
         <img :src="require('../../assets/image/icon/阿轲.jpg')" width=" 70" height=" 70" @click="select('阿轲')">
         <img :src="require('../../assets/image/icon/艾琳.jpg')" width=" 70" height=" 70" @click="select('艾琳')">
@@ -124,9 +124,10 @@ export default ({
     },
     methods:{
         async select(hero){
+            // console.log(this.seqNum);
             let seq_num = await requesthelp.axiosGet('/get_sequence_number');
             let block = document.getElementById("hero_sequence"+seq_num);
-            console.log(block);
+            // console.log(block);
             block.style.fill = "url(#p"+hero+")";
             block = document.getElementById("selection_view");
             block.style.display = "none";
@@ -140,12 +141,14 @@ export default ({
 .herolist {
     margin-top: 20px;
     margin-left: 20px;
+    
 }
 .herolist img {
     float: left;
     width: 70px;
     margin-bottom: 5px;
-    margin-right: 5px;
+    margin-left: 5px;
     border-radius: 4px;
+
 }
 </style>

@@ -2,7 +2,7 @@
     <div>
         <div class="bp_view">
             <b>BP View</b>
-            <bp />
+            <bp @handleChange1="changeName1" @handleChange2="changeName2" @teamChange1="changeTeam1" @teamChange2="changeTeam2" />
         </div>
         <div class="seq_view">
             <b>Sequence View</b>
@@ -10,7 +10,7 @@
         </div>
         <div class="player_view">
             <b>Player View</b>
-            <player name1="虔诚" name2="花海" />
+            <player id="playerview" :playername1="Player_1" :playername2="Player_2" />
         </div>
         <div class="team_view">
             <b>Team View</b><br />
@@ -27,35 +27,12 @@
                             line-height: 22px;
                         "
                     >
-                        &nbsp; Blue Side:
-                        <el-select
-                            v-model="blue_value"
-                            multiple
-                            placeholder="Select"
-                            style="width: 300px"
-                        >
-                            <el-option
-                                v-for="item in blue_options"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value"
-                            />
-                        </el-select>
+                        &nbsp; Blue Side: &nbsp;
+                        <button class="radarselect" @click="selectheroes('blue')">{{ keywords_blue_string }}</button>
                         <br />
-                        &nbsp; Red Side:&nbsp;
-                        <el-select
-                            v-model="red_value"
-                            multiple
-                            placeholder="Select"
-                            style="width: 300px"
-                        >
-                            <el-option
-                                v-for="item in red_options"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value"
-                            />
-                        </el-select>
+                        <br />
+                        &nbsp; Red Side: &nbsp;&thinsp;
+                        <button class="radarselect" @click="selectheroes('red')">{{ keywords_red_string }}</button>
                     </div>
                     <br />
 
@@ -71,9 +48,11 @@
                         v-model="input3"
                         placeholder="Please input"
                         class="input-with-select"
-                        ><template #prepend>
-                            <el-button :icon="Search" /> </template
-                        ><template #append>
+                        >
+                        <template #prepend>
+                            <el-button :icon="Search" /> 
+                            </template>
+                        <template #append>
                             <el-select
                                 v-model="cloud_value"
                                 multiple
@@ -87,11 +66,13 @@
                                     :value="item.value"
                                 />
                             </el-select>
-                        </template> </el-input
-                    ><br />
+                        </template> 
+                        </el-input>
+                        <br />
                     <!-- <img :src="img2" /> -->
-                    <word-cloud :keyWords="cloud_words" /> </el-col
-            ></el-row>
+                    <word-cloud :keyWords="cloud_words" /> 
+                    </el-col>
+            </el-row>
         </div>
         <div class="change_view">
             <b>In-game Change View</b><br />
@@ -114,6 +95,12 @@
         </div>
         <div id="selection_view">
             <heroS />
+        </div>
+        <div id="multi_selection_view1" class="multi_selection_view1">
+            <heroMS1 @heroselected1="keywordsel1" />
+        </div>
+        <div id="multi_selection_view2" class="multi_selection_view2">
+            <heroMS2 @heroselected2="keywordsel2" />
         </div>
     </div>
 </template>
@@ -143,6 +130,31 @@
     background: white;
     left:100px;
     top:100px;
+    display:none;
+}
+#multi_selection_view1{
+    position: absolute;
+    width: 22%;
+    height: 25%;
+    border: 1px solid #000000;
+    border-radius: 15px;
+    overflow-x: auto;
+    background: white;
+    left:700px;
+    top:565px;
+    opacity:1;
+    display:none;
+}
+#multi_selection_view2{
+    position: absolute;
+    width: 22%;
+    height: 25%;
+    border: 1px solid #000000;
+    border-radius: 15px;
+    overflow-x: auto;
+    background: white;
+    left:700px;
+    top:615px;
     display:none;
 }
 .seq_view {
@@ -198,4 +210,27 @@ div.el-select {
     padding-top: 5px;
     padding-bottom: 5px;
 }
+
+button {
+    color: #444444;
+    background: #F3F3F3;
+    border: 1px #DADADA solid;
+    padding: 6px 10px;
+    border-radius: 2px;
+    font-size: 12pt;
+    outline: none;
+    width: 60%;
+}
+
+button:hover {
+    border: 1px #C6C6C6 solid;
+    box-shadow: 1px 1px 1px #EAEAEA;
+    color: #333333;
+    background: #F7F7F7;
+}
+
+button:active {
+    box-shadow: inset 1px 1px 1px #DFDFDF;   
+}
+
 </style>

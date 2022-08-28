@@ -53,7 +53,7 @@
                     id="paint0_linear_0_1"
                     x1="0"
                     y1="404.183"
-                    x2="635"
+                    x2="640"
                     y2="404.183"
                     gradientUnits="userSpaceOnUse"
                 >
@@ -77,7 +77,6 @@
             </defs>
 
         </svg>
-
         <!--Team selector-->
         <span class="team_select">
             <el-select
@@ -113,12 +112,10 @@
             >        
             <round />
         </svg>
-
     </div>
 </template>
 
 <script>
-
 // import teamJson from "../assets/json/team_player.json";
 // import request from "common/utils/request.js";
 import requesthelp from "common/utils/request.js";
@@ -130,17 +127,6 @@ export default {
     },
     props: {
     },
-    computed: {
-          team1: function() {
-            return this.team1abbr;
-          },
-          team2: function() {
-            return this.team2abbr;
-          },
-          hero1: function() {
-            return "貂蝉";
-          }
-        },
     setup() {
         var teams1 = ['武汉eStarPro', '南京Hero久竞', '北京WB', 'XYG', '苏州KSG', '上海EDG.M', '重庆狼队', '佛山DRG.GK', '成都AG超玩会', '广州TTG', '济南RW侠', '厦门VG', '杭州LGD大鹅', '深圳DYG', '长沙TES.A', '西安WE', '上海RNG.M', '火豹'],
         teams2 = ['武汉eStarPro', '南京Hero久竞', '北京WB', 'XYG', '苏州KSG', '上海EDG.M', '重庆狼队', '佛山DRG.GK', '成都AG超玩会', '广州TTG', '济南RW侠', '厦门VG', '杭州LGD大鹅', '深圳DYG', '长沙TES.A', '西安WE', '上海RNG.M', '火豹'];
@@ -156,8 +142,18 @@ export default {
             team2abbr: "KPL",
             teammember1 : ["清清", "不然", "九尾", "钎城", "冰尘"],
             teammember2 : ["坦然", "花海", "清融", "易峥", "子阳"],
+            player1: "Player 1",
+            player2: "Player 2"
         };
     },
+    computed: {
+          team1: function() {
+            return this.team1abbr;
+          },
+          team2: function() {
+            return this.team2abbr;
+          },
+        },
     watch: {
         async select_team_1(val,_) {
             // console.log(val);
@@ -165,7 +161,10 @@ export default {
             // console.log(teamJson);
             this.teammember1 = teamJson["player"];
             this.team1abbr = teamJson["abbr"];
+            this.player1=this.teammember1[0]['id'];
+            this.player2=this.teammember2[0]['id'];
             this.plotPlayerName();
+            this.changeTeam1(val);
         },
         async select_team_2(val,_) {
             // console.log(val);
@@ -173,21 +172,45 @@ export default {
             // console.log(teamJson);
             this.teammember2 = teamJson["player"];
             this.team2abbr = teamJson["abbr"];
+            this.player1=this.teammember1[0]['id'];
+            this.player2=this.teammember2[0]['id'];
             this.plotPlayerName();
+            this.changeTeam2(val);
+        },
+        player1(val,_){
+            // console.log(val);
+            this.changePlayer1(val);
+        },
+        player2(val,_){
+            // console.log(val);
+            this.changePlayer2(val);
         }
+
     },
     mounted() {
         this.plotPlayerName();
 
     },
-    methods: {
+    methods: { 
+        changePlayer1(name){
+            this.$emit('handleChange1', name); 
+        },
+        changePlayer2(name){
+            this.$emit('handleChange2', name); 
+        },
+        changeTeam1(name){
+            this.$emit('teamChange1', name); 
+        },
+        changeTeam2(name){
+            this.$emit('teamChange2', name); 
+        },
         plotPlayerName(){
             // console.log(data);
             d3.select("#player_hero_plot").selectAll("text").remove();
             const player_name_plot = d3.select("#player_hero_plot"),
                 height = 100,
                 width = 635;
-                        
+            var temp=this;
             for (var i in d3.range(5)) {
                 if (i<=2){
                     player_name_plot
@@ -198,7 +221,12 @@ export default {
                         .attr("dy", "150px")
                         .attr("text-anchor", "start")
                         .attr("fill", "black")
-                        .attr("font-size", "25");
+                        .attr("font-size", "25")
+                        .attr("id",this.teammember1[i]['id'])
+                        .on("click",function(){
+                            // console.log(temp.player1);
+                            temp.player1=this.id;
+                        });
                     player_name_plot
                         .append("text")
                         .text(this.teammember2[i]['id'])
@@ -207,7 +235,12 @@ export default {
                         .attr("dy", "150px")
                         .attr("text-anchor", "end")
                         .attr("fill", "black")
-                        .attr("font-size", "25");
+                        .attr("font-size", "25")
+                        .attr("id",this.teammember2[i]['id'])
+                        .on("click",function(){
+                            // console.log(temp.player2);
+                            temp.player2=this.id;
+                        });
                 }
                 else{
                     player_name_plot
@@ -218,7 +251,12 @@ export default {
                         .attr("dy", "150px")
                         .attr("text-anchor", "start")
                         .attr("fill", "black")
-                        .attr("font-size", "25");
+                        .attr("font-size", "25")
+                        .attr("id",this.teammember1[i]['id'])
+                        .on("click",function(){
+                            // console.log(temp.player1);
+                            temp.player1=this.id;
+                        });
                     player_name_plot
                         .append("text")
                         .text(this.teammember2[i]['id'])
@@ -227,10 +265,17 @@ export default {
                         .attr("dy", "150px")
                         .attr("text-anchor", "end")
                         .attr("fill", "black")
-                        .attr("font-size", "25");
+                        .attr("font-size", "25")
+                        .attr("id",this.teammember2[i]['id'])
+                        .on("click",function(){
+                            // console.log(temp.player2);
+                            temp.player2=this.id;
+                        });
                 }
             }
+            // this.changeParentName();
         },
+        
     },
 };
 </script>
@@ -239,12 +284,16 @@ export default {
     position: absolute;
     top: 10%;
     left: 28%;
-    opacity: 60%;
+    opacity: 100%;
     display: block;
     font-size: 14px;
     margin-bottom: 20px;
 }
 div.el-select {
     padding: 0 10px 0 10px;
+}
+
+.membername {
+    cursor: pointer;
 }
 </style>
