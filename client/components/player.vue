@@ -121,7 +121,7 @@
 
 <script>
 import wrap from "../components/wrap.js";
-import playerJson from "../assets/json/player_view_output_2022_wizout_team.json";
+// import playerJson from "../assets/json/player_view_output_2022_wizout_team.json";
 import requesthelp from "common/utils/request.js";
 
 
@@ -232,7 +232,7 @@ export default {
             }
         },
         plotBoxes() {
-            d3.select("#player_box_plot").selectAll("g").remove();
+            d3.select("#player_box_plot").selectAll("rect").remove();
 
             // process data by member_name & hero_name
             var player_data_b = this.player1Json.all,
