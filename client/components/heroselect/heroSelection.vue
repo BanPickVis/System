@@ -58,7 +58,6 @@ export default({
 .tab-button {
 padding: 6px 10px;
 width:80px;
-width:20px;
 border-top-left-radius: 3px;
 border-top-right-radius: 3px;
 border: 1px solid #ccc;

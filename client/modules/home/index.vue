@@ -1,5 +1,8 @@
 <template>
     <div>
+        <h1 id="title">
+            BPCoach
+        </h1>
         <div class="bp_view">
             <b>BP View</b>
             <bp :roundnow="roundDefault" :bon="bon" @handleChange1="changeName1" @handleChange2="changeName2" @teamChange1="changeTeam1" @teamChange2="changeTeam2" />
@@ -59,7 +62,7 @@
             <change :team1="Team_1" :team2="Team_2" />
         </div>
 
-        <div class = "control_panal">
+        <div class="control_panal">
             &nbsp; Side of your team: &nbsp;
             <el-select
                 v-model="team_side"
@@ -115,7 +118,6 @@
                     :value="item"
                 />
             </el-select>
-
         </div>
 
         <div id="selection_view">
@@ -132,7 +134,13 @@
 <script src="./script.js"></script>
 
 <style lang="less">
-
+#title{
+    position: absolute;
+    width: 5%;
+    height: 5%;
+    right: 13%;
+    top: 0%;
+}
 .bp_view {
     /* BANPICK */
     box-sizing: border-box;
@@ -233,13 +241,14 @@
 }
 .control_panal{
     position: absolute;
-    width: 15%;
+    width: 18.3%;
     height: 9.5%;
-    right: 1%;
-    top: 22%;
-    border: 1px solid #9a9a9a;
+    right: 0.4%;
+    top: 5%;
+    border-top: 1px solid #9a9a9a;
+    border-bottom: 1px solid #9a9a9a;
     box-sizing: border-box;
-    border-radius: 15px;
+
     font-size: 20px;
 }
 

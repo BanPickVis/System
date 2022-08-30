@@ -120,8 +120,6 @@ export default ({
     setup() {
         
     },
-    data(){
-    },
     methods:{
         async select(hero){
             // console.log(this.seqNum);

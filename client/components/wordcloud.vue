@@ -1,5 +1,17 @@
 <template>
     <div>
+        <span id="tags">
+            <button 
+                v-for="word in word_list_cloud"
+                :key="word"
+                :class="['wordtag']"
+                @click="this.delete(word)"
+            >
+            <!-- <span> -->
+                {{ word }} &nbsp;   ✕
+            <!-- </span> -->
+        </button>
+        </span>
         <span id="inputting">
             <el-input
             v-model="cloud_words"
@@ -9,7 +21,7 @@
             </el-input>
         </span>
         <span id="enter">
-            <button @click="this.add()">
+            <button @click="add()">
                 enter
             </button>
         </span>
@@ -20,35 +32,42 @@
 
 <script>
 const cloud = require("d3-cloud");
-
-import wrap from "@/components/wrap.js";
 import requesthelp from "common/utils/request.js";
 
 export default {
-    props: { keyWords: Array },
+    props: {},
     data() {
         return {
             data:[],
-            word_list_cloud:['KPL'],
-            cloud_words: [],
+            word_list_cloud:[],
+            cloud_words: "",
         };
     },
 
     mounted() {
         this.get_data();
         // this.processDataWeights();
-        console.log('this');
-    },
-    watch:{
-        
+        // console.log('this');
     },
     methods: {
+        async delete(word){
+            for (var i=0;i<this.word_list_cloud.length;i++){
+                if (this.word_list_cloud[i]==word){
+                    this.word_list_cloud.splice(i,1);
+                }
+            }
+            console.log(this.word_list_cloud);
+            this.data= await requesthelp.axiosGet('/wordcloud_fr',{word_list:JSON.stringify(this.word_list_cloud)});
+            // console.log(this.data);
+            this.drawWordCloud();
+        },
         async add(){
             // console.log(this.word_list_cloud);
             this.word_list_cloud[this.word_list_cloud.length] = this.cloud_words;
             // console.log(this.cloud_words);
             this.data= await requesthelp.axiosGet('/wordcloud_fr',{word_list:JSON.stringify(this.word_list_cloud)});
             // console.log(this.data);
+            this.cloud_words = "";
             this.drawWordCloud();
         },
         async get_data(){
@@ -139,18 +158,49 @@ export default {
 #inputting{
     position: absolute;
     width: 45%;
+    height: 14%;
     left:46%;
-    top: 8%;
+    top: 16%;
+    font-size: 125%;
 }
 #enter{
     position: absolute;
-    width: 10%;
-    left:91%;
-    top: 8%;
+    width: 20%;
+    left:81%;
+    top: 16%;
+    font-size: 125%;
 }
 #word_cloud{
     position: absolute;
-    top:27%;
+    top:30%;
     right:2%;
+}
+#tags{
+    position: absolute;
+    top:0%;
+    left:46%;
+    width: 50%;
+    height: 14%;
+    cursor: pointer;
+    overflow-y: auto;
+}
+.wordtag{
+    float: left;
+    /* padding: 6px 10px; */
+    margin-right: 25px;
+    margin-bottom: 15px;
+    /* width:80px; */
+    font-size: 120%;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    width:fit-content;
+    background: #fcfcfc;
+}
+.wordtag:hover {
+background: #f0f0f0;
+}
+.wordtag.active {
+background: #f0f0f0;
 }
 </style>

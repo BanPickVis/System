@@ -33,7 +33,6 @@
         <span id="changecontent">
             {{ content }}
         </span>
-
     </div>
 </template>
 
@@ -43,8 +42,8 @@ import requesthelp from "common/utils/request.js";
 
 export default {
     props: {
-        team1:{ type: String},
-        team2:{ type: String},
+        team1:{ type: String, default:""},
+        team2:{ type: String, default:""},
     },
     setup() {
         
@@ -60,9 +59,6 @@ export default {
             selectdate:"",
             teamselection:[this.team1,this.team2]
         };
-    },
-    mounted(){
-        this.plot();
     },
     watch:{
         select_hero(val){
@@ -89,7 +85,9 @@ export default {
             // this.plotchange();
             this.plotline();
         }
-
+    },
+    mounted(){
+        this.plot();
     },
     methods:{
         async plotline(){

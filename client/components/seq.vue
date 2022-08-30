@@ -19,7 +19,6 @@ import seq_view_data from "../assets/json/seq_view_output.json";
 export default {
     props: {},
     setup() {},
-    data() {},
     watch: {
         // select hero
     },
