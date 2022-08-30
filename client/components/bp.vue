@@ -105,20 +105,6 @@
             /></el-select>
         </span>
         
-        <span id="roundselection">
-        Round: &nbsp;&nbsp;
-        <el-select
-                v-model="select_round"
-                placeholder="Select"
-                style="width: 120px"
-            >
-            <el-option
-                v-for="item in rounds"
-                :key="item"
-                :label="item"
-                :value="item"
-        /></el-select>
-        </span>
         <span id="roundselect">
             <button
                 v-for="tab in tabs"
@@ -163,7 +149,8 @@ export default {
         round5
     },
     props: {
-        roundnow:{ type: String, default: "" }
+        roundnow:{ type: String, default: "" },
+        bon:{ type: String, default: "5" }
     },
     setup() {
         var teams1 = ['武汉eStarPro', '南京Hero久竞', '北京WB', 'XYG', '苏州KSG', '上海EDG.M', '重庆狼队', '佛山DRG.GK', '成都AG超玩会', '广州TTG', '济南RW侠', '厦门VG', '杭州LGD大鹅', '深圳DYG', '长沙TES.A', '西安WE', '上海RNG.M', '火豹'],
@@ -184,10 +171,6 @@ export default {
             player2: "Player 2",
 
             nround:5,
-            
-            rounds:["1","2","3","4","5"],
-            select_round:"1",
-            
             currentTab: "round1",
             tabs: ["round1","round2","round3","round4","round5"],
         };
@@ -201,9 +184,20 @@ export default {
           },
           currentTabComponent: function() {
             return this.currentTab;
-          }
+          },
         },
     watch: {
+        bon(val,_){
+            if (this.bon == "3"){
+                this.tabs=["round1","round2","round3"];
+            }
+            if (this.bon == "5"){
+                this.tabs=["round1","round2","round3","round4","round5"];
+            }
+            if (this.bon == "7"){
+                this.tabs=["round1","round2","round3","round4","round5","round6","round7"];
+            }
+          },
         roundnow(val){
             // console.log(val);
             this.currentTab= val;
@@ -353,7 +347,7 @@ export default {
 
 .team_select {
     position: absolute;
-    top: 7%;
+    top: 9%;
     left: 28%;
     opacity: 100%;
     display: block;
@@ -368,11 +362,6 @@ div.el-select {
     cursor: pointer;
 }
 
-#roundselection{
-    position: absolute;
-    right: 25%;
-    top:12%;
-}
 #roundselect{
     position: absolute;
     right: 0.5%;

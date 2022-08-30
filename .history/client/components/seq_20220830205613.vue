@@ -1,14 +1,12 @@
 <template>
     <div>
-        <div id="seq_view_left">
-            <svg
-                id="seq_header"
-                width="1400px"
-                height="800px"
-                viewBox="0 0 1451 73"
-                fill="none"
-            ></svg>
-        </div>
+        <div
+            id="seq_header"
+            width="1451px"
+            height="600px"
+            viewBox="0 0 1451 73"
+            fill="none"
+        ></div>
     </div>
 </template>
 
@@ -226,15 +224,24 @@ export default {
             // width = 900 - margin.left - margin.right,
             //     height = 900 - margin.top - margin.bottom;
 
-            var width = 1000 - margin.left - margin.right;
-            var height = 800 - margin.top - margin.bottom;
-            // console.log(document.getElementById("seq_header"));
-            // console.log(document.getElementById("seq_header").style.width);
-            // console.log(width, height);
+            var width =
+                document.getElementById("seq_header").style.width -
+                margin.left -
+                margin.right;
+            var height =
+                document.getElementById("seq_header").style.height -
+                margin.top -
+                margin.bottom;
+            console.log(document.getElementById("seq_header"));
+            console.log(document.getElementById("seq_header").style.width);
+            console.log(width, height);
 
             // append the svg object to the body of the page
             var svg = d3
                 .select("#seq_header")
+                .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
                 .call(
                     d3.zoom().on("zoom", function () {
                         svg.attr("transform", d3.event.transform);
@@ -305,7 +312,7 @@ export default {
                         //         .split(")")[0]
                         //         .split(",")
                         // );
-                        // console.log(source_ele_transform);
+                        console.log(source_ele_transform);
 
                         if (checkTrunk(d, source_node)) {
                             // 非root但trunk
@@ -329,25 +336,13 @@ export default {
             node_g
                 .append("rect")
                 .attr("class", "nodeImage")
-                .attr("id", function (d) {
-                    return "node" + d.hero;
-                })
-                .attr("fill", function (d) {
-                    return `url(#p${d.hero})`;
-                })
-                .attr("width", 60)
                 .attr("height", 60)
                 .attr("x", -30)
-                .attr("y", -30);
-
-            // var allheronode = seq_view_data.nodes;
-            // console.log(allheronode);
-            // var block;
-            // for (var node=0;node<allheronode.length;node++){
-            //     console.log(allheronode[node]);
-            //     block = document.getElementById("node"+allheronode[node].hero);
-            //     block.style.fill="url(#p"+allheronode[node].hero+")";
-            // }
+                .attr("y", -30)
+                .attr("fill", function (d) {
+                    // console.log(d)
+                    return `url(#p${d.hero})`;
+                });
             // add image-border
             node_g
                 .append("rect")
@@ -494,15 +489,6 @@ export default {
 </script>
 
 <style>
-#seq_view_left {
-    position: absolute;
-    width: 75%;
-    height: 100%;
-    left: 0%;
-    top: 0%;
-    border-right: 1px solid #9a9a9a;
-}
-
 .node-chart rect {
     cursor: pointer;
 }

@@ -1,14 +1,13 @@
 <template>
     <div>
-        <div id="seq_view_left">
-            <svg
-                id="seq_header"
-                width="1400px"
-                height="800px"
-                viewBox="0 0 1451 73"
-                fill="none"
-            ></svg>
-        </div>
+        <svg
+            id="seq_header"
+            width="1451"
+            height="73"
+            viewBox="0 0 1451 73"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        ></svg>
     </div>
 </template>
 
@@ -226,15 +225,22 @@ export default {
             // width = 900 - margin.left - margin.right,
             //     height = 900 - margin.top - margin.bottom;
 
-            var width = 1000 - margin.left - margin.right;
-            var height = 800 - margin.top - margin.bottom;
-            // console.log(document.getElementById("seq_header"));
-            // console.log(document.getElementById("seq_header").style.width);
-            // console.log(width, height);
+            var width =
+                document.getElementById("seq_header").style.width -
+                margin.left -
+                margin.right;
+            var height =
+                document.getElementById("seq_header").style.height -
+                margin.top -
+                margin.bottom;
+            // console.log(width, height)
 
             // append the svg object to the body of the page
             var svg = d3
-                .select("#seq_header")
+                .select("#seq_view")
+                .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
                 .call(
                     d3.zoom().on("zoom", function () {
                         svg.attr("transform", d3.event.transform);
@@ -287,25 +293,15 @@ export default {
                         var source_ele = document.getElementById(
                             `node${d.source}`
                         );
-                        // console.log(source_ele);
-                        var source_ele_transform = source_ele.transform;
-                        // console.log(source_ele_transform);
-                        var source_ele_transform_a =
-                            source_ele_transform.animVal["0"].matrix;
-                        // console.log(source_ele_transform_a);
+                        var source_ele_transform = source_ele.attr("transform");
 
-                        source_ele_transform = [
-                            source_ele_transform_a["e"],
-                            source_ele_transform_a["f"],
-                        ];
-
-                        // source_ele_transform = str2number(
-                        //     source_ele_transform
-                        //         .split("(")[1]
-                        //         .split(")")[0]
-                        //         .split(",")
-                        // );
-                        // console.log(source_ele_transform);
+                        source_ele_transform = str2number(
+                            source_ele_transform
+                                .split("(")[1]
+                                .split(")")[0]
+                                .split(",")
+                        );
+                        // console.log(source_ele_transform)
 
                         if (checkTrunk(d, source_node)) {
                             // 非root但trunk
@@ -327,27 +323,15 @@ export default {
 
             // add image for the nodes
             node_g
-                .append("rect")
+                .append("image")
                 .attr("class", "nodeImage")
-                .attr("id", function (d) {
-                    return "node" + d.hero;
-                })
-                .attr("fill", function (d) {
-                    return `url(#p${d.hero})`;
-                })
-                .attr("width", 60)
                 .attr("height", 60)
                 .attr("x", -30)
-                .attr("y", -30);
-
-            // var allheronode = seq_view_data.nodes;
-            // console.log(allheronode);
-            // var block;
-            // for (var node=0;node<allheronode.length;node++){
-            //     console.log(allheronode[node]);
-            //     block = document.getElementById("node"+allheronode[node].hero);
-            //     block.style.fill="url(#p"+allheronode[node].hero+")";
-            // }
+                .attr("y", -30)
+                .attr("xlink:href", function (d) {
+                    // console.log(d)
+                    return `../icon/${d.hero}.jpg`;
+                });
             // add image-border
             node_g
                 .append("rect")
@@ -388,43 +372,28 @@ export default {
                     var path_source_ele = document.getElementById(
                         `node${each_link.source}`
                     );
+                    var path_source_transform =
+                        path_source_ele.attr("transform");
+                    // console.log(path_source_ele)
 
-                    var path_source_transform = path_source_ele.transform;
-                    var path_source_transform_a =
-                        path_source_transform.animVal["0"].matrix;
-
-                    path_source_transform = [
-                        path_source_transform_a["e"],
-                        path_source_transform_a["f"],
-                    ];
-
-                    // path_source_transform = str2number(
-                    //     path_source_transform
-                    //         .split("(")[1]
-                    //         .split(")")[0]
-                    //         .split(",")
-                    // );
+                    path_source_transform = str2number(
+                        path_source_transform
+                            .split("(")[1]
+                            .split(")")[0]
+                            .split(",")
+                    );
 
                     var path_target_ele = document.getElementById(
                         `node${each_link.target}`
                     );
-
-                    var path_target_transform = path_target_ele.transform;
-                    var path_target_transform_a =
-                        path_target_transform.animVal["0"].matrix;
-
-                    path_target_transform = [
-                        path_target_transform_a["e"],
-                        path_target_transform_a["f"],
-                    ];
-                    // var path_target_transform =
-                    //     path_target_ele.attr("transform");
-                    // path_target_transform = str2number(
-                    //     path_target_transform
-                    //         .split("(")[1]
-                    //         .split(")")[0]
-                    //         .split(",")
-                    // );
+                    var path_target_transform =
+                        path_target_ele.attr("transform");
+                    path_target_transform = str2number(
+                        path_target_transform
+                            .split("(")[1]
+                            .split(")")[0]
+                            .split(",")
+                    );
 
                     return (
                         "M" +
@@ -494,15 +463,6 @@ export default {
 </script>
 
 <style>
-#seq_view_left {
-    position: absolute;
-    width: 75%;
-    height: 100%;
-    left: 0%;
-    top: 0%;
-    border-right: 1px solid #9a9a9a;
-}
-
 .node-chart rect {
     cursor: pointer;
 }
