@@ -38,13 +38,24 @@ export default {
             keywords_blue:[],
             Team_1:"",
             Team_2:"",
+
             radarkeylength:0,
             keywords_red:[],
             radarkeylength_red:0,
             keywords_blue_string:"Please select heroes ⇪",
             keywords_red_string:"Please select heroes ⇪",
             radar_hint:"",
-            roundDefault:"round"
+
+            roundDefault:"round",
+
+            teamside:["Blue", "Red"],
+            team_side:"",
+            bon:"5",
+            bon_select:["3","5","7"],
+            n_of_b_s:["1","2","3"],
+            n_of_b:"",
+            n_of_p_s:["4","5","6","7","8","9","10"],
+            n_of_p:"",
         };
     },
     computed: {
@@ -120,7 +131,7 @@ export default {
         },
         async DrawRadar(){
             var data = await requesthelp.axiosGet('/teamView',{ team1: this.Team_1, team2: this.Team_2, keywords_blue:JSON.stringify(this.keywords_blue), keywords_red:JSON.stringify(this.keywords_red)});
-            if (data["msg1"]=="team1未使用过此英雄阵容, 默认显示所有英雄场次"){
+            if (data["msg1"]=="team1未使用过此英雄阵容, 默认显示所有英雄场次" && this.radarkeylength!=0 ){
                 if (data["msg2"]=="team2未使用过此英雄阵容, 默认显示所有英雄场次"){
                     this.radar_hint = "No such lineup combinations for both teams. Info of all battles is shown";
                 }
@@ -129,7 +140,7 @@ export default {
                 }
             }
             else{
-                if (data["msg2"]=="team2未使用过此英雄阵容, 默认显示所有英雄场次"){
+                if (data["msg2"]=="team2未使用过此英雄阵容, 默认显示所有英雄场次"  && this.radarkeylength_red!=0){
                     this.radar_hint = "No such lineup combinations for red team. Info of all battles is shown";
                 }
                 else{

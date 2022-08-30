@@ -2141,9 +2141,9 @@ export default {
 
             var width = 1000 - margin.left - margin.right;
             var height = 800 - margin.top - margin.bottom;
-            console.log(document.getElementById("seq_header"));
-            console.log(document.getElementById("seq_header").style.width);
-            console.log(width, height);
+            // console.log(document.getElementById("seq_header"));
+            // console.log(document.getElementById("seq_header").style.width);
+            // console.log(width, height);
 
             // append the svg object to the body of the page
             var svg = d3
@@ -2218,7 +2218,7 @@ export default {
                         //         .split(")")[0]
                         //         .split(",")
                         // );
-                        console.log(source_ele_transform);
+                        // console.log(source_ele_transform);
 
                         if (checkTrunk(d, source_node)) {
                             // 非root但trunk
@@ -2242,13 +2242,25 @@ export default {
             node_g
                 .append("rect")
                 .attr("class", "nodeImage")
+                .attr("id", function(d){
+                    return ("node"+d.hero);
+                })
+                .attr("fill",function(d){
+                    return `url(#p${d.hero})`;
+                })
+                .attr("width", 60)
                 .attr("height", 60)
                 .attr("x", -30)
-                .attr("y", -30)
-                .attr("fill", function (d) {
-                    // console.log(d)
-                    return `url(#p${d.hero})`;
-                });
+                .attr("y", -30);
+
+            // var allheronode = seq_view_data.nodes;
+            // console.log(allheronode);
+            // var block;
+            // for (var node=0;node<allheronode.length;node++){
+            //     console.log(allheronode[node]);
+            //     block = document.getElementById("node"+allheronode[node].hero);
+            //     block.style.fill="url(#p"+allheronode[node].hero+")";
+            // }
             // add image-border
             node_g
                 .append("rect")

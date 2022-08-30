@@ -2,7 +2,7 @@
     <div>
         <div class="bp_view">
             <b>BP View</b>
-            <bp @handleChange1="changeName1" @handleChange2="changeName2" @teamChange1="changeTeam1" @teamChange2="changeTeam2" :roundnow="roundDefault" />
+            <bp :roundnow="roundDefault" :bon="bon" @handleChange1="changeName1" @handleChange2="changeName2" @teamChange1="changeTeam1" @teamChange2="changeTeam2" />
         </div>
         <div class="seq_view">
             <b>Sequence View</b>
@@ -85,7 +85,62 @@
         </div>
 
         <div class = "control_panal">
-            <b>Control Panal</b><br />
+            &nbsp; Side of your team: &nbsp;
+            <el-select
+                v-model="team_side"
+                placeholder="Select"
+                style="width: 90px"
+            >
+                <el-option
+                    v-for="item in teamside"
+                    :key="item"
+                    :label="item"
+                    :value="item"
+                />
+            </el-select>
+            <br />
+            &nbsp; BO-N: &nbsp;
+            <el-select
+                v-model="bon"
+                placeholder="Select"
+                style="width: 90px"
+            >
+                <el-option
+                    v-for="item in bon_select"
+                    :key="item"
+                    :label="item"
+                    :value="item"
+                />
+            </el-select>
+            <br />
+            &nbsp; Number of Default Branches: &nbsp;
+            <el-select
+                v-model="n_of_b"
+                placeholder="Select"
+                style="width: 90px"
+            >
+                <el-option
+                    v-for="item in n_of_b_s"
+                    :key="item"
+                    :label="item"
+                    :value="item"
+                />
+            </el-select>
+            <br />
+            &nbsp; Number of Default Previews: &nbsp;
+            <el-select
+                v-model="n_of_p"
+                placeholder="Select"
+                style="width: 90px"
+            >
+                <el-option
+                    v-for="item in n_of_p_s"
+                    :key="item"
+                    :label="item"
+                    :value="item"
+                />
+            </el-select>
+
         </div>
 
         <div id="selection_view">
@@ -204,17 +259,18 @@
 .control_panal{
     position: absolute;
     width: 15%;
-    height: 20%;
+    height: 9.5%;
     right: 1%;
     top: 22%;
     border: 1px solid #9a9a9a;
     box-sizing: border-box;
     border-radius: 15px;
+    font-size: 20px;
 }
 
 div.el-select {
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 
 button {
