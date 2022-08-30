@@ -9,7 +9,6 @@
         {{ tab }}
       </button>
       <component :is="currentTabComponent" class="tab" @heroselected="multiheroes"></component>
-      <span class="close thick"></span>
     </div>
 </template>
 
@@ -61,7 +60,7 @@ export default({
 <style>
 .tab-button {
 padding: 6px 10px;
-width:60px;
+width:80px;
 border-top-left-radius: 3px;
 border-top-right-radius: 3px;
 border: 1px solid #ccc;

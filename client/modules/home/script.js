@@ -4,7 +4,8 @@
 import bp from '@/components/bp.vue';
 import seq from '@/components/seq.vue';
 import player from '@/components/player.vue';
-import change from '@/components/change.vue';
+import changeItem from '@/components/changeItem.vue';
+import changePlot from '@/components/changePlot.vue';
 import wordcloud from '@/components/wordcloud.vue';
 import wordtag from '@/components/wordtag.vue';
 import heroS from "@/components/heroselect/heroSelection.vue";
@@ -43,8 +44,7 @@ export default {
             keywords_red:[],
             radarkeylength_red:0,
             keywords_blue_string:"Please select heroes ⇪",
-            keywords_red_string:"Please select heroes ⇪",
-            radar_hint:""
+            keywords_red_string:"Please select heroes ⇪"
         };
     },
     components: {
@@ -54,10 +54,11 @@ export default {
         player,
         "word-tag": wordtag,
         "word-cloud": wordcloud,
+        'change-item': changeItem,
+        'change-plot': changePlot,
         heroS,
         heroMS1,
-        heroMS2,
-        change
+        heroMS2
     },
     setup() {
         /*
@@ -98,42 +99,17 @@ export default {
         Team_1(val){
             if (this.Team_2!=""){
                 this.DrawRadar();
-                
-                // this.radar_hint="Info of all battles is shown.";
-
             }
             },
         Team_2(val){
             if (this.Team_2!=""){
                 this.DrawRadar();
-                
-                // this.radar_hint="Info of all battles is shown.";
             }
             },
     },
     methods: {
         async DrawRadar(){
             var data = await requesthelp.axiosGet('/teamView',{ team1: this.Team_1, team2: this.Team_2, keywords_blue:JSON.stringify(this.keywords_blue), keywords_red:JSON.stringify(this.keywords_red)});
-            if (data["msg1"]=="team1未使用过此英雄阵容, 默认显示所有英雄场次"){
-                if (data["msg2"]=="team2未使用过此英雄阵容, 默认显示所有英雄场次"){
-                    this.radar_hint = "No such lineup combinations for both teams. Info of all battles is shown";
-                }
-                else{
-                    this.radar_hint = "No such lineup combination for blue team. Info of all battles is shown";
-                }
-            }
-            else{
-                if (data["msg2"]=="team2未使用过此英雄阵容, 默认显示所有英雄场次"){
-                    this.radar_hint = "No such lineup combinations for red team. Info of all battles is shown";
-                }
-                else{
-                    this.radar_hint = "Info of such lineup combinations is shown";
-                }
-            }
-            
-            if (this.radarkeylength==0 && this.radarkeylength_red == 0){
-                this.radar_hint="Info of all battles is shown.";
-            }
             // console.log(data);
             // console.log(data[this.Team_1]);
             //////////////////////////////////////////////////////////////
@@ -264,7 +240,7 @@ export default {
                 .attr(
                     "transform",
                     "translate(" +
-                    (cfg.w / 2 + cfg.margin.left +50) +
+                    (cfg.w / 2 + cfg.margin.left) +
                     "," +
                     (cfg.h / 2 + cfg.margin.top) +
                     ")"

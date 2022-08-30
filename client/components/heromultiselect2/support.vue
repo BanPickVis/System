@@ -38,7 +38,7 @@ export default ({
     methods:{
         async default_change(){
             var selected_1 = await requesthelp.axiosGet('/multiSelect2');
-            // console.log(selected_1);
+            console.log(selected_1);
             for (var i=0;i<selected_1.length;i++){
                 var block=document.getElementById("select2"+selected_1[i]);
                 if (block!=null){

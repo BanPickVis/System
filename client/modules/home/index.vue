@@ -13,37 +13,32 @@
             <player id="playerview" :playername1="Player_1" :playername2="Player_2" />
         </div>
         <div class="team_view">
-            <b>Team View</b>
-            <el-row :span="18">
+            <b>Team View</b><br />
+            <el-row :span="24">
                 <!-- Team Radar Part -->
                 <el-col :span="12">
+                    &nbsp;
                     <div
                         style="
                             font-family: 'Apple Braille';
                             font-style: normal;
                             font-weight: 400;
                             font-size: 19.2982px;
-                            line-height: 10px;
+                            line-height: 22px;
                         "
                     >
                         &nbsp; Blue Side: &nbsp;
-                        <button class="radarselect" @click="selectheroes('blue')">
-                            {{ keywords_blue_string }}
-                        </button>
+                        <button class="radarselect" @click="selectheroes('blue')">{{ keywords_blue_string }}</button>
                         <br />
                         <br />
                         &nbsp; Red Side: &nbsp;&thinsp;
-                        <button class="radarselect" @click="selectheroes('red')">
-                            {{ keywords_red_string }}
-                        </button>
+                        <button class="radarselect" @click="selectheroes('red')">{{ keywords_red_string }}</button>
                     </div>
-                    <p style="line-height: 10px;">
-                        &nbsp; &nbsp; {{ radar_hint }}
-                    </p>
+                    <br />
 
                     <!-- radar plot -->
                     <!-- <img :src="img1" />  -->
-                    <svg id="d3-radar-team" style="width: 450px" />
+                    <svg id="d3-radar-team" />
                 </el-col>
 
                 <!-- Team Wordcloud Part -->
@@ -82,7 +77,22 @@
         </div>
         <div class="change_view">
             <b>In-game Change View</b><br />
-            <change :team1="Team_1" :team2="Team_2" />
+            <change-item
+                id="zhangliang"
+                change_txt="被动：新增效果：自身处于移速受损时，被动回复效果翻倍"
+                arrow="down"
+            />
+            <change-plot />
+            <change-item
+                id="gongsunli"
+                arrow="up"
+                change_txt="二技能：子弹速度：4500 → 3500"
+            />
+            <change-item
+                id="makeboluo"
+                arrow="down"
+                change_txt="一技能：加速效果：20% → 40%	 二技能：基础伤害：250(+40/Lv)(+0.4Ap) → 300(+48/Lv)(+0.48Ap)	 二技能：效果调整：重复命中效果衰减至50% → 25%"
+            />
         </div>
         <div id="selection_view">
             <heroS />
@@ -113,7 +123,7 @@
 }
 #selection_view{
     position: absolute;
-    width: 23%;
+    width: 22%;
     height: 25%;
     border: 1px solid #000000;
     border-radius: 15px;
@@ -125,27 +135,27 @@
 }
 #multi_selection_view1{
     position: absolute;
-    width: 23.5%;
+    width: 22%;
     height: 25%;
     border: 1px solid #000000;
     border-radius: 15px;
     overflow-x: auto;
     background: white;
     left:700px;
-    top:550px;
+    top:565px;
     opacity:1;
     display:none;
 }
 #multi_selection_view2{
     position: absolute;
-    width: 23%;
+    width: 22%;
     height: 25%;
     border: 1px solid #000000;
     border-radius: 15px;
     overflow-x: auto;
     background: white;
     left:700px;
-    top:595px;
+    top:615px;
     display:none;
 }
 .seq_view {
