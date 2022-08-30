@@ -126,7 +126,6 @@ export default ({
         async select(hero){
             // console.log(this.seqNum);
             let seq_num = await requesthelp.axiosGet('/get_sequence_number');
-            let preivious_seq = await requesthelp.axiosGet('/sequence_record', {hero: hero});
             let block = document.getElementById("hero_sequence"+seq_num);
             // console.log(block);
             block.style.fill = "url(#p"+hero+")";

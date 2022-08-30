@@ -140,14 +140,8 @@ export default {
                 .attr("transform", "translate(60,130)")
                 .attr("stroke", "#991239")
                 .attr("stroke-width", "5px")
-                .attr("y1", height)
-                .attr("y2", height)
-                .style("stroke-dasharray", ("10, 10"))
-                .transition()
-                .duration(800)
                 .attr("y1", function(d) { return y(d.value); })
-                .attr("y2", function(d) { return y(d.value); })
-                .delay(function(d,i){return(i*100);});
+                .attr("y2", function(d) { return y(d.value); });
 
             svg.selectAll("lines")
             .data(data_t2)
@@ -160,14 +154,8 @@ export default {
                 .attr("transform", "translate(380,130)")
                 .attr("stroke", "#991239")
                 .attr("stroke-width", "5px")
-                .attr("y1", height)
-                .attr("y2", height)
-                .style("stroke-dasharray", ("10, 10"))
-                .transition()
-                .duration(800)
                 .attr("y1", function(d) { return height - y2(d.value); })
-                .attr("y2", function(d) { return height - y2(d.value); })
-                .delay(function(d,i){return(i*100);});
+                .attr("y2", function(d) { return height - y2(d.value); });
         },
         async plotchange(){
             // console.log(this.team1);
@@ -200,55 +188,29 @@ export default {
             var x2 = d3.scaleBand()
             .range([ 0, width/2 ])
             .domain(Item2);
-
-            // legends
-            var legend = svg.append("g")
-                .attr("transform", "translate(100,-10)");
-            legend.append("rect")
-                .attr("fill","#999999")
-                .attr("width",50)
-                .attr("height",25)
-                .attr("opacity",0.5);
-            legend.append("text")
-                .text("before")
-                .attr("transform", "translate(70,20)")
-                .style("font-size", 25);
-
-            legend.append("rect")
-                .attr("fill","#EF8A62")
-                .attr("width",50)
-                .attr("height",25)
-                .attr("opacity",0.5)
-                .attr("transform", "translate(200,0)");
-            
-            legend.append("text")
-                .text("after")
-                .attr("transform", "translate(270,20)")
-                .style("font-size", 25);
-
             svg.append("g")
-                .attr("transform", "translate(0," + height + ")")
-                .call(d3.axisBottom(x))
-                .selectAll("text")
-                    .attr("transform", "translate(15,0)")
-                    .attr("font-size","15px");
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x))
+            .selectAll("text")
+                .attr("transform", "translate(15,0)")
+                .attr("font-size","15px");
             
             svg.append("g")
-                .attr("transform", "translate(320," + height + ")")
-                .call(d3.axisBottom(x2))
-                .selectAll("text")
-                    .attr("transform", "translate(15,0)")
-                    .attr("font-size","15px");
+            .attr("transform", "translate(320," + height + ")")
+            .call(d3.axisBottom(x2))
+            .selectAll("text")
+                .attr("transform", "translate(15,0)")
+                .attr("font-size","15px");
 
             // Add Y axis
             var y = d3.scaleLinear()
-                .domain([0, 1])
-                .range([ height, 0]);
+            .domain([0, 1])
+            .range([ height, 0]);
             svg.append("g")
-                .call(d3.axisLeft(y).ticks(3));
+            .call(d3.axisLeft(y).ticks(3));
             var y2 = d3.scaleLinear()
-                .domain([0, d3.max(data, function(d) { return d.value; })+2])
-                .range([ height, 0]);
+            .domain([0, d3.max(data, function(d) { return d.value; })+2])
+            .range([ height, 0]);
             svg.append("g")
                 .attr("transform", "translate("+width+",0)")
                 .call(d3.axisRight(y2).ticks(3));
@@ -260,59 +222,59 @@ export default {
             var data4 = [data[9],data[10],data[11]];
             // Bars
             svg.selectAll("mybar")
-                .data(data1)
-                .enter()
-                .append("rect")
-                    .attr("x", function(d) { return x(d.group); })
-                    .attr("width", x.bandwidth()-20)
-                    .attr("transform", "translate(10,0)")
-                    .attr("fill", "#999999")
-                    .attr("opacity",0.5)
-                    // no bar at the beginning thus:
-                    .attr("height", function(d) { return height - y(0); }) // always equal to 0
-                    .attr("y", function(d) { return y(0); })
-                    .transition()
-                    .duration(800)
-                    .attr("y", function(d) { return y(d.value); })
-                    .attr("height", function(d) { return height - y(d.value); })
-                    .delay(function(d,i){return(i*100);});
+            .data(data1)
+            .enter()
+            .append("rect")
+                .attr("x", function(d) { return x(d.group); })
+                .attr("width", x.bandwidth()-20)
+                .attr("transform", "translate(10,0)")
+                .attr("fill", "#999999")
+                .attr("opacity",0.5)
+                // no bar at the beginning thus:
+                .attr("height", function(d) { return height - y(0); }) // always equal to 0
+                .attr("y", function(d) { return y(0); })
+                .transition()
+                .duration(800)
+                .attr("y", function(d) { return y(d.value); })
+                .attr("height", function(d) { return height - y(d.value); })
+                .delay(function(d,i){return(i*100);});
 
             // Bars
             svg.selectAll("mybar")
-                .data(data2)
-                .enter()
-                .append("rect")
-                    .attr("x", function(d) { return x2(d.group); })
-                    .attr("width", x2.bandwidth()-20)
-                    .attr("transform", "translate(330,0)")
-                    .attr("fill", "#999999")
-                    .attr("opacity",0.5)
-                    // no bar at the beginning thus:
-                    .attr("height", 0) // always equal to 0
-                    .attr("y", function(d) { return y2(d3.min(data, function(d) { return d.value; })); })
-                    .transition()
-                    .duration(800)
-                    .attr("y", function(d) { return y2(d.value); })
-                    .attr("height", function(d) { return height - y2(d.value); })
-                    .delay(function(d,i){return(i*100);});
+            .data(data2)
+            .enter()
+            .append("rect")
+                .attr("x", function(d) { return x2(d.group); })
+                .attr("width", x2.bandwidth()-20)
+                .attr("transform", "translate(330,0)")
+                .attr("fill", "#999999")
+                .attr("opacity",0.5)
+                // no bar at the beginning thus:
+                .attr("height", 0) // always equal to 0
+                .attr("y", function(d) { return y2(d3.min(data, function(d) { return d.value; })); })
+                .transition()
+                .duration(800)
+                .attr("y", function(d) { return y2(d.value); })
+                .attr("height", function(d) { return height - y2(d.value); })
+                .delay(function(d,i){return(i*100);});
 
             svg.selectAll("mybar")
-                .data(data3)
-                .enter()
-                .append("rect")
-                    .attr("x", function(d) { return x(d.group); })
-                    .attr("width", x.bandwidth()-60)
-                    .attr("transform", "translate(30,0)")
-                    .attr("fill", "#EF8A62")
-                    .attr("opacity",0.5)
-                    // no bar at the beginning thus:
-                    .attr("height", function(d) { return height - y(0); }) // always equal to 0
-                    .attr("y", function(d) { return y(0); })
-                    .transition()
-                    .duration(800)
-                    .attr("y", function(d) { return y(d.value); })
-                    .attr("height", function(d) { return height - y(d.value); })
-                    .delay(function(d,i){return(i*100);});
+            .data(data3)
+            .enter()
+            .append("rect")
+                .attr("x", function(d) { return x(d.group); })
+                .attr("width", x.bandwidth()-60)
+                .attr("transform", "translate(30,0)")
+                .attr("fill", "#EF8A62")
+                .attr("opacity",0.5)
+                // no bar at the beginning thus:
+                .attr("height", function(d) { return height - y(0); }) // always equal to 0
+                .attr("y", function(d) { return y(0); })
+                .transition()
+                .duration(800)
+                .attr("y", function(d) { return y(d.value); })
+                .attr("height", function(d) { return height - y(d.value); })
+                .delay(function(d,i){return(i*100);});
 
             // Bars
             svg.selectAll("mybar")
