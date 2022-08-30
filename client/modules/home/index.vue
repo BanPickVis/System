@@ -2,7 +2,7 @@
     <div>
         <div class="bp_view">
             <b>BP View</b>
-            <bp @handleChange1="changeName1" @handleChange2="changeName2" @teamChange1="changeTeam1" @teamChange2="changeTeam2" />
+            <bp @handleChange1="changeName1" @handleChange2="changeName2" @teamChange1="changeTeam1" @teamChange2="changeTeam2" :roundnow="roundDefault" />
         </div>
         <div class="seq_view">
             <b>Sequence View</b>
@@ -94,6 +94,11 @@
                 change_txt="一技能：加速效果：20% → 40%	 二技能：基础伤害：250(+40/Lv)(+0.4Ap) → 300(+48/Lv)(+0.48Ap)	 二技能：效果调整：重复命中效果衰减至50% → 25%"
             />
         </div>
+
+        <div class = "control_panal">
+            <b>Control Panal</b><br />
+        </div>
+
         <div id="selection_view">
             <heroS />
         </div>
@@ -108,6 +113,7 @@
 <script src="./script.js"></script>
 
 <style lang="less">
+
 .bp_view {
     /* BANPICK */
     box-sizing: border-box;
@@ -118,14 +124,14 @@
     left: 0.4%;
     top: 0.4%;
 
-    border: 1px solid #000000;
+    border: 1px solid #9a9a9a;
     border-radius: 15px;
 }
 #selection_view{
     position: absolute;
     width: 22%;
     height: 25%;
-    border: 1px solid #000000;
+    border: 1px solid #9a9a9a;
     border-radius: 15px;
     overflow-x: auto;
     background: white;
@@ -137,7 +143,7 @@
     position: absolute;
     width: 22%;
     height: 25%;
-    border: 1px solid #000000;
+    border: 1px solid #9a9a9a;
     border-radius: 15px;
     overflow-x: auto;
     background: white;
@@ -150,7 +156,7 @@
     position: absolute;
     width: 22%;
     height: 25%;
-    border: 1px solid #000000;
+    border: 1px solid #9a9a9a;
     border-radius: 15px;
     overflow-x: auto;
     background: white;
@@ -168,18 +174,18 @@
     right: 0.4%;
     top: 0.4%;
 
-    border: 0.982768px solid #000000;
+    border: 1px solid #9a9a9a;
     border-radius: 15px;
 }
 .player_view {
     /* Player */
     position: absolute;
     width: 25%;
-    height: 38.68%;
+    height: 39%;
     left: 0.4%;
     bottom: 0.4%;
 
-    border: 1px solid #000000;
+    border: 1px solid #9a9a9a;
     box-sizing: border-box;
     border-radius: 15px;
 }
@@ -187,11 +193,11 @@
     /* Team */
     position: absolute;
     width: 43.5%;
-    height: 38.68%;
+    height: 39%;
     left: 26.21%;
     bottom: 0.4%;
 
-    border: 1px solid #000000;
+    border: 1px solid #9a9a9a;
     box-sizing: border-box;
     border-radius: 15px;
 }
@@ -199,10 +205,20 @@
     /* Change */
     position: absolute;
     width: 29%;
-    height: 38.68%;
+    height: 39%;
     right: 0.4%;
     bottom: 0.4%;
-    border: 1px solid #000000;
+    border: 1px solid #9a9a9a;
+    box-sizing: border-box;
+    border-radius: 15px;
+}
+.control_panal{
+    position: absolute;
+    width: 15%;
+    height: 20%;
+    right: 1%;
+    top: 22%;
+    border: 1px solid #9a9a9a;
     box-sizing: border-box;
     border-radius: 15px;
 }

@@ -92,7 +92,6 @@
                 />
             </el-select>
             vs
-
             <el-select
                 v-model="select_team_2"
                 placeholder="Select"
@@ -105,12 +104,42 @@
                 :value="item"
             /></el-select>
         </span>
+        
+        <span id="roundselection">
+        Round: &nbsp;&nbsp;
+        <el-select
+                v-model="select_round"
+                placeholder="Select"
+                style="width: 120px"
+            >
+            <el-option
+                v-for="item in rounds"
+                :key="item"
+                :label="item"
+                :value="item"
+        /></el-select>
+        </span>
+        <span id="roundselect">
+            <button
+                v-for="tab in tabs"
+                :key="tab"
+                :class="['tab-button', { active: currentTab === tab }]"
+                @click="currentTab = tab"
+            >
+                {{ tab }}
+            </button>
+        </span>
         <svg
             id="player_hero_plot"
             width="640"
             height="675"
-            >        
-            <round />
+            >
+            <component :is="currentTabComponent" class="tab"></component>
+            <!-- <round id="round1" class="roundview" style="display: block;" />
+            <round id="round2" class="roundview" style="display: block;" />
+            <round id="round3" class="roundview" style="display: none;" />
+            <round id="round4" class="roundview" style="display: none;" />
+            <round id="round5" class="roundview" style="display: none;" /> -->
         </svg>
     </div>
 </template>
@@ -119,13 +148,22 @@
 // import teamJson from "../assets/json/team_player.json";
 // import request from "common/utils/request.js";
 import requesthelp from "common/utils/request.js";
-import round from "@/components/round.vue";
+import round1 from "@/components/round/round1.vue";
+import round2 from "@/components/round/round2.vue";
+import round3 from "@/components/round/round3.vue";
+import round4 from "@/components/round/round4.vue";
+import round5 from "@/components/round/round5.vue";
 
 export default {
     components:{
-        round,
+        round1,
+        round2,
+        round3,
+        round4,
+        round5
     },
     props: {
+        roundnow:{ type: String }
     },
     setup() {
         var teams1 = ['武汉eStarPro', '南京Hero久竞', '北京WB', 'XYG', '苏州KSG', '上海EDG.M', '重庆狼队', '佛山DRG.GK', '成都AG超玩会', '广州TTG', '济南RW侠', '厦门VG', '杭州LGD大鹅', '深圳DYG', '长沙TES.A', '西安WE', '上海RNG.M', '火豹'],
@@ -143,7 +181,15 @@ export default {
             teammember1 : ["清清", "不然", "九尾", "钎城", "冰尘"],
             teammember2 : ["坦然", "花海", "清融", "易峥", "子阳"],
             player1: "Player 1",
-            player2: "Player 2"
+            player2: "Player 2",
+
+            nround:5,
+            
+            rounds:["1","2","3","4","5"],
+            select_round:"1",
+            
+            currentTab: "round1",
+            tabs: ["round1","round2","round3","round4","round5"],
         };
     },
     computed: {
@@ -153,8 +199,30 @@ export default {
           team2: function() {
             return this.team2abbr;
           },
+          currentTabComponent: function() {
+            return this.currentTab;
+          }
         },
     watch: {
+        roundnow(val){
+            // console.log(val);
+            this.currentTab= val;
+            // this.currentTab= "round1";
+            // location.reload();
+        },
+        select_round(val){
+            var block;
+            for (var i=1;i<=this.nround;i++){
+                block=document.getElementById("round"+i);
+                if (block.style.display=="block"){
+                    // console.log(block);
+                    block.style.display="none";
+                }
+            }
+            block=document.getElementById("round"+val);
+            block.style.display="block";
+            // console.log(block);
+        },
         async select_team_1(val,_) {
             // console.log(val);
             var teamJson = await requesthelp.axiosGet('/loadData',{ name: val });
@@ -189,6 +257,8 @@ export default {
     },
     mounted() {
         this.plotPlayerName();
+        // console.log(this.roundnow);
+        
 
     },
     methods: { 
@@ -280,9 +350,10 @@ export default {
 };
 </script>
 <style>
+
 .team_select {
     position: absolute;
-    top: 10%;
+    top: 7%;
     left: 28%;
     opacity: 100%;
     display: block;
@@ -295,5 +366,16 @@ div.el-select {
 
 .membername {
     cursor: pointer;
+}
+
+#roundselection{
+    position: absolute;
+    right: 25%;
+    top:12%;
+}
+#roundselect{
+    position: absolute;
+    right: 0.5%;
+    top:0.25%;
 }
 </style>

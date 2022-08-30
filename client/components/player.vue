@@ -218,6 +218,7 @@ export default {
         async default_set1(){
             if (this.playername1!="not selected"){
                 this.player1Json = await requesthelp.axiosGet('/getPlayer',{ name: this.name1 });
+                // console.log(this.player1Json);
                 this.heros1 = Object.keys(this.player1Json);
                 this.heros1.shift();
                 this.select_hero_1 = this.heros1[0];

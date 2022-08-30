@@ -44,9 +44,17 @@ export default {
             keywords_red:[],
             radarkeylength_red:0,
             keywords_blue_string:"Please select heroes ⇪",
+<<<<<<< HEAD
             keywords_red_string:"Please select heroes ⇪"
+=======
+            keywords_red_string:"Please select heroes ⇪",
+            radar_hint:"",
+            roundDefault:"round"
+>>>>>>> parent of ab190f9 (Revert "global bp view updated")
         };
     },
+    computed: {
+        },
     components: {
         // ElTable,
         // ElTableColumn,
@@ -83,6 +91,10 @@ export default {
         */
     },
     mounted() {
+        this.default_backend();
+        this.roundDefault="round1";
+        // console.log(this.roundDefault);
+        // location.reload();
     },
     watch:{
         cloud_value(val, oldVal)
@@ -108,6 +120,9 @@ export default {
             },
     },
     methods: {
+        async default_backend(){
+            var defaultbackend =  await requesthelp.axiosGet('/defaults');
+        },
         async DrawRadar(){
             var data = await requesthelp.axiosGet('/teamView',{ team1: this.Team_1, team2: this.Team_2, keywords_blue:JSON.stringify(this.keywords_blue), keywords_red:JSON.stringify(this.keywords_red)});
             // console.log(data);
