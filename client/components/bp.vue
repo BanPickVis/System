@@ -105,20 +105,6 @@
             /></el-select>
         </span>
         
-        <span id="roundselection">
-        Round: &nbsp;&nbsp;
-        <el-select
-                v-model="select_round"
-                placeholder="Select"
-                style="width: 120px"
-            >
-            <el-option
-                v-for="item in rounds"
-                :key="item"
-                :label="item"
-                :value="item"
-        /></el-select>
-        </span>
         <span id="roundselect">
             <button
                 v-for="tab in tabs"
@@ -353,7 +339,7 @@ export default {
 
 .team_select {
     position: absolute;
-    top: 7%;
+    top: 9%;
     left: 28%;
     opacity: 100%;
     display: block;
@@ -368,11 +354,6 @@ div.el-select {
     cursor: pointer;
 }
 
-#roundselection{
-    position: absolute;
-    right: 25%;
-    top:12%;
-}
 #roundselect{
     position: absolute;
     right: 0.5%;
