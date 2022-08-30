@@ -61,7 +61,7 @@ export default({
 </script>
 <style>
 .tab-button {
-width:40px;
+width:20px;
 border-top-left-radius: 3px;
 border-top-right-radius: 3px;
 border: 1px solid #ccc;
