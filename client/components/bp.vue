@@ -163,7 +163,7 @@ export default {
         round5
     },
     props: {
-        roundnow:{ type: String }
+        roundnow:{ type: String, default: "" }
     },
     setup() {
         var teams1 = ['武汉eStarPro', '南京Hero久竞', '北京WB', 'XYG', '苏州KSG', '上海EDG.M', '重庆狼队', '佛山DRG.GK', '成都AG超玩会', '广州TTG', '济南RW侠', '厦门VG', '杭州LGD大鹅', '深圳DYG', '长沙TES.A', '西安WE', '上海RNG.M', '火豹'],

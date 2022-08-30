@@ -2,7 +2,7 @@
     <div>
         <div class="bp_view">
             <b>BP View</b>
-            <bp @handleChange1="changeName1" @handleChange2="changeName2" @teamChange1="changeTeam1" @teamChange2="changeTeam2" :roundnow="roundDefault" />
+            <bp :roundnow="roundDefault" @handleChange1="changeName1" @handleChange2="changeName2" @teamChange1="changeTeam1" @teamChange2="changeTeam2" />
         </div>
         <div class="seq_view">
             <b>Sequence View</b>
@@ -28,11 +28,15 @@
                         "
                     >
                         &nbsp; Blue Side: &nbsp;
-                        <button class="radarselect" @click="selectheroes('blue')">{{ keywords_blue_string }}</button>
+                        <button class="radarselect" @click="selectheroes('blue')">
+                            {{ keywords_blue_string }}
+                        </button>
                         <br />
                         <br />
                         &nbsp; Red Side: &nbsp;&thinsp;
-                        <button class="radarselect" @click="selectheroes('red')">{{ keywords_red_string }}</button>
+                        <button class="radarselect" @click="selectheroes('red')">
+                            {{ keywords_red_string }}
+                        </button>
                     </div>
                     <br />
 
@@ -70,7 +74,7 @@
                         </el-input>
                         <br />
                     <!-- <img :src="img2" /> -->
-                    <!-- <word-tag /> -->>
+                    <!-- <word-tag /> -->
                     <word-cloud :keyWords="cloud_words" /> 
                     </el-col>
             </el-row>
@@ -95,7 +99,7 @@
             />
         </div>
 
-        <div class = "control_panal">
+        <div class="control_panal">
             <b>Control Panal</b><br />
         </div>
 
@@ -250,28 +254,4 @@ button:active {
     box-shadow: inset 1px 1px 1px #DFDFDF;   
 }
 
-<!--word tag-->
-.ti-input::-webkit-scrollbar {
-    display: none;
-}
-.ti-input[data-v-61d92e31] {
-    border: 1px solid #dfe4ed;
-    overflow-x: scroll;
-    flex-wrap: nowrap;
-    width: 100%;
-    border-radius: 4px;
-    padding:1px;
-}
-
-.vue-tags-input[data-v-61d92e31] {
-    position: relative;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    /* width: 200px; */
-    white-space: nowrap;
-}
-
-.ti-tags[data-v-61d92e31] {
-    flex-wrap: nowrap;
-}
 </style>

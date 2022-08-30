@@ -7,7 +7,6 @@ import player from '@/components/player.vue';
 import changeItem from '@/components/changeItem.vue';
 import changePlot from '@/components/changePlot.vue';
 import wordcloud from '@/components/wordcloud.vue';
-import wordtag from '@/components/wordtag.vue';
 import heroS from "@/components/heroselect/heroSelection.vue";
 import heroMS1 from "@/components/heromultiselect/heroSelection.vue";
 import heroMS2 from "@/components/heromultiselect2/heroSelection.vue";
@@ -44,13 +43,9 @@ export default {
             keywords_red:[],
             radarkeylength_red:0,
             keywords_blue_string:"Please select heroes ⇪",
-<<<<<<< HEAD
-            keywords_red_string:"Please select heroes ⇪"
-=======
             keywords_red_string:"Please select heroes ⇪",
             radar_hint:"",
             roundDefault:"round"
->>>>>>> parent of ab190f9 (Revert "global bp view updated")
         };
     },
     computed: {
@@ -60,7 +55,6 @@ export default {
         // ElTableColumn,
         bp, seq,
         player,
-        "word-tag": wordtag,
         "word-cloud": wordcloud,
         'change-item': changeItem,
         'change-plot': changePlot,
