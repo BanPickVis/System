@@ -7,6 +7,7 @@ import player from '@/components/player.vue';
 import changeItem from '@/components/changeItem.vue';
 import changePlot from '@/components/changePlot.vue';
 import wordcloud from '@/components/wordcloud.vue';
+import inputtag from '@/components/inputtag.vue';
 import heroS from "@/components/heroselect/heroSelection.vue";
 import heroMS1 from "@/components/heromultiselect/heroSelection.vue";
 import heroMS2 from "@/components/heromultiselect2/heroSelection.vue";
@@ -55,6 +56,7 @@ export default {
         // ElTableColumn,
         bp, seq,
         player,
+        "input-tag": inputtag,
         "word-cloud": wordcloud,
         'change-item': changeItem,
         'change-plot': changePlot,

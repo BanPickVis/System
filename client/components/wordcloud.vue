@@ -1,10 +1,13 @@
 <template>
-    <svg id="word_cloud" width="640" height="500">
+    <svg id="word_cloud" width="560" height="480">
     </svg>
 </template>
 
 <script>
 const cloud = require("d3-cloud");
+
+import wrap from "@/components/wrap.js";
+import requesthelp from "common/utils/request.js";
 
 export default {
     props: { keyWords: Array },
@@ -17,11 +20,14 @@ export default {
                     // default: search result of "KPL"
                 };
     },
+
     mounted() {
+        this.get_data();
         // this.processDataWeights();
         this.drawWordCloud();
     },
     methods: {
+        /*
         processDataWeights() {
             this.data.sort((a, b) => a.size - b.size);
             // console.log(this.data);
@@ -40,10 +46,15 @@ export default {
                 return size < 7 ? size * 7 : size;
             }
         },
-
+        */
+        async get_data(){
+            var key_fr= await requesthelp.axiosGet('/wordcloud_fr');
+            console.log(key_fr);
+        },
         drawWordCloud() {
             // thanks to https://www.cnblogs.com/Kyaya/p/11322426.html
             d3.select("#word_cloud").selectAll("*").remove();
+            // this.keyWords = await requesthelp.axiosGet('/wordcloud_fr');
             // let myWordCloud = this.createWordCloud('#cloud');
             // myWordCloud.update(this.keyWords);
             // var fill = d3.scaleOrdinal(d3.schemeCategory10);  //输出20种类别的颜色 ---颜色比例尺

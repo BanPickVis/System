@@ -46,35 +46,17 @@
                 </el-col>
 
                 <!-- Team Wordcloud Part -->
-                <el-col :span="12">
+                <el-col :span="10">
                     &nbsp;&nbsp;&nbsp;
                     <el-input
-                        v-model="input3"
+                        v-model="cloud_words"
                         placeholder="Please input"
                         class="input-with-select"
                         >
-                        <template #prepend>
-                            <el-button :icon="Search" /> 
-                            </template>
-                        <template #append>
-                            <el-select
-                                v-model="cloud_value"
-                                multiple
-                                placeholder="Select"
-                                style="width: 450px"
-                            >
-                                <el-option
-                                    v-for="item in cloud_options"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value"
-                                />
-                            </el-select>
-                        </template> 
                         </el-input>
                         <br />
                     <!-- <img :src="img2" /> -->
-                    <!-- <word-tag /> -->
+                    
                     <word-cloud :keyWords="cloud_words" /> 
                     </el-col>
             </el-row>
