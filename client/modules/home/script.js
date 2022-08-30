@@ -6,7 +6,7 @@ import seq from '@/components/seq.vue';
 import player from '@/components/player.vue';
 import change from '@/components/change.vue';
 import wordcloud from '@/components/wordcloud.vue';
-import inputtag from '@/components/inputtag.vue';
+// import inputtag from '@/components/inputtag.vue';
 import heroS from "@/components/heroselect/heroSelection.vue";
 import heroMS1 from "@/components/heromultiselect/heroSelection.vue";
 import heroMS2 from "@/components/heromultiselect2/heroSelection.vue";
@@ -31,8 +31,6 @@ export default {
             img2: require('assets/image/wordcloud.png'),
             blue_value: '', // blue side
             red_value: '', // red side
-            cloud_value: '',  // wordcloud side
-            cloud_words: [],
             Player_1: "Player 1",
             Player_2: "Player 2",
             SequenceNum: "0",
@@ -66,7 +64,7 @@ export default {
         // ElTableColumn,
         bp, seq,
         player,
-        "input-tag": inputtag,
+        // "input-tag": inputtag,
         "word-cloud": wordcloud,
         heroS,
         heroMS1,
@@ -100,8 +98,6 @@ export default {
         // location.reload();
     },
     watch:{
-        cloud_value(val, oldVal)
-        { console.log(val); },
         radarkeylength_red(val){
             this.DrawRadar();
             // this.keywords_red_string = this.keywords_red.toString();

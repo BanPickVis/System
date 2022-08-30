@@ -49,19 +49,8 @@
                 <!-- Team Wordcloud Part -->
                 <el-col :span="10">
                     &nbsp;&nbsp;&nbsp;
-                    <el-input
-                        v-model="cloud_words"
-                        placeholder="Please input"
-                        class="input-with-select"
-                        >
-                        </el-input>
                         <br />
-                    <!-- <img :src="img2" /> -->
-<<<<<<< HEAD
-                    
-=======
->>>>>>> 13815952e23b8ae9efa99ee1f486aca79790a40e
-                    <word-cloud :keyWords="cloud_words" /> 
+                    <word-cloud /> 
                     </el-col>
             </el-row>
         </div>
