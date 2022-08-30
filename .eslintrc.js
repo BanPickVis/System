@@ -9,8 +9,9 @@ module.exports = {
     "settings": {
         "html/html-extensions": [".html", ".vue", ".php", ".twig"]
     },
+    //"parser": "@babel/eslint-parser",//remember: npm install @babel/eslint-parser --save-dev
     "parserOptions": {
-        "ecmaVersion": 2017,
+        "ecmaVersion": 2017,//origin 2017, set to 2018 when necessary
         "sourceType": "module",
         "ecmaFeatures": {
             "impliedStrict": true,

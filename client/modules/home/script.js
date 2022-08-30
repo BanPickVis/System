@@ -6,6 +6,7 @@ import seq from '@/components/seq.vue';
 import player from '@/components/player.vue';
 import change from '@/components/change.vue';
 import wordcloud from '@/components/wordcloud.vue';
+import wordtag from '@/components/wordtag.vue';
 import heroS from "@/components/heroselect/heroSelection.vue";
 import heroMS1 from "@/components/heromultiselect/heroSelection.vue";
 import heroMS2 from "@/components/heromultiselect2/heroSelection.vue";
@@ -54,6 +55,7 @@ export default {
         // ElTableColumn,
         bp, seq,
         player,
+        "word-tag": wordtag,
         "word-cloud": wordcloud,
         heroS,
         heroMS1,
@@ -61,6 +63,7 @@ export default {
         change
     },
     setup() {
+        /*
         const cloud_options = [
                 {
                     value: 'Option1',
@@ -79,6 +82,7 @@ export default {
         return {
             cloud_options
         };
+        */
     },
     mounted() {
         this.default_backend();
