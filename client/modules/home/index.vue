@@ -75,6 +75,7 @@
                         </el-input>
                         <br />
                     <!-- <img :src="img2" /> -->
+                    <!-- <word-tag /> -->>
                     <word-cloud :keyWords="cloud_words" /> 
                     </el-col>
             </el-row>
@@ -223,4 +224,28 @@ button:active {
     box-shadow: inset 1px 1px 1px #DFDFDF;   
 }
 
+<!--word tag-->
+.ti-input::-webkit-scrollbar {
+    display: none;
+}
+.ti-input[data-v-61d92e31] {
+    border: 1px solid #dfe4ed;
+    overflow-x: scroll;
+    flex-wrap: nowrap;
+    width: 100%;
+    border-radius: 4px;
+    padding:1px;
+}
+
+.vue-tags-input[data-v-61d92e31] {
+    position: relative;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* width: 200px; */
+    white-space: nowrap;
+}
+
+.ti-tags[data-v-61d92e31] {
+    flex-wrap: nowrap;
+}
 </style>
