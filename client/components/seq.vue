@@ -219,24 +219,20 @@ export default {
                 tooltip.style("opacity", 0);
             }
 
-            // set the dimensions and margins of the seq_view_data
-            // var margin = { top: 10, right: 10, bottom: 10, left: 10 };
-            // width = 900 - margin.left - margin.right,
-            //     height = 900 - margin.top - margin.bottom;
-
-            // var width = 1000 - margin.left - margin.right;
-            // var height = 800 - margin.top - margin.bottom;
-
-            // append the svg object to the body of the page
             function seq_zoomed_func() {
                 svg.attr("transform", d3.event.transform);
             }
 
+            var passed_stage = seq_view_data.nodes[0].stage - 1;
+            // console.log(passed_stage);
+            // passed_stage = 2;
+            var stage_width = 145;
             var seq_zoomed = d3
                 .zoom()
+                .scaleExtent([0.561, 10])
                 .translateExtent([
                     [10, 0],
-                    [2556+55, 100000],
+                    [2556 + 55 - passed_stage * stage_width, 100000],
                 ])
                 .on("zoom", seq_zoomed_func);
 
@@ -529,11 +525,15 @@ export default {
                 var title_view = d3
                     .select("#seq_view_svg_left")
                     .append("g")
-                    .attr("id", "title_view");
+                    .attr("id", "title_view")
+                    .attr(
+                        "transform",
+                        `translate(-${passed_stage * stage_width},0)`
+                    );
 
                 // some vars
                 var phase_height = 40;
-                var stage_width = 145;
+                // var stage_width = 145;
                 var phase_width = [
                     stage_width * 4,
                     stage_width * 6,
@@ -621,10 +621,7 @@ export default {
                     .attr("fill", "black")
                     .attr("dx", stage_width / 2)
                     .attr("dy", stage_height / 2 + 7)
-                    .html(function (d) {
-                        console.log(d.split("_")[1]);
-                        return d.split("_")[1];
-                    });
+                    .html((d) => d.split("_")[1]);
             }
 
             render_title();
@@ -643,19 +640,19 @@ export default {
     border-right: 1px solid #9a9a9a;
 }
 
-#seq_view_svg{
+#seq_view_svg {
     position: absolute;
     top: 5%;
     cursor: move;
 }
 
-#seq_view_svg_left{
+#seq_view_svg_left {
     position: absolute;
     width: 50%;
     cursor: move;
 }
 
-.nodeImage{
+.nodeImage {
     cursor: pointer;
 }
 
@@ -663,13 +660,12 @@ export default {
     cursor: pointer;
 }
 
-.imageBorder{
+.imageBorder {
     cursor: pointer;
 }
 
-.link{
+.link {
     cursor: default;
 }
-
 </style>
 
