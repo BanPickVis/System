@@ -63,7 +63,7 @@
         </div>
 
         <div class="control_panal">
-            &nbsp; Side of your team: &nbsp;
+            &nbsp; Side of your team:
             <el-select
                 v-model="team_side"
                 placeholder="Select"
@@ -77,7 +77,7 @@
                 />
             </el-select>
             <br />
-            &nbsp; BO-N: &nbsp;
+            &nbsp; BO-N:
             <el-select
                 v-model="bon"
                 placeholder="Select"
@@ -91,7 +91,7 @@
                 />
             </el-select>
             <br />
-            &nbsp; Number of Default Branches: &nbsp;
+            &nbsp; Number of Default Branches: 
             <el-select
                 v-model="n_of_b"
                 placeholder="Select"
@@ -105,7 +105,7 @@
                 />
             </el-select>
             <br />
-            &nbsp; Number of Default Previews: &nbsp;
+            &nbsp; Number of Default Previews: 
             <el-select
                 v-model="n_of_p"
                 placeholder="Select"
@@ -137,7 +137,7 @@
 #title{
     position: absolute;
     width: 5%;
-    height: 5%;
+    height: 3%;
     right: 13%;
     top: 0%;
 }
@@ -242,7 +242,7 @@
 .control_panal{
     position: absolute;
     width: 18.3%;
-    height: 9.5%;
+    height: 10.5%;
     right: 0.4%;
     top: 5%;
     border-top: 1px solid #9a9a9a;
@@ -253,8 +253,8 @@
 }
 
 div.el-select {
-    padding-top: 0px;
-    padding-bottom: 0px;
+    padding-top: 2px;
+    padding-bottom: 2px;
 }
 
 button {

@@ -254,7 +254,7 @@ export default {
             var node_svg = main_body.append("g").attr("id", "node_svg");
 
             // some vars for nodes
-            var left_margin = 50;
+            var left_margin = 68;
             var top_margin = 50;
             var line_height = 150; //行宽
             var node_spacing = 145; //节点间距
@@ -497,7 +497,7 @@ export default {
 
             function render_title() {
                 var title_margin_left = 0;
-                var title_margin_top = 50;
+                var title_margin_top = 0;
                 var phases = [
                     "BAN PHASE 1",
                     "PICK PHASE 1",
@@ -533,7 +533,7 @@ export default {
 
                 // some vars
                 var phase_height = 40;
-                var stage_width = 142;
+                var stage_width = 145;
                 var phase_width = [
                     stage_width * 4,
                     stage_width * 6,
@@ -642,11 +642,28 @@ export default {
     top: 0%;
     border-right: 1px solid #9a9a9a;
 }
-#seq_view_svg_left {
+
+#seq_view_svg{
+    position: absolute;
+    top: 5%;
     cursor: move;
 }
+
+.nodeImage{
+    cursor: pointer;
+}
+
 .node-chart rect {
     cursor: pointer;
 }
+
+.imageBorder{
+    cursor: pointer;
+}
+
+.link{
+    cursor: default;
+}
+
 </style>
 
