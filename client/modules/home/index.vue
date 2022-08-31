@@ -241,7 +241,7 @@
 }
 .control_panal{
     position: absolute;
-    width: 18.3%;
+    width: 16%;
     height: 10.5%;
     right: 0.4%;
     top: 5%;

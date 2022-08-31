@@ -3,7 +3,7 @@
         <div id="seq_view_left">
             <svg
                 id="seq_view_svg"
-                width="1400px"
+                width="1460px"
                 height="800px"
                 fill="none"
             ></svg>
@@ -236,7 +236,7 @@ export default {
                 .zoom()
                 .translateExtent([
                     [10, 0],
-                    [2556, 100000],
+                    [2556+55, 100000],
                 ])
                 .on("zoom", seq_zoomed_func);
 
@@ -636,7 +636,7 @@ export default {
 <style>
 #seq_view_left {
     position: absolute;
-    width: 75%;
+    width: 78%;
     height: 100%;
     left: 0%;
     top: 0%;
@@ -646,6 +646,12 @@ export default {
 #seq_view_svg{
     position: absolute;
     top: 5%;
+    cursor: move;
+}
+
+#seq_view_svg_left{
+    position: absolute;
+    width: 50%;
     cursor: move;
 }
 
