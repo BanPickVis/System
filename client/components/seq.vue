@@ -1,7 +1,7 @@
 <template>
     <div>
         <div id="seq_view_left">
-            <svg id="seq_view_svg" width="1327px" height="800px" fill="none"></svg>
+            <svg id="seq_view_svg" width="1290px" height="800px" fill="none"></svg>
         </div>
         <span id="type">
             <input id="typeinput" v-model="customizedhero" type="text" placeholder="please select" list="typelist">
@@ -211,9 +211,9 @@ export default {
             }
 
             var svg = d3.select('#winrateview').append('svg');
-            var margin = {top: 10, right: 10, bottom: 10, left: 10},
+            var margin = {top: 50, right: 10, bottom: 10, left: 10},
             width = 420 - margin.left - margin.right,
-            height = 140 - margin.top - margin.bottom;
+            height = 180 - margin.top - margin.bottom;
             svg.attr("width", width)
                 .attr("height",height);
 
@@ -1076,7 +1076,7 @@ export default {
 <style>
 #seq_view_left {
     position: absolute;
-    width: 78%;
+    width: 76%;
     height: 100%;
     left: 0%;
     top: 0%;
@@ -1125,14 +1125,14 @@ export default {
 
 #winrateview{
     position: absolute;
-    width: 21.95%;
+    width: 23.9%;
     height: 38.9%;
-    border-top: 1px solid #9a9a9a;
     border-left: 1px solid #9a9a9a;
+    border-top: 1px solid #9a9a9a;
     overflow-x: auto;
     background: white;
     right:0%;
-    top:60%;
+    top:58%;
     display:block;
 }
 </style>

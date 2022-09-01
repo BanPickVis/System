@@ -168,7 +168,7 @@
     position: absolute;
     width: 5%;
     height: 3%;
-    right: 9%;
+    right: 11%;
     top: 0%;
 }
 .bp_view {
@@ -272,8 +272,8 @@
 }
 .control_panal{
     position: absolute;
-    width: 14.5%;
-    height: 10.5%;
+    width: 16%;
+    height: 11%;
     right: 0.4%;
     top: 5%;
     border-top: 1px solid #9a9a9a;
@@ -284,7 +284,7 @@
 }
 
 div.el-select {
-    padding-top: 2px;
+    padding-top: 4px;
     padding-bottom: 2px;
 }
 

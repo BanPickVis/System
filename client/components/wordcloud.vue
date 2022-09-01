@@ -172,6 +172,7 @@ export default {
     position: absolute;
     top:29%;
     right:2%;
+    width: auto;
 }
 #tags{
     position: absolute;
