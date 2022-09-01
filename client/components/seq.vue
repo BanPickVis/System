@@ -185,7 +185,6 @@ export default {
         // render seq_view
         this.loaddata();
         // this.render_seq_left_veiw();
-        this.render_glyph_view("太乙真人");
     },
     methods: {
         async drawwinrate(node) {
@@ -790,6 +789,8 @@ export default {
                 })
                 .on("mouseout", mouseout)
                 .on("click", function (d) {
+                    d3.select("#glyph_view_svg").remove();
+                    self.render_glyph_view(d.hero);
                     var block = $("#seq_view_svg_left").css("transform");
                     // console.log(block);
                     // console.log(source_ele_transform);
@@ -1076,7 +1077,10 @@ export default {
 
             render_title();
         },
-        render_glyph_view(chosen_hero) {
+        async render_glyph_view(chosen_hero) {
+            //////////////////////////
+            /////////input////////////
+            //////////////////////////
             var chosen_hero_data = all_glyph_data[chosen_hero];
             console.log(chosen_hero_data);
 
