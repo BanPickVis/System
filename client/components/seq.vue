@@ -1,10 +1,22 @@
 <template>
     <div>
         <div id="seq_view_left">
-            <svg id="seq_view_svg" width="1290px" height="800px" fill="none"></svg>
+            <svg
+                id="seq_view_svg"
+                width="1290px"
+                height="800px"
+                fill="none"
+            ></svg>
         </div>
+        <div id="glyph_view"></div>
         <span id="type">
-            <input id="typeinput" v-model="customizedhero" type="text" placeholder="please select" list="typelist">
+            <input
+                id="typeinput"
+                v-model="customizedhero"
+                type="text"
+                placeholder="please select"
+                list="typelist"
+            />
             <datalist id="typelist">
                 <option>上官婉儿</option>
                 <option>不知火舞</option>
@@ -118,40 +130,38 @@
                 <option>墨子</option>
             </datalist>
         </span>
-        <div id="winrateview">
-        </div>
+        <div id="winrateview"></div>
     </div>
 </template>
 
 
 <script>
-// import seq_view_data from "../assets/json/seq_view_output.json";
+import all_glyph_data from "../assets/json/glyph_view_output_2022.json";
 import requesthelp from "common/utils/request.js";
-import $ from 'jquery';
+import $ from "jquery";
 export default {
     props: {
         change: { type: Boolean, default: true },
         branch: { type: String, default: "1" },
         preview: { type: String, default: "4" },
         side: { type: String, default: "Blue" },
-        bon: { type: String, default: "3" }
+        bon: { type: String, default: "3" },
     },
-    setup() { },
+    setup() {},
     data() {
         return {
             sequence_view_data: {},
-            customizedhero:"",
-            selectednode:0,
-            transx:-10,
-            transy:0,
-            scale:1
+            customizedhero: "",
+            selectednode: 0,
+            transx: -10,
+            transy: 0,
+            scale: 1,
         };
     },
     watch: {
-        customizedhero(val){
+        customizedhero(val) {
             console.log(val);
-            this.branchupdate(val,this.selectednode);
-            
+            this.branchupdate(val, this.selectednode);
         },
         bon(val) {
             // console.log("wow");
@@ -174,12 +184,15 @@ export default {
     mounted() {
         // render seq_view
         this.loaddata();
-        // this.render_seq_veiw();
+        // this.render_seq_left_veiw();
+        this.render_glyph_view("太乙真人");
     },
     methods: {
-        async drawwinrate(node){
+        async drawwinrate(node) {
             // console.log(node);
-            var lineupdata = await requesthelp.axiosGet('/getLineup', {node: node});
+            var lineupdata = await requesthelp.axiosGet("/getLineup", {
+                node: node,
+            });
             console.log(lineupdata);
             // var lineupdata = {
             //     "lineup_blue": [
@@ -198,165 +211,173 @@ export default {
             // };
             var blue_hero = lineupdata["lineup_blue"];
             var red_hero = lineupdata["lineup_red"];
-            var winrate= lineupdata["winrate"];
+            var winrate = lineupdata["winrate"];
 
             var l1 = blue_hero.length;
             var l2 = red_hero.length;
-            
-            for (var i=l1;i<5;i++){
-                blue_hero[i]='none';
+
+            for (var i = l1; i < 5; i++) {
+                blue_hero[i] = "none";
             }
-            for (var j=l2;j<5;j++){
-                red_hero[j]='none';
+            for (var j = l2; j < 5; j++) {
+                red_hero[j] = "none";
             }
 
-            var svg = d3.select('#winrateview').append('svg');
-            var margin = {top: 50, right: 10, bottom: 10, left: 10},
-            width = 420 - margin.left - margin.right,
-            height = 180 - margin.top - margin.bottom;
-            svg.attr("width", width)
-                .attr("height",height);
+            var svg = d3.select("#winrateview").append("svg");
+            var margin = { top: 50, right: 10, bottom: 10, left: 10 },
+                width = 420 - margin.left - margin.right,
+                height = 180 - margin.top - margin.bottom;
+            svg.attr("width", width).attr("height", height);
 
             svg.append("rect")
-                .attr("fill","#46A4E4")
-                .attr("opacity",0.2)
+                .attr("fill", "#46A4E4")
+                .attr("opacity", 0.2)
                 .attr("height", 50)
                 .attr("width", 240)
-                .attr("rx",10)
-                .attr("transform","translate(10,10)");
-            
+                .attr("rx", 10)
+                .attr("transform", "translate(10,10)");
+
             svg.append("rect")
-                .attr("fill","#F76060")
-                .attr("opacity",0.2)
+                .attr("fill", "#F76060")
+                .attr("opacity", 0.2)
                 .attr("height", 50)
                 .attr("width", 240)
-                .attr("rx",10)
-                .attr("transform","translate(10,65)");
+                .attr("rx", 10)
+                .attr("transform", "translate(10,65)");
 
             svg.selectAll("myrect")
-            .data(red_hero)
-            .enter()
-            .append("rect")
-            .attr("fill",function(d,i){
-                if (red_hero[i]!='none'){
-                    return "url(#p"+red_hero[i]+")";
-                }
-                else{
-                    return "#999999";
-                }
-            })
-            .attr("width",40)
-            .attr("height",40)
-            .attr("transform","translate(20,70)")
-            .attr("x", function(d,i){
-                // console.log(d);
-                return i*45;
-            });
+                .data(red_hero)
+                .enter()
+                .append("rect")
+                .attr("fill", function (d, i) {
+                    if (red_hero[i] != "none") {
+                        return "url(#p" + red_hero[i] + ")";
+                    } else {
+                        return "#999999";
+                    }
+                })
+                .attr("width", 40)
+                .attr("height", 40)
+                .attr("transform", "translate(20,70)")
+                .attr("x", function (d, i) {
+                    // console.log(d);
+                    return i * 45;
+                });
 
             svg.selectAll("myrect")
-            .data(blue_hero)
-            .enter()
-            .append("rect")
-            .attr("fill",function(d,i){
-                if (blue_hero[i]!='none'){
-                    return "url(#p"+blue_hero[i]+")";
-                }
-                else{
-                    return "#999999";
-                }
-            })
-            .attr("width",40)
-            .attr("height",40)
-            .attr("transform","translate(20,15)")
-            .attr("x", function(d,i){
-                // console.log(d);
-                return i*45;
-            });
+                .data(blue_hero)
+                .enter()
+                .append("rect")
+                .attr("fill", function (d, i) {
+                    if (blue_hero[i] != "none") {
+                        return "url(#p" + blue_hero[i] + ")";
+                    } else {
+                        return "#999999";
+                    }
+                })
+                .attr("width", 40)
+                .attr("height", 40)
+                .attr("transform", "translate(20,15)")
+                .attr("x", function (d, i) {
+                    // console.log(d);
+                    return i * 45;
+                });
 
             var round_array = [];
-            for (i=0;i<winrate.length;i++){
+            for (i = 0; i < winrate.length; i++) {
                 round_array[i] = i;
             }
             var temp_width = 100;
-            var x = d3.scaleBand()
-            .range([ 0, temp_width ])
-            .domain(round_array);
+            var x = d3.scaleBand().range([0, temp_width]).domain(round_array);
             var temp_height = 110;
-            var y = d3.scaleLinear()
-                    .range([0,temp_height])
-                    .domain([0,1]);
-
+            var y = d3.scaleLinear().range([0, temp_height]).domain([0, 1]);
 
             svg.selectAll("winrect")
-            .data(winrate)
-            .enter()
-            .append("rect")
-            .attr("fill", function(d,i){
-                if (winrate[i]<0.5){
-                    return "#E15759";
-                }else{
-                    return "#59A14F";
-                }
-            })
-            .attr("width",x.bandwidth()*0.8)
-            .attr("height",function(d,i){
-                return y(winrate[i]);
-            })
-            .attr("transform","translate(285,0)")
-            .attr("x", function(d,i){
-                // console.log(d);
-                return x(i);
-            })
-            .attr("y",function(d,i){
-                return temp_height-y(winrate[i]);
-            });
+                .data(winrate)
+                .enter()
+                .append("rect")
+                .attr("fill", function (d, i) {
+                    if (winrate[i] < 0.5) {
+                        return "#E15759";
+                    } else {
+                        return "#59A14F";
+                    }
+                })
+                .attr("width", x.bandwidth() * 0.8)
+                .attr("height", function (d, i) {
+                    return y(winrate[i]);
+                })
+                .attr("transform", "translate(285,0)")
+                .attr("x", function (d, i) {
+                    // console.log(d);
+                    return x(i);
+                })
+                .attr("y", function (d, i) {
+                    return temp_height - y(winrate[i]);
+                });
 
-            svg.append('line')
-            .attr("transform","translate(285,0)")
-            .attr("x1",-5)
-            .attr("y1",110)
-            .attr("x2",100)
-            .attr("y2",110)
-            .attr("stroke", "black")
-            .attr("stroke-width", "3px");
-            
-            svg.append('line')
-            .attr("transform","translate(285,0)")
-            .attr("x1",-5)
-            .attr("y1",55)
-            .attr("x2",100)
-            .attr("y2",55)
-            .attr("stroke", "#B35806")
-            .attr("stroke-width", "3px")
-            .style("stroke-dasharray", ("10, 10"));
-            
+            svg.append("line")
+                .attr("transform", "translate(285,0)")
+                .attr("x1", -5)
+                .attr("y1", 110)
+                .attr("x2", 100)
+                .attr("y2", 110)
+                .attr("stroke", "black")
+                .attr("stroke-width", "3px");
 
+            svg.append("line")
+                .attr("transform", "translate(285,0)")
+                .attr("x1", -5)
+                .attr("y1", 55)
+                .attr("x2", 100)
+                .attr("y2", 55)
+                .attr("stroke", "#B35806")
+                .attr("stroke-width", "3px")
+                .style("stroke-dasharray", "10, 10");
         },
-        customize(){
+        customize() {
             // this.customizedhero = "";
-            var block = document.getElementById('type');
+            var block = document.getElementById("type");
             block.style.display = "block";
             block.style.marginLeft = event.pageX - 680 + "px";
-            block.style.marginTop = event.pageY -30 + "px";
+            block.style.marginTop = event.pageY - 30 + "px";
         },
         async branchupdate(hero, node) {
-            if (hero!="Customized"){
-                this.sequence_view_data = await requesthelp.axiosGet('/getBranch', { bo_n: this.bon, pre_n: this.preview, br_n: this.branch, t1_side: this.side, node: node, hero: hero });
+            if (hero != "Customized") {
+                this.sequence_view_data = await requesthelp.axiosGet(
+                    "/getBranch",
+                    {
+                        bo_n: this.bon,
+                        pre_n: this.preview,
+                        br_n: this.branch,
+                        t1_side: this.side,
+                        node: node,
+                        hero: hero,
+                    }
+                );
                 console.log(this.sequence_view_data);
-                this.render_seq_veiw();
-                var block = document.getElementById('type');
+                this.render_seq_left_veiw();
+                var block = document.getElementById("type");
                 block.style.display = "none";
-            }else{
+            } else {
                 this.customize();
                 this.selectednode = node;
             }
         },
         async loaddata() {
-            this.sequence_view_data = await requesthelp.axiosGet('/getSequenceData', { bo_n: this.bon, pre_n: this.preview, br_n: this.branch, t1_side: this.side });
+            this.sequence_view_data = await requesthelp.axiosGet(
+                "/getSequenceData",
+                {
+                    bo_n: this.bon,
+                    pre_n: this.preview,
+                    br_n: this.branch,
+                    t1_side: this.side,
+                }
+            );
             console.log(this.sequence_view_data);
-            this.render_seq_veiw();
+            this.render_seq_left_veiw();
         },
-        render_seq_veiw() {
+        render_seq_left_veiw() {
             d3.select("#seq_view_svg_left").remove();
             d3.select(".tooltip").remove();
             var self = this;
@@ -376,6 +397,7 @@ export default {
                 .style("border-radius", "5px")
                 .style("padding", "5px")
                 .style("position", "absolute");
+
             function render_barChart(cur_node_svg, barChartData) {
                 // console.log(barChartData);
                 var fourth_item = {
@@ -420,27 +442,22 @@ export default {
                         })
                         .attr("class", "branch_bar")
                         .on("click", function (data) {
-                            var block = $('#seq_view_svg_left').css("transform");
+                            var block =
+                                $("#seq_view_svg_left").css("transform");
                             console.log(block);
-                            
+
                             // console.log(source_ele_transform);
 
                             block = str2number(
-                                block
-                                    .split("(")[1]
-                                    .split(")")[0]
-                                    .split(",")
+                                block.split("(")[1].split(")")[0].split(",")
                             );
-                            
+
                             self.scale = block[0];
                             // console.log(source_ele_transform);
-                            block = block.splice(
-                                4,
-                                2
-                            );
+                            block = block.splice(4, 2);
                             self.transx = block[0];
                             self.transy = block[1];
-                            console.log(self.transx,self.transy);
+                            console.log(self.transx, self.transy);
                             mouseout;
                             self.branchupdate(datum.hero, data.node);
                             // console.log(datum);
@@ -529,28 +546,21 @@ export default {
                     .append("rect")
                     .attr("class", "branch_bar")
                     .on("click", function (data) {
-                        
-                        var block = $('#seq_view_svg_left').css("transform");
-                            console.log(block);
-                            // console.log(source_ele_transform);
+                        var block = $("#seq_view_svg_left").css("transform");
+                        console.log(block);
+                        // console.log(source_ele_transform);
 
-                            block = str2number(
-                                block
-                                    .split("(")[1]
-                                    .split(")")[0]
-                                    .split(",")
-                            );
-                            
-                            self.scale = block[0];
+                        block = str2number(
+                            block.split("(")[1].split(")")[0].split(",")
+                        );
 
-                            // console.log(source_ele_transform);
-                            block = block.splice(
-                                4,
-                                2
-                            );
-                            self.transx = block[0];
-                            self.transy = block[1];
-                            
+                        self.scale = block[0];
+
+                        // console.log(source_ele_transform);
+                        block = block.splice(4, 2);
+                        self.transx = block[0];
+                        self.transy = block[1];
+
                         // hero,node
                         mouseout;
                         var subgroupName = d3
@@ -624,9 +634,6 @@ export default {
             }
 
             var passed_stage = seq_view_data.nodes[0].stage - 1;
-
-            // console.log(passed_stage);
-            // passed_stage = 2;
             var stage_width = 145;
             var seq_zoomed = d3
                 .zoom()
@@ -636,13 +643,22 @@ export default {
                     [2556 + 55 - passed_stage * stage_width, 100000],
                 ])
                 .on("zoom", seq_zoomed_func);
-            console.log(self.transx,self.transy);
+            console.log(self.transx, self.transy);
             var svg = d3
                 .select("#seq_view_svg")
                 .call(seq_zoomed)
                 .append("g")
                 .attr("id", "seq_view_svg_left")
-                .attr("transform","translate("+self.transx+','+self.transy+')scale('+self.scale+')');
+                .attr(
+                    "transform",
+                    "translate(" +
+                        self.transx +
+                        "," +
+                        self.transy +
+                        ")scale(" +
+                        self.scale +
+                        ")"
+                );
 
             var main_body = svg.append("g").attr("id", "main_body");
 
@@ -680,8 +696,9 @@ export default {
                                 d_base_height += eachSource.width;
                             }
                         });
-                        return `translate(${left_margin}, ${line_height * d_base_height + top_margin
-                            })`;
+                        return `translate(${left_margin}, ${
+                            line_height * d_base_height + top_margin
+                        })`;
                     } else {
                         //非root节点
                         var source_ele = document.getElementById(
@@ -721,13 +738,15 @@ export default {
                             // console.log(`${d.hero} not root is trunk`)
                             trunk_num_remember[d.source] =
                                 source_ele_transform[1];
-                            return `translate(${left_margin + (d.stage - 1) * node_spacing
-                                }, ${source_ele_transform[1]})`;
+                            return `translate(${
+                                left_margin + (d.stage - 1) * node_spacing
+                            }, ${source_ele_transform[1]})`;
                         } else {
                             // 非root非trunk
                             // console.log(`${d.hero} not root not trunk`)
-                            return `translate(${left_margin + (d.stage - 1) * node_spacing
-                                }, ${trunk_num_remember[d.source] + line_height})`;
+                            return `translate(${
+                                left_margin + (d.stage - 1) * node_spacing
+                            }, ${trunk_num_remember[d.source] + line_height})`;
                         }
                     }
                 });
@@ -770,30 +789,24 @@ export default {
                     mouseover(d.hero);
                 })
                 .on("mouseout", mouseout)
-                .on("click",function(d){
-                    var block = $('#seq_view_svg_left').css("transform");
-                            // console.log(block);
-                            // console.log(source_ele_transform);
+                .on("click", function (d) {
+                    var block = $("#seq_view_svg_left").css("transform");
+                    // console.log(block);
+                    // console.log(source_ele_transform);
 
-                            block = str2number(
-                                block
-                                    .split("(")[1]
-                                    .split(")")[0]
-                                    .split(",")
-                            );
-                            self.scale = block[0];
-                            // console.log(source_ele_transform);
-                            block = block.splice(
-                                4,
-                                2
-                            );
-                            self.transx = block[0];
-                            self.transy = block[1];
-                            
+                    block = str2number(
+                        block.split("(")[1].split(")")[0].split(",")
+                    );
+                    self.scale = block[0];
+                    // console.log(source_ele_transform);
+                    block = block.splice(4, 2);
+                    self.transx = block[0];
+                    self.transy = block[1];
+
                     // console.log(this.transx,this.transy);
                     mouseout;
-                    self.drawwinrate(d.node);}
-                    );
+                    self.drawwinrate(d.node);
+                });
 
             // add links
             var score_amplify = 25;
@@ -831,10 +844,7 @@ export default {
                             .split(",")
                     );
                     // console.log(path_source_ele);
-                    path_source_transform = path_source_transform.splice(
-                        4,
-                        2
-                    );
+                    path_source_transform = path_source_transform.splice(4, 2);
 
                     // path_source_transform = str2number(
                     //     path_source_transform
@@ -856,10 +866,7 @@ export default {
                             .split(",")
                     );
                     // console.log(path_target_ele);
-                    path_target_transform = path_target_transform.splice(
-                        4,
-                        2
-                    );
+                    path_target_transform = path_target_transform.splice(4, 2);
                     // console.log(path_target_transform);
 
                     // var path_target_transform =
@@ -1069,6 +1076,289 @@ export default {
 
             render_title();
         },
+        render_glyph_view(chosen_hero) {
+            var chosen_hero_data = all_glyph_data[chosen_hero];
+            console.log(chosen_hero_data);
+
+            var offset_left = 200;
+            var offset_top = 135;
+            var glyph_view_svg = d3
+                .select("#glyph_view")
+                .append("svg")
+                .attr("width", 400)
+                .attr("height", 270)
+                .attr("id", "glyph_view_svg");
+
+            //////////////////////////
+            /////backgound arc////////
+            //////////////////////////
+            var background_arc_data = [
+                { startAngle: 0, endAngle: 0.5 * Math.PI },
+                { startAngle: 0.5 * Math.PI, endAngle: Math.PI },
+                { startAngle: 1.5 * Math.PI, endAngle: 2 * Math.PI },
+            ];
+            var background_arc_color = ["#E6F2CD", "#FFBFBF", "#BFE5FF"];
+            var background_arc_outer_r = 106;
+            var background_arc_func = d3
+                .arc()
+                .innerRadius(0)
+                .outerRadius(background_arc_outer_r);
+
+            var background_arc_g = glyph_view_svg
+                .append("g")
+                .attr("id", "background_arc_g");
+            background_arc_g
+                .selectAll(".background_arc")
+                .data(background_arc_data)
+                .enter()
+                .append("path")
+                .attr("class", "background_arc")
+                .attr("d", (d) => background_arc_func(d))
+                .style("fill", (d, i) => background_arc_color[i])
+                .attr("transform", `translate(${offset_left},${offset_top})`)
+                .attr("opacity", 0.5);
+
+            //////////////////////////
+            ///////////lines//////////
+            //////////////////////////
+            var line_func = d3
+                .line()
+                .x((d) => d.x)
+                .y((d) => d.y);
+            var lines_g = glyph_view_svg.append("g").attr("id", "lines_g");
+            var line_color = ["#FFBFBF", "#BFE5FF"];
+            var line_length = 124;
+            lines_g
+                .selectAll(".lines")
+                .data([0, 90, 180, 270])
+                .enter()
+                .append("path")
+                .attr(
+                    "d",
+                    line_func([
+                        { x: 0, y: 0 },
+                        { x: line_length, y: 0 },
+                    ])
+                )
+                .style("stroke", (d, i) => {
+                    if (i == 0 || i == 1) {
+                        return line_color[0];
+                    } else {
+                        return line_color[1];
+                    }
+                })
+                .style("stroke-width", 5)
+                .style("fill", "none")
+                .attr(
+                    "transform",
+                    (d) =>
+                        `translate(${offset_left},${offset_top}) rotate(${d})`
+                );
+            // .attr('opacity', .5)
+
+            //////////////////////////
+            ////////cur_hero//////////
+            //////////////////////////
+            var cur_hero_r = 53;
+            glyph_view_svg
+                .append("circle")
+                .attr("id", "cur_hero")
+                .style("fill", "transparent")
+                .attr("r", cur_hero_r)
+                .attr("stroke", "black")
+                .attr("stroke-width", 2)
+                .attr("transform", `translate(${offset_left},${offset_top})`);
+
+            //////////////////////////
+            ////////counter_top3//////
+            //////////////////////////
+            var circle_r = 80;
+            var circle_size_amplify = 30;
+            glyph_view_svg
+                .append("g")
+                .attr("id", "counter_top3_g")
+                .selectAll(".counter")
+                .data(chosen_hero_data["counter_top3"])
+                .enter()
+                .append("circle")
+                .attr("class", "counter")
+                .attr("id", (d, i) => `counterTop${i + 1}`)
+                .attr("stroke", "black")
+                .attr("stroke-width", 2)
+                .attr("transform", (d, i) => {
+                    // 15 45 75
+                    var deg = 30 * i + 15;
+                    var x =
+                        Math.sin((deg / 180) * Math.PI) * circle_r +
+                        offset_left;
+                    var y =
+                        offset_top - Math.cos((deg / 180) * Math.PI) * circle_r;
+                    return `translate(${x}, ${y})`;
+                })
+                .attr("r", (d, i) => {
+                    // console.log(d[1])
+                    // console.log(d[1] * circle_size_amplify)
+                    // console.log(d[1] * circle_size_amplify)
+                    return d[1] * circle_size_amplify;
+                })
+                .style("fill", "transparent");
+
+            //////////////////////////
+            //////countered_top3//////
+            //////////////////////////
+            glyph_view_svg
+                .append("g")
+                .attr("id", "countered_top3_g")
+                .selectAll(".countered")
+                .data(chosen_hero_data["countered_top3"])
+                .enter()
+                .append("circle")
+                .attr("class", "countered")
+                .attr("id", (d, i) => `counteredTop${i + 1}`)
+                .attr("stroke", "black")
+                .attr("stroke-width", 2)
+                .attr("transform", (d, i) => {
+                    // 75 45 15
+                    var deg = -30 * i + 75;
+                    var x =
+                        offset_left -
+                        Math.sin((deg / 180) * Math.PI) * circle_r;
+                    var y =
+                        offset_top - Math.cos((deg / 180) * Math.PI) * circle_r;
+                    // console.log(x, y)
+                    return `translate(${x}, ${y})`;
+                })
+                .attr("r", (d, i) => {
+                    return Math.abs(d[1] * circle_size_amplify);
+                })
+                .style("fill", "transparent");
+
+            //////////////////////////
+            ////////team_mate/////////
+            //////////////////////////
+            glyph_view_svg
+                .append("g")
+                .attr("id", "team_mate_g")
+                .selectAll(".team_mate")
+                .data(chosen_hero_data["team_mate"])
+                .enter()
+                .append("circle")
+                .attr("class", "team_mate")
+                .attr("id", (d, i) => `team_mate${i + 1}`)
+                .attr("stroke", "black")
+                .attr("stroke-width", 2)
+                .attr("transform", (d, i) => {
+                    // 15 45 75
+                    var deg = 30 * i + 15;
+                    var x =
+                        offset_left +
+                        Math.cos((deg / 180) * Math.PI) * circle_r;
+                    var y =
+                        offset_top + Math.sin((deg / 180) * Math.PI) * circle_r;
+                    return `translate(${x}, ${y})`;
+                })
+                .attr("r", (d, i) => {
+                    return Math.abs(d[1] * circle_size_amplify);
+                })
+                .style("fill", "transparent");
+
+            //////////////////////////
+            ////////kda_arc///////////
+            //////////////////////////
+            var kda_percent_list = chosen_hero_data["kda_percent"].reverse();
+            var kda_arc = glyph_view_svg.append("g").attr("id", "kda_arc");
+            var arcs_color = ["#D0E6A5", "#F76060", "#FFFFBF"];
+            var kda_arc_outer_r = 66;
+            var arcs_g_func = d3
+                .arc()
+                .innerRadius(cur_hero_r)
+                .outerRadius(kda_arc_outer_r);
+            var start_angle = Math.PI;
+            kda_arc
+                .selectAll(".kda_arc")
+                .data(kda_percent_list)
+                .enter()
+                .append("path")
+                .attr("class", "kda_arc")
+                .attr("d", (d) => {
+                    var end_angle = start_angle + (Math.PI / 2) * d;
+                    // console.log(end_angle)
+                    var cur_arc_data = {
+                        startAngle: start_angle,
+                        endAngle: end_angle,
+                    };
+                    start_angle = end_angle;
+                    return arcs_g_func(cur_arc_data);
+                })
+                .style("fill", (d, i) => arcs_color[i])
+                .attr("transform", `translate(${offset_left},${offset_top})`)
+                .attr("opacity", 0.5);
+
+            //////////////////////////
+            ////////win_ban_pick//////
+            //////////////////////////
+            var win_ban_pick_data = [
+                chosen_hero_data["win_rate"],
+                chosen_hero_data["ban_rate"],
+                chosen_hero_data["pick_rate"],
+            ];
+            var win_ban_pick_g = glyph_view_svg
+                .append("g")
+                .attr("id", "win_ban_pick_g");
+            var win_ban_pick_color = ["#BACDFF", "#FFE980", "#FFD8A3"];
+
+            win_ban_pick_g
+                .selectAll(".win_ban_pick_arc")
+                .data(win_ban_pick_data)
+                .enter()
+                .append("path")
+                .attr("class", "win_ban_pick_arc")
+                .attr("d", (d, i) => {
+                    var outer_r = 115 - i * 15;
+                    var arc_width = 10;
+                    var end_angle = Math.PI * 1.5;
+                    var start_angle = end_angle - Math.PI * 0.5 * d;
+                    console.log((Math.PI / 2) * d);
+                    var cur_arc_data = {
+                        startAngle: start_angle,
+                        endAngle: end_angle,
+                    };
+                    var win_ban_pick_arc_func = d3
+                        .arc()
+                        .innerRadius(outer_r - arc_width)
+                        .outerRadius(outer_r);
+                    // console.log(win_ban_pick_arc_func(cur_arc_data))
+                    return win_ban_pick_arc_func(cur_arc_data);
+                })
+                .style("fill", (d, i) => win_ban_pick_color[i])
+                .attr("transform", `translate(${offset_left},${offset_top})`)
+                .attr("opacity", 0.5);
+
+            win_ban_pick_g
+                .selectAll(".win_ban_pick_background_arc")
+                .data(win_ban_pick_data)
+                .enter()
+                .append("path")
+                .attr("class", "win_ban_pick_background_arc")
+                .attr("d", (d, i) => {
+                    var outer_r = 111 - i * 15;
+                    var arc_width = 2.5;
+                    var end_angle = Math.PI * 1.5;
+                    var start_angle = Math.PI;
+                    var cur_arc_data = {
+                        startAngle: start_angle,
+                        endAngle: end_angle,
+                    };
+                    var win_ban_pick_arc_func = d3
+                        .arc()
+                        .innerRadius(outer_r - arc_width)
+                        .outerRadius(outer_r);
+                    return win_ban_pick_arc_func(cur_arc_data);
+                })
+                .style("fill", "#D9D9D9")
+                .attr("transform", `translate(${offset_left},${offset_top})`)
+                .attr("opacity", 0.5);
+        },
     },
 };
 </script>
@@ -1111,6 +1401,19 @@ export default {
     cursor: default;
 }
 
+#glyph_view {
+    position: absolute;
+    width: 23.9%;
+    height: 32%;
+    border-left: 1px solid #9a9a9a;
+    border-top: 1px solid #9a9a9a;
+    overflow-x: auto;
+    background: white;
+    right: 0%;
+    top: 26.1%;
+    display: block;
+}
+
 #type {
     position: absolute;
     display: none;
@@ -1119,11 +1422,11 @@ export default {
     height: 20%;
 }
 
-#typeinput{
+#typeinput {
     height: 30px;
 }
 
-#winrateview{
+#winrateview {
     position: absolute;
     width: 23.9%;
     height: 38.9%;
@@ -1131,9 +1434,9 @@ export default {
     border-top: 1px solid #9a9a9a;
     overflow-x: auto;
     background: white;
-    right:0%;
-    top:58%;
-    display:block;
+    right: 0%;
+    top: 58%;
+    display: block;
 }
 </style>
 
