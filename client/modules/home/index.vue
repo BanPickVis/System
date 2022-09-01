@@ -129,7 +129,7 @@
         <div id="multi_selection_view2" class="multi_selection_view2">
             <heroMS2 @heroselected2="keywordsel2" />
         </div>
-        <span id = "loader">
+        <span id="loader">
             <div class="loader"></div>
         </span>
     </div>
@@ -168,7 +168,7 @@
     position: absolute;
     width: 5%;
     height: 3%;
-    right: 11%;
+    right: 9%;
     top: 0%;
 }
 .bp_view {
@@ -176,9 +176,9 @@
     box-sizing: border-box;
 
     position: absolute;
-    width: 24.96%;
-    height: 58.61%;
-    left: 0.4%;
+    width: 24.9%;
+    height: 59%;
+    left: 7.5%;
     top: 0.4%;
 
     border: 1px solid #9a9a9a;
@@ -226,7 +226,7 @@
     box-sizing: border-box;
 
     position: absolute;
-    width: 73.2%;
+    width: 66.5%;
     height: 58.89%;
     right: 0.4%;
     top: 0.4%;
@@ -237,10 +237,11 @@
 .player_view {
     /* Player */
     position: absolute;
-    width: 25%;
-    height: 39%;
-    left: 0.4%;
-    bottom: 0.4%;
+    width: 24.9%;
+    height: 38%;
+    left: 7.5%;
+
+    bottom: 2%;
 
     border: 1px solid #9a9a9a;
     box-sizing: border-box;
@@ -249,10 +250,10 @@
 .team_view {
     /* Team */
     position: absolute;
-    width: 43.5%;
-    height: 39%;
-    left: 26.21%;
-    bottom: 0.4%;
+    width: 43%;
+    height: 38%;
+    left: 33%;
+    bottom: 2%;
 
     border: 1px solid #9a9a9a;
     box-sizing: border-box;
@@ -261,17 +262,17 @@
 .change_view {
     /* Change */
     position: absolute;
-    width: 29%;
-    height: 39%;
+    width: 23%;
+    height: 38%;
     right: 0.4%;
-    bottom: 0.4%;
+    bottom: 2%;
     border: 1px solid #9a9a9a;
     box-sizing: border-box;
     border-radius: 15px;
 }
 .control_panal{
     position: absolute;
-    width: 16%;
+    width: 14.5%;
     height: 10.5%;
     right: 0.4%;
     top: 5%;

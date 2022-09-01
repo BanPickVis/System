@@ -1,7 +1,7 @@
 <template>
     <div>
         <div id="seq_view_left">
-            <svg id="seq_view_svg" width="1460px" height="800px" fill="none"></svg>
+            <svg id="seq_view_svg" width="1327px" height="800px" fill="none"></svg>
         </div>
         <span id="type">
             <input id="typeinput" v-model="customizedhero" type="text" placeholder="please select" list="typelist">
@@ -1125,10 +1125,10 @@ export default {
 
 #winrateview{
     position: absolute;
-    width: 22%;
-    height: 40%;
-    border: 1px solid #9a9a9a;
-    border-radius: 15px;
+    width: 21.95%;
+    height: 38.9%;
+    border-top: 1px solid #9a9a9a;
+    border-left: 1px solid #9a9a9a;
     overflow-x: auto;
     background: white;
     right:0%;

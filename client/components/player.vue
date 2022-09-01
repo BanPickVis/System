@@ -2,7 +2,7 @@
     <div>
         <!-- Header -->
         <svg
-            width="640"
+            width="635"
             height="96"
             viewBox="0 0 640 96"
             fill="none"

@@ -510,6 +510,13 @@
 <script>
 import requesthelp from "common/utils/request.js";
 export default {
+    ////////////////////////////////
+    data() {
+        return {
+            sequence_change: true,
+        };
+    },
+    ////////////////////////////////
     computed: {
         team1: function () {
             return this.team1abbr;
@@ -547,7 +554,16 @@ export default {
             block.style.top = y + "px";
             block.style.display = "inline-block";
             await requesthelp.axiosGet('/sequence_number', { sequence_num: num, round_num: 3});
+        ////////////////////////////////
+        this.sequence_change = !this.sequence_change;
+            this.changeSequence(this.sequence_change);
         },
+        changeSequence(sequence_change){
+            // console.log(sequence_change);
+            this.$emit('sequenceChange', sequence_change); 
+        }
+            
+        ////////////////////////////////
 
     },
 };

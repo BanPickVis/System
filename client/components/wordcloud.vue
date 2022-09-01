@@ -1,17 +1,5 @@
 <template>
     <div>
-        <span id="tags">
-            <button 
-                v-for="word in word_list_cloud"
-                :key="word"
-                :class="['wordtag']"
-                @click="this.delete(word)"
-            >
-            <!-- <span> -->
-                {{ word }} &nbsp;   ✕
-            <!-- </span> -->
-        </button>
-        </span>
         <span id="inputting">
             <el-input
             v-model="cloud_words"
@@ -20,6 +8,16 @@
             >
             </el-input>
         </span>
+        <div id="tags">
+            <button
+                v-for="word in word_list_cloud"
+                :key="word"
+                :class="['wordtag']"
+                @click="this.delete(word)"
+            >
+                {{ word }} &nbsp;   ✕
+        </button>
+        </div>
         <span id="enter">
             <button @click="add()">
                 enter
@@ -172,17 +170,16 @@ export default {
 }
 #word_cloud{
     position: absolute;
-    top:18%;
+    top:29%;
     right:2%;
 }
 #tags{
     position: absolute;
-    top:9%;
+    top:15%;
     left:46%;
     width: 50%;
-    height: 14%;
+    height: 12.5%;
     cursor: pointer;
-    overflow-y: auto;
 }
 .wordtag{
     float: left;

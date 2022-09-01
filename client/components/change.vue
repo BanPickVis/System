@@ -100,8 +100,8 @@ export default {
             var data = alldata.herodata;
             var teamherodata = teamdata.herodata;
 
-            var margin = {top: 130, right: 50, bottom: 30, left: 50},
-            width = 740 - margin.left - margin.right,
+            var margin = {top: 130, right: 50, bottom: 30, left: 40},
+            width = 600 - margin.left - margin.right,
             height = 390 - margin.top - margin.bottom;
 
             var Item = ["Win Rate", "Picked Rate", "Banned Rate"],
@@ -135,7 +135,7 @@ export default {
                 .attr("class","myline")
                 .attr("x1", function(d) { return (x(d.group)); })
                 .attr("x2", function(d) { return (x(d.group)+x.bandwidth()-20); })
-                .attr("transform", "translate(60,130)")
+                .attr("transform", "translate(50,130)")
                 .attr("stroke", "#991239")
                 .attr("stroke-width", "5px")
                 .attr("y1", height)
@@ -155,7 +155,7 @@ export default {
                 .attr("x1", function(d) { return (x2(d.group)); })
                 .attr("x2", function(d) { return (x2(d.group)+x2.bandwidth()-20); })
                 // .attr("transform", "translate(20,0)")
-                .attr("transform", "translate(380,130)")
+                .attr("transform", "translate(305,130)")
                 .attr("stroke", "#991239")
                 .attr("stroke-width", "5px")
                 .attr("y1", height)
@@ -174,8 +174,8 @@ export default {
             var data = alldata.herodata;
             // console.log(data);
 
-            var margin = {top: 130, right: 50, bottom: 30, left: 50},
-            width = 740 - margin.left - margin.right,
+            var margin = {top: 130, right: 50, bottom: 30, left: 40},
+            width = 600 - margin.left - margin.right,
             height = 390 - margin.top - margin.bottom;
 
             var svg = d3.select("#change_plot")
@@ -232,7 +232,7 @@ export default {
                     .attr("font-size","15px");
             
             svg.append("g")
-                .attr("transform", "translate(320," + height + ")")
+                .attr("transform", "translate(255," + height + ")")
                 .call(d3.axisBottom(x2))
                 .selectAll("text")
                     .attr("transform", "translate(15,0)")
@@ -282,7 +282,7 @@ export default {
                 .append("rect")
                     .attr("x", function(d) { return x2(d.group); })
                     .attr("width", x2.bandwidth()-20)
-                    .attr("transform", "translate(330,0)")
+                    .attr("transform", "translate(265,0)")
                     .attr("fill", "#999999")
                     .attr("opacity",0.5)
                     // no bar at the beginning thus:
@@ -319,7 +319,7 @@ export default {
             .append("rect")
                 .attr("x", function(d) { return x2(d.group); })
                 .attr("width", x2.bandwidth()-60)
-                .attr("transform", "translate(350,0)")
+                .attr("transform", "translate(285,0)")
                 .attr("fill", "#EF8A62")
                 .attr("opacity",0.5)
                 // no bar at the beginning thus:
@@ -340,7 +340,7 @@ export default {
 
         // set the dimensions and margins of the graph
         var margin = {top: 10, right: 50, bottom: 30, left: 50},
-            width = 740 - margin.left - margin.right,
+            width = 600 - margin.left - margin.right,
             height = 90 - margin.top - margin.bottom;
         var svg = d3.select("#change_plot")
             .append("svg")
