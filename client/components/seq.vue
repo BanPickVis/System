@@ -1084,14 +1084,14 @@ export default {
             var chosen_hero_data = all_glyph_data[chosen_hero];
             console.log(chosen_hero_data);
 
-            var offset_left = 200;
+            var offset_left = 250;
             var offset_top = 135;
             var glyph_view_svg = d3
                 .select("#glyph_view")
                 .append("svg")
+                .attr("id", "glyph_view_svg")
                 .attr("width", 400)
-                .attr("height", 270)
-                .attr("id", "glyph_view_svg");
+                .attr("height", 270);
 
             //////////////////////////
             /////backgound arc////////
@@ -1101,7 +1101,7 @@ export default {
                 { startAngle: 0.5 * Math.PI, endAngle: Math.PI },
                 { startAngle: 1.5 * Math.PI, endAngle: 2 * Math.PI },
             ];
-            var background_arc_color = ["#E6F2CD", "#FFBFBF", "#BFE5FF"];
+            var background_arc_color = ["#E6F2CD", "#BFE5FF", "#FFBFBF"];
             var background_arc_outer_r = 106;
             var background_arc_func = d3
                 .arc()
@@ -1365,6 +1365,57 @@ export default {
                 .style("fill", "#D9D9D9")
                 .attr("transform", `translate(${offset_left},${offset_top})`)
                 .attr("opacity", 0.5);
+
+            ////////////////////////////////////////////////////
+            ///////////////////////legend///////////////////////
+            ////////////////////////////////////////////////////
+            var glyph_legend_svg = glyph_view_svg
+                .append("svg")
+                .attr("id", "glyph_legend_svg")
+                .attr("width", 200)
+                .attr("height", 80);
+
+            var glyph_legend_key = [
+                "Counter Top3",
+                "Countered Top3",
+                "Best Team Mate",
+            ];
+            var glyph_legend_color = d3
+                .scaleOrdinal()
+                .domain(glyph_legend_key)
+                .range(["#E6F2CD", "#FFBFBF", "#BFE5FF"]);
+
+            var glyph_legend_offset_left = 12;
+            var glyph_legend_offset_top = 21;
+            glyph_legend_svg
+                .selectAll(".legend_dots")
+                .data(glyph_legend_key)
+                .enter()
+                .append("circle")
+                .attr("class", "legend_dots")
+                .attr("cx", glyph_legend_offset_left)
+                .attr("cy", function (d, i) {
+                    return glyph_legend_offset_top + i * 25;
+                }) // 100 is where the first dot appears. 25 is the distance between dots
+                .attr("r", 7)
+                .style("fill", (d) => glyph_legend_color(d));
+
+            // Add one dot in the legend for each name.
+            glyph_legend_svg
+                .selectAll(".legend_text")
+                .data(glyph_legend_key)
+                .enter()
+                .append("text")
+                .attr("class", "legend_text")
+                .attr("x", glyph_legend_offset_top)
+                .attr("y", function (d, i) {
+                    return glyph_legend_offset_top + i * 25;
+                }) // 100 is where the first dot appears. 25 is the distance between dots
+                .style("fill", (d) => glyph_legend_color(d))
+                .text((d) => d)
+                .attr("text-anchor", "left")
+                .style("alignment-baseline", "middle")
+                .style("font-weight", "bold");
         },
     },
 };
