@@ -258,10 +258,8 @@ export default {
 
     },
     mounted() {
-        this.plotPlayerName();
+        // this.plotPlayerName();
         // console.log(this.roundnow);
-        
-
     },
     methods: {
         changedSequence(sequence_change){
@@ -283,9 +281,12 @@ export default {
         changeTeam2(name){
             this.$emit('teamChange2', name); 
         },
-        plotPlayerName(){
+        async plotPlayerName(){
             // console.log(data);
+            // d3.select("#player_hero_plot").selectAll("text").remove();
+            
             d3.select("#player_hero_plot").selectAll("text").remove();
+            d3.select("#player_hero_plot").selectAll(".mybar").remove();
             const player_name_plot = d3.select("#player_hero_plot"),
                 height = 100,
                 width = 635;
@@ -352,6 +353,190 @@ export default {
                         });
                 }
             }
+            var team1_mem = [];
+            var team2_mem = [];
+            for (var j=0;j<5;j++){
+                team1_mem[team1_mem.length]=this.teammember1[j]['id'];
+                team2_mem[team2_mem.length]=this.teammember2[j]['id'];
+            }
+            // var timesvg = d3.select('#times');
+            // console.log(team1_mem,team2_mem);
+            var timedata = await requesthelp.axiosGet('/getTime',{ team1: JSON.stringify(team1_mem), team2: JSON.stringify(team2_mem) });
+            console.log(timedata);
+
+            if (timedata.length == 10){
+                var temp_width = 100;
+            var x = d3.scaleLinear()
+            .range([0, temp_width])
+            .domain([0, d3.max(timedata, function(d) { return d.total; })]);
+
+            for (i=0;i<5;i++) {
+                if (i<=2){
+                player_name_plot
+                    .append("rect")
+                    .attr("class","mybar")
+                    .attr("x", 330)
+                    .attr("y", height * i +120)
+                    .attr("width",0)
+                    .attr("height",40)
+                    .attr("fill","#FCC6C6")
+                    .attr("opacity",0.8)
+                    .transition()
+                    .duration(800)
+                    .attr("width",x(timedata[i]["lose"]))
+                    .attr("x", 330-x(timedata[i]["lose"]));
+                player_name_plot
+                    .append("rect")
+                    .attr("class","mybar")
+                    .attr("x", 330)
+                    .attr("y", height * i +120)
+                    .attr("height",40)
+                    .attr("fill","#E6F2CD")
+                    .attr("opacity",0.8)
+                    .attr("width",0)
+                    .transition()
+                    .duration(800)
+                    .attr("width",x(timedata[i]["win"]))
+                    .attr("x", 330-x(timedata[i]["lose"])-x(timedata[i]["win"]));
+                player_name_plot
+                    .append("line")
+                    .attr("class","mybar")
+                    .attr("x1", 330)
+                    .attr("x2", 330)
+                    .attr("y1",  height * i +110)
+                    .attr("y2",  height * i +110)
+                    .attr("stroke", "grey")
+                    .attr("stroke-width", "3px")
+                    .transition()
+                    .duration(800)
+                    .attr("y2",  height * i +170);
+                }
+                else{
+                player_name_plot
+                    .append("rect")
+                    .attr("class","mybar")
+                    .attr("x", 330)
+                    .attr("y", height * i +200)
+                    .attr("width",0)
+                    .attr("height",40)
+                    .attr("fill","#FCC6C6")
+                    .attr("opacity",0.8)
+                    .transition()
+                    .duration(800)
+                    .attr("x", 330-x(timedata[i]["lose"]))
+                    .attr("width",x(timedata[i]["lose"]));
+                player_name_plot
+                    .append("rect")
+                    .attr("class","mybar")
+                    .attr("x", 330)
+                    .attr("y", height * i +200)
+                    .attr("width",0)
+                    .attr("height",40)
+                    .attr("fill","#E6F2CD")
+                    .attr("opacity",0.8)
+                    .transition()
+                    .duration(800)
+                    .attr("width",x(timedata[i]["win"]))
+                    .attr("x", 330-x(timedata[i]["lose"])-x(timedata[i]["win"]));
+                    player_name_plot
+                    .append("line")
+                    .attr("class","mybar")
+                    .attr("x1", 330)
+                    .attr("x2", 330)
+                    .attr("y1",  height * i +190)
+                    .attr("y2",  height * i +190)
+                    .attr("stroke", "grey")
+                    .attr("stroke-width", "3px")
+                    .transition()
+                    .duration(800)
+                    .attr("y2",  height * i +250);
+                }
+            }
+            for (j=5;j<10;j++) {
+                i = j-5;
+                if (i<=2){
+                player_name_plot
+                    .append("rect")
+                    .attr("class","mybar")
+                    .attr("x", 330)
+                    .attr("y", height * i +120)
+                    .attr("width",0)
+                    .attr("height",40)
+                    .attr("fill","#FCC6C6")
+                    .attr("opacity",0.8)
+                    .transition()
+                    .duration(800)
+                    .attr("width",x(timedata[j]["lose"]));
+                player_name_plot
+                    .append("rect")
+                    .attr("class","mybar")
+                    .attr("x", 330)
+                    .attr("y", height * i +120)
+                    .attr("width",0)
+                    .attr("height",40)
+                    .attr("fill","#E6F2CD")
+                    .attr("opacity",0.8)
+                    .transition()
+                    .duration(800)
+                    .attr("x", 330+x(timedata[j]["lose"]))
+                    .attr("width",x(timedata[j]["win"]));
+                player_name_plot
+                    .append("line")
+                    .attr("class","mybar")
+                    .attr("x1", 330)
+                    .attr("x2", 330)
+                    .attr("y1",  height * i +110)
+                    .attr("y2",  height * i +110)
+                    .attr("stroke", "grey")
+                    .attr("stroke-width", "3px")
+                    .transition()
+                    .duration(800)
+                    .attr("y2",  height * i +170);
+                }
+                else{
+                    player_name_plot
+                    .append("rect")
+                    .attr("class","mybar")
+                    .attr("x", 330)
+                    .attr("y", height * i +200)
+                    .attr("width",0)
+                    .attr("height",40)
+                    .attr("fill","#FCC6C6")
+                    .attr("opacity",0.8)
+                    .transition()
+                    .duration(800)
+                    .attr("width",x(timedata[j]["lose"]));
+                player_name_plot
+                    .append("rect")
+                    .attr("class","mybar")
+                    .attr("x", 330)
+                    .attr("y", height * i +200)
+                    .attr("width",0)
+                    .attr("height",40)
+                    .attr("fill","#E6F2CD")
+                    .attr("opacity",0.8)
+                    .transition()
+                    .duration(800)
+                    .attr("width",x(timedata[j]["win"]))
+                    .attr("x", 330+x(timedata[j]["lose"]));
+                player_name_plot
+                    .append("line")
+                    .attr("class","mybar")
+                    .attr("x1", 330)
+                    .attr("x2", 330)
+                    .attr("y1",  height * i +190)
+                    .attr("y2",  height * i +190)
+                    .attr("stroke", "grey")
+                    .attr("stroke-width", "3px")
+                    .transition()
+                    .duration(800)
+                    .attr("y2",  height * i +250);
+                }
+            }
+
+            }
+        
+            
             // this.changeParentName();
         },
         
@@ -359,6 +544,14 @@ export default {
 };
 </script>
 <style>
+#times{
+    position: absolute;
+    width:45%;
+    height: 67%;
+    top:30%;
+    left: 27.5%;
+    background: beige;
+}
 
 .team_select {
     position: absolute;

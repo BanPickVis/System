@@ -183,7 +183,7 @@ export default {
     },
     mounted() {
         // render seq_view
-        this.loaddata();
+        // this.loaddata();
         // this.render_seq_left_veiw();
     },
     methods: {
