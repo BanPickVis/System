@@ -120,7 +120,7 @@
             width="640"
             height="675"
             >
-            <component :is="currentTabComponent" class="tab"></component>
+            <component :is="currentTabComponent" class="tab" @sequenceChange="changedSequence"></component>
             <!-- <round id="round1" class="roundview" style="display: block;" />
             <round id="round2" class="roundview" style="display: block;" />
             <round id="round3" class="roundview" style="display: none;" />
@@ -139,6 +139,7 @@ import round2 from "@/components/round/round2.vue";
 import round3 from "@/components/round/round3.vue";
 import round4 from "@/components/round/round4.vue";
 import round5 from "@/components/round/round5.vue";
+import round6 from "@/components/round/round6.vue";
 
 export default {
     components:{
@@ -146,11 +147,12 @@ export default {
         round2,
         round3,
         round4,
-        round5
+        round5,
+        round6
     },
     props: {
         roundnow:{ type: String, default: "" },
-        bon:{ type: String, default: "5" }
+        bon:{ type: String, default: "3" }
     },
     setup() {
         var teams1 = ['武汉eStarPro', '南京Hero久竞', '北京WB', 'XYG', '苏州KSG', '上海EDG.M', '重庆狼队', '佛山DRG.GK', '成都AG超玩会', '广州TTG', '济南RW侠', '厦门VG', '杭州LGD大鹅', '深圳DYG', '长沙TES.A', '西安WE', '上海RNG.M', '火豹'],
@@ -170,9 +172,11 @@ export default {
             player1: "Player 1",
             player2: "Player 2",
 
+            seqchange:"true",
+
             nround:5,
             currentTab: "round1",
-            tabs: ["round1","round2","round3","round4","round5"],
+            tabs: ["round1","round2","round3"],
         };
     },
     computed: {
@@ -187,6 +191,10 @@ export default {
           },
         },
     watch: {
+        seqchange(val){
+            this.changeSequencetoIndex(val);
+            // console.log(val);
+        },
         bon(val,_){
             if (this.bon == "3"){
                 this.tabs=["round1","round2","round3"];
@@ -255,7 +263,14 @@ export default {
         
 
     },
-    methods: { 
+    methods: {
+        changedSequence(sequence_change){
+            this.seqchange = sequence_change;
+        },
+        changeSequencetoIndex(sequence_change){
+            // console.log(sequence_change);s
+            this.$emit('sequenceChange', sequence_change); 
+        },
         changePlayer1(name){
             this.$emit('handleChange1', name); 
         },

@@ -157,27 +157,27 @@ export default {
 <style>
 #inputting{
     position: absolute;
-    width: 45%;
+    width: 35.5%;
     height: 14%;
     left:46%;
-    top: 16%;
+    top: 0%;
     font-size: 125%;
 }
 #enter{
     position: absolute;
     width: 20%;
     left:81%;
-    top: 16%;
+    top: 0%;
     font-size: 125%;
 }
 #word_cloud{
     position: absolute;
-    top:30%;
+    top:18%;
     right:2%;
 }
 #tags{
     position: absolute;
-    top:0%;
+    top:9%;
     left:46%;
     width: 50%;
     height: 14%;

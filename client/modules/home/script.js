@@ -48,13 +48,15 @@ export default {
             roundDefault:"round",
 
             teamside:["Blue", "Red"],
-            team_side:"",
-            bon:"5",
+            team_side:"Blue",
+            bon:"3",
             bon_select:["3","5","7"],
             n_of_b_s:["1","2","3"],
-            n_of_b:"",
+            n_of_b:"1",
             n_of_p_s:["4","5","6","7","8","9","10"],
-            n_of_p:"",
+            n_of_p:"4",
+
+            sequencechanged:true
         };
     },
     computed: {
@@ -565,11 +567,16 @@ export default {
             this.Player_2 = name;
         },
         changeTeam1(name) {
+            // console.log(name);
             this.Team_1 = name;
             // console.log(this.Team_1);
         },
         changeTeam2(name) {
             this.Team_2 = name;
+        },
+        squenceChanging(sequence){
+            this.sequencechanged = sequence;
+            // console.log(this.sequencechanged);
         },
         keywordsel1(keywords){
             // console.log(this.keywords_blue);

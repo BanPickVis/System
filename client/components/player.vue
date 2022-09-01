@@ -121,7 +121,6 @@
 
 <script>
 import wrap from "../components/wrap.js";
-import playerJson from "../assets/json/player_view_output_2022_wizout_team.json";
 import requesthelp from "common/utils/request.js";
 
 
@@ -166,6 +165,7 @@ export default {
             block.style.fill = "url(#p"+val+")";
         },
         playername1(val,_){
+            // console.log("yes");
             this.name1=this.playername1;
             this.default_set1();
         },

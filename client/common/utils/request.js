@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const request = axios.create({
 	baseURL: 'http://10.19.125.78:5006/api/', 
-    timeout: 5000
+    timeout: 50000
 });
 
 // request 拦截器

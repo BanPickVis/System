@@ -5,11 +5,11 @@
         </h1>
         <div class="bp_view">
             <b>BP View</b>
-            <bp :roundnow="roundDefault" :bon="bon" @handleChange1="changeName1" @handleChange2="changeName2" @teamChange1="changeTeam1" @teamChange2="changeTeam2" />
+            <bp :roundnow="roundDefault" :bon="bon" @handleChange1="changeName1" @handleChange2="changeName2" @teamChange1="changeTeam1" @teamChange2="changeTeam2" @sequenceChange="squenceChanging" />
         </div>
         <div class="seq_view">
             <b>Sequence View</b>
-            <seq />
+            <seq :change="sequencechanged" :bon="bon" :branch="n_of_b" :preview="n_of_p" :side="team_side" />
         </div>
         <div class="player_view">
             <b>Player View</b>
@@ -129,16 +129,46 @@
         <div id="multi_selection_view2" class="multi_selection_view2">
             <heroMS2 @heroselected2="keywordsel2" />
         </div>
+        <span id = "loader">
+            <div class="loader"></div>
+        </span>
     </div>
 </template>
 <script src="./script.js"></script>
 
-<style lang="less">
+<style>
+#loader{
+    position: absolute;
+    width: 56%;
+    height: 54%;
+    top:4%;
+    right: 17%;
+    background: #C6C6C6;
+    opacity: 30%;
+    display: none;
+}
+.loader {
+    position: absolute;
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  top: 40%;
+  right: 45%;
+  animation: spin 2s linear infinite;
+  display: none;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 #title{
     position: absolute;
     width: 5%;
     height: 3%;
-    right: 13%;
+    right: 11%;
     top: 0%;
 }
 .bp_view {

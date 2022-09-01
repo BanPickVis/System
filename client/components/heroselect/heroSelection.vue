@@ -8,6 +8,7 @@
       >
         {{ tab }}
       </button>
+      <a class="close-button" @click="close()">Close</a>
       <component :is="currentTabComponent" class="tab"></component>
     </div>
 </template>
@@ -51,13 +52,16 @@ export default({
     watch: {
     },
     methods:{
+      close(){
+        var block = document.getElementById('selection_view');
+        block.style.display='none';
+      }
     }
 });
 </script>
 <style>
 .tab-button {
-padding: 6px 10px;
-width:80px;
+width:20px;
 border-top-left-radius: 3px;
 border-top-right-radius: 3px;
 border: 1px solid #ccc;
@@ -71,6 +75,73 @@ background: #e0e0e0;
 }
 .tab-button.active {
 background: #e0e0e0;
+}
+
+</style>
+
+<style lang="less">
+.transition (@prop: all, @time: 1s, @ease: ease-out) {
+  -webkit-transition : @prop @time @ease;
+  -moz-transition    : @prop @time @ease;
+  -ms-transition     : @prop @time @ease;
+  -o-transition      : @prop @time @ease;
+  transition         : @prop @time @ease;
+}
+.rotate(@degrees) {
+  -webkit-transform : rotate(@degrees);
+  -moz-transform    : rotate(@degrees);
+  -ms-transform     : rotate(@degrees);
+  -o-transform      : rotate(@degrees);
+  transform         : rotate(@degrees);
+}
+
+.square( @size ){
+  width: @size;
+  height: @size;
+}
+
+@black : #000;
+@white : #fff;
+
+// ---- [ Close Button ] ---- //
+.close-button{
+  .square(30px);
+  box-shadow : 0px 10 10px 10px rgba( 0, 0, 0, .25 );
+  border-radius: 10px; 
+  background : grey;
+  left       : 100%;
+  top        : 20%;
+  margin-top : -70px;
+  margin-left: -30px;
+  position   : absolute;
+  display    : block;
+  z-index    : 200;
+  text-indent : -9999px;
+
+  &:before,
+  &:after{
+    content    : '';
+    width      : 55%;
+    height     : 2px;
+    background : @white;
+    position   : absolute;
+    top        : 48%;
+    left       : 22%;
+    .rotate(-45deg);
+    .transition( @time : 0.3s );
+  }
+
+  &:after{
+    .rotate(45deg);
+    .transition( @time : 0.3s );
+  }
+
+  &:hover{
+    &:before,
+    &:after{
+      .rotate(180deg);
+    }
+  }
 }
 
 </style>
