@@ -189,7 +189,7 @@ export default {
     },
     methods: {
         async drawwinrate(node) {
-            // console.log(node);
+            console.log(node);
             var lineupdata = await requesthelp.axiosGet("/getLineup", {
                 node: node,
             });
@@ -1147,7 +1147,7 @@ export default {
                         return line_color[1];
                     }
                 })
-                .style("stroke-width", 5)
+                .style("stroke-width", 2)
                 .style("fill", "none")
                 .attr(
                     "transform",
@@ -1163,10 +1163,10 @@ export default {
             glyph_view_svg
                 .append("circle")
                 .attr("id", "cur_hero")
-                .style("fill", "transparent")
+                .style("fill", `url(#p${chosen_hero})`)
                 .attr("r", cur_hero_r)
                 .attr("stroke", "black")
-                .attr("stroke-width", 2)
+                .attr("stroke-width", 1)
                 .attr("transform", `translate(${offset_left},${offset_top})`);
 
             //////////////////////////
@@ -1184,7 +1184,7 @@ export default {
                 .attr("class", "counter")
                 .attr("id", (d, i) => `counterTop${i + 1}`)
                 .attr("stroke", "black")
-                .attr("stroke-width", 2)
+                .attr("stroke-width", 1)
                 .attr("transform", (d, i) => {
                     // 15 45 75
                     var deg = 30 * i + 15;
@@ -1196,12 +1196,11 @@ export default {
                     return `translate(${x}, ${y})`;
                 })
                 .attr("r", (d, i) => {
-                    // console.log(d[1])
-                    // console.log(d[1] * circle_size_amplify)
-                    // console.log(d[1] * circle_size_amplify)
                     return d[1] * circle_size_amplify;
                 })
-                .style("fill", "transparent");
+                .attr("fill", function (d, i) {
+                    return `url(#p${d[0]})`;
+                });
 
             //////////////////////////
             //////countered_top3//////
@@ -1216,7 +1215,7 @@ export default {
                 .attr("class", "countered")
                 .attr("id", (d, i) => `counteredTop${i + 1}`)
                 .attr("stroke", "black")
-                .attr("stroke-width", 2)
+                .attr("stroke-width", 1)
                 .attr("transform", (d, i) => {
                     // 75 45 15
                     var deg = -30 * i + 75;
@@ -1231,7 +1230,9 @@ export default {
                 .attr("r", (d, i) => {
                     return Math.abs(d[1] * circle_size_amplify);
                 })
-                .style("fill", "transparent");
+                .attr("fill", function (d, i) {
+                    return `url(#p${d[0]})`;
+                });
 
             //////////////////////////
             ////////team_mate/////////
@@ -1246,7 +1247,7 @@ export default {
                 .attr("class", "team_mate")
                 .attr("id", (d, i) => `team_mate${i + 1}`)
                 .attr("stroke", "black")
-                .attr("stroke-width", 2)
+                .attr("stroke-width", 1)
                 .attr("transform", (d, i) => {
                     // 15 45 75
                     var deg = 30 * i + 15;
@@ -1260,7 +1261,9 @@ export default {
                 .attr("r", (d, i) => {
                     return Math.abs(d[1] * circle_size_amplify);
                 })
-                .style("fill", "transparent");
+                .attr("fill", function (d, i) {
+                    return `url(#p${d[0]})`;
+                });
 
             //////////////////////////
             ////////kda_arc///////////
