@@ -23,7 +23,7 @@
                 enter
             </button>
         </span>
-        <svg id="word_cloud" width="600" height="460">
+        <svg id="word_cloud">
         </svg>
     </div>
 </template>
@@ -157,27 +157,28 @@ export default {
     position: absolute;
     width: 35.5%;
     height: 14%;
-    left:46%;
-    top: 0%;
+    left:50%;
+    top: 7%;
     font-size: 125%;
 }
 #enter{
     position: absolute;
     width: 20%;
-    left:81%;
-    top: 0%;
+    left:85%;
+    top: 7%;
     font-size: 125%;
 }
 #word_cloud{
     position: absolute;
-    top:29%;
-    right:2%;
-    width: auto;
+    top:23%;
+    right:1%;
+    height: 80%;
+    width: 53%;
 }
 #tags{
     position: absolute;
     top:15%;
-    left:46%;
+    left:50%;
     width: 50%;
     height: 12.5%;
     cursor: pointer;

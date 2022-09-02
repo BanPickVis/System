@@ -17,46 +17,39 @@
         </div>
         <div class="team_view">
             <b>Team View</b>
-            <el-row :span="18">
-                <!-- Team Radar Part -->
-                <el-col :span="12">
-                    <div
-                        style="
-                            font-family: 'Apple Braille';
-                            font-style: normal;
-                            font-weight: 400;
-                            font-size: 19.2982px;
-                            line-height: 10px;
-                        "
-                    >
-                        &nbsp; Blue Side: &nbsp;
-                        <button class="radarselect" @click="selectheroes('blue')">
-                            {{ keywords_blue_string }}
-                        </button>
-                        <br />
-                        <br />
-                        &nbsp; Red Side: &nbsp;&thinsp;
-                        <button class="radarselect" @click="selectheroes('red')">
-                            {{ keywords_red_string }}
-                        </button>
-                    </div>
-                    <p style="line-height: 10px;">
-                        &nbsp; &nbsp; {{ radar_hint }}
-                    </p>
+                <div
+                    style="
+                        font-family: 'Apple Braille';
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 19.2982px;
+                        line-height: 10px;
+                        width: 500px;
+                    "
+                >
+                    &nbsp; Blue Side: &nbsp;
+                    <button class="radarselect" @click="selectheroes('blue')">
+                        {{ keywords_blue_string }}
+                    </button>
+                    <br />
+                    <br />
+                    &nbsp; Red Side: &nbsp;&thinsp;
+                    <button class="radarselect" @click="selectheroes('red')">
+                        {{ keywords_red_string }}
+                    </button>
+                </div>
+                <p style="line-height: 10px;">
+                    &nbsp; &nbsp; {{ radar_hint }}
+                </p>
 
-                    <!-- radar plot -->
-                    <!-- <img :src="img1" />  -->
-                    <svg id="d3-radar-team" style="width: 450px" />
-                </el-col>
+                <!-- radar plot -->
+                <!-- <img :src="img1" />  -->
+                <svg id="d3-radar-team" style="width: 450px" />
 
-                <!-- Team Wordcloud Part -->
-                <el-col :span="10">
-                    &nbsp;&nbsp;&nbsp;
-                        <br />
-                    <word-cloud /> 
-                    </el-col>
-            </el-row>
-        </div>
+                &nbsp;&nbsp;&nbsp;
+                    <br />
+                <word-cloud /> 
+            </div>
         <div class="change_view">
             <b>In-game Change View</b><br />
             <change :team1="Team_1" :team2="Team_2" />
@@ -149,15 +142,15 @@
 }
 .loader {
     position: absolute;
-  border: 16px solid #f3f3f3; /* Light grey */
-  border-top: 16px solid #3498db; /* Blue */
-  border-radius: 50%;
-  width: 120px;
-  height: 120px;
-  top: 40%;
-  right: 45%;
-  animation: spin 2s linear infinite;
-  display: none;
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    top: 40%;
+    right: 45%;
+    animation: spin 2s linear infinite;
+    display: none;
 }
 
 @keyframes spin {
@@ -168,7 +161,7 @@
     position: absolute;
     width: 5%;
     height: 3%;
-    right: 11%;
+    right: 12.5%;
     top: 0%;
 }
 .bp_view {
@@ -176,9 +169,9 @@
     box-sizing: border-box;
 
     position: absolute;
-    width: 24.9%;
+    width: 26%;
     height: 59%;
-    left: 7.5%;
+    left: 0.5%;
     top: 0.4%;
 
     border: 1px solid #9a9a9a;
@@ -205,7 +198,7 @@
     overflow-x: auto;
     background: white;
     left:700px;
-    top:550px;
+    top:520px;
     opacity:1;
     display:none;
 }
@@ -218,7 +211,7 @@
     overflow-x: auto;
     background: white;
     left:700px;
-    top:595px;
+    top:565px;
     display:none;
 }
 .seq_view {
@@ -226,9 +219,9 @@
     box-sizing: border-box;
 
     position: absolute;
-    width: 66.5%;
+    width: 72%;
     height: 58.89%;
-    right: 0.4%;
+    left: 27%;
     top: 0.4%;
 
     border: 1px solid #9a9a9a;
@@ -237,9 +230,9 @@
 .player_view {
     /* Player */
     position: absolute;
-    width: 24.9%;
+    width: 26%;
     height: 38%;
-    left: 7.5%;
+    left: 0.5%;
 
     bottom: 2%;
 
@@ -252,7 +245,7 @@
     position: absolute;
     width: 43%;
     height: 38%;
-    left: 33%;
+    left: 27%;
     bottom: 2%;
 
     border: 1px solid #9a9a9a;
@@ -262,9 +255,9 @@
 .change_view {
     /* Change */
     position: absolute;
-    width: 23%;
+    width: 28.5%;
     height: 38%;
-    right: 0.4%;
+    right: 1%;
     bottom: 2%;
     border: 1px solid #9a9a9a;
     box-sizing: border-box;
@@ -272,9 +265,9 @@
 }
 .control_panal{
     position: absolute;
-    width: 16%;
+    width: 17.2%;
     height: 11%;
-    right: 0.4%;
+    right: 1%;
     top: 5%;
     border-top: 1px solid #9a9a9a;
     border-bottom: 1px solid #9a9a9a;

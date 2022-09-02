@@ -3,8 +3,6 @@
         <div id="seq_view_left">
             <svg
                 id="seq_view_svg"
-                width="1290px"
-                height="800px"
                 fill="none"
             ></svg>
         </div>
@@ -183,7 +181,7 @@ export default {
     },
     mounted() {
         // render seq_view
-        // this.loaddata();
+        this.loaddata();
         // this.render_seq_left_veiw();
     },
     methods: {
@@ -1434,6 +1432,8 @@ export default {
 #seq_view_svg {
     position: absolute;
     top: 5%;
+    width: 100%;
+    height: 95%;
     cursor: move;
 }
 
@@ -1463,8 +1463,6 @@ export default {
     position: absolute;
     width: 23.9%;
     height: 32%;
-    border-left: 1px solid #9a9a9a;
-    border-top: 1px solid #9a9a9a;
     overflow-x: auto;
     background: white;
     right: 0%;
@@ -1488,7 +1486,6 @@ export default {
     position: absolute;
     width: 23.9%;
     height: 38.9%;
-    border-left: 1px solid #9a9a9a;
     border-top: 1px solid #9a9a9a;
     overflow-x: auto;
     background: white;
