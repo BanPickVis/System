@@ -410,6 +410,8 @@ export default {
                     .padding(0);
 
                 barChartData.forEach((datum, index) => {
+                    // console.log(datum)
+                    // console.log(index)
                     cur_node_svg
                         .append("rect")
                         .attr("width", function () {
@@ -422,7 +424,8 @@ export default {
                         })
                         .attr("class", "branch_bar")
                         .on("click", function (data) {
-                            var block = $("#main_body").css("transform");
+                            var block =
+                                $("#seq_view_svg_left").css("transform");
                             console.log(block);
 
                             // console.log(source_ele_transform);
@@ -525,7 +528,7 @@ export default {
                     .append("rect")
                     .attr("class", "branch_bar")
                     .on("click", function (data) {
-                        var block = $("#main_body").css("transform");
+                        var block = $("#seq_view_svg_left").css("transform");
                         console.log(block);
                         // console.log(source_ele_transform);
 
@@ -608,17 +611,148 @@ export default {
                 tooltip.style("opacity", 0);
             }
 
-            function main_body_zoomed_func() {
-                main_body.attr("transform", d3.event.transform);
+            function seq_zoomed_func() {
+                svg.attr("transform", d3.event.transform);
             }
 
-            function title_zoomed_func() {
-                title_view.attr("transform", d3.event.transform);
+            function render_title() {
+                var title_margin_left = 0;
+                var title_margin_top = 0;
+                var phases = [
+                    "BAN PHASE 1",
+                    "PICK PHASE 1",
+                    "BAN PHASE 2",
+                    "PICK PHASE 2",
+                ];
+                var stages = [
+                    ["blue_ban1", "red_ban1", "blue_ban2", "red_ban2"],
+                    [
+                        "blue_pick1",
+                        "red_pick1",
+                        "red_pick2",
+                        "blue_pick2",
+                        "blue_pick3",
+                        "red_pick3",
+                    ],
+                    ["red_ban3", "blue_ban3", "red_ban4", "blue_ban4"],
+                    ["red_pick4", "blue_pick4", "blue_pick5", "red_pick5"],
+                ];
+
+                var part_stages = [];
+                stages.forEach((ele) => {
+                    part_stages = part_stages.concat(ele);
+                });
+
+                var phase_color = ["#D9D9D9", "#E8E8E8"];
+                var stage_color = ["#C8E4F7", "#FCC6C6"];
+
+                var title_view = d3
+                    .select("#seq_view_svg_left")
+                    .append("g")
+                    .attr("id", "title_view")
+                    .attr(
+                        "transform",
+                        `translate(-${passed_stage * stage_width},100)`
+                    );
+
+                // some vars
+                var phase_height = 40;
+                // var stage_width = 145;
+                var phase_width = [
+                    stage_width * 4,
+                    stage_width * 6,
+                    stage_width * 4,
+                    stage_width * 4,
+                ];
+                var stage_height = 35;
+
+                // draw phase
+                var phase_g = title_view.append("g").attr("id", "phase_g");
+
+                var phase_g_each_g = phase_g
+                    .selectAll(".phase_rect")
+                    .data(phases)
+                    .enter()
+                    .append("g");
+
+                phase_g_each_g
+                    .append("rect")
+                    .attr("class", "phase_rect")
+                    .attr("id", (d, i) => `phase${i}`)
+                    .attr("width", function (d, i) {
+                        return phase_width[i];
+                    })
+                    .attr("height", phase_height)
+                    .attr("x", function (_, i) {
+                        var x = 0;
+                        phase_width.forEach((ele, index) => {
+                            // console.log(ele, index)
+                            if (index < i) {
+                                x += ele;
+                            }
+                        });
+                        return x + title_margin_left;
+                    })
+                    .attr("y", title_margin_top)
+                    .style("fill", function (_, i) {
+                        return phase_color[i % 2];
+                    });
+
+                phase_g_each_g
+                    .append("text")
+                    .attr("x", (d, i) => d3.select(`#phase${i}`).attr("x"))
+                    .attr("y", title_margin_top)
+                    .style("font-size", "20px")
+                    .attr("fill", "black")
+                    .attr("text-anchor", "middle")
+                    .attr("dx", (d, i) => phase_width[i] / 2)
+                    .attr("dy", phase_height / 2 + 7)
+                    .html((d) => d);
+
+                // draw stage
+                var stage_g = title_view.append("g").attr("id", "stage_g");
+
+                var stage_g_each_g = stage_g
+                    .selectAll(".stage_rect")
+                    .data(part_stages)
+                    .enter()
+                    .append("g");
+
+                stage_g_each_g
+                    .append("rect")
+                    .attr("class", "stage_rect")
+                    .attr("width", stage_width)
+                    .attr("height", stage_height)
+                    .attr("x", function (_, i) {
+                        return i * stage_width + title_margin_left;
+                    })
+                    .attr("y", title_margin_top + phase_height)
+                    .style("fill", function (d, i) {
+                        // console.log(d)
+                        if (d.split("_")[0] == "blue") {
+                            return stage_color[0];
+                        } else {
+                            return stage_color[1];
+                        }
+                    });
+
+                stage_g_each_g
+                    .append("text")
+                    .attr("x", (d, i) => i * stage_width + title_margin_left)
+                    .attr("y", title_margin_top + phase_height)
+                    .style("font-size", "20px")
+                    .attr("text-anchor", "middle")
+                    .attr("fill", "black")
+                    .attr("dx", stage_width / 2)
+                    .attr("dy", stage_height / 2 + 7)
+                    .html((d) => d.split("_")[1]);
             }
 
             //////////////////////////////////////////////////////////////////////////////
             //////////////////////////////////////////////////////////////////////////////
             //////////////////////////////////////////////////////////////////////////////
+            render_title();
+
             d3.select("#seq_view_svg_left").remove();
             d3.select(".tooltip").remove();
             var self = this;
@@ -640,50 +774,26 @@ export default {
                 .style("position", "absolute");
             var passed_stage = seq_view_data.nodes[0].stage - 1;
             var stage_width = 145;
-
-            var main_body_zoomed = d3
+            var seq_zoomed = d3
                 .zoom()
                 .scaleExtent([0.561, 10])
                 .translateExtent([
                     [10, 0],
                     [2556 + 55 - passed_stage * stage_width, 100000],
                 ])
-                .on("zoom", main_body_zoomed_func);
-
-            var title_zoomed = d3
-                .zoom()
-                .scaleExtent([0.561, 10])
-                .translateExtent([
-                    [10, 0],
-                    [2556 + 55 - passed_stage * stage_width, 100000],
-                ])
-                .on("zoom", title_zoomed_func);
-
-            var seq_view_svg_left = d3
+                .on("zoom", seq_zoomed_func);
+            // console.log(self.transx, self.transy);
+            var svg = d3
                 .select("#seq_view_svg")
+                .call(seq_zoomed)
                 .append("g")
                 .attr("id", "seq_view_svg_left")
-                .call(title_zoomed)
-                .call(main_body_zoomed);
-            // .attr(
-            //     "transform",
-            //     `translate(${self.transx},${self.transy}) scale(${self.scale})`
-            // );
-
-            var main_body = seq_view_svg_left
-                .append("g")
-                .attr("id", "main_body")
                 .attr(
                     "transform",
                     `translate(${self.transx},${self.transy}) scale(${self.scale})`
                 );
-            var title_view = seq_view_svg_left
-                .append("g")
-                .attr("id", "title_view")
-                .attr(
-                    "transform",
-                    `translate(-${passed_stage * stage_width},0)`
-                );
+
+            var main_body = svg.append("g").attr("id", "main_body");
             var link_svg = main_body.append("g").attr("id", "link_svg");
             var node_svg = main_body.append("g").attr("id", "node_svg");
 
@@ -692,7 +802,7 @@ export default {
             //////////////////////////
             // some vars for nodes
             var left_margin = 68;
-            var top_margin = 220;
+            var top_margin = 150;
             var line_height = 150; //行宽
             var node_spacing = 145; //节点间距
             var eachPos = seq_view_data.eachPos;
@@ -745,16 +855,20 @@ export default {
                 .on("click", function (d) {
                     d3.select("#glyph_view_svg").remove();
                     self.render_glyph_view(d.hero);
+                    var block = $("#seq_view_svg_left").css("transform");
+                    // console.log(block);
+                    // console.log(source_ele_transform);
 
-                    var block = $("#main_body").css("transform");
                     block = str2number(
                         block.split("(")[1].split(")")[0].split(",")
                     );
                     self.scale = block[0];
+                    // console.log(source_ele_transform);
                     block = block.splice(4, 2);
                     self.transx = block[0];
                     self.transy = block[1];
 
+                    // console.log(this.transx,this.transy);
                     mouseout;
                     self.drawwinrate(d.node);
                 });
@@ -779,6 +893,8 @@ export default {
                     return `${d.source}to${d.target}with${d.value}`;
                 })
                 .attr("d", function (each_link) {
+                    // console.log(each_link)
+                    // console.log(each_link.source)
                     var path_source_ele = document.getElementById(
                         `node${each_link.source}`
                     );
@@ -793,13 +909,21 @@ export default {
                             .split(")")[0]
                             .split(",")
                     );
+                    // console.log(path_source_ele);
                     path_source_transform = path_source_transform.splice(4, 2);
 
+                    // path_source_transform = str2number(
+                    //     path_source_transform
+                    //         .split("(")[1]
+                    //         .split(")")[0]
+                    //         .split(",")
+                    // );
                     var target_source_ele = document.getElementById(
                         `node${each_link.target}`
                     );
                     var path_target_transform =
                         $(target_source_ele).css("transform");
+                    // console.log(path_target_ele);
 
                     path_target_transform = str2number(
                         path_target_transform
@@ -807,7 +931,9 @@ export default {
                             .split(")")[0]
                             .split(",")
                     );
+                    // console.log(path_target_ele);
                     path_target_transform = path_target_transform.splice(4, 2);
+                    // console.log(path_target_transform);
 
                     return (
                         "M" +
@@ -874,129 +1000,6 @@ export default {
                     );
                 }
             });
-
-            function render_title() {
-                var title_margin_left = 0;
-                var title_margin_top = 720;
-                var phases = [
-                    "BAN PHASE 1",
-                    "PICK PHASE 1",
-                    "BAN PHASE 2",
-                    "PICK PHASE 2",
-                ];
-                var stages = [
-                    ["blue_ban1", "red_ban1", "blue_ban2", "red_ban2"],
-                    [
-                        "blue_pick1",
-                        "red_pick1",
-                        "red_pick2",
-                        "blue_pick2",
-                        "blue_pick3",
-                        "red_pick3",
-                    ],
-                    ["red_ban3", "blue_ban3", "red_ban4", "blue_ban4"],
-                    ["red_pick4", "blue_pick4", "blue_pick5", "red_pick5"],
-                ];
-                var phase_color = ["#D9D9D9", "#E8E8E8"];
-                var stage_color = ["#C8E4F7", "#FCC6C6"];
-
-                var part_stages = [];
-                stages.forEach((ele) => {
-                    part_stages = part_stages.concat(ele);
-                });
-
-                // some vars
-                var phase_height = 40;
-                var phase_width = [
-                    stage_width * 4,
-                    stage_width * 6,
-                    stage_width * 4,
-                    stage_width * 4,
-                ];
-                var stage_height = 35;
-
-                // draw phase
-                var phase_g = title_view.append("g").attr("id", "phase_g");
-
-                var phase_g_each_g = phase_g
-                    .selectAll(".phase_rect")
-                    .data(phases)
-                    .enter()
-                    .append("g");
-
-                phase_g_each_g
-                    .append("rect")
-                    .attr("class", "phase_rect")
-                    .attr("id", (d, i) => `phase${i}`)
-                    .attr("width", function (d, i) {
-                        return phase_width[i];
-                    })
-                    .attr("height", phase_height)
-                    .attr("x", function (_, i) {
-                        var x = 0;
-                        phase_width.forEach((ele, index) => {
-                            if (index < i) {
-                                x += ele;
-                            }
-                        });
-                        return x + title_margin_left;
-                    })
-                    .attr("y", title_margin_top + stage_height)
-                    .style("fill", function (_, i) {
-                        return phase_color[i % 2];
-                    });
-
-                phase_g_each_g
-                    .append("text")
-                    .attr("x", (d, i) => d3.select(`#phase${i}`).attr("x"))
-                    .attr("y", title_margin_top + stage_height)
-                    .style("font-size", "20px")
-                    .attr("fill", "black")
-                    .attr("text-anchor", "middle")
-                    .attr("dx", (d, i) => phase_width[i] / 2)
-                    .attr("dy", phase_height / 2 + 7)
-                    .html((d) => d);
-
-                // draw stage
-                var stage_g = title_view.append("g").attr("id", "stage_g");
-
-                var stage_g_each_g = stage_g
-                    .selectAll(".stage_rect")
-                    .data(part_stages)
-                    .enter()
-                    .append("g");
-
-                stage_g_each_g
-                    .append("rect")
-                    .attr("class", "stage_rect")
-                    .attr("width", stage_width)
-                    .attr("height", stage_height)
-                    .attr("x", function (_, i) {
-                        return i * stage_width + title_margin_left;
-                    })
-                    .attr("y", title_margin_top)
-                    .style("fill", function (d, i) {
-                        // console.log(d)
-                        if (d.split("_")[0] == "blue") {
-                            return stage_color[0];
-                        } else {
-                            return stage_color[1];
-                        }
-                    });
-
-                stage_g_each_g
-                    .append("text")
-                    .attr("x", (d, i) => i * stage_width + title_margin_left)
-                    .attr("y", title_margin_top)
-                    .style("font-size", "20px")
-                    .attr("text-anchor", "middle")
-                    .attr("fill", "black")
-                    .attr("dx", stage_width / 2)
-                    .attr("dy", stage_height / 2 + 7)
-                    .html((d) => d.split("_")[1]);
-            }
-
-            render_title();
         },
         async render_glyph_view(chosen_hero) {
             //////////////////////////
@@ -1418,3 +1421,4 @@ export default {
     display: block;
 }
 </style>
+

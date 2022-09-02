@@ -377,9 +377,26 @@ export default {
             this.render_seq_left_veiw();
         },
         render_seq_left_veiw() {
-            //////////////////////////
-            /////////function/////////
-            //////////////////////////
+            d3.select("#seq_view_svg_left").remove();
+            d3.select(".tooltip").remove();
+            var self = this;
+            var seq_view_data = this.sequence_view_data;
+            // // Color scale used
+            var purple_color = ["#542788", "#8073ac", "#b2abd2", "#d8daeb"];
+            var orange_color = ["#fdb863", "#e08214", "#b35806", "#d8daeb"];
+            // create a tooltip
+            var tooltip = d3
+                .select("body")
+                .append("div")
+                .style("opacity", 0)
+                .attr("class", "tooltip")
+                .style("background-color", "white")
+                .style("border", "solid")
+                .style("border-width", "2px")
+                .style("border-radius", "5px")
+                .style("padding", "5px")
+                .style("position", "absolute");
+
             function render_barChart(cur_node_svg, barChartData) {
                 // console.log(barChartData);
                 var fourth_item = {
@@ -410,6 +427,8 @@ export default {
                     .padding(0);
 
                 barChartData.forEach((datum, index) => {
+                    // console.log(datum)
+                    // console.log(index)
                     cur_node_svg
                         .append("rect")
                         .attr("width", function () {
@@ -422,7 +441,8 @@ export default {
                         })
                         .attr("class", "branch_bar")
                         .on("click", function (data) {
-                            var block = $("#main_body").css("transform");
+                            var block =
+                                $("#seq_view_svg_left").css("transform");
                             console.log(block);
 
                             // console.log(source_ele_transform);
@@ -436,7 +456,7 @@ export default {
                             block = block.splice(4, 2);
                             self.transx = block[0];
                             self.transy = block[1];
-                            // console.log(self.transx, self.transy);
+                            console.log(self.transx, self.transy);
                             mouseout;
                             self.branchupdate(datum.hero, data.node);
                             // console.log(datum);
@@ -525,7 +545,7 @@ export default {
                     .append("rect")
                     .attr("class", "branch_bar")
                     .on("click", function (data) {
-                        var block = $("#main_body").css("transform");
+                        var block = $("#seq_view_svg_left").css("transform");
                         console.log(block);
                         // console.log(source_ele_transform);
 
@@ -608,94 +628,53 @@ export default {
                 tooltip.style("opacity", 0);
             }
 
-            function main_body_zoomed_func() {
-                main_body.attr("transform", d3.event.transform);
+            function seq_zoomed_func() {
+                svg.attr("transform", d3.event.transform);
             }
 
-            function title_zoomed_func() {
-                title_view.attr("transform", d3.event.transform);
-            }
-
-            //////////////////////////////////////////////////////////////////////////////
-            //////////////////////////////////////////////////////////////////////////////
-            //////////////////////////////////////////////////////////////////////////////
-            d3.select("#seq_view_svg_left").remove();
-            d3.select(".tooltip").remove();
-            var self = this;
-            var seq_view_data = this.sequence_view_data;
-            // // Color scale used
-            var purple_color = ["#542788", "#8073ac", "#b2abd2", "#d8daeb"];
-            var orange_color = ["#fdb863", "#e08214", "#b35806", "#d8daeb"];
-            // create a tooltip
-            var tooltip = d3
-                .select("body")
-                .append("div")
-                .style("opacity", 0)
-                .attr("class", "tooltip")
-                .style("background-color", "white")
-                .style("border", "solid")
-                .style("border-width", "2px")
-                .style("border-radius", "5px")
-                .style("padding", "5px")
-                .style("position", "absolute");
             var passed_stage = seq_view_data.nodes[0].stage - 1;
             var stage_width = 145;
-
-            var main_body_zoomed = d3
+            var seq_zoomed = d3
                 .zoom()
                 .scaleExtent([0.561, 10])
                 .translateExtent([
                     [10, 0],
                     [2556 + 55 - passed_stage * stage_width, 100000],
                 ])
-                .on("zoom", main_body_zoomed_func);
-
-            var title_zoomed = d3
-                .zoom()
-                .scaleExtent([0.561, 10])
-                .translateExtent([
-                    [10, 0],
-                    [2556 + 55 - passed_stage * stage_width, 100000],
-                ])
-                .on("zoom", title_zoomed_func);
-
-            var seq_view_svg_left = d3
+                .on("zoom", seq_zoomed_func);
+            console.log(self.transx, self.transy);
+            var svg = d3
                 .select("#seq_view_svg")
+                .call(seq_zoomed)
                 .append("g")
                 .attr("id", "seq_view_svg_left")
-                .call(title_zoomed)
-                .call(main_body_zoomed);
-            // .attr(
-            //     "transform",
-            //     `translate(${self.transx},${self.transy}) scale(${self.scale})`
-            // );
+                .attr(
+                    "transform",
+                    "translate(" +
+                        self.transx +
+                        "," +
+                        self.transy +
+                        ")scale(" +
+                        self.scale +
+                        ")"
+                );
 
-            var main_body = seq_view_svg_left
-                .append("g")
-                .attr("id", "main_body")
-                .attr(
-                    "transform",
-                    `translate(${self.transx},${self.transy}) scale(${self.scale})`
-                );
-            var title_view = seq_view_svg_left
-                .append("g")
-                .attr("id", "title_view")
-                .attr(
-                    "transform",
-                    `translate(-${passed_stage * stage_width},0)`
-                );
+            var main_body = svg.append("g").attr("id", "main_body");
+
+            // load the data
+            // Constructs a new Sankey generator with the default settings.
             var link_svg = main_body.append("g").attr("id", "link_svg");
             var node_svg = main_body.append("g").attr("id", "node_svg");
 
-            //////////////////////////
-            /////////node/////////////
-            //////////////////////////
             // some vars for nodes
             var left_margin = 68;
-            var top_margin = 220;
+            var top_margin = 50;
             var line_height = 150; //行宽
             var node_spacing = 145; //节点间距
-            var eachPos = seq_view_data.eachPos;
+            var trunk_num_remember = {};
+
+            console.log(seq_view_data);
+            // draw node
             var node_g = node_svg
                 .selectAll(".node")
                 .data(seq_view_data.nodes)
@@ -705,11 +684,70 @@ export default {
                 .attr("id", (d) => `node${d.node}`)
                 .attr("transform", function (d) {
                     // console.log(d);
-                    var cur_node_pos = eachPos[d.node];
-                    // console.log(cur_node_pos);
-                    return `translate(${
-                        left_margin + node_spacing * cur_node_pos[1]
-                    },${top_margin + line_height * cur_node_pos[0]})`;
+                    if (d.source == 0) {
+                        // root节点
+                        var d_base_height = 1;
+                        seq_view_data.eachWidth.forEach((eachSource) => {
+                            if (
+                                eachSource.source != 0 &&
+                                eachSource.source < d.node
+                            ) {
+                                d_base_height += eachSource.width;
+                            }
+                        });
+                        return `translate(${left_margin}, ${
+                            line_height * d_base_height + top_margin
+                        })`;
+                    } else {
+                        //非root节点
+                        var source_ele = document.getElementById(
+                            `node${d.source}`
+                        );
+                        var source_node = seq_view_data.nodes.filter(
+                            (x) => x.node == d.source
+                        )[0];
+                        // console.log(source_node)
+                        var source_ele_transform =
+                            $(source_ele).css("transform");
+                        // console.log(source_ele_transform);
+
+                        source_ele_transform = str2number(
+                            source_ele_transform
+                                .split("(")[1]
+                                .split(")")[0]
+                                .split(",")
+                        );
+                        // console.log(source_ele_transform);
+                        source_ele_transform = source_ele_transform.splice(
+                            4,
+                            2
+                        );
+                        // console.log(source_ele_transform);
+
+                        // source_ele_transform = str2number(
+                        //     source_ele_transform
+                        //         .split("(")[1]
+                        //         .split(")")[0]
+                        //         .split(",")
+                        // );
+                        // console.log(source_ele_transform);
+
+                        if (checkTrunk(d, source_node)) {
+                            // 非root但trunk
+                            // console.log(`${d.hero} not root is trunk`)
+                            trunk_num_remember[d.source] =
+                                source_ele_transform[1];
+                            return `translate(${
+                                left_margin + (d.stage - 1) * node_spacing
+                            }, ${source_ele_transform[1]})`;
+                        } else {
+                            // 非root非trunk
+                            // console.log(`${d.hero} not root not trunk`)
+                            return `translate(${
+                                left_margin + (d.stage - 1) * node_spacing
+                            }, ${trunk_num_remember[d.source] + line_height})`;
+                        }
+                    }
                 });
 
             // add image for the nodes
@@ -727,6 +765,14 @@ export default {
                 .attr("x", -30)
                 .attr("y", -30);
 
+            // var allheronode = seq_view_data.nodes;
+            // console.log(allheronode);
+            // var block;
+            // for (var node=0;node<allheronode.length;node++){
+            //     console.log(allheronode[node]);
+            //     block = document.getElementById("node"+allheronode[node].hero);
+            //     block.style.fill="url(#p"+allheronode[node].hero+")";
+            // }
             // add image-border
             node_g
                 .append("rect")
@@ -745,23 +791,26 @@ export default {
                 .on("click", function (d) {
                     d3.select("#glyph_view_svg").remove();
                     self.render_glyph_view(d.hero);
+                    var block = $("#seq_view_svg_left").css("transform");
+                    // console.log(block);
+                    // console.log(source_ele_transform);
 
-                    var block = $("#main_body").css("transform");
                     block = str2number(
                         block.split("(")[1].split(")")[0].split(",")
                     );
                     self.scale = block[0];
+                    // console.log(source_ele_transform);
                     block = block.splice(4, 2);
                     self.transx = block[0];
                     self.transy = block[1];
 
+                    // console.log(this.transx,this.transy);
                     mouseout;
                     self.drawwinrate(d.node);
                 });
 
-            //////////////////////////
-            /////////link/////////////
-            //////////////////////////
+            // add links
+            var score_amplify = 25;
             link_svg
                 .selectAll(".link")
                 .data(seq_view_data.links)
@@ -779,6 +828,8 @@ export default {
                     return `${d.source}to${d.target}with${d.value}`;
                 })
                 .attr("d", function (each_link) {
+                    // console.log(each_link)
+                    // console.log(each_link.source)
                     var path_source_ele = document.getElementById(
                         `node${each_link.source}`
                     );
@@ -793,13 +844,21 @@ export default {
                             .split(")")[0]
                             .split(",")
                     );
+                    // console.log(path_source_ele);
                     path_source_transform = path_source_transform.splice(4, 2);
 
+                    // path_source_transform = str2number(
+                    //     path_source_transform
+                    //         .split("(")[1]
+                    //         .split(")")[0]
+                    //         .split(",")
+                    // );
                     var target_source_ele = document.getElementById(
                         `node${each_link.target}`
                     );
                     var path_target_transform =
                         $(target_source_ele).css("transform");
+                    // console.log(path_target_ele);
 
                     path_target_transform = str2number(
                         path_target_transform
@@ -807,7 +866,18 @@ export default {
                             .split(")")[0]
                             .split(",")
                     );
+                    // console.log(path_target_ele);
                     path_target_transform = path_target_transform.splice(4, 2);
+                    // console.log(path_target_transform);
+
+                    // var path_target_transform =
+                    //     path_target_ele.attr("transform");
+                    // path_target_transform = str2number(
+                    //     path_target_transform
+                    //         .split("(")[1]
+                    //         .split(")")[0]
+                    //         .split(",")
+                    // );
 
                     return (
                         "M" +
@@ -844,9 +914,6 @@ export default {
                 })
                 .on("mouseout", mouseout);
 
-            //////////////////////////
-            /////////node_chart///////
-            //////////////////////////
             // node chart
             var nodeChart_svg = node_g
                 .append("svg")
@@ -877,7 +944,7 @@ export default {
 
             function render_title() {
                 var title_margin_left = 0;
-                var title_margin_top = 720;
+                var title_margin_top = 0;
                 var phases = [
                     "BAN PHASE 1",
                     "PICK PHASE 1",
@@ -897,16 +964,27 @@ export default {
                     ["red_ban3", "blue_ban3", "red_ban4", "blue_ban4"],
                     ["red_pick4", "blue_pick4", "blue_pick5", "red_pick5"],
                 ];
-                var phase_color = ["#D9D9D9", "#E8E8E8"];
-                var stage_color = ["#C8E4F7", "#FCC6C6"];
 
                 var part_stages = [];
                 stages.forEach((ele) => {
                     part_stages = part_stages.concat(ele);
                 });
 
+                var phase_color = ["#D9D9D9", "#E8E8E8"];
+                var stage_color = ["#C8E4F7", "#FCC6C6"];
+
+                var title_view = d3
+                    .select("#seq_view_svg_left")
+                    .append("g")
+                    .attr("id", "title_view")
+                    .attr(
+                        "transform",
+                        `translate(-${passed_stage * stage_width},0)`
+                    );
+
                 // some vars
                 var phase_height = 40;
+                // var stage_width = 145;
                 var phase_width = [
                     stage_width * 4,
                     stage_width * 6,
@@ -935,13 +1013,14 @@ export default {
                     .attr("x", function (_, i) {
                         var x = 0;
                         phase_width.forEach((ele, index) => {
+                            // console.log(ele, index)
                             if (index < i) {
                                 x += ele;
                             }
                         });
                         return x + title_margin_left;
                     })
-                    .attr("y", title_margin_top + stage_height)
+                    .attr("y", title_margin_top)
                     .style("fill", function (_, i) {
                         return phase_color[i % 2];
                     });
@@ -949,7 +1028,7 @@ export default {
                 phase_g_each_g
                     .append("text")
                     .attr("x", (d, i) => d3.select(`#phase${i}`).attr("x"))
-                    .attr("y", title_margin_top + stage_height)
+                    .attr("y", title_margin_top)
                     .style("font-size", "20px")
                     .attr("fill", "black")
                     .attr("text-anchor", "middle")
@@ -974,7 +1053,7 @@ export default {
                     .attr("x", function (_, i) {
                         return i * stage_width + title_margin_left;
                     })
-                    .attr("y", title_margin_top)
+                    .attr("y", title_margin_top + phase_height)
                     .style("fill", function (d, i) {
                         // console.log(d)
                         if (d.split("_")[0] == "blue") {
@@ -987,7 +1066,7 @@ export default {
                 stage_g_each_g
                     .append("text")
                     .attr("x", (d, i) => i * stage_width + title_margin_left)
-                    .attr("y", title_margin_top)
+                    .attr("y", title_margin_top + phase_height)
                     .style("font-size", "20px")
                     .attr("text-anchor", "middle")
                     .attr("fill", "black")
@@ -1005,14 +1084,14 @@ export default {
             var chosen_hero_data = all_glyph_data[chosen_hero];
             console.log(chosen_hero_data);
 
-            var offset_left = 250;
+            var offset_left = 200;
             var offset_top = 135;
             var glyph_view_svg = d3
                 .select("#glyph_view")
                 .append("svg")
-                .attr("id", "glyph_view_svg")
                 .attr("width", 400)
-                .attr("height", 270);
+                .attr("height", 270)
+                .attr("id", "glyph_view_svg");
 
             //////////////////////////
             /////backgound arc////////
@@ -1290,53 +1369,54 @@ export default {
             ////////////////////////////////////////////////////
             ///////////////////////legend///////////////////////
             ////////////////////////////////////////////////////
-            var glyph_legend_svg = glyph_view_svg
+            var Svg = d3
+                .select("#my_dataviz")
                 .append("svg")
-                .attr("id", "glyph_legend_svg")
-                .attr("width", 200)
-                .attr("height", 80);
+                .attr("width", 300)
+                .attr("height", 450);
 
-            var glyph_legend_key = [
-                "Counter Top3",
-                "Countered Top3",
-                "Best Team Mate",
-            ];
-            var glyph_legend_color = d3
+            // create a list of keys
+            var keys = ["Counter Top3", "Countered Top3", "Best Team Mate"];
+
+            // Usually you have a color scale in your chart already
+            var color = d3
                 .scaleOrdinal()
-                .domain(glyph_legend_key)
+                .domain(keys)
                 .range(["#E6F2CD", "#FFBFBF", "#BFE5FF"]);
 
-            var glyph_legend_offset_left = 12;
-            var glyph_legend_offset_top = 21;
-            glyph_legend_svg
-                .selectAll(".legend_dots")
-                .data(glyph_legend_key)
+            // Add one dot in the legend for each name.
+            Svg.selectAll(".legend_dots")
+                .data(keys)
                 .enter()
                 .append("circle")
                 .attr("class", "legend_dots")
-                .attr("cx", glyph_legend_offset_left)
+                .attr("cx", 100)
                 .attr("cy", function (d, i) {
-                    return glyph_legend_offset_top + i * 25;
+                    return 100 + i * 25;
                 }) // 100 is where the first dot appears. 25 is the distance between dots
                 .attr("r", 7)
-                .style("fill", (d) => glyph_legend_color(d));
+                .style("fill", function (d) {
+                    return color(d);
+                });
 
             // Add one dot in the legend for each name.
-            glyph_legend_svg
-                .selectAll(".legend_text")
-                .data(glyph_legend_key)
+            Svg.selectAll(".legend_text")
+                .data(keys)
                 .enter()
                 .append("text")
                 .attr("class", "legend_text")
-                .attr("x", glyph_legend_offset_top)
+                .attr("x", 120)
                 .attr("y", function (d, i) {
-                    return glyph_legend_offset_top + i * 25;
+                    return 100 + i * 25;
                 }) // 100 is where the first dot appears. 25 is the distance between dots
-                .style("fill", (d) => glyph_legend_color(d))
-                .text((d) => d)
+                .style("fill", function (d) {
+                    return color(d);
+                })
+                .text(function (d) {
+                    return d;
+                })
                 .attr("text-anchor", "left")
-                .style("alignment-baseline", "middle")
-                .style("font-weight", "bold");
+                .style("alignment-baseline", "middle");
         },
     },
 };
@@ -1418,3 +1498,4 @@ export default {
     display: block;
 }
 </style>
+
