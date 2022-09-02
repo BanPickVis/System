@@ -667,7 +667,7 @@ export default {
             //////////////////////////
             // some vars for nodes
             var left_margin = 68;
-            var top_margin = 220;
+            var top_margin = 150;
             var line_height = 150; //行宽
             var node_spacing = 145; //节点间距
             var eachPos = seq_view_data.eachPos;
@@ -758,6 +758,8 @@ export default {
                     return `${d.source}to${d.target}with${d.value}`;
                 })
                 .attr("d", function (each_link) {
+                    // console.log(each_link)
+                    // console.log(each_link.source)
                     var path_source_ele = document.getElementById(
                         `node${each_link.source}`
                     );
@@ -772,13 +774,21 @@ export default {
                             .split(")")[0]
                             .split(",")
                     );
+                    // console.log(path_source_ele);
                     path_source_transform = path_source_transform.splice(4, 2);
 
+                    // path_source_transform = str2number(
+                    //     path_source_transform
+                    //         .split("(")[1]
+                    //         .split(")")[0]
+                    //         .split(",")
+                    // );
                     var target_source_ele = document.getElementById(
                         `node${each_link.target}`
                     );
                     var path_target_transform =
                         $(target_source_ele).css("transform");
+                    // console.log(path_target_ele);
 
                     path_target_transform = str2number(
                         path_target_transform
@@ -786,7 +796,9 @@ export default {
                             .split(")")[0]
                             .split(",")
                     );
+                    // console.log(path_target_ele);
                     path_target_transform = path_target_transform.splice(4, 2);
+                    // console.log(path_target_transform);
 
                     return (
                         "M" +
@@ -856,7 +868,7 @@ export default {
 
             function render_title() {
                 var title_margin_left = 0;
-                var title_margin_top = 720;
+                var title_margin_top = 0;
                 var phases = [
                     "BAN PHASE 1",
                     "PICK PHASE 1",
@@ -876,13 +888,14 @@ export default {
                     ["red_ban3", "blue_ban3", "red_ban4", "blue_ban4"],
                     ["red_pick4", "blue_pick4", "blue_pick5", "red_pick5"],
                 ];
-                var phase_color = ["#D9D9D9", "#E8E8E8"];
-                var stage_color = ["#C8E4F7", "#FCC6C6"];
 
                 var part_stages = [];
                 stages.forEach((ele) => {
                     part_stages = part_stages.concat(ele);
                 });
+
+                var phase_color = ["#D9D9D9", "#E8E8E8"];
+                var stage_color = ["#C8E4F7", "#FCC6C6"];
 
                 var title_view = d3
                     .select("#seq_view_svg_left")
@@ -895,6 +908,7 @@ export default {
 
                 // some vars
                 var phase_height = 40;
+                // var stage_width = 145;
                 var phase_width = [
                     stage_width * 4,
                     stage_width * 6,
@@ -923,13 +937,14 @@ export default {
                     .attr("x", function (_, i) {
                         var x = 0;
                         phase_width.forEach((ele, index) => {
+                            // console.log(ele, index)
                             if (index < i) {
                                 x += ele;
                             }
                         });
                         return x + title_margin_left;
                     })
-                    .attr("y", title_margin_top + stage_height)
+                    .attr("y", title_margin_top)
                     .style("fill", function (_, i) {
                         return phase_color[i % 2];
                     });
@@ -937,7 +952,7 @@ export default {
                 phase_g_each_g
                     .append("text")
                     .attr("x", (d, i) => d3.select(`#phase${i}`).attr("x"))
-                    .attr("y", title_margin_top + stage_height)
+                    .attr("y", title_margin_top)
                     .style("font-size", "20px")
                     .attr("fill", "black")
                     .attr("text-anchor", "middle")
@@ -962,7 +977,7 @@ export default {
                     .attr("x", function (_, i) {
                         return i * stage_width + title_margin_left;
                     })
-                    .attr("y", title_margin_top)
+                    .attr("y", title_margin_top + phase_height)
                     .style("fill", function (d, i) {
                         // console.log(d)
                         if (d.split("_")[0] == "blue") {
@@ -975,7 +990,7 @@ export default {
                 stage_g_each_g
                     .append("text")
                     .attr("x", (d, i) => i * stage_width + title_margin_left)
-                    .attr("y", title_margin_top)
+                    .attr("y", title_margin_top + phase_height)
                     .style("font-size", "20px")
                     .attr("text-anchor", "middle")
                     .attr("fill", "black")

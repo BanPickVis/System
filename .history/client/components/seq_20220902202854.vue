@@ -929,7 +929,7 @@ export default {
                         });
                         return x + title_margin_left;
                     })
-                    .attr("y", title_margin_top + stage_height)
+                    .attr("y", title_margin_top + phase_height)
                     .style("fill", function (_, i) {
                         return phase_color[i % 2];
                     });
@@ -937,7 +937,7 @@ export default {
                 phase_g_each_g
                     .append("text")
                     .attr("x", (d, i) => d3.select(`#phase${i}`).attr("x"))
-                    .attr("y", title_margin_top + stage_height)
+                    .attr("y", title_margin_top + phase_height)
                     .style("font-size", "20px")
                     .attr("fill", "black")
                     .attr("text-anchor", "middle")
