@@ -410,8 +410,6 @@ export default {
                     .padding(0);
 
                 barChartData.forEach((datum, index) => {
-                    // console.log(datum)
-                    // console.log(index)
                     cur_node_svg
                         .append("rect")
                         .attr("width", function () {
@@ -424,8 +422,7 @@ export default {
                         })
                         .attr("class", "branch_bar")
                         .on("click", function (data) {
-                            var block =
-                                $("#seq_view_svg_left").css("transform");
+                            var block = $("#main_body").css("transform");
                             console.log(block);
 
                             // console.log(source_ele_transform);
@@ -528,7 +525,7 @@ export default {
                     .append("rect")
                     .attr("class", "branch_bar")
                     .on("click", function (data) {
-                        var block = $("#seq_view_svg_left").css("transform");
+                        var block = $("#main_body").css("transform");
                         console.log(block);
                         // console.log(source_ele_transform);
 
@@ -611,8 +608,12 @@ export default {
                 tooltip.style("opacity", 0);
             }
 
-            function seq_zoomed_func() {
-                svg.attr("transform", d3.event.transform);
+            function main_body_zoomed_func() {
+                main_body.attr("transform", d3.event.transform);
+            }
+
+            function title_zoomed_func() {
+                title_view.attr("transform", d3.event.transform);
             }
 
             //////////////////////////////////////////////////////////////////////////////
@@ -639,26 +640,50 @@ export default {
                 .style("position", "absolute");
             var passed_stage = seq_view_data.nodes[0].stage - 1;
             var stage_width = 145;
-            var seq_zoomed = d3
+
+            var main_body_zoomed = d3
                 .zoom()
                 .scaleExtent([0.561, 10])
                 .translateExtent([
                     [10, 0],
                     [2556 + 55 - passed_stage * stage_width, 100000],
                 ])
-                .on("zoom", seq_zoomed_func);
-            // console.log(self.transx, self.transy);
-            var svg = d3
+                .on("zoom", main_body_zoomed_func);
+
+            var title_zoomed = d3
+                .zoom()
+                .scaleExtent([0.561, 10])
+                .translateExtent([
+                    [10, 0],
+                    [2556 + 55 - passed_stage * stage_width, 100000],
+                ])
+                .on("zoom", title_zoomed_func);
+
+            var seq_view_svg_left = d3
                 .select("#seq_view_svg")
-                .call(seq_zoomed)
                 .append("g")
                 .attr("id", "seq_view_svg_left")
+                .call(title_zoomed)
+                .call(main_body_zoomed);
+            // .attr(
+            //     "transform",
+            //     `translate(${self.transx},${self.transy}) scale(${self.scale})`
+            // );
+
+            var main_body = seq_view_svg_left
+                .append("g")
+                .attr("id", "main_body")
                 .attr(
                     "transform",
                     `translate(${self.transx},${self.transy}) scale(${self.scale})`
                 );
-
-            var main_body = svg.append("g").attr("id", "main_body");
+            var title_view = seq_view_svg_left
+                .append("g")
+                .attr("id", "title_view")
+                .attr(
+                    "transform",
+                    `translate(-${passed_stage * stage_width},0)`
+                );
             var link_svg = main_body.append("g").attr("id", "link_svg");
             var node_svg = main_body.append("g").attr("id", "node_svg");
 
@@ -720,20 +745,16 @@ export default {
                 .on("click", function (d) {
                     d3.select("#glyph_view_svg").remove();
                     self.render_glyph_view(d.hero);
-                    var block = $("#seq_view_svg_left").css("transform");
-                    // console.log(block);
-                    // console.log(source_ele_transform);
 
+                    var block = $("#main_body").css("transform");
                     block = str2number(
                         block.split("(")[1].split(")")[0].split(",")
                     );
                     self.scale = block[0];
-                    // console.log(source_ele_transform);
                     block = block.splice(4, 2);
                     self.transx = block[0];
                     self.transy = block[1];
 
-                    // console.log(this.transx,this.transy);
                     mouseout;
                     self.drawwinrate(d.node);
                 });
@@ -883,15 +904,6 @@ export default {
                 stages.forEach((ele) => {
                     part_stages = part_stages.concat(ele);
                 });
-
-                var title_view = d3
-                    .select("#seq_view_svg_left")
-                    .append("g")
-                    .attr("id", "title_view")
-                    .attr(
-                        "transform",
-                        `translate(-${passed_stage * stage_width},0)`
-                    );
 
                 // some vars
                 var phase_height = 40;
