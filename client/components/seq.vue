@@ -1,22 +1,11 @@
 <template>
     <div>
         <div id="seq_view_left">
-            <svg
-                id="seq_view_svg"
-                width="1290px"
-                height="800px"
-                fill="none"
-            ></svg>
+            <svg id="seq_view_svg" width="1290px" height="800px" fill="none"></svg>
         </div>
         <div id="glyph_view"></div>
         <span id="type">
-            <input
-                id="typeinput"
-                v-model="customizedhero"
-                type="text"
-                placeholder="please select"
-                list="typelist"
-            />
+            <input id="typeinput" v-model="customizedhero" type="text" placeholder="please select" list="typelist" />
             <datalist id="typelist">
                 <option>上官婉儿</option>
                 <option>不知火舞</option>
@@ -147,7 +136,7 @@ export default {
         side: { type: String, default: "Blue" },
         bon: { type: String, default: "3" },
     },
-    setup() {},
+    setup() { },
     data() {
         return {
             sequence_view_data: {},
@@ -183,7 +172,7 @@ export default {
     },
     mounted() {
         // render seq_view
-        // this.loaddata();
+        this.loaddata();
         // this.render_seq_left_veiw();
     },
     methods: {
@@ -456,7 +445,7 @@ export default {
                             block = block.splice(4, 2);
                             self.transx = block[0];
                             self.transy = block[1];
-                            console.log(self.transx, self.transy);
+                            // console.log(self.transx, self.transy);
                             mouseout;
                             self.branchupdate(datum.hero, data.node);
                             // console.log(datum);
@@ -642,7 +631,7 @@ export default {
                     [2556 + 55 - passed_stage * stage_width, 100000],
                 ])
                 .on("zoom", seq_zoomed_func);
-            console.log(self.transx, self.transy);
+            // console.log(self.transx, self.transy);
             var svg = d3
                 .select("#seq_view_svg")
                 .call(seq_zoomed)
@@ -650,14 +639,17 @@ export default {
                 .attr("id", "seq_view_svg_left")
                 .attr(
                     "transform",
-                    "translate(" +
-                        self.transx +
-                        "," +
-                        self.transy +
-                        ")scale(" +
-                        self.scale +
-                        ")"
+                    `translate(${self.transx},${self.transy}) scale(${self.scale})`
                 );
+            // .attr(
+            //     "transform",
+            //     "translate(" +
+            //     self.transx +
+            //     "," +
+            //     self.transy +
+            //     ")scale(" +
+            //     self.scale +")"
+            // );
 
             var main_body = svg.append("g").attr("id", "main_body");
 
@@ -668,13 +660,77 @@ export default {
 
             // some vars for nodes
             var left_margin = 68;
-            var top_margin = 50;
+            var top_margin = 150;
             var line_height = 150; //行宽
             var node_spacing = 145; //节点间距
-            var trunk_num_remember = {};
 
-            console.log(seq_view_data);
-            // draw node
+            // var trunk_num_remember = {};
+            // // draw node
+            // var node_g = node_svg
+            //     .selectAll(".node")
+            //     .data(seq_view_data.nodes)
+            //     .enter()
+            //     .append("g")
+            //     .attr("class", "node")
+            //     .attr("id", (d) => `node${d.node}`)
+            //     .attr("transform", function (d) {
+            //         // console.log(d);
+            //         if (d.source == 0) {
+            //             // root节点
+            //             var d_base_height = 1;
+            //             seq_view_data.eachWidth.forEach((eachSource) => {
+            //                 if (
+            //                     eachSource.source != 0 &&
+            //                     eachSource.source < d.node
+            //                 ) {
+            //                     d_base_height += eachSource.width;
+            //                 }
+            //             });
+            //             return `translate(${left_margin}, ${line_height * d_base_height + top_margin
+            //                 })`;
+            //         } else {
+            //             //非root节点
+            //             var source_ele = document.getElementById(
+            //                 `node${d.source}`
+            //             );
+            //             var source_node = seq_view_data.nodes.filter(
+            //                 (x) => x.node == d.source
+            //             )[0];
+            //             // console.log(source_node)
+            //             var source_ele_transform =
+            //                 $(source_ele).css("transform");
+            //             // console.log(source_ele_transform);
+
+            //             source_ele_transform = str2number(
+            //                 source_ele_transform
+            //                     .split("(")[1]
+            //                     .split(")")[0]
+            //                     .split(",")
+            //             );
+            //             // console.log(source_ele_transform);
+            //             source_ele_transform = source_ele_transform.splice(
+            //                 4,
+            //                 2
+            //             );
+
+            //             if (checkTrunk(d, source_node)) {
+            //                 // 非root但trunk
+            //                 // console.log(`${d.hero} not root is trunk`)
+            //                 trunk_num_remember[d.source] =
+            //                     source_ele_transform[1];
+            //                 return `translate(${left_margin + (d.stage - 1) * node_spacing
+            //                     }, ${source_ele_transform[1]})`;
+            //             } else {
+            //                 // 非root非trunk
+            //                 // console.log(`${d.hero} not root not trunk`)
+            //                 return `translate(${left_margin + (d.stage - 1) * node_spacing
+            //                     }, ${trunk_num_remember[d.source] + line_height})`;
+            //             }
+            //         }
+            //     });
+            // console.log(seq_view_data);
+            var eachPos = seq_view_data.eachPos;
+            // console.log(eachPos);
             var node_g = node_svg
                 .selectAll(".node")
                 .data(seq_view_data.nodes)
@@ -684,70 +740,9 @@ export default {
                 .attr("id", (d) => `node${d.node}`)
                 .attr("transform", function (d) {
                     // console.log(d);
-                    if (d.source == 0) {
-                        // root节点
-                        var d_base_height = 1;
-                        seq_view_data.eachWidth.forEach((eachSource) => {
-                            if (
-                                eachSource.source != 0 &&
-                                eachSource.source < d.node
-                            ) {
-                                d_base_height += eachSource.width;
-                            }
-                        });
-                        return `translate(${left_margin}, ${
-                            line_height * d_base_height + top_margin
-                        })`;
-                    } else {
-                        //非root节点
-                        var source_ele = document.getElementById(
-                            `node${d.source}`
-                        );
-                        var source_node = seq_view_data.nodes.filter(
-                            (x) => x.node == d.source
-                        )[0];
-                        // console.log(source_node)
-                        var source_ele_transform =
-                            $(source_ele).css("transform");
-                        // console.log(source_ele_transform);
-
-                        source_ele_transform = str2number(
-                            source_ele_transform
-                                .split("(")[1]
-                                .split(")")[0]
-                                .split(",")
-                        );
-                        // console.log(source_ele_transform);
-                        source_ele_transform = source_ele_transform.splice(
-                            4,
-                            2
-                        );
-                        // console.log(source_ele_transform);
-
-                        // source_ele_transform = str2number(
-                        //     source_ele_transform
-                        //         .split("(")[1]
-                        //         .split(")")[0]
-                        //         .split(",")
-                        // );
-                        // console.log(source_ele_transform);
-
-                        if (checkTrunk(d, source_node)) {
-                            // 非root但trunk
-                            // console.log(`${d.hero} not root is trunk`)
-                            trunk_num_remember[d.source] =
-                                source_ele_transform[1];
-                            return `translate(${
-                                left_margin + (d.stage - 1) * node_spacing
-                            }, ${source_ele_transform[1]})`;
-                        } else {
-                            // 非root非trunk
-                            // console.log(`${d.hero} not root not trunk`)
-                            return `translate(${
-                                left_margin + (d.stage - 1) * node_spacing
-                            }, ${trunk_num_remember[d.source] + line_height})`;
-                        }
-                    }
+                    var cur_node_pos = eachPos[d.node];
+                    // console.log(cur_node_pos);
+                    return `translate(${left_margin + node_spacing * cur_node_pos[1]},${top_margin + line_height * cur_node_pos[0]})`;
                 });
 
             // add image for the nodes
@@ -765,14 +760,6 @@ export default {
                 .attr("x", -30)
                 .attr("y", -30);
 
-            // var allheronode = seq_view_data.nodes;
-            // console.log(allheronode);
-            // var block;
-            // for (var node=0;node<allheronode.length;node++){
-            //     console.log(allheronode[node]);
-            //     block = document.getElementById("node"+allheronode[node].hero);
-            //     block.style.fill="url(#p"+allheronode[node].hero+")";
-            // }
             // add image-border
             node_g
                 .append("rect")
