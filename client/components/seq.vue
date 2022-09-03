@@ -1,10 +1,14 @@
 <template>
     <div>
+        <div>
+            <svg id="sankeyview">
+            </svg>
+        </div>
         <div id="seq_view_left">
             <svg
                 id="seq_view_svg"
                 width="1290px"
-                height="800px"
+                height="600px"
                 fill="none"
             ></svg>
         </div>
@@ -164,7 +168,6 @@ export default {
             this.branchupdate(val, this.selectednode);
         },
         bon(val) {
-            // console.log("wow");
             // this.sequence_view_data = await requesthelp.axiosGet('/getSequenceData');
             this.loaddata();
         },
@@ -185,10 +188,197 @@ export default {
         // render seq_view
         this.loaddata();
         // this.render_seq_left_veiw();
+        this.render_sankey();
+
     },
     methods: {
+        async render_sankey(node){
+            var data=[
+                        {"source":"坦然","target":"蒙恬","value":17,"type":"win","sourcealready":0,"targetalready":0},
+                        {"source":"坦然","target":"蒙恬","value":10,"type":"lose","sourcealready":17,"targetalready":17},
+                        {"source":"花海","target":"宫本武藏","value":14,"type":"win","sourcealready":0,"targetalready":0},
+                        {"source":"花海","target":"宫本武藏","value":6,"type":"lose","sourcealready":14,"targetalready":14},
+                        {"source":"花海","target":"澜","value":10,"type":"win","sourcealready":20,"targetalready":0},
+                        {"source":"花海","target":"澜","value":2,"type":"lose","sourcealready":30,"targetalready":10},
+                        {"source":"清融","target":"西施","value":24,"type":"win","sourcealready":0,"targetalready":0},
+                        {"source":"清融","target":"西施","value":6,"type":"lose","sourcealready":24,"targetalready":24},
+                        {"source":"星痕","target":"蒙恬","value":7,"type":"win","sourcealready":0,"targetalready":27},
+                        {"source":"星痕","target":"蒙恬","value":4,"type":"lose","sourcealready":7,"targetalready":34},
+                        {"source":"无畏","target":"宫本武藏","value":9,"type":"win","sourcealready":0,"targetalready":20},
+                        {"source":"无畏","target":"宫本武藏","value":3,"type":"lose","sourcealready":9,"targetalready":29},
+                        {"source":"无畏","target":"澜","value":13,"type":"win","sourcealready":12,"targetalready":12},
+                        {"source":"无畏","target":"澜","value":4,"type":"lose","sourcealready":25,"targetalready":25},
+                        {"source":"紫幻","target":"西施","value":12,"type":"win","sourcealready":0,"targetalready":30},
+                        {"source":"紫幻","target":"西施","value":6,"type":"lose","sourcealready":12,"targetalready":42},
+                    ];
+
+            var margin = {top: 100, right: 50, bottom: 30, left: 40},
+                width = 1430 - margin.left - margin.right,
+                height = 300 - margin.top - margin.bottom;
+
+            var name_width = 130,
+                name_height = 50;
+                
+            var svg = d3.select("#sankeyview");
+
+            var playernode = ['坦然', '花海', '清融', '易峥', '子阳', '星痕', '无畏', '紫幻', '久酷', '明锅'];
+            var heronode = ['蒙恬','澜','宫本武藏','西施'];
+
+            //defaults
+            var heronode_pad = 60;
+            var heronode_y = 250;
+            var hero_image = 60;
+
+            //scale
+            var rect_x = d3.scaleBand()
+                            .range([0,width])
+                            .domain(playernode);  
+            var pathcolor = d3.scaleOrdinal()
+                            .range(["#E6F2CD","#FFBFBF"])
+                            .domain(["win","lose"]);
+            var rectcolor = d3.scaleOrdinal()
+                            .range(["#BFE5FF","#FCC6C6"])
+                            .domain(["blue","red"]);
+            var pathwidth = d3.scaleLinear()
+                            .range([0, hero_image-10])
+                            .domain([0, d3.max(data, function(d) { return d.targetalready;})]);
+            var hero_x = d3.scaleBand()
+                            .range([heronode_pad,heronode.length*(heronode_pad+hero_image)+heronode_pad/2])
+                            .domain(heronode);
+
+            
+            //main route rect
+            svg.append('g')
+                .append('rect')
+                .attr("width", heronode.length*(heronode_pad+hero_image)-heronode_pad/2)
+                .attr("height",hero_image*1.4)
+                .attr("x", heronode_pad/2)
+                .attr("y", heronode_y-hero_image/2-12)
+                .attr("rx",20)
+                .attr("fill","#B0A1C8")
+                .attr("opacity",0.35);
+
+            //player
+            svg.append('g')
+                .selectAll('playerrect')
+                .data(playernode)
+                .enter()
+                .append('rect')
+                .attr("width",name_width)
+                .attr("height",name_height)
+                .attr("x", function(d){return rect_x(d);})
+                .attr("fill",function(d,i){
+                    if (i<=4){
+                        return rectcolor("blue");
+                    }else{
+                        return rectcolor("red");
+                    }
+                })
+                .attr("opacity",0.5)
+                .on("mouseover",function(d){
+                    d3.selectAll("."+d+"path").attr("stroke-opacity",1);
+                    d3.selectAll("."+d+"text").attr("opacity",1);
+                })
+                .on("mouseout",function(d){
+                    d3.selectAll("."+d+"path").attr("stroke-opacity",0.6);
+                    d3.selectAll("."+d+"text").attr("opacity",0);
+                });
+            //player text
+            svg.append('g')
+                .selectAll('text')
+                .data(playernode)
+                .enter()
+                .append('text')
+                .attr("x", function(d){return rect_x(d)+name_width/2-20;})
+                .attr("y",name_height/2+5)
+                .text(function(d){return d;})
+                .attr("font-size","20px");
+            
+            // hero images
+            svg.append('g')
+                .selectAll('herorect')
+                .data(heronode)
+                .enter()
+                .append('rect')
+                .attr("width",hero_image)
+                .attr("height",hero_image)
+                .attr("x", function(d){return hero_x(d);})
+                .attr("y", heronode_y-hero_image/2)
+                .attr("fill",function(d){
+                    return 'url(#p'+d+')';
+                })
+                .on("mouseover",function(d){
+                    d3.selectAll("."+d+"path").attr("stroke-opacity",1);
+                    d3.selectAll("."+d+"text").attr("opacity",1);
+                })
+                .on("mouseout",function(d){
+                    d3.selectAll("."+d+"path").attr("stroke-opacity",0.6);
+                    d3.selectAll("."+d+"text").attr("opacity",0);
+                });
+                
+            //path
+            svg.append('g')
+                .selectAll('path')
+                .data(data)
+                .enter()
+                .append('path')
+                .attr("stroke-width",function(d){return pathwidth(d.value);})
+                .attr("stroke",function(d){return pathcolor(d.type);})
+                .attr("fill",'none')
+                .attr("stroke-opacity",0.6)
+                .attr("transform",function(d){return "translate("+pathwidth(d.value)/2+",0)";})
+                .attr("class",function(d){return d.source+"path" + " " + d.target + "path";})
+                .attr("d", function (d,i) {
+                    return (
+                        "M" +
+                        (rect_x(d.source) + pathwidth(d.sourcealready)+rect_x.bandwidth()/2) +
+                        "," +
+                        name_height +
+                        "C" +
+                        (rect_x(d.source)+ pathwidth(d.sourcealready)+rect_x.bandwidth()/2)+
+                        "," +
+                        150+
+                        " " +
+                        (hero_x(d.target)+ pathwidth(d.targetalready)) +
+                        "," +
+                        150 +
+                        " " +
+                        (hero_x(d.target)+ pathwidth(d.targetalready)) +
+                        "," +
+                        (heronode_y-hero_image/2)
+                    );
+                });
+
+            //path.text
+            svg.append('g')
+                .selectAll('path')
+                .data(data)
+                .enter()
+                .append('text')
+                .attr("x", function(d){return ((rect_x(d.source) + pathwidth(d.sourcealready)+rect_x.bandwidth()/2));})
+                .attr("y",function(d){return name_height +15;})
+                .text(function(d){return d.value;})
+                .attr("font-size","14px")
+                .attr("opacity",0)
+                .attr("class",function(d){return d.source+"text" + " " + d.target + "text";});
+            
+            svg.append('g')
+                .selectAll('path')
+                .data(data)
+                .enter()
+                .append('text')
+                .attr("x", function(d){return (hero_x(d.target)+ pathwidth(d.targetalready));})
+                .attr("y",function(d){return heronode_y-hero_image/2;})
+                .text(function(d){return d.value;})
+                .attr("font-size","14px")
+                .attr("opacity",0)
+                .attr("class",function(d){return d.source+"text" + " " + d.target + "text";});
+
+
+           },
+
         async drawwinrate(node) {
-            console.log(node);
+            // console.log(node);
             var lineupdata = await requesthelp.axiosGet("/getLineup", {
                 node: node,
             });
@@ -423,7 +613,7 @@ export default {
                         .attr("class", "branch_bar")
                         .on("click", function (data) {
                             var block = $("#main_body").css("transform");
-                            console.log(block);
+                            // console.log(block);
 
                             // console.log(source_ele_transform);
 
@@ -437,7 +627,6 @@ export default {
                             self.transx = block[0];
                             self.transy = block[1];
                             // console.log(self.transx, self.transy);
-                            mouseout;
                             self.branchupdate(datum.hero, data.node);
                             // console.log(datum);
                         })
@@ -526,7 +715,7 @@ export default {
                     .attr("class", "branch_bar")
                     .on("click", function (data) {
                         var block = $("#main_body").css("transform");
-                        console.log(block);
+                        // console.log(block);
                         // console.log(source_ele_transform);
 
                         block = str2number(
@@ -541,7 +730,6 @@ export default {
                         self.transy = block[1];
 
                         // hero,node
-                        mouseout;
                         var subgroupName = d3
                             .select(this.parentNode)
                             .datum().key;
@@ -552,6 +740,7 @@ export default {
                         // console.log(subgroupName);
                         // console.log(node);
                         self.branchupdate(subgroupName, node);
+                        self.render_sankey(node);
 
                         // console.log(datum);
                     })
@@ -754,9 +943,9 @@ export default {
                     block = block.splice(4, 2);
                     self.transx = block[0];
                     self.transy = block[1];
-
-                    mouseout;
+                    console.log(d);
                     self.drawwinrate(d.node);
+                    self.render_sankey(d.node);
                 });
 
             //////////////////////////
@@ -1346,22 +1535,28 @@ export default {
 #seq_view_left {
     position: absolute;
     width: 76%;
-    height: 100%;
+    height: 60%;
     left: 0%;
-    top: 0%;
+    top:40%;
     border-right: 1px solid #9a9a9a;
 }
 
 #seq_view_svg {
     position: absolute;
     top: 5%;
-    cursor: move;
 }
 
 #seq_view_svg_left {
-    position: absolute;
-    width: 50%;
     cursor: move;
+}
+
+#sankeyview{
+    position: absolute;
+    width: 76%;
+    height: 40%;
+    left: 0%;
+    top: 5%;
+    border-right: 1px solid #9a9a9a;
 }
 
 .nodeImage {

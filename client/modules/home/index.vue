@@ -163,6 +163,7 @@
     height: 3%;
     right: 12.5%;
     top: 0%;
+    
 }
 .bp_view {
     /* BANPICK */
@@ -265,12 +266,13 @@
 }
 .control_panal{
     position: absolute;
-    width: 17.2%;
+    width: 17.3%;
     height: 11%;
     right: 1%;
     top: 5%;
     border-top: 1px solid #9a9a9a;
-    border-bottom: 1px solid #9a9a9a;
+    
+    border-left: 1px solid #9a9a9a;
     box-sizing: border-box;
 
     font-size: 20px;
