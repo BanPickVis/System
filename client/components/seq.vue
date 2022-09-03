@@ -1,8 +1,7 @@
 <template>
     <div>
         <div>
-            <svg id="sankeyview">
-            </svg>
+            <svg id="sankeyview"></svg>
         </div>
         <div id="seq_view">
             <svg id="main_body_svg"></svg>
@@ -161,12 +160,11 @@ export default {
         };
     },
     watch: {
-        transx(){
-            d3.select("#title_view")
-                .attr(
-                    "transform",
-                    `translate(${this.transx},-440)`);
-                
+        transx() {
+            d3.select("#title_view").attr(
+                "transform",
+                `translate(${this.transx},-440)`
+            );
         },
         customizedhero(val) {
             console.log(val);
@@ -193,10 +191,9 @@ export default {
         this.loaddata();
         // this.render_seq_left_veiw();
         // this.render_sankey();
-
     },
     methods: {
-        async render_sankey(node){
+        async render_sankey(node) {
             // var data=[
             //             {"source":"坦然","target":"蒙恬","value":17,"type":"win","sourcealready":0,"targetalready":0},
             //             {"source":"坦然","target":"蒙恬","value":10,"type":"lose","sourcealready":17,"targetalready":17},
@@ -216,37 +213,46 @@ export default {
             //             {"source":"紫幻","target":"西施","value":6,"type":"lose","sourcealready":12,"targetalready":42},
             //         ];
 
-            var margin = {top: 100, right: 50, bottom: 30, left: 40},
+            var margin = { top: 100, right: 50, bottom: 30, left: 40 },
                 width = 1430 - margin.left - margin.right,
                 height = 300 - margin.top - margin.bottom;
 
             var name_width = 130,
                 name_height = 50;
-                
+
             var svg = d3.select("#sankeyview");
 
-            var teamJson = await requesthelp.axiosGet('/loadData',{ name: this.team1 });
+            var teamJson = await requesthelp.axiosGet("/loadData", {
+                name: this.team1,
+            });
             // console.log(teamJson);
             var teammember1 = teamJson["player"];
-            teamJson = await requesthelp.axiosGet('/loadData',{ name: this.team2 });
+            teamJson = await requesthelp.axiosGet("/loadData", {
+                name: this.team2,
+            });
             // console.log(teamJson);
             var teammember2 = teamJson["player"];
 
             var playernode = [];
-            for (var i=0;i<5;i++){
-                playernode[i]=teammember1[i]["id"];
+            for (var i = 0; i < 5; i++) {
+                playernode[i] = teammember1[i]["id"];
             }
-            for (i=5;i<10;i++){
-                playernode[i]=teammember2[i-5]["id"];
+            for (i = 5; i < 10; i++) {
+                playernode[i] = teammember2[i - 5]["id"];
             }
-            
+
             console.log(playernode);
 
             // var playernode = ['坦然', '花海', '清融', '易峥', '子阳', '星痕', '无畏', '紫幻', '久酷', '明锅'];
-            var heronode = await requesthelp.axiosGet('/getSequence',{ "node":node });
+            var heronode = await requesthelp.axiosGet("/getSequence", {
+                node: node,
+            });
             // ['蒙恬','澜','宫本武藏','西施','鲁班大师'];
 
-            var data = await requesthelp.axiosGet('/getSankeyData',{ "players":JSON.stringify(playernode),"sequence":JSON.stringify(heronode) });
+            var data = await requesthelp.axiosGet("/getSankeyData", {
+                players: JSON.stringify(playernode),
+                sequence: JSON.stringify(heronode),
+            });
 
             //defaults
             var heronode_pad = 92.5;
@@ -254,154 +260,209 @@ export default {
             var hero_image = 60;
 
             //scale
-            var rect_x = d3.scaleBand()
-                            .range([0,width])
-                            .domain(playernode);  
-            var pathcolor = d3.scaleOrdinal()
-                            .range(["#E6F2CD","#FFBFBF"])
-                            .domain(["win","lose"]);
-            var rectcolor = d3.scaleOrdinal()
-                            .range(["#BFE5FF","#FCC6C6"])
-                            .domain(["blue","red"]);
-            var pathwidth = d3.scaleLinear()
-                            .range([0, hero_image-10])
-                            .domain([0, d3.max(data, function(d) { return d.targetalready;})]);
-            var hero_x = d3.scaleBand()
-                            .range([heronode_pad,heronode.length*(heronode_pad+hero_image)+heronode_pad/2])
-                            .domain(heronode);
+            var rect_x = d3.scaleBand().range([0, width]).domain(playernode);
+            var pathcolor = d3
+                .scaleOrdinal()
+                .range(["#E6F2CD", "#FFBFBF"])
+                .domain(["win", "lose"]);
+            var rectcolor = d3
+                .scaleOrdinal()
+                .range(["#BFE5FF", "#FCC6C6"])
+                .domain(["blue", "red"]);
+            var pathwidth = d3
+                .scaleLinear()
+                .range([0, hero_image - 10])
+                .domain([
+                    0,
+                    d3.max(data, function (d) {
+                        return d.targetalready;
+                    }),
+                ]);
+            var hero_x = d3
+                .scaleBand()
+                .range([
+                    heronode_pad,
+                    heronode.length * (heronode_pad + hero_image) +
+                        heronode_pad / 2,
+                ])
+                .domain(heronode);
 
-            
             //main route rect
-            svg.append('g')
-                .append('rect')
-                .attr("width", heronode.length*(heronode_pad+hero_image)-heronode_pad)
-                .attr("height",hero_image*1.4)
-                .attr("x", heronode_pad/2-hero_image/2-5)
-                .attr("y", heronode_y-hero_image/2-12)
-                .attr("rx",20)
-                .attr("fill","#B0A1C8")
-                .attr("opacity",0.35);
+            svg.append("g")
+                .append("rect")
+                .attr(
+                    "width",
+                    heronode.length * (heronode_pad + hero_image) - heronode_pad
+                )
+                .attr("height", hero_image * 1.4)
+                .attr("x", heronode_pad / 2 - hero_image / 2 - 5)
+                .attr("y", heronode_y - hero_image / 2 - 12)
+                .attr("rx", 20)
+                .attr("fill", "#B0A1C8")
+                .attr("opacity", 0.35);
 
             //player
-            svg.append('g')
-                .selectAll('playerrect')
+            svg.append("g")
+                .selectAll("playerrect")
                 .data(playernode)
                 .enter()
-                .append('rect')
-                .attr("width",name_width)
-                .attr("height",name_height)
-                .attr("x", function(d){return rect_x(d);})
-                .attr("fill",function(d,i){
-                    if (i<=4){
+                .append("rect")
+                .attr("width", name_width)
+                .attr("height", name_height)
+                .attr("x", function (d) {
+                    return rect_x(d);
+                })
+                .attr("fill", function (d, i) {
+                    if (i <= 4) {
                         return rectcolor("blue");
-                    }else{
+                    } else {
                         return rectcolor("red");
                     }
                 })
-                .attr("opacity",0.5)
-                .on("mouseover",function(d){
-                    d3.selectAll("."+d+"path").attr("stroke-opacity",1);
-                    d3.selectAll("."+d+"text").attr("opacity",1);
+                .attr("opacity", 0.5)
+                .on("mouseover", function (d) {
+                    d3.selectAll("." + d + "path").attr("stroke-opacity", 1);
+                    d3.selectAll("." + d + "text").attr("opacity", 1);
                 })
-                .on("mouseout",function(d){
-                    d3.selectAll("."+d+"path").attr("stroke-opacity",0.6);
-                    d3.selectAll("."+d+"text").attr("opacity",0);
+                .on("mouseout", function (d) {
+                    d3.selectAll("." + d + "path").attr("stroke-opacity", 0.6);
+                    d3.selectAll("." + d + "text").attr("opacity", 0);
                 });
             //player text
-            svg.append('g')
-                .selectAll('text')
+            svg.append("g")
+                .selectAll("text")
                 .data(playernode)
                 .enter()
-                .append('text')
-                .attr("x", function(d){return rect_x(d)+name_width/2-20;})
-                .attr("y",name_height/2+5)
-                .text(function(d){return d;})
-                .attr("font-size","20px");
-            
+                .append("text")
+                .attr("x", function (d) {
+                    return rect_x(d) + name_width / 2 - 20;
+                })
+                .attr("y", name_height / 2 + 5)
+                .text(function (d) {
+                    return d;
+                })
+                .attr("font-size", "20px");
+
             // hero images
-            svg.append('g')
-                .selectAll('herorect')
+            svg.append("g")
+                .selectAll("herorect")
                 .data(heronode)
                 .enter()
-                .append('rect')
-                .attr("width",hero_image)
-                .attr("height",hero_image)
-                .attr("x", function(d){return hero_x(d)-hero_image;})
-                .attr("y", heronode_y-hero_image/2)
-                .attr("fill",function(d){
-                    return 'url(#p'+d+')';
+                .append("rect")
+                .attr("width", hero_image)
+                .attr("height", hero_image)
+                .attr("x", function (d) {
+                    return hero_x(d) - hero_image;
                 })
-                .attr("stroke","black")
-                .attr("stroke-width",3)
-                .on("mouseover",function(d){
-                    d3.selectAll("."+d+"path").attr("stroke-opacity",1);
-                    d3.selectAll("."+d+"text").attr("opacity",1);
+                .attr("y", heronode_y - hero_image / 2)
+                .attr("fill", function (d) {
+                    return "url(#p" + d + ")";
                 })
-                .on("mouseout",function(d){
-                    d3.selectAll("."+d+"path").attr("stroke-opacity",0.6);
-                    d3.selectAll("."+d+"text").attr("opacity",0);
+                .attr("stroke", "black")
+                .attr("stroke-width", 3)
+                .on("mouseover", function (d) {
+                    d3.selectAll("." + d + "path").attr("stroke-opacity", 1);
+                    d3.selectAll("." + d + "text").attr("opacity", 1);
+                })
+                .on("mouseout", function (d) {
+                    d3.selectAll("." + d + "path").attr("stroke-opacity", 0.6);
+                    d3.selectAll("." + d + "text").attr("opacity", 0);
                 });
-                
+
             //path
-            svg.append('g')
-                .selectAll('path')
+            svg.append("g")
+                .selectAll("path")
                 .data(data)
                 .enter()
-                .append('path')
-                .attr("stroke-width",function(d){return pathwidth(d.value);})
-                .attr("stroke",function(d){return pathcolor(d.type);})
-                .attr("fill",'none')
-                .attr("stroke-opacity",0.6)
-                .attr("transform",function(d){return "translate("+pathwidth(d.value)/2+",0)";})
-                .attr("class",function(d){return d.source+"path" + " " + d.target + "path";})
-                .attr("d", function (d,i) {
+                .append("path")
+                .attr("stroke-width", function (d) {
+                    return pathwidth(d.value);
+                })
+                .attr("stroke", function (d) {
+                    return pathcolor(d.type);
+                })
+                .attr("fill", "none")
+                .attr("stroke-opacity", 0.6)
+                .attr("transform", function (d) {
+                    return "translate(" + pathwidth(d.value) / 2 + ",0)";
+                })
+                .attr("class", function (d) {
+                    return d.source + "path" + " " + d.target + "path";
+                })
+                .attr("d", function (d, i) {
                     return (
                         "M" +
-                        (rect_x(d.source) + pathwidth(d.sourcealready)+rect_x.bandwidth()/2) +
+                        (rect_x(d.source) +
+                            pathwidth(d.sourcealready) +
+                            rect_x.bandwidth() / 2) +
                         "," +
                         name_height +
                         "C" +
-                        (rect_x(d.source)+ pathwidth(d.sourcealready)+rect_x.bandwidth()/2)+
-                        "," +
-                        150+
-                        " " +
-                        (hero_x(d.target)+ pathwidth(d.targetalready)-hero_image) +
+                        (rect_x(d.source) +
+                            pathwidth(d.sourcealready) +
+                            rect_x.bandwidth() / 2) +
                         "," +
                         150 +
                         " " +
-                        (hero_x(d.target)+ pathwidth(d.targetalready)-hero_image) +
+                        (hero_x(d.target) +
+                            pathwidth(d.targetalready) -
+                            hero_image) +
                         "," +
-                        (heronode_y-hero_image/2)
+                        150 +
+                        " " +
+                        (hero_x(d.target) +
+                            pathwidth(d.targetalready) -
+                            hero_image) +
+                        "," +
+                        (heronode_y - hero_image / 2)
                     );
                 });
 
             //path.text
-            svg.append('g')
-                .selectAll('path')
+            svg.append("g")
+                .selectAll("path")
                 .data(data)
                 .enter()
-                .append('text')
-                .attr("x", function(d){return ((rect_x(d.source) + pathwidth(d.sourcealready)+rect_x.bandwidth()/2));})
-                .attr("y",function(d){return name_height +15;})
-                .text(function(d){return d.value;})
-                .attr("font-size","14px")
-                .attr("opacity",0)
-                .attr("class",function(d){return d.source+"text" + " " + d.target + "text";});
-            
-            svg.append('g')
-                .selectAll('path')
+                .append("text")
+                .attr("x", function (d) {
+                    return (
+                        rect_x(d.source) +
+                        pathwidth(d.sourcealready) +
+                        rect_x.bandwidth() / 2
+                    );
+                })
+                .attr("y", function (d) {
+                    return name_height + 15;
+                })
+                .text(function (d) {
+                    return d.value;
+                })
+                .attr("font-size", "14px")
+                .attr("opacity", 0)
+                .attr("class", function (d) {
+                    return d.source + "text" + " " + d.target + "text";
+                });
+
+            svg.append("g")
+                .selectAll("path")
                 .data(data)
                 .enter()
-                .append('text')
-                .attr("x", function(d){return (hero_x(d.target)+ pathwidth(d.targetalready));})
-                .attr("y",function(d){return heronode_y-hero_image/2;})
-                .text(function(d){return d.value;})
-                .attr("font-size","14px")
-                .attr("opacity",0)
-                .attr("class",function(d){return d.source+"text" + " " + d.target + "text";});
-
-
-           },
+                .append("text")
+                .attr("x", function (d) {
+                    return hero_x(d.target) + pathwidth(d.targetalready);
+                })
+                .attr("y", function (d) {
+                    return heronode_y - hero_image / 2;
+                })
+                .text(function (d) {
+                    return d.value;
+                })
+                .attr("font-size", "14px")
+                .attr("opacity", 0)
+                .attr("class", function (d) {
+                    return d.source + "text" + " " + d.target + "text";
+                });
+        },
 
         async drawwinrate(node) {
             // console.log(node);
@@ -589,7 +650,7 @@ export default {
                     t1_side: this.side,
                 }
             );
-            console.log(this.sequence_view_data);
+            // console.log(this.sequence_view_data);
             this.render_seq_left_veiw();
         },
         render_seq_left_veiw() {
@@ -849,6 +910,7 @@ export default {
             // vars
             var self = this;
             var seq_view_data = this.sequence_view_data;
+
             // // Color scale used
             var purple_color = ["#542788", "#8073ac", "#b2abd2", "#d8daeb"];
             var orange_color = ["#fdb863", "#e08214", "#b35806", "#d8daeb"];
@@ -865,12 +927,15 @@ export default {
                 .style("padding", "5px")
                 .style("position", "absolute");
             var passed_stage = seq_view_data.nodes[0].stage - 1;
+            console.log(seq_view_data);
+            console.log(seq_view_data.nodes[0].stage);
+            console.log(passed_stage);
             var stage_width = 145;
 
             // zoom func
             var main_body_zoomed = d3
                 .zoom()
-                .scaleExtent([1,1])
+                .scaleExtent([1, 1])
                 .translateExtent([
                     [10, 0],
                     [2556 + 55 - passed_stage * stage_width, 100000],
@@ -884,12 +949,13 @@ export default {
             //         [2556 + 55 - passed_stage * stage_width, 100000],
             //     ])
             //     .on("zoom", title_zoomed_func);
-            
+
             // prepare
-            var main_body_svg = d3.select('#main_body_svg')
+            var main_body_svg = d3
+                .select("#main_body_svg")
                 .call(main_body_zoomed);
 
-            var title_svg = d3.select('#title_svg');
+            var title_svg = d3.select("#title_svg");
             //     .call(title_zoomed);
 
             var main_body = main_body_svg
@@ -904,7 +970,9 @@ export default {
                 .attr("id", "title_view")
                 .attr(
                     "transform",
-                    `translate(${self.transx},-440) scale(${self.scale})`
+                    `translate(${
+                        self.transx - passed_stage * stage_width
+                    }, -440) scale(${self.scale})`
                 );
             var link_svg = main_body.append("g").attr("id", "link_svg");
             var node_svg = main_body.append("g").attr("id", "node_svg");
@@ -1214,8 +1282,11 @@ export default {
                     .attr("x", function (_, i) {
                         return i * stage_width + title_margin_left;
                     })
-                    .attr("y", title_margin_top+stage_height+stage_height+5)
-                    .attr("rx",5)
+                    .attr(
+                        "y",
+                        title_margin_top + stage_height + stage_height + 5
+                    )
+                    .attr("rx", 5)
                     .style("fill", "white");
 
                 stage_g_each_g
@@ -1577,12 +1648,12 @@ export default {
 </script>
 
 <style>
-#seq_view{
+#seq_view {
     position: absolute;
     width: 76%;
     height: 58%;
     left: 0%;
-    top:41%;
+    top: 41%;
 }
 
 #main_body_svg {
@@ -1590,11 +1661,11 @@ export default {
     width: 100%;
     height: 100%;
     left: 0%;
-    top:0%;
+    top: 0%;
     border-right: 1px solid #9a9a9a;
 }
 
-#sankeyview{
+#sankeyview {
     position: absolute;
     width: 76%;
     height: 40%;
@@ -1619,7 +1690,7 @@ export default {
     cursor: default;
 }
 
-#title_svg{
+#title_svg {
     position: absolute;
     width: 100%;
     height: 15%;
