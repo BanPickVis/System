@@ -695,7 +695,6 @@ export default {
             var block = document.getElementById('loader');
             
             block.style.display="none";
-            
             block = document.getElementById('loaderer');
             
             block.style.display="none";

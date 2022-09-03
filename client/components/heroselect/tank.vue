@@ -36,6 +36,9 @@ export default ({
         
     },
     data(){
+        return{
+            sequence_change: true,
+        };
     },
     methods:{
         async select(hero){
@@ -45,6 +48,13 @@ export default ({
             block.style.fill = "url(#p"+hero+")";
             block = document.getElementById("selection_view");
             block.style.display = "none";
+            this.sequence_change = !this.sequence_change;
+            this.changeSequence(this.sequence_change);
+        },
+        
+        changeSequence(sequence_change){
+            // console.log(sequence_change);
+            this.$emit('sequenceChange', sequence_change); 
         }
 
     },
