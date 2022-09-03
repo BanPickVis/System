@@ -4,13 +4,9 @@
             <svg id="sankeyview">
             </svg>
         </div>
-        <div id="seq_view_left">
-            <svg
-                id="seq_view_svg"
-                width="1290px"
-                height="600px"
-                fill="none"
-            ></svg>
+        <div id="seq_view">
+            <svg id="title_svg"></svg>
+            <svg id="main_body_svg"></svg>
         </div>
         <div id="glyph_view"></div>
         <span id="type">
@@ -185,7 +181,6 @@ export default {
         },
     },
     mounted() {
-        // render seq_view
         this.loaddata();
         // this.render_seq_left_veiw();
         this.render_sankey();
@@ -808,8 +803,11 @@ export default {
             //////////////////////////////////////////////////////////////////////////////
             //////////////////////////////////////////////////////////////////////////////
             //////////////////////////////////////////////////////////////////////////////
-            d3.select("#seq_view_svg_left").remove();
+            d3.select("#main_body").remove();
+            d3.select("#title_view").remove();
             d3.select(".tooltip").remove();
+
+            // vars
             var self = this;
             var seq_view_data = this.sequence_view_data;
             // // Color scale used
@@ -830,6 +828,7 @@ export default {
             var passed_stage = seq_view_data.nodes[0].stage - 1;
             var stage_width = 145;
 
+            // zoom func
             var main_body_zoomed = d3
                 .zoom()
                 .scaleExtent([0.561, 10])
@@ -838,7 +837,6 @@ export default {
                     [2556 + 55 - passed_stage * stage_width, 100000],
                 ])
                 .on("zoom", main_body_zoomed_func);
-
             var title_zoomed = d3
                 .zoom()
                 .scaleExtent([0.561, 10])
@@ -847,32 +845,24 @@ export default {
                     [2556 + 55 - passed_stage * stage_width, 100000],
                 ])
                 .on("zoom", title_zoomed_func);
-
-            var seq_view_svg_left = d3
-                .select("#seq_view_svg")
-                .append("g")
-                .attr("id", "seq_view_svg_left")
-                .call(title_zoomed)
+            
+            // prepare
+            var main_body_svg = d3.select('#main_body_svg')
                 .call(main_body_zoomed);
-            // .attr(
-            //     "transform",
-            //     `translate(${self.transx},${self.transy}) scale(${self.scale})`
-            // );
 
-            var main_body = seq_view_svg_left
+            var title_svg = d3.select('#title_svg')
+                .call(title_zoomed);
+
+            var main_body = main_body_svg
                 .append("g")
                 .attr("id", "main_body")
                 .attr(
                     "transform",
                     `translate(${self.transx},${self.transy}) scale(${self.scale})`
                 );
-            var title_view = seq_view_svg_left
+            var title_view = title_svg
                 .append("g")
-                .attr("id", "title_view")
-                .attr(
-                    "transform",
-                    `translate(-${passed_stage * stage_width},0)`
-                );
+                .attr("id", "title_view");
             var link_svg = main_body.append("g").attr("id", "link_svg");
             var node_svg = main_body.append("g").attr("id", "node_svg");
 
@@ -881,7 +871,7 @@ export default {
             //////////////////////////
             // some vars for nodes
             var left_margin = 68;
-            var top_margin = 220;
+            var top_margin = 43;
             var line_height = 150; //行宽
             var node_spacing = 145; //节点间距
             var eachPos = seq_view_data.eachPos;
@@ -1066,7 +1056,7 @@ export default {
 
             function render_title() {
                 var title_margin_left = 0;
-                var title_margin_top = 720;
+                var title_margin_top = 438;
                 var phases = [
                     "BAN PHASE 1",
                     "PICK PHASE 1",
@@ -1532,7 +1522,7 @@ export default {
 </script>
 
 <style>
-#seq_view_left {
+#main_body_svg {
     position: absolute;
     width: 76%;
     height: 60%;
@@ -1541,13 +1531,13 @@ export default {
     border-right: 1px solid #9a9a9a;
 }
 
-#seq_view_svg {
+#title_svg {
     position: absolute;
-    top: 5%;
-}
-
-#seq_view_svg_left {
-    cursor: move;
+    width: 76%;
+    height: 60%;
+    left: 0%;
+    top:40%;
+    border-right: 1px solid #9a9a9a;
 }
 
 #sankeyview{
