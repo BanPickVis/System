@@ -146,6 +146,8 @@ export default {
         preview: { type: String, default: "4" },
         side: { type: String, default: "Blue" },
         bon: { type: String, default: "3" },
+        team1: { type: String, default: "武汉eStarPro" },
+        team2: { type: String, default: "重庆狼队" },
     },
     setup() {},
     data() {
@@ -165,12 +167,6 @@ export default {
                     "transform",
                     `translate(${this.transx},-440)`);
                 
-        },
-        scale(){
-            d3.select("#title_view")
-                .attr(
-                    "transform",
-                    `translate(${self.transx},-440)`);
         },
         customizedhero(val) {
             console.log(val);
@@ -196,29 +192,29 @@ export default {
     mounted() {
         this.loaddata();
         // this.render_seq_left_veiw();
-        this.render_sankey();
+        // this.render_sankey();
 
     },
     methods: {
         async render_sankey(node){
-            var data=[
-                        {"source":"坦然","target":"蒙恬","value":17,"type":"win","sourcealready":0,"targetalready":0},
-                        {"source":"坦然","target":"蒙恬","value":10,"type":"lose","sourcealready":17,"targetalready":17},
-                        {"source":"花海","target":"宫本武藏","value":14,"type":"win","sourcealready":0,"targetalready":0},
-                        {"source":"花海","target":"宫本武藏","value":6,"type":"lose","sourcealready":14,"targetalready":14},
-                        {"source":"花海","target":"澜","value":10,"type":"win","sourcealready":20,"targetalready":0},
-                        {"source":"花海","target":"澜","value":2,"type":"lose","sourcealready":30,"targetalready":10},
-                        {"source":"清融","target":"西施","value":24,"type":"win","sourcealready":0,"targetalready":0},
-                        {"source":"清融","target":"西施","value":6,"type":"lose","sourcealready":24,"targetalready":24},
-                        {"source":"星痕","target":"蒙恬","value":7,"type":"win","sourcealready":0,"targetalready":27},
-                        {"source":"星痕","target":"蒙恬","value":4,"type":"lose","sourcealready":7,"targetalready":34},
-                        {"source":"无畏","target":"宫本武藏","value":9,"type":"win","sourcealready":0,"targetalready":20},
-                        {"source":"无畏","target":"宫本武藏","value":3,"type":"lose","sourcealready":9,"targetalready":29},
-                        {"source":"无畏","target":"澜","value":13,"type":"win","sourcealready":12,"targetalready":12},
-                        {"source":"无畏","target":"澜","value":4,"type":"lose","sourcealready":25,"targetalready":25},
-                        {"source":"紫幻","target":"西施","value":12,"type":"win","sourcealready":0,"targetalready":30},
-                        {"source":"紫幻","target":"西施","value":6,"type":"lose","sourcealready":12,"targetalready":42},
-                    ];
+            // var data=[
+            //             {"source":"坦然","target":"蒙恬","value":17,"type":"win","sourcealready":0,"targetalready":0},
+            //             {"source":"坦然","target":"蒙恬","value":10,"type":"lose","sourcealready":17,"targetalready":17},
+            //             {"source":"花海","target":"宫本武藏","value":14,"type":"win","sourcealready":0,"targetalready":0},
+            //             {"source":"花海","target":"宫本武藏","value":6,"type":"lose","sourcealready":14,"targetalready":14},
+            //             {"source":"花海","target":"澜","value":10,"type":"win","sourcealready":20,"targetalready":0},
+            //             {"source":"花海","target":"澜","value":2,"type":"lose","sourcealready":30,"targetalready":10},
+            //             {"source":"清融","target":"西施","value":24,"type":"win","sourcealready":0,"targetalready":0},
+            //             {"source":"清融","target":"西施","value":6,"type":"lose","sourcealready":24,"targetalready":24},
+            //             {"source":"星痕","target":"蒙恬","value":7,"type":"win","sourcealready":0,"targetalready":27},
+            //             {"source":"星痕","target":"蒙恬","value":4,"type":"lose","sourcealready":7,"targetalready":34},
+            //             {"source":"无畏","target":"宫本武藏","value":9,"type":"win","sourcealready":0,"targetalready":20},
+            //             {"source":"无畏","target":"宫本武藏","value":3,"type":"lose","sourcealready":9,"targetalready":29},
+            //             {"source":"无畏","target":"澜","value":13,"type":"win","sourcealready":12,"targetalready":12},
+            //             {"source":"无畏","target":"澜","value":4,"type":"lose","sourcealready":25,"targetalready":25},
+            //             {"source":"紫幻","target":"西施","value":12,"type":"win","sourcealready":0,"targetalready":30},
+            //             {"source":"紫幻","target":"西施","value":6,"type":"lose","sourcealready":12,"targetalready":42},
+            //         ];
 
             var margin = {top: 100, right: 50, bottom: 30, left: 40},
                 width = 1430 - margin.left - margin.right,
@@ -229,8 +225,28 @@ export default {
                 
             var svg = d3.select("#sankeyview");
 
-            var playernode = ['坦然', '花海', '清融', '易峥', '子阳', '星痕', '无畏', '紫幻', '久酷', '明锅'];
-            var heronode = ['蒙恬','澜','宫本武藏','西施','鲁班大师'];
+            var teamJson = await requesthelp.axiosGet('/loadData',{ name: this.team1 });
+            // console.log(teamJson);
+            var teammember1 = teamJson["player"];
+            teamJson = await requesthelp.axiosGet('/loadData',{ name: this.team2 });
+            // console.log(teamJson);
+            var teammember2 = teamJson["player"];
+
+            var playernode = [];
+            for (var i=0;i<5;i++){
+                playernode[i]=teammember1[i]["id"];
+            }
+            for (i=5;i<10;i++){
+                playernode[i]=teammember2[i-5]["id"];
+            }
+            
+            console.log(playernode);
+
+            // var playernode = ['坦然', '花海', '清融', '易峥', '子阳', '星痕', '无畏', '紫幻', '久酷', '明锅'];
+            var heronode = await requesthelp.axiosGet('/getSequence',{ "node":node });
+            // ['蒙恬','澜','宫本武藏','西施','鲁班大师'];
+
+            var data = await requesthelp.axiosGet('/getSankeyData',{ "players":JSON.stringify(playernode),"sequence":JSON.stringify(heronode) });
 
             //defaults
             var heronode_pad = 92.5;
@@ -750,7 +766,6 @@ export default {
                         // console.log(subgroupName);
                         // console.log(node);
                         self.branchupdate(subgroupName, node);
-                        self.render_sankey(node);
 
                         // console.log(datum);
                     })
