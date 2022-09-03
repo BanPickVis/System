@@ -5,7 +5,7 @@
         </h1>
         <div class="bp_view">
             <b>BP View</b>
-            <bp :roundnow="roundDefault" :bon="bon" @handleChange1="changeName1" @handleChange2="changeName2" @teamChange1="changeTeam1" @teamChange2="changeTeam2" @sequenceChange="squenceChanging" />
+            <bp :roundnow="roundDefault" :bon="bon" @handleChange1="changeName1" @handleChange2="changeName2" @teamChange1="changeTeam1" @teamChange2="changeTeam2" />
         </div>
         <div class="seq_view">
             <b>Sequence View</b>
@@ -114,7 +114,7 @@
         </div>
 
         <div id="selection_view">
-            <heroS />
+            <heroS @sequenceChange="squenceChanging" />
         </div>
         <div id="multi_selection_view1" class="multi_selection_view1">
             <heroMS1 @heroselected1="keywordsel1" />
@@ -123,7 +123,7 @@
             <heroMS2 @heroselected2="keywordsel2" />
         </div>
         <span id="loader">
-            <div class="loader"></div>
+            <div id="loaderer"></div>
         </span>
     </div>
 </template>
@@ -132,15 +132,15 @@
 <style>
 #loader{
     position: absolute;
-    width: 56%;
+    width: 55%;
     height: 54%;
     top:4%;
-    right: 17%;
+    right: 18%;
     background: #C6C6C6;
     opacity: 30%;
     display: none;
 }
-.loader {
+#loaderer {
     position: absolute;
     border: 16px solid #f3f3f3; /* Light grey */
     border-top: 16px solid #3498db; /* Blue */

@@ -167,27 +167,63 @@ export default {
             );
         },
         customizedhero(val) {
-            console.log(val);
+            // console.log(val);
+            var block = document.getElementById('loader');
+            block.style.display="block";
+            
+            block = document.getElementById('loaderer');
+            block.style.display="block";
             this.branchupdate(val, this.selectednode);
+            // block.style.display="none";
         },
         bon(val) {
             // this.sequence_view_data = await requesthelp.axiosGet('/getSequenceData');
+            var block = document.getElementById('loader');
+            block.style.display="block";
+            block = document.getElementById('loaderer');
+            block.style.display="block";
             this.loaddata();
+            // block.style.display="none";
         },
         side(val) {
+            var block = document.getElementById('loader');
+            block.style.display="block";
+            block = document.getElementById('loaderer');
+            block.style.display="block";
             this.loaddata();
+            // block.style.display="none";
         },
         preview(val) {
+            var block = document.getElementById('loader');
+            block.style.display="block";
+            block = document.getElementById('loaderer');
+            block.style.display="block";
             this.loaddata();
+            // block.style.display="none";
         },
         branch(val) {
+            var block = document.getElementById('loader');
+            block.style.display="block";
+            block = document.getElementById('loaderer');
+            block.style.display="block";
             this.loaddata();
+            // block.style.display="none";
         },
         change(val) {
+            var block = document.getElementById('loader');
+            block.style.display="block";
+            block = document.getElementById('loaderer');
+            block.style.display="block";
             this.loaddata();
+            // block.style.display="none";
+
         },
     },
     mounted() {
+        var block = document.getElementById('loader');
+        block.style.display="block";
+            block = document.getElementById('loaderer');
+            block.style.display="block";
         this.loaddata();
         // this.render_seq_left_veiw();
         // this.render_sankey();
@@ -241,17 +277,16 @@ export default {
                 playernode[i] = teammember2[i - 5]["id"];
             }
 
-            console.log(playernode);
-
             // var playernode = ['坦然', '花海', '清融', '易峥', '子阳', '星痕', '无畏', '紫幻', '久酷', '明锅'];
-            var heronode = await requesthelp.axiosGet("/getSequence", {
+            var heross = await requesthelp.axiosGet("/getSequence", {
                 node: node,
             });
+            var heronode = heross["sequence"];
             // ['蒙恬','澜','宫本武藏','西施','鲁班大师'];
 
             var data = await requesthelp.axiosGet("/getSankeyData", {
                 players: JSON.stringify(playernode),
-                sequence: JSON.stringify(heronode),
+                sequence: JSON.stringify(heross),
             });
 
             //defaults
@@ -639,6 +674,11 @@ export default {
                 this.customize();
                 this.selectednode = node;
             }
+            block = document.getElementById('loader');
+            block.style.display="none";
+            
+            block = document.getElementById('loaderer');
+            block.style.display="none";
         },
         async loaddata() {
             this.sequence_view_data = await requesthelp.axiosGet(
@@ -652,6 +692,13 @@ export default {
             );
             // console.log(this.sequence_view_data);
             this.render_seq_left_veiw();
+            var block = document.getElementById('loader');
+            
+            block.style.display="none";
+            
+            block = document.getElementById('loaderer');
+            
+            block.style.display="none";
         },
         render_seq_left_veiw() {
             //////////////////////////
@@ -714,7 +761,13 @@ export default {
                             self.transx = block[0];
                             self.transy = block[1];
                             // console.log(self.transx, self.transy);
+                            
+                            block = document.getElementById('loader');
+                            block.style.display="block";
+                            block = document.getElementById('loaderer');
+                            block.style.display="block";
                             self.branchupdate(datum.hero, data.node);
+                            // block.style.display="none";
                             // console.log(datum);
                         })
                         .attr("height", yScale.bandwidth())
@@ -826,7 +879,12 @@ export default {
                         // console.log(data.data.group);
                         // console.log(subgroupName);
                         // console.log(node);
+                        block = document.getElementById('loader');
+                        block.style.display="block";
+                        block = document.getElementById('loaderer');
+                        block.style.display="block";
                         self.branchupdate(subgroupName, node);
+                        // block.style.display="none";
 
                         // console.log(datum);
                     })

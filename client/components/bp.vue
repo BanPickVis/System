@@ -191,10 +191,10 @@ export default {
           },
         },
     watch: {
-        seqchange(val){
-            this.changeSequencetoIndex(val);
+        // seqchange(val){
+            // this.changeSequencetoIndex(val);
             // console.log(val);
-        },
+        // },
         bon(val,_){
             if (this.bon == "3"){
                 this.tabs=["round1","round2","round3"];

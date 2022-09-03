@@ -9,7 +9,7 @@
         {{ tab }}
       </button>
       <a class="close-button" @click="close()">Close</a>
-      <component :is="currentTabComponent" class="tab"></component>
+      <component :is="currentTabComponent" class="tab" @sequenceChange="changedSequence"></component>
     </div>
 </template>
 
@@ -42,6 +42,7 @@ export default({
             select_hero_job: "all",
             currentTab: "all",
             tabs: ["all","tank","warrior","assassin","mage","marksman","support"],
+            seqchange:"true",
         };
     },
     computed: {
@@ -50,12 +51,24 @@ export default({
           }
         },
     watch: {
+      seqchange(val){
+            this.changeSequencetoIndex(val);
+            // console.log(val);
+        },
     },
     methods:{
       close(){
         var block = document.getElementById('selection_view');
         block.style.display='none';
-      }
+      },
+      changedSequence(sequence_change){
+          this.seqchange = sequence_change;
+          // console.log(this.seqchange);
+      },
+      changeSequencetoIndex(sequence_change){
+          // console.log(sequence_change);
+          this.$emit('sequenceChange', sequence_change); 
+      },
     }
 });
 </script>
