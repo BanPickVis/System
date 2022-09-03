@@ -9,7 +9,7 @@
         </div>
         <div class="seq_view">
             <b>Sequence View</b>
-            <seq :change="sequencechanged" :bon="bon" :branch="n_of_b" :preview="n_of_p" :side="team_side" />
+            <seq :change="sequencechanged" :bon="bon" :branch="n_of_b" :preview="n_of_p" :side="team_side" :team1="Team_1" :team2="Team_2" />
         </div>
         <div class="player_view">
             <b>Player View</b>

@@ -150,6 +150,8 @@ export default {
         preview: { type: String, default: "4" },
         side: { type: String, default: "Blue" },
         bon: { type: String, default: "3" },
+        team1:{ type: String, default: "" },
+        team2:{ type: String, default: "" },
     },
     setup() {},
     data() {
@@ -160,6 +162,8 @@ export default {
             transx: -10,
             transy: 0,
             scale: 1,
+            blue_team_player: [],
+            red_team_player: [],
         };
     },
     watch: {
@@ -183,6 +187,10 @@ export default {
         change(val) {
             this.loaddata();
         },
+        async team1(val){
+            this.blue_team_player:[]
+        },
+
     },
     mounted() {
         // render seq_view
