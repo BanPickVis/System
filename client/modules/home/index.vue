@@ -176,7 +176,7 @@
     top: 0.4%;
 
     border: 1px solid #9a9a9a;
-    border-radius: 15px;
+    border-radius: 5px;
 }
 #selection_view{
     position: absolute;
@@ -226,7 +226,7 @@
     top: 0.4%;
 
     border: 1px solid #9a9a9a;
-    border-radius: 15px;
+    border-radius: 5px;
 }
 .player_view {
     /* Player */
@@ -239,7 +239,7 @@
 
     border: 1px solid #9a9a9a;
     box-sizing: border-box;
-    border-radius: 15px;
+    border-radius: 5px;
 }
 .team_view {
     /* Team */
@@ -251,7 +251,7 @@
 
     border: 1px solid #9a9a9a;
     box-sizing: border-box;
-    border-radius: 15px;
+    border-radius: 5px;
 }
 .change_view {
     /* Change */
@@ -262,7 +262,7 @@
     bottom: 2%;
     border: 1px solid #9a9a9a;
     box-sizing: border-box;
-    border-radius: 15px;
+    border-radius: 5px;
 }
 .control_panal{
     position: absolute;

@@ -5,8 +5,8 @@
             </svg>
         </div>
         <div id="seq_view">
-            <svg id="title_svg"></svg>
             <svg id="main_body_svg"></svg>
+            <svg id="title_svg"></svg>
         </div>
         <div id="glyph_view"></div>
         <span id="type">
@@ -146,8 +146,6 @@ export default {
         preview: { type: String, default: "4" },
         side: { type: String, default: "Blue" },
         bon: { type: String, default: "3" },
-        team1:{ type: String, default: "" },
-        team2:{ type: String, default: "" },
     },
     setup() {},
     data() {
@@ -158,11 +156,22 @@ export default {
             transx: -10,
             transy: 0,
             scale: 1,
-            blue_team_player: [],
-            red_team_player: [],
         };
     },
     watch: {
+        transx(){
+            d3.select("#title_view")
+                .attr(
+                    "transform",
+                    `translate(${this.transx},-440)`);
+                
+        },
+        scale(){
+            d3.select("#title_view")
+                .attr(
+                    "transform",
+                    `translate(${self.transx},-440)`);
+        },
         customizedhero(val) {
             console.log(val);
             this.branchupdate(val, this.selectednode);
@@ -183,10 +192,6 @@ export default {
         change(val) {
             this.loaddata();
         },
-        async team1(val){
-            this.blue_team_player:[]
-        },
-
     },
     mounted() {
         this.loaddata();
@@ -225,10 +230,10 @@ export default {
             var svg = d3.select("#sankeyview");
 
             var playernode = ['坦然', '花海', '清融', '易峥', '子阳', '星痕', '无畏', '紫幻', '久酷', '明锅'];
-            var heronode = ['蒙恬','澜','宫本武藏','西施'];
+            var heronode = ['蒙恬','澜','宫本武藏','西施','鲁班大师'];
 
             //defaults
-            var heronode_pad = 60;
+            var heronode_pad = 92.5;
             var heronode_y = 250;
             var hero_image = 60;
 
@@ -253,9 +258,9 @@ export default {
             //main route rect
             svg.append('g')
                 .append('rect')
-                .attr("width", heronode.length*(heronode_pad+hero_image)-heronode_pad/2)
+                .attr("width", heronode.length*(heronode_pad+hero_image)-heronode_pad)
                 .attr("height",hero_image*1.4)
-                .attr("x", heronode_pad/2)
+                .attr("x", heronode_pad/2-hero_image/2-5)
                 .attr("y", heronode_y-hero_image/2-12)
                 .attr("rx",20)
                 .attr("fill","#B0A1C8")
@@ -305,11 +310,13 @@ export default {
                 .append('rect')
                 .attr("width",hero_image)
                 .attr("height",hero_image)
-                .attr("x", function(d){return hero_x(d);})
+                .attr("x", function(d){return hero_x(d)-hero_image;})
                 .attr("y", heronode_y-hero_image/2)
                 .attr("fill",function(d){
                     return 'url(#p'+d+')';
                 })
+                .attr("stroke","black")
+                .attr("stroke-width",3)
                 .on("mouseover",function(d){
                     d3.selectAll("."+d+"path").attr("stroke-opacity",1);
                     d3.selectAll("."+d+"text").attr("opacity",1);
@@ -342,11 +349,11 @@ export default {
                         "," +
                         150+
                         " " +
-                        (hero_x(d.target)+ pathwidth(d.targetalready)) +
+                        (hero_x(d.target)+ pathwidth(d.targetalready)-hero_image) +
                         "," +
                         150 +
                         " " +
-                        (hero_x(d.target)+ pathwidth(d.targetalready)) +
+                        (hero_x(d.target)+ pathwidth(d.targetalready)-hero_image) +
                         "," +
                         (heronode_y-hero_image/2)
                     );
@@ -802,11 +809,20 @@ export default {
 
             function main_body_zoomed_func() {
                 main_body.attr("transform", d3.event.transform);
+                var block = $("#main_body").css("transform");
+                block = str2number(
+                    block.split("(")[1].split(")")[0].split(",")
+                );
+                self.scale = block[0];
+                block = block.splice(4, 2);
+                self.transx = block[0];
+                self.transy = block[1];
+                // console.log(self.transx);
             }
 
-            function title_zoomed_func() {
-                title_view.attr("transform", d3.event.transform);
-            }
+            // function title_zoomed_func() {
+            //     title_view.attr("transform", d3.event.transform);
+            // }
 
             //////////////////////////////////////////////////////////////////////////////
             //////////////////////////////////////////////////////////////////////////////
@@ -839,27 +855,27 @@ export default {
             // zoom func
             var main_body_zoomed = d3
                 .zoom()
-                .scaleExtent([0.561, 10])
+                .scaleExtent([1,1])
                 .translateExtent([
                     [10, 0],
                     [2556 + 55 - passed_stage * stage_width, 100000],
                 ])
                 .on("zoom", main_body_zoomed_func);
-            var title_zoomed = d3
-                .zoom()
-                .scaleExtent([0.561, 10])
-                .translateExtent([
-                    [10, 0],
-                    [2556 + 55 - passed_stage * stage_width, 100000],
-                ])
-                .on("zoom", title_zoomed_func);
+            // var title_zoomed = d3
+            //     .zoom()
+            //     .scaleExtent([0.561, 10])
+            //     .translateExtent([
+            //         [10, 0],
+            //         [2556 + 55 - passed_stage * stage_width, 100000],
+            //     ])
+            //     .on("zoom", title_zoomed_func);
             
             // prepare
             var main_body_svg = d3.select('#main_body_svg')
                 .call(main_body_zoomed);
 
-            var title_svg = d3.select('#title_svg')
-                .call(title_zoomed);
+            var title_svg = d3.select('#title_svg');
+            //     .call(title_zoomed);
 
             var main_body = main_body_svg
                 .append("g")
@@ -870,7 +886,11 @@ export default {
                 );
             var title_view = title_svg
                 .append("g")
-                .attr("id", "title_view");
+                .attr("id", "title_view")
+                .attr(
+                    "transform",
+                    `translate(${self.transx},-440) scale(${self.scale})`
+                );
             var link_svg = main_body.append("g").attr("id", "link_svg");
             var node_svg = main_body.append("g").attr("id", "node_svg");
 
@@ -941,7 +961,7 @@ export default {
                     block = block.splice(4, 2);
                     self.transx = block[0];
                     self.transy = block[1];
-                    console.log(d);
+                    // console.log(d);
                     self.drawwinrate(d.node);
                     self.render_sankey(d.node);
                 });
@@ -1170,6 +1190,18 @@ export default {
                             return stage_color[1];
                         }
                     });
+                //为了圆角
+                stage_g_each_g
+                    .append("rect")
+                    .attr("class", "stage_rect")
+                    .attr("width", stage_width)
+                    .attr("height", 5)
+                    .attr("x", function (_, i) {
+                        return i * stage_width + title_margin_left;
+                    })
+                    .attr("y", title_margin_top+stage_height+stage_height+5)
+                    .attr("rx",5)
+                    .style("fill", "white");
 
                 stage_g_each_g
                     .append("text")
@@ -1530,21 +1562,20 @@ export default {
 </script>
 
 <style>
-#main_body_svg {
+#seq_view{
     position: absolute;
     width: 76%;
-    height: 60%;
+    height: 58%;
     left: 0%;
-    top:40%;
-    border-right: 1px solid #9a9a9a;
+    top:41%;
 }
 
-#title_svg {
+#main_body_svg {
     position: absolute;
-    width: 76%;
-    height: 60%;
+    width: 100%;
+    height: 100%;
     left: 0%;
-    top:40%;
+    top:0%;
     border-right: 1px solid #9a9a9a;
 }
 
@@ -1571,6 +1602,13 @@ export default {
 
 .link {
     cursor: default;
+}
+
+#title_svg{
+    position: absolute;
+    width: 100%;
+    height: 15%;
+    bottom: 0%;
 }
 
 #glyph_view {
