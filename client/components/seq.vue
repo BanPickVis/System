@@ -9,13 +9,7 @@
         </div>
         <div id="glyph_view"></div>
         <span id="type">
-            <input
-                id="typeinput"
-                v-model="customizedhero"
-                type="text"
-                placeholder="please select"
-                list="typelist"
-            />
+            <input id="typeinput" v-model="customizedhero" type="text" placeholder="please select" list="typelist" />
             <datalist id="typelist">
                 <option>上官婉儿</option>
                 <option>不知火舞</option>
@@ -148,7 +142,7 @@ export default {
         team1: { type: String, default: "武汉eStarPro" },
         team2: { type: String, default: "重庆狼队" },
     },
-    setup() {},
+    setup() { },
     data() {
         return {
             sequence_view_data: {},
@@ -169,51 +163,51 @@ export default {
         customizedhero(val) {
             // console.log(val);
             var block = document.getElementById('loader');
-            block.style.display="block";
-            
+            block.style.display = "block";
+
             block = document.getElementById('loaderer');
-            block.style.display="block";
+            block.style.display = "block";
             this.branchupdate(val, this.selectednode);
             // block.style.display="none";
         },
         bon(val) {
             // this.sequence_view_data = await requesthelp.axiosGet('/getSequenceData');
             var block = document.getElementById('loader');
-            block.style.display="block";
+            block.style.display = "block";
             block = document.getElementById('loaderer');
-            block.style.display="block";
+            block.style.display = "block";
             this.loaddata();
             // block.style.display="none";
         },
         side(val) {
             var block = document.getElementById('loader');
-            block.style.display="block";
+            block.style.display = "block";
             block = document.getElementById('loaderer');
-            block.style.display="block";
+            block.style.display = "block";
             this.loaddata();
             // block.style.display="none";
         },
         preview(val) {
             var block = document.getElementById('loader');
-            block.style.display="block";
+            block.style.display = "block";
             block = document.getElementById('loaderer');
-            block.style.display="block";
+            block.style.display = "block";
             this.loaddata();
             // block.style.display="none";
         },
         branch(val) {
             var block = document.getElementById('loader');
-            block.style.display="block";
+            block.style.display = "block";
             block = document.getElementById('loaderer');
-            block.style.display="block";
+            block.style.display = "block";
             this.loaddata();
             // block.style.display="none";
         },
         change(val) {
             var block = document.getElementById('loader');
-            block.style.display="block";
+            block.style.display = "block";
             block = document.getElementById('loaderer');
-            block.style.display="block";
+            block.style.display = "block";
             this.loaddata();
             // block.style.display="none";
 
@@ -221,9 +215,9 @@ export default {
     },
     mounted() {
         var block = document.getElementById('loader');
-        block.style.display="block";
-            block = document.getElementById('loaderer');
-            block.style.display="block";
+        block.style.display = "block";
+        block = document.getElementById('loaderer');
+        block.style.display = "block";
         this.loaddata();
         // this.render_seq_left_veiw();
         // this.render_sankey();
@@ -318,7 +312,7 @@ export default {
                 .range([
                     heronode_pad,
                     heronode.length * (heronode_pad + hero_image) +
-                        heronode_pad / 2,
+                    heronode_pad / 2,
                 ])
                 .domain(heronode);
 
@@ -675,10 +669,10 @@ export default {
                 this.selectednode = node;
             }
             block = document.getElementById('loader');
-            block.style.display="none";
-            
+            block.style.display = "none";
+
             block = document.getElementById('loaderer');
-            block.style.display="none";
+            block.style.display = "none";
         },
         async loaddata() {
             this.sequence_view_data = await requesthelp.axiosGet(
@@ -693,11 +687,11 @@ export default {
             // console.log(this.sequence_view_data);
             this.render_seq_left_veiw();
             var block = document.getElementById('loader');
-            
-            block.style.display="none";
+
+            block.style.display = "none";
             block = document.getElementById('loaderer');
-            
-            block.style.display="none";
+
+            block.style.display = "none";
         },
         render_seq_left_veiw() {
             //////////////////////////
@@ -760,11 +754,11 @@ export default {
                             self.transx = block[0];
                             self.transy = block[1];
                             // console.log(self.transx, self.transy);
-                            
+
                             block = document.getElementById('loader');
-                            block.style.display="block";
+                            block.style.display = "block";
                             block = document.getElementById('loaderer');
-                            block.style.display="block";
+                            block.style.display = "block";
                             self.branchupdate(datum.hero, data.node);
                             // block.style.display="none";
                             // console.log(datum);
@@ -879,9 +873,9 @@ export default {
                         // console.log(subgroupName);
                         // console.log(node);
                         block = document.getElementById('loader');
-                        block.style.display="block";
+                        block.style.display = "block";
                         block = document.getElementById('loaderer');
-                        block.style.display="block";
+                        block.style.display = "block";
                         self.branchupdate(subgroupName, node);
                         // block.style.display="none";
 
@@ -1013,7 +1007,6 @@ export default {
                 .call(main_body_zoomed);
 
             var title_svg = d3.select("#title_svg");
-            //     .call(title_zoomed);
 
             var main_body = main_body_svg
                 .append("g")
@@ -1027,8 +1020,7 @@ export default {
                 .attr("id", "title_view")
                 .attr(
                     "transform",
-                    `translate(${
-                        self.transx - passed_stage * stage_width
+                    `translate(${self.transx - passed_stage * stage_width
                     }, -440) scale(${self.scale})`
                 );
             var link_svg = main_body.append("g").attr("id", "link_svg");
@@ -1054,9 +1046,8 @@ export default {
                     // console.log(d);
                     var cur_node_pos = eachPos[d.node];
                     // console.log(cur_node_pos);
-                    return `translate(${
-                        left_margin + node_spacing * cur_node_pos[1]
-                    },${top_margin + line_height * cur_node_pos[0]})`;
+                    return `translate(${left_margin + node_spacing * cur_node_pos[1]
+                        },${top_margin + line_height * cur_node_pos[0]})`;
                 });
 
             // add image for the nodes
@@ -1367,14 +1358,14 @@ export default {
             var chosen_hero_data = all_glyph_data[chosen_hero];
             console.log(chosen_hero_data);
 
-            var offset_left = 250;
+            var offset_left = 300;
             var offset_top = 135;
             var glyph_view_svg = d3
                 .select("#glyph_view")
                 .append("svg")
                 .attr("id", "glyph_view_svg")
                 .attr("width", 400)
-                .attr("height", 270);
+                .attr("height", 255);
 
             //////////////////////////
             /////backgound arc////////
@@ -1652,53 +1643,59 @@ export default {
             ////////////////////////////////////////////////////
             ///////////////////////legend///////////////////////
             ////////////////////////////////////////////////////
+            // glyph_legend
             var glyph_legend_svg = glyph_view_svg
                 .append("svg")
                 .attr("id", "glyph_legend_svg")
                 .attr("width", 200)
-                .attr("height", 80);
+                .attr("height", 240);
 
             var glyph_legend_key = [
                 "Counter Top3",
                 "Countered Top3",
                 "Best Team Mate",
+                "Win Rate",
+                "Ban Rate",
+                "Pick Rate",
+                "Kill Percent",
+                "Death Percent",
+                "Assistant Percent"
             ];
             var glyph_legend_color = d3
                 .scaleOrdinal()
                 .domain(glyph_legend_key)
-                .range(["#E6F2CD", "#FFBFBF", "#BFE5FF"]);
+                .range(["#E6F2CD", "#FFBFBF", "#BFE5FF", "#BACDFF", "#FFE980", "#FFD8A3", "#D0E6A5", "#F76060", "#FFFFBF"]);
 
             var glyph_legend_offset_left = 12;
             var glyph_legend_offset_top = 21;
             glyph_legend_svg
-                .selectAll(".legend_dots")
+                .selectAll(".glyph_legend_dots")
                 .data(glyph_legend_key)
                 .enter()
                 .append("circle")
-                .attr("class", "legend_dots")
+                .attr("class", "glyph_legend_dots")
                 .attr("cx", glyph_legend_offset_left)
                 .attr("cy", function (d, i) {
                     return glyph_legend_offset_top + i * 25;
-                }) // 100 is where the first dot appears. 25 is the distance between dots
+                })
                 .attr("r", 7)
                 .style("fill", (d) => glyph_legend_color(d));
-
-            // Add one dot in the legend for each name.
             glyph_legend_svg
-                .selectAll(".legend_text")
+                .selectAll(".glyph_legend_text")
                 .data(glyph_legend_key)
                 .enter()
                 .append("text")
-                .attr("class", "legend_text")
+                .attr("class", "glyph_legend_text")
                 .attr("x", glyph_legend_offset_top)
                 .attr("y", function (d, i) {
                     return glyph_legend_offset_top + i * 25;
-                }) // 100 is where the first dot appears. 25 is the distance between dots
+                })
                 .style("fill", (d) => glyph_legend_color(d))
                 .text((d) => d)
                 .attr("text-anchor", "left")
                 .style("alignment-baseline", "middle")
                 .style("font-weight", "bold");
+
         },
     },
 };
@@ -1707,10 +1704,13 @@ export default {
 <style>
 #seq_view {
     position: absolute;
-    width: 76%;
+    width: 75%;
     height: 58%;
-    left: 0%;
+    left: 0.5%;
+    right: 0.5%;
     top: 41%;
+    background: rgba(243, 243, 243, .5);
+    /* border-right: 1px solid #9a9a9a; */
 }
 
 #main_body_svg {
@@ -1719,7 +1719,7 @@ export default {
     height: 100%;
     left: 0%;
     top: 0%;
-    border-right: 1px solid #9a9a9a;
+    /* border-right: 1px solid #9a9a9a; */
 }
 
 #sankeyview {
@@ -1728,7 +1728,7 @@ export default {
     height: 40%;
     left: 0%;
     top: 5%;
-    border-right: 1px solid #9a9a9a;
+    /* border-right: 1px solid #9a9a9a; */
 }
 
 .nodeImage {
@@ -1758,14 +1758,13 @@ export default {
     position: absolute;
     width: 23.9%;
     height: 32%;
-    border-left: 1px solid #9a9a9a;
-    border-top: 1px solid #9a9a9a;
     overflow-x: auto;
-    background: white;
-    right: 0%;
-    top: 26.1%;
+    background: rgba(243, 243, 243, .5);
+    right: 0.25%;
+    top: 27%;
     display: block;
 }
+
 
 #type {
     position: absolute;
@@ -1783,12 +1782,13 @@ export default {
     position: absolute;
     width: 23.9%;
     height: 38.9%;
-    border-left: 1px solid #9a9a9a;
-    border-top: 1px solid #9a9a9a;
+    /* border-left: 1px solid #9a9a9a; */
+    /* border-top: 1px solid #9a9a9a; */
     overflow-x: auto;
-    background: white;
-    right: 0%;
-    top: 58%;
+    background: rgba(243, 243, 243, .5);
+    right: 0.25%;
+    top: 60%;
     display: block;
 }
+
 </style>

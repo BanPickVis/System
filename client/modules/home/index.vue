@@ -266,15 +266,12 @@
 }
 .control_panal{
     position: absolute;
-    width: 17.3%;
+    width: 17.2%;
     height: 11%;
-    right: 1%;
+    right: 1.2%;
     top: 5%;
-    border-top: 1px solid #9a9a9a;
-    
-    border-left: 1px solid #9a9a9a;
     box-sizing: border-box;
-
+    background: rgba(243, 243, 243, .5);
     font-size: 20px;
 }
 
