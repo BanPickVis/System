@@ -249,6 +249,8 @@ export default {
 
             var name_width = 130,
                 name_height = 50;
+            
+            d3.select("#sankeyview").selectAll("*").remove();
 
             var svg = d3.select("#sankeyview");
 
@@ -423,13 +425,13 @@ export default {
                         "M" +
                         (rect_x(d.source) +
                             pathwidth(d.sourcealready) +
-                            rect_x.bandwidth() / 2) +
+                            rect_x.bandwidth() / 2 - name_width/3) +
                         "," +
                         name_height +
                         "C" +
                         (rect_x(d.source) +
                             pathwidth(d.sourcealready) +
-                            rect_x.bandwidth() / 2) +
+                            rect_x.bandwidth() / 2- name_width/3) +
                         "," +
                         150 +
                         " " +
@@ -456,8 +458,8 @@ export default {
                 .attr("x", function (d) {
                     return (
                         rect_x(d.source) +
-                        pathwidth(d.sourcealready) +
-                        rect_x.bandwidth() / 2
+                            pathwidth(d.sourcealready) +
+                            rect_x.bandwidth() / 2 - name_width/3
                     );
                 })
                 .attr("y", function (d) {
@@ -466,7 +468,7 @@ export default {
                 .text(function (d) {
                     return d.value;
                 })
-                .attr("font-size", "14px")
+                .attr("font-size", "10px")
                 .attr("opacity", 0)
                 .attr("class", function (d) {
                     return d.source + "text" + " " + d.target + "text";
@@ -478,7 +480,9 @@ export default {
                 .enter()
                 .append("text")
                 .attr("x", function (d) {
-                    return hero_x(d.target) + pathwidth(d.targetalready);
+                    return hero_x(d.target) +
+                            pathwidth(d.targetalready) -
+                            hero_image;
                 })
                 .attr("y", function (d) {
                     return heronode_y - hero_image / 2;
@@ -486,7 +490,7 @@ export default {
                 .text(function (d) {
                     return d.value;
                 })
-                .attr("font-size", "14px")
+                .attr("font-size", "10px")
                 .attr("opacity", 0)
                 .attr("class", function (d) {
                     return d.source + "text" + " " + d.target + "text";
