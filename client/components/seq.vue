@@ -1025,7 +1025,7 @@ export default {
             // some vars for nodes
             var left_margin = 68;
             var top_margin = 43;
-            var line_height = 150; //行宽
+            var line_height = 120; //行宽
             var node_spacing = 145; //节点间距
             var eachPos = seq_view_data.eachPos;
             var node_g = node_svg
