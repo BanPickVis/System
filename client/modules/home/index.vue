@@ -17,39 +17,37 @@
         </div>
         <div class="team_view">
             <b>Team View</b>
-                <div
-                    style="
+            <div style="
                         font-family: 'Apple Braille';
                         font-style: normal;
                         font-weight: 400;
                         font-size: 19.2982px;
                         line-height: 10px;
                         width: 500px;
-                    "
-                >
-                    &nbsp; Blue Side: &nbsp;
-                    <button class="radarselect" @click="selectheroes('blue')">
-                        {{ keywords_blue_string }}
-                    </button>
-                    <br />
-                    <br />
-                    &nbsp; Red Side: &nbsp;&thinsp;
-                    <button class="radarselect" @click="selectheroes('red')">
-                        {{ keywords_red_string }}
-                    </button>
-                </div>
-                <p style="line-height: 10px;">
-                    &nbsp; &nbsp; {{ radar_hint }}
-                </p>
-
-                <!-- radar plot -->
-                <!-- <img :src="img1" />  -->
-                <svg id="d3-radar-team" style="width: 450px" />
-
-                &nbsp;&nbsp;&nbsp;
-                    <br />
-                <word-cloud /> 
+                    ">
+                &nbsp; Blue Side: &nbsp;
+                <button class="radarselect" @click="selectheroes('blue')">
+                    {{ keywords_blue_string }}
+                </button>
+                <br />
+                <br />
+                &nbsp; Red Side: &nbsp;&thinsp;
+                <button class="radarselect" @click="selectheroes('red')">
+                    {{ keywords_red_string }}
+                </button>
             </div>
+            <p style="line-height: 10px;">
+                &nbsp; &nbsp; {{ radar_hint }}
+            </p>
+
+            <!-- radar plot -->
+            <!-- <img :src="img1" />  -->
+            <svg id="d3-radar-team" style="width: 450px" />
+
+            &nbsp;&nbsp;&nbsp;
+            <br />
+            <word-cloud />
+        </div>
         <div class="change_view">
             <b>In-game Change View</b><br />
             <change :team1="Team_1" :team2="Team_2" />
@@ -57,59 +55,23 @@
 
         <div class="control_panal">
             &nbsp; Side of your team:
-            <el-select
-                v-model="team_side"
-                placeholder="Select"
-                style="width: 90px"
-            >
-                <el-option
-                    v-for="item in teamside"
-                    :key="item"
-                    :label="item"
-                    :value="item"
-                />
+            <el-select v-model="team_side" placeholder="Select" style="width: 90px">
+                <el-option v-for="item in teamside" :key="item" :label="item" :value="item" />
             </el-select>
             <br />
             &nbsp; BO-N:
-            <el-select
-                v-model="bon"
-                placeholder="Select"
-                style="width: 90px"
-            >
-                <el-option
-                    v-for="item in bon_select"
-                    :key="item"
-                    :label="item"
-                    :value="item"
-                />
+            <el-select v-model="bon" placeholder="Select" style="width: 90px">
+                <el-option v-for="item in bon_select" :key="item" :label="item" :value="item" />
             </el-select>
             <br />
-            &nbsp; Number of Default Branches: 
-            <el-select
-                v-model="n_of_b"
-                placeholder="Select"
-                style="width: 90px"
-            >
-                <el-option
-                    v-for="item in n_of_b_s"
-                    :key="item"
-                    :label="item"
-                    :value="item"
-                />
+            &nbsp; Number of Default Branches:
+            <el-select v-model="n_of_b" placeholder="Select" style="width: 90px">
+                <el-option v-for="item in n_of_b_s" :key="item" :label="item" :value="item" />
             </el-select>
             <br />
-            &nbsp; Number of Default Previews: 
-            <el-select
-                v-model="n_of_p"
-                placeholder="Select"
-                style="width: 90px"
-            >
-                <el-option
-                    v-for="item in n_of_p_s"
-                    :key="item"
-                    :label="item"
-                    :value="item"
-                />
+            &nbsp; Number of Default Previews:
+            <el-select v-model="n_of_p" placeholder="Select" style="width: 90px">
+                <el-option v-for="item in n_of_p_s" :key="item" :label="item" :value="item" />
             </el-select>
         </div>
 
@@ -130,13 +92,13 @@
 <script src="./script.js"></script>
 
 <style>
-#loader{
+#loader {
     position: absolute;
     width: 55%;
     height: 54%;
-    top:4%;
+    top: 4%;
     right: 18%;
-    background: #C6C6C6;
+    background: #c6c6c6;
     opacity: 30%;
     display: none;
 }
@@ -154,16 +116,19 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
-#title{
+#title {
     position: absolute;
     width: 5%;
     height: 3%;
     right: 12.5%;
     top: 0%;
-    
 }
 .bp_view {
     /* BANPICK */
@@ -178,7 +143,7 @@
     border: 1px solid #9a9a9a;
     border-radius: 5px;
 }
-#selection_view{
+#selection_view {
     position: absolute;
     width: 23%;
     height: 25%;
@@ -186,11 +151,11 @@
     border-radius: 15px;
     overflow-x: auto;
     background: white;
-    left:100px;
-    top:100px;
-    display:none;
+    left: 100px;
+    top: 100px;
+    display: none;
 }
-#multi_selection_view1{
+#multi_selection_view1 {
     position: absolute;
     width: 23.5%;
     height: 25%;
@@ -198,12 +163,12 @@
     border-radius: 15px;
     overflow-x: auto;
     background: white;
-    left:700px;
-    top:520px;
-    opacity:1;
-    display:none;
+    left: 700px;
+    top: 520px;
+    opacity: 1;
+    display: none;
 }
-#multi_selection_view2{
+#multi_selection_view2 {
     position: absolute;
     width: 23%;
     height: 25%;
@@ -211,9 +176,9 @@
     border-radius: 15px;
     overflow-x: auto;
     background: white;
-    left:700px;
-    top:565px;
-    display:none;
+    left: 700px;
+    top: 565px;
+    display: none;
 }
 .seq_view {
     /* Sequence */
@@ -264,14 +229,14 @@
     box-sizing: border-box;
     border-radius: 5px;
 }
-.control_panal{
+.control_panal {
     position: absolute;
     width: 17.2%;
     height: 11%;
     right: 1.2%;
     top: 5%;
     box-sizing: border-box;
-    background: rgba(243, 243, 243, .5);
+    background: rgba(243, 243, 243, 0.5);
     font-size: 20px;
 }
 
@@ -282,8 +247,8 @@ div.el-select {
 
 button {
     color: #444444;
-    background: #F3F3F3;
-    border: 1px #DADADA solid;
+    background: #f3f3f3;
+    border: 1px #dadada solid;
     padding: 6px 10px;
     border-radius: 2px;
     font-size: 12pt;
@@ -292,14 +257,13 @@ button {
 }
 
 button:hover {
-    border: 1px #C6C6C6 solid;
-    box-shadow: 1px 1px 1px #EAEAEA;
+    border: 1px #c6c6c6 solid;
+    box-shadow: 1px 1px 1px #eaeaea;
     color: #333333;
-    background: #F7F7F7;
+    background: #f7f7f7;
 }
 
 button:active {
-    box-shadow: inset 1px 1px 1px #DFDFDF;   
+    box-shadow: inset 1px 1px 1px #dfdfdf;
 }
-
 </style>

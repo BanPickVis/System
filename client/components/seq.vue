@@ -249,7 +249,7 @@ export default {
 
             var name_width = 130,
                 name_height = 50;
-            
+
             d3.select("#sankeyview").selectAll("*").remove();
 
             var svg = d3.select("#sankeyview");
@@ -425,13 +425,13 @@ export default {
                         "M" +
                         (rect_x(d.source) +
                             pathwidth(d.sourcealready) +
-                            rect_x.bandwidth() / 2 - name_width/3) +
+                            rect_x.bandwidth() / 2 - name_width / 3) +
                         "," +
                         name_height +
                         "C" +
                         (rect_x(d.source) +
                             pathwidth(d.sourcealready) +
-                            rect_x.bandwidth() / 2- name_width/3) +
+                            rect_x.bandwidth() / 2 - name_width / 3) +
                         "," +
                         150 +
                         " " +
@@ -458,8 +458,8 @@ export default {
                 .attr("x", function (d) {
                     return (
                         rect_x(d.source) +
-                            pathwidth(d.sourcealready) +
-                            rect_x.bandwidth() / 2 - name_width/3
+                        pathwidth(d.sourcealready) +
+                        rect_x.bandwidth() / 2 - name_width / 3
                     );
                 })
                 .attr("y", function (d) {
@@ -481,8 +481,8 @@ export default {
                 .append("text")
                 .attr("x", function (d) {
                     return hero_x(d.target) +
-                            pathwidth(d.targetalready) -
-                            hero_image;
+                        pathwidth(d.targetalready) -
+                        hero_image;
                 })
                 .attr("y", function (d) {
                     return heronode_y - hero_image / 2;
@@ -697,10 +697,25 @@ export default {
 
             block.style.display = "none";
         },
+
         render_seq_left_veiw() {
             //////////////////////////
             /////////function/////////
             //////////////////////////
+            function mouseover(anytext) {
+                d3.select('body')
+                    .append('div')
+                    .attr('id', 'seq_tooltip')
+                    .style("opacity", 1)
+                    .html(`${anytext}`)
+                    .style("left", event.pageX + 10 + "px")
+                    .style("top", event.pageY + 10 + "px");
+            }
+
+            function mouseout() {
+                d3.select('#seq_tooltip').remove();
+            }
+
             function render_barChart(cur_node_svg, barChartData) {
                 // console.log(barChartData);
                 var fourth_item = {
@@ -926,18 +941,6 @@ export default {
                 return res;
             }
 
-            function mouseover(anytext) {
-                tooltip.style("opacity", 1);
-                tooltip
-                    .html(`${anytext}`)
-                    .style("left", event.pageX + 10 + "px")
-                    .style("top", event.pageY + 10 + "px");
-            }
-
-            function mouseout() {
-                tooltip.style("opacity", 0);
-            }
-
             function main_body_zoomed_func() {
                 main_body.attr("transform", d3.event.transform);
                 var block = $("#main_body").css("transform");
@@ -969,22 +972,8 @@ export default {
             // // Color scale used
             var purple_color = ["#542788", "#8073ac", "#b2abd2", "#d8daeb"];
             var orange_color = ["#fdb863", "#e08214", "#b35806", "#d8daeb"];
-            // create a tooltip
-            var tooltip = d3
-                .select("body")
-                .append("div")
-                .style("opacity", 0)
-                .attr("class", "tooltip")
-                .style("background-color", "white")
-                .style("border", "solid")
-                .style("border-width", "2px")
-                .style("border-radius", "5px")
-                .style("padding", "5px")
-                .style("position", "absolute");
+
             var passed_stage = seq_view_data.nodes[0].stage - 1;
-            console.log(seq_view_data);
-            console.log(seq_view_data.nodes[0].stage);
-            console.log(passed_stage);
             var stage_width = 145;
 
             // zoom func
@@ -1356,11 +1345,25 @@ export default {
             render_title();
         },
         async render_glyph_view(chosen_hero) {
+            function mouseover(anytext) {
+                d3.select('body')
+                    .append('div')
+                    .attr('id', 'seq_tooltip')
+                    .style("opacity", 1)
+                    .html(`${anytext}`)
+                    .style("left", event.pageX + 10 + "px")
+                    .style("top", event.pageY + 10 + "px");
+            }
+
+            function mouseout() {
+                d3.select('#seq_tooltip').remove();
+            }
+
             //////////////////////////
             /////////input////////////
             //////////////////////////
             var chosen_hero_data = all_glyph_data[chosen_hero];
-            console.log(chosen_hero_data);
+            console.log("chosen_hero_data: ", chosen_hero_data);
 
             var offset_left = 300;
             var offset_top = 135;
@@ -1482,7 +1485,11 @@ export default {
                 })
                 .attr("fill", function (d, i) {
                     return `url(#p${d[0]})`;
-                });
+                })
+                .on('mouseover', function (d, i) {
+                    mouseover(`Counter Top${i + 1}:` + '<br/>' + `${d[0]}(${d[1].toFixed(2)})`);
+                })
+                .on('mouseout', mouseout);
 
             //////////////////////////
             //////countered_top3//////
@@ -1514,7 +1521,11 @@ export default {
                 })
                 .attr("fill", function (d, i) {
                     return `url(#p${d[0]})`;
-                });
+                })
+                .on('mouseover', function (d, i) {
+                    mouseover(`Countered Top${i + 1}:` + '<br/>' + `${d[0]}(${Math.abs(d[1]).toFixed(2)})`);
+                })
+                .on('mouseout', mouseout);
 
             //////////////////////////
             ////////team_mate/////////
@@ -1545,7 +1556,11 @@ export default {
                 })
                 .attr("fill", function (d, i) {
                     return `url(#p${d[0]})`;
-                });
+                })
+                .on('mouseover', function (d, i) {
+                    mouseover(`Best Team Mate ${i + 1}:` + '<br/>' + `${d[0]}(${d[1].toFixed(2)})`);
+                })
+                .on('mouseout', mouseout);
 
             //////////////////////////
             ////////kda_arc///////////
@@ -1577,7 +1592,11 @@ export default {
                 })
                 .style("fill", (d, i) => arcs_color[i])
                 .attr("transform", `translate(${offset_left},${offset_top})`)
-                .attr("opacity", 0.5);
+                .attr("opacity", 0.5)
+                .on('mouseover', function (d, i) {
+                    mouseover(`${'ADK'[i]} percent:` + '<br/>' + `${d.toFixed(2)}`);
+                })
+                .on('mouseout', mouseout);
 
             //////////////////////////
             ////////win_ban_pick//////
@@ -1591,7 +1610,7 @@ export default {
                 .append("g")
                 .attr("id", "win_ban_pick_g");
             var win_ban_pick_color = ["#BACDFF", "#FFE980", "#FFD8A3"];
-
+            var win_ban_pick_key = ['win_rate', 'ban_rate', 'pick_rate'];
             win_ban_pick_g
                 .selectAll(".win_ban_pick_arc")
                 .data(win_ban_pick_data)
@@ -1617,7 +1636,11 @@ export default {
                 })
                 .style("fill", (d, i) => win_ban_pick_color[i])
                 .attr("transform", `translate(${offset_left},${offset_top})`)
-                .attr("opacity", 0.5);
+                .attr("opacity", 0.5)
+                .on('mouseover', function (d, i) {
+                    mouseover(`${win_ban_pick_key[i]}:` + '<br/>' + `${d.toFixed(2)}`);
+                })
+                .on('mouseout', mouseout);
 
             win_ban_pick_g
                 .selectAll(".win_ban_pick_background_arc")
@@ -1642,17 +1665,24 @@ export default {
                 })
                 .style("fill", "#D9D9D9")
                 .attr("transform", `translate(${offset_left},${offset_top})`)
-                .attr("opacity", 0.5);
+                .attr("opacity", 0.5)
+                .on('mouseover', function (d, i) {
+                    mouseover(`${win_ban_pick_key[i]}:` + '<br/>' + `${d.toFixed(2)}`);
+                })
+                .on('mouseout', mouseout);
 
             ////////////////////////////////////////////////////
             ///////////////////////legend///////////////////////
             ////////////////////////////////////////////////////
             // glyph_legend
-            var glyph_legend_svg = glyph_view_svg
+            var glyph_legend_svg_g = glyph_view_svg
                 .append("svg")
                 .attr("id", "glyph_legend_svg")
+                .append('g')
+                .attr('id', 'glyph_legend_svg_g')
                 .attr("width", 200)
-                .attr("height", 240);
+                .attr("height", 240)
+                .attr('transform', `translate(0,22)`);
 
             var glyph_legend_key = [
                 "Counter Top3",
@@ -1668,11 +1698,11 @@ export default {
             var glyph_legend_color = d3
                 .scaleOrdinal()
                 .domain(glyph_legend_key)
-                .range(["#E6F2CD", "#FFBFBF", "#BFE5FF", "#BACDFF", "#FFE980", "#FFD8A3", "#D0E6A5", "#F76060", "#FFFFBF"]);
+                .range(["#E6F2CD", "#FFBFBF", "#BFE5FF", "#BACDFF", "#FFE980", "#FFD8A3", "#FFFFBF", "#F76060", "#D0E6A5"]);
 
             var glyph_legend_offset_left = 12;
             var glyph_legend_offset_top = 21;
-            glyph_legend_svg
+            glyph_legend_svg_g
                 .selectAll(".glyph_legend_dots")
                 .data(glyph_legend_key)
                 .enter()
@@ -1684,7 +1714,7 @@ export default {
                 })
                 .attr("r", 7)
                 .style("fill", (d) => glyph_legend_color(d));
-            glyph_legend_svg
+            glyph_legend_svg_g
                 .selectAll(".glyph_legend_text")
                 .data(glyph_legend_key)
                 .enter()
@@ -1705,7 +1735,19 @@ export default {
 };
 </script>
 
+
+
 <style>
+#seq_tooltip {
+    position: absolute;
+    opacity: 0;
+    background-color: white;
+    border: solid;
+    border-width: 2px;
+    border-radius: 5px;
+    padding: 5px;
+}
+
 #seq_view {
     position: absolute;
     width: 75%;
@@ -1713,8 +1755,7 @@ export default {
     left: 0.5%;
     right: 0.5%;
     top: 41%;
-    background: rgba(243, 243, 243, .5);
-    /* border-right: 1px solid #9a9a9a; */
+    background: rgba(243, 243, 243, 0.5);
 }
 
 #main_body_svg {
@@ -1723,7 +1764,7 @@ export default {
     height: 100%;
     left: 0%;
     top: 0%;
-    /* border-right: 1px solid #9a9a9a; */
+    cursor: move;
 }
 
 #sankeyview {
@@ -1763,12 +1804,20 @@ export default {
     width: 23.9%;
     height: 32%;
     overflow-x: auto;
-    background: rgba(243, 243, 243, .5);
+    background: rgba(243, 243, 243, 0.5);
     right: 0.25%;
     top: 27%;
     display: block;
 }
 
+#glyph_view .counter,
+.countered,
+.team_mate,
+.kda_arc,
+.win_ban_pick_arc,
+.win_ban_pick_background_arc {
+    cursor: pointer;
+}
 
 #type {
     position: absolute;
@@ -1789,10 +1838,9 @@ export default {
     /* border-left: 1px solid #9a9a9a; */
     /* border-top: 1px solid #9a9a9a; */
     overflow-x: auto;
-    background: rgba(243, 243, 243, .5);
+    background: rgba(243, 243, 243, 0.5);
     right: 0.25%;
     top: 60%;
     display: block;
 }
-
 </style>
