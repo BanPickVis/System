@@ -789,7 +789,7 @@ export default {
                         })
                         // .attr('opacity', '0.8')
                         .on("mouseover", function () {
-                            mouseover(datum.hero);
+                            mouseover(`top${index + 1} ${datum.hero}`);
                         })
                         .on("mouseout", mouseout);
                 });
