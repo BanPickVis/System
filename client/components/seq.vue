@@ -294,11 +294,11 @@ export default {
             var rect_x = d3.scaleBand().range([0, width]).domain(playernode);
             var pathcolor = d3
                 .scaleOrdinal()
-                .range(["#E6F2CD", "#FFBFBF"])
+                .range(["#C6E4A5", "#FFBFBF"])
                 .domain(["win", "lose"]);
             var rectcolor = d3
                 .scaleOrdinal()
-                .range(["#BFE5FF", "#FCC6C6"])
+                .range(["#9EC6E9", "#FCC6C6"])
                 .domain(["blue", "red"]);
             var pathwidth = d3
                 .scaleLinear()
@@ -1362,17 +1362,20 @@ export default {
             //////////////////////////
             /////////input////////////
             //////////////////////////
+            // red: #FFBFBF  blue: #9EC6E9   green: #C6E4A5
             var chosen_hero_data = all_glyph_data[chosen_hero];
-            console.log("chosen_hero_data: ", chosen_hero_data);
+            console.log(`${chosen_hero}:`, chosen_hero_data);
 
-            var offset_left = 300;
+            var offset_left = 295;
             var offset_top = 135;
             var glyph_view_svg = d3
                 .select("#glyph_view")
                 .append("svg")
                 .attr("id", "glyph_view_svg")
-                .attr("width", 400)
-                .attr("height", 255);
+                .attr("width", 415)
+                .attr("height", 266)
+                .append('g')
+                .attr('id', 'glyph_view_svg_g');
 
             //////////////////////////
             /////backgound arc////////
@@ -1382,7 +1385,7 @@ export default {
                 { startAngle: 0.5 * Math.PI, endAngle: Math.PI },
                 { startAngle: 1.5 * Math.PI, endAngle: 2 * Math.PI },
             ];
-            var background_arc_color = ["#E6F2CD", "#BFE5FF", "#FFBFBF"];
+            var background_arc_color = ["#C6E4A5", "#9EC6E9", "#FFBFBF"];
             var background_arc_outer_r = 106;
             var background_arc_func = d3
                 .arc()
@@ -1411,7 +1414,6 @@ export default {
                 .x((d) => d.x)
                 .y((d) => d.y);
             var lines_g = glyph_view_svg.append("g").attr("id", "lines_g");
-            var line_color = ["#FFBFBF", "#BFE5FF"];
             var line_length = 124;
             lines_g
                 .selectAll(".lines")
@@ -1425,13 +1427,7 @@ export default {
                         { x: line_length, y: 0 },
                     ])
                 )
-                .style("stroke", (d, i) => {
-                    if (i == 0 || i == 1) {
-                        return line_color[0];
-                    } else {
-                        return line_color[1];
-                    }
-                })
+                .style('stroke', '#C9C9C9')
                 .style("stroke-width", 2)
                 .style("fill", "none")
                 .attr(
@@ -1454,11 +1450,34 @@ export default {
                 .attr("stroke-width", 1)
                 .attr("transform", `translate(${offset_left},${offset_top})`);
 
+
+
+            //////////////////////////
+            ////////circle_scale//////
+            //////////////////////////
+            chosen_hero_data['countered_top3'].forEach((ele, index) => {
+                chosen_hero_data['countered_top3'][index][1] = Math.abs(chosen_hero_data['countered_top3'][index][1]);
+            });
+            var all_data = [...chosen_hero_data['counter_top3'], ...chosen_hero_data['countered_top3'], ...chosen_hero_data['team_mate']];
+            console.log(all_data);
+            var min_val = d3.min(all_data, d => d[1]);
+            var max_val = d3.max(all_data, d => d[1]);
+            console.log(min_val, max_val);
+            var lower_line = 12;
+            var higher_line = 16;
+            if (min_val == max_val) {
+                lower_line = (lower_line + higher_line) / 2;
+                higher_line = lower_line;
+            }
+            var circle_scale = d3.scaleLinear()
+                .domain([min_val, max_val])
+                .range([lower_line, higher_line]);
+            console.log(lower_line, higher_line);
+
             //////////////////////////
             ////////counter_top3//////
             //////////////////////////
             var circle_r = 80;
-            var circle_size_amplify = 30;
             glyph_view_svg
                 .append("g")
                 .attr("id", "counter_top3_g")
@@ -1481,7 +1500,7 @@ export default {
                     return `translate(${x}, ${y})`;
                 })
                 .attr("r", (d, i) => {
-                    return d[1] * circle_size_amplify;
+                    return circle_scale(d[1]);
                 })
                 .attr("fill", function (d, i) {
                     return `url(#p${d[0]})`;
@@ -1517,7 +1536,7 @@ export default {
                     return `translate(${x}, ${y})`;
                 })
                 .attr("r", (d, i) => {
-                    return Math.abs(d[1] * circle_size_amplify);
+                    return circle_scale(Math.abs(d[1]));
                 })
                 .attr("fill", function (d, i) {
                     return `url(#p${d[0]})`;
@@ -1552,7 +1571,7 @@ export default {
                     return `translate(${x}, ${y})`;
                 })
                 .attr("r", (d, i) => {
-                    return Math.abs(d[1] * circle_size_amplify);
+                    return circle_scale(d[1]);
                 })
                 .attr("fill", function (d, i) {
                     return `url(#p${d[0]})`;
@@ -1565,9 +1584,10 @@ export default {
             //////////////////////////
             ////////kda_arc///////////
             //////////////////////////
+            // red: #FFBFBF  blue: #9EC6E9   green: #C6E4A5
             var kda_percent_list = chosen_hero_data["kda_percent"].reverse();
             var kda_arc = glyph_view_svg.append("g").attr("id", "kda_arc");
-            var arcs_color = ["#D0E6A5", "#F76060", "#FFFFBF"];
+            var arcs_color = ["#C6E4A5", "#FFBFBF", "#9EC6E9"];
             var kda_arc_outer_r = 66;
             var arcs_g_func = d3
                 .arc()
@@ -1601,6 +1621,7 @@ export default {
             //////////////////////////
             ////////win_ban_pick//////
             //////////////////////////
+            // red: #FFBFBF  blue: #9EC6E9   green: #C6E4A5
             var win_ban_pick_data = [
                 chosen_hero_data["win_rate"],
                 chosen_hero_data["ban_rate"],
@@ -1609,7 +1630,7 @@ export default {
             var win_ban_pick_g = glyph_view_svg
                 .append("g")
                 .attr("id", "win_ban_pick_g");
-            var win_ban_pick_color = ["#BACDFF", "#FFE980", "#FFD8A3"];
+            var win_ban_pick_color = ["#9EC6E9", "#FFBFBF", "#C6E4A5"];
             var win_ban_pick_key = ['win_rate', 'ban_rate', 'pick_rate'];
             win_ban_pick_g
                 .selectAll(".win_ban_pick_arc")
@@ -1622,7 +1643,7 @@ export default {
                     var arc_width = 10;
                     var end_angle = Math.PI * 1.5;
                     var start_angle = end_angle - Math.PI * 0.5 * d;
-                    console.log((Math.PI / 2) * d);
+                    // console.log((Math.PI / 2) * d);
                     var cur_arc_data = {
                         startAngle: start_angle,
                         endAngle: end_angle,
@@ -1675,32 +1696,33 @@ export default {
             ///////////////////////legend///////////////////////
             ////////////////////////////////////////////////////
             // glyph_legend
+            var legend_left = 6;
+            var legend_top = 22;
             var glyph_legend_svg_g = glyph_view_svg
-                .append("svg")
-                .attr("id", "glyph_legend_svg")
                 .append('g')
                 .attr('id', 'glyph_legend_svg_g')
                 .attr("width", 200)
                 .attr("height", 240)
-                .attr('transform', `translate(0,22)`);
+                .attr('transform', `translate(${legend_left},${legend_top})`);
 
             var glyph_legend_key = [
                 "Counter Top3",
-                "Countered Top3",
-                "Best Team Mate",
-                "Win Rate",
-                "Ban Rate",
                 "Pick Rate",
                 "Kill Percent",
+                "Countered Top3",
+                "Ban Rate",
                 "Death Percent",
+                "Best Team Mate",
+                "Win Rate",
                 "Assistant Percent"
             ];
-            var glyph_legend_color = d3
-                .scaleOrdinal()
-                .domain(glyph_legend_key)
-                .range(["#E6F2CD", "#FFBFBF", "#BFE5FF", "#BACDFF", "#FFE980", "#FFD8A3", "#FFFFBF", "#F76060", "#D0E6A5"]);
+
+            // red: #FFBFBF  blue: #9EC6E9   green: #C6E4A5
+            var glyph_legend_circle_color = ["#C6E4A5", "transparent", "transparent", "#FFBFBF", "transparent", "transparent", "#9EC6E9", "transparent", "transparent"];
+            var glyph_legend_text_color = ["#C6E4A5", "#C6E4A5", "#C6E4A5", "#FFBFBF", "#FFBFBF", "#FFBFBF", "#9EC6E9", "#9EC6E9", "#9EC6E9"];
 
             var glyph_legend_offset_left = 12;
+            var offset_circlr_text = 10;
             var glyph_legend_offset_top = 21;
             glyph_legend_svg_g
                 .selectAll(".glyph_legend_dots")
@@ -1713,19 +1735,19 @@ export default {
                     return glyph_legend_offset_top + i * 25;
                 })
                 .attr("r", 7)
-                .style("fill", (d) => glyph_legend_color(d));
+                .style("fill", (d, i) => glyph_legend_circle_color[i]);
             glyph_legend_svg_g
                 .selectAll(".glyph_legend_text")
                 .data(glyph_legend_key)
                 .enter()
                 .append("text")
                 .attr("class", "glyph_legend_text")
-                .attr("x", glyph_legend_offset_top)
+                .attr("x", glyph_legend_offset_left + offset_circlr_text)
                 .attr("y", function (d, i) {
                     return glyph_legend_offset_top + i * 25;
                 })
-                .style("fill", (d) => glyph_legend_color(d))
-                .text((d) => d)
+                .style("fill", (d, i) => glyph_legend_text_color[i])
+                .html((d) => d)
                 .attr("text-anchor", "left")
                 .style("alignment-baseline", "middle")
                 .style("font-weight", "bold");
