@@ -1362,7 +1362,12 @@ export default {
             //////////////////////////
             /////////input////////////
             //////////////////////////
-            // red: #FFBFBF  blue: #9EC6E9   green: #C6E4A5
+            // green: #C6E4A5  red: #FFBFBF  blue: #9EC6E9
+            // DARK:  #9EBC7D       #D79797        #769EC1
+            //        #769455       #AF6F6F        #4E7699
+            var glyph_legend_color = ["#E6F2CD", "#C1E877", "#91CF60", "#F76060", "#F76060", "#FF6969", "#BFE5FF", "#86CDFF", "#2BA9FF"];
+            var glyph_legend_opacity = [0.85, 0.80, 0.80, 0.3, 0.6, 1, 0.7, 0.8, 0.8];
+
             var chosen_hero_data = all_glyph_data[chosen_hero];
             console.log(`${chosen_hero}:`, chosen_hero_data);
 
@@ -1385,7 +1390,8 @@ export default {
                 { startAngle: 0.5 * Math.PI, endAngle: Math.PI },
                 { startAngle: 1.5 * Math.PI, endAngle: 2 * Math.PI },
             ];
-            var background_arc_color = ["#C6E4A5", "#9EC6E9", "#FFBFBF"];
+            var background_arc_color = [glyph_legend_color[0], glyph_legend_color[6], glyph_legend_color[3]];
+            var background_arc_opacity = [0.85, 0.7, 0.3];
             var background_arc_outer_r = 106;
             var background_arc_func = d3
                 .arc()
@@ -1403,6 +1409,7 @@ export default {
                 .attr("class", "background_arc")
                 .attr("d", (d) => background_arc_func(d))
                 .style("fill", (d, i) => background_arc_color[i])
+                .style('opacity', (d, i) => background_arc_opacity[i])
                 .attr("transform", `translate(${offset_left},${offset_top})`);
             // .attr("opacity", 0.5);
 
@@ -1586,9 +1593,10 @@ export default {
             //////////////////////////
             // green: #C6E4A5    red: #FFBFBF  blue: #9EC6E9   
             // DARK:  #9EBC7D       #D79797        #769EC1
-            var kda_percent_list = chosen_hero_data["kda_percent"].reverse();
+            var kda_percent_list = chosen_hero_data["kda_percent"];
             var kda_arc = glyph_view_svg.append("g").attr("id", "kda_arc");
-            var arcs_color = ["#769455", "#AF6F6F", "#4E7699"];
+            var arcs_color = [glyph_legend_color[2], glyph_legend_color[5], glyph_legend_color[8]];
+            var arcs_opacity = [0.8, 1, 0.8];
             var kda_arc_outer_r = 66;
             var arcs_g_func = d3
                 .arc()
@@ -1611,10 +1619,10 @@ export default {
                     return arcs_g_func(cur_arc_data);
                 })
                 .style("fill", (d, i) => arcs_color[i])
+                .style('opacity', (d, i) => arcs_opacity[i])
                 .attr("transform", `translate(${offset_left},${offset_top})`)
-                // .attr("opacity", 0.95)
                 .on('mouseover', function (d, i) {
-                    mouseover(`${'ADK'[i]} percent:` + '<br/>' + `${d.toFixed(2)}`);
+                    mouseover(`${'KDA'[i]} percent:` + '<br/>' + `${d.toFixed(2)}`);
                 })
                 .on('mouseout', mouseout);
 
@@ -1630,37 +1638,11 @@ export default {
             var win_ban_pick_g = glyph_view_svg
                 .append("g")
                 .attr("id", "win_ban_pick_g");
-            var win_ban_pick_color = ["#9EBC7D", "#D79797", "#769EC1"];
+            var win_ban_pick_color = [glyph_legend_color[7], glyph_legend_color[4], glyph_legend_color[1]];
+            var win_ban_pick_opacity = [0.8, 0.6, 0.8];
             var win_ban_pick_key = ['win_rate', 'ban_rate', 'pick_rate'];
-            win_ban_pick_g
-                .selectAll(".win_ban_pick_arc")
-                .data(win_ban_pick_data)
-                .enter()
-                .append("path")
-                .attr("class", "win_ban_pick_arc")
-                .attr("d", (d, i) => {
-                    var outer_r = 115 - i * 15;
-                    var arc_width = 10;
-                    var end_angle = Math.PI * 1.5;
-                    var start_angle = end_angle - Math.PI * 0.5 * d;
-                    var cur_arc_data = {
-                        startAngle: start_angle,
-                        endAngle: end_angle,
-                    };
-                    var win_ban_pick_arc_func = d3
-                        .arc()
-                        .innerRadius(outer_r - arc_width)
-                        .outerRadius(outer_r);
-                    // console.log(win_ban_pick_arc_func(cur_arc_data))
-                    return win_ban_pick_arc_func(cur_arc_data);
-                })
-                .style("fill", (d, i) => win_ban_pick_color[i])
-                .attr("transform", `translate(${offset_left},${offset_top})`)
-                .on('mouseover', function (d, i) {
-                    mouseover(`${win_ban_pick_key[i]}:` + '<br/>' + `${d.toFixed(2)}`);
-                })
-                .on('mouseout', mouseout);
 
+            // background arc
             win_ban_pick_g
                 .selectAll(".win_ban_pick_background_arc")
                 .data(win_ban_pick_data)
@@ -1690,6 +1672,38 @@ export default {
                 })
                 .on('mouseout', mouseout);
 
+            // color arc
+            win_ban_pick_g
+                .selectAll(".win_ban_pick_arc")
+                .data(win_ban_pick_data)
+                .enter()
+                .append("path")
+                .attr("class", "win_ban_pick_arc")
+                .attr("d", (d, i) => {
+                    var outer_r = 115 - i * 15;
+                    var arc_width = 10;
+                    var end_angle = Math.PI * 1.5;
+                    var start_angle = end_angle - Math.PI * 0.5 * d;
+                    var cur_arc_data = {
+                        startAngle: start_angle,
+                        endAngle: end_angle,
+                    };
+                    var win_ban_pick_arc_func = d3
+                        .arc()
+                        .innerRadius(outer_r - arc_width)
+                        .outerRadius(outer_r);
+                    return win_ban_pick_arc_func(cur_arc_data);
+                })
+                .style("fill", (d, i) => win_ban_pick_color[i])
+                .style('opacity', (d, i) => win_ban_pick_opacity[i])
+                .attr("transform", `translate(${offset_left},${offset_top})`)
+                .on('mouseover', function (d, i) {
+                    mouseover(`${win_ban_pick_key[i]}:` + '<br/>' + `${d.toFixed(2)}`);
+                })
+                .on('mouseout', mouseout);
+
+
+
             ////////////////////////////////////////////////////
             ///////////////////////legend///////////////////////
             ////////////////////////////////////////////////////
@@ -1717,11 +1731,7 @@ export default {
                 "Assistant Percent"
             ];
 
-            // green: #C6E4A5  red: #FFBFBF  blue: #9EC6E9
-            // DARK:  #9EBC7D       #D79797        #769EC1
-            //        #769455       #AF6F6F        #4E7699
-            var glyph_legend_color = ["#C6E4A5", "#9EBC7D", "#769455", "#FFBFBF", "#D79797", "#AF6F6F", "#9EC6E9", "#769EC1", "#4E7699"];
-            var glyph_legend_opacity = [0.85, 0.65, 0.45];
+
 
             var glyph_legend_offset_left = 12;
             var offset_circlr_text = 10;
@@ -1739,11 +1749,8 @@ export default {
                 .attr("r", 7)
                 .style("fill", (d, i) => glyph_legend_color[i])
                 .style('stroke', (d, i) => glyph_legend_color[i])
-                .style('stroke-width', 1.5);
-            // .style('opacity', (d, i) => {
-            //     console.log(i / 3);
-            //     return glyph_legend_opacity[i / 3];
-            // });
+                .style('stroke-width', 1.5)
+                .style('opacity', (d, i) => glyph_legend_opacity[i]);
 
             glyph_legend_svg_g
                 .selectAll(".glyph_legend_text")
@@ -1756,10 +1763,7 @@ export default {
                     return glyph_legend_offset_top + i * 25;
                 })
                 .style("fill", (d, i) => glyph_legend_color[i])
-                // .style('opacity', (d, i) => {
-                //     console.log(i / 3);
-                //     return glyph_legend_opacity[i / 3];
-                // })
+                .style('opacity', (d, i) => glyph_legend_opacity[i])
                 .html((d) => d)
                 .attr("text-anchor", "left")
                 .style("alignment-baseline", "middle")
