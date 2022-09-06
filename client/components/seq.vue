@@ -170,6 +170,7 @@ export default {
             block = document.getElementById('loaderer');
             block.style.display = "block";
             this.branchupdate(val, this.selectednode);
+            // this.loaddata();
             // block.style.display="none";
         },
         bon(val) {
@@ -725,20 +726,15 @@ export default {
                     score: 0.3,
                 };
                 barChartData.push(fourth_item);
-                // console.log(barChartData)
+                console.log('barChartData is: ', barChartData);
 
                 const barChartWidth = 40;
                 const barChartHeight = 63;
-                var min_score = barChartData[2].score;
+                var min_score = d3.min(barChartData, (datum) => datum.score);
 
                 const xScale = d3
                     .scaleLinear()
-                    .domain([
-                        0,
-                        d3.max(barChartData, (datum) => {
-                            return (datum.score - min_score * 0.9) * 23;
-                        }),
-                    ])
+                    .domain([0, d3.max(barChartData, (datum) => (datum.score - min_score * 0.9) * 23)])
                     .range([0, barChartWidth]);
 
                 const yScale = d3
@@ -752,37 +748,31 @@ export default {
                         .append("rect")
                         .attr("width", function () {
                             if (index != 3) {
-                                return xScale(
-                                    (datum.score - min_score * 0.9) * 10
-                                );
+                                console.log(xScale((datum.score - min_score * 0.9) * 10));
+                                return xScale((datum.score - min_score * 0.9) * 10);
                             }
                             return 10;
                         })
                         .attr("class", "branch_bar")
                         .on("click", function (data) {
                             var block = $("#main_body").css("transform");
-                            // console.log(block);
-
-                            // console.log(source_ele_transform);
-
                             block = str2number(
                                 block.split("(")[1].split(")")[0].split(",")
                             );
 
                             self.scale = block[0];
-                            // console.log(source_ele_transform);
                             block = block.splice(4, 2);
                             self.transx = block[0];
                             self.transy = block[1];
-                            // console.log(self.transx, self.transy);
 
                             block = document.getElementById('loader');
                             block.style.display = "block";
                             block = document.getElementById('loaderer');
                             block.style.display = "block";
+                            console.log('datum: ', datum);
+                            console.log('data: ', data);
                             self.branchupdate(datum.hero, data.node);
                             // block.style.display="none";
-                            // console.log(datum);
                         })
                         .attr("height", yScale.bandwidth())
                         .attr("y", yScale(datum.hero))
@@ -964,13 +954,14 @@ export default {
             // vars
             var self = this;
             var seq_view_data = this.sequence_view_data;
+            console.log(seq_view_data);
 
             // // Color scale used
             var purple_color = ["#542788", "#8073ac", "#b2abd2", "#d8daeb"];
             var orange_color = ["#fdb863", "#e08214", "#b35806", "#d8daeb"];
 
             self.passed_stage = seq_view_data.nodes[0].stage - 1;
-            console.log(self.passed_stage);
+            // console.log(self.passed_stage);
             var stage_width = this.stage_width;
 
             // zoom func
@@ -1011,6 +1002,8 @@ export default {
             var line_height = 120; //行宽
             var node_spacing = 145; //节点间距
             var eachPos = seq_view_data.eachPos;
+
+            // node layout
             var node_g = node_svg
                 .selectAll(".node")
                 .data(seq_view_data.nodes)
@@ -1031,15 +1024,22 @@ export default {
                 .append("rect")
                 .attr("class", "nodeImage")
                 .attr("id", function (d) {
-                    return "node" + d.hero;
+                    if (d.node != -1) {
+                        return "node" + d.hero;
+                    }
                 })
                 .attr("fill", function (d) {
-                    return `url(#p${d.hero})`;
+                    if (d.node != -1) {
+                        return `url(#p${d.hero})`;
+                    } else {
+                        return 'transparent';
+                    }
                 })
                 .attr("width", 60)
                 .attr("height", 60)
                 .attr("x", -30)
                 .attr("y", -30);
+
 
             // add image-border
             node_g
@@ -1057,20 +1057,37 @@ export default {
                 })
                 .on("mouseout", mouseout)
                 .on("click", function (d) {
-                    d3.select("#glyph_view_svg").remove();
-                    self.render_glyph_view(d.hero);
-
                     var block = $("#main_body").css("transform");
-                    block = str2number(
-                        block.split("(")[1].split(")")[0].split(",")
-                    );
-                    self.scale = block[0];
-                    block = block.splice(4, 2);
-                    self.transx = block[0];
-                    self.transy = block[1];
-                    // console.log(d);
-                    self.drawwinrate(d.node);
-                    self.render_sankey(d.node);
+                    if (d.node != -1) {
+                        d3.select("#glyph_view_svg").remove();
+                        self.render_glyph_view(d.hero);
+
+                        block = str2number(
+                            block.split("(")[1].split(")")[0].split(",")
+                        );
+                        self.scale = block[0];
+                        block = block.splice(4, 2);
+                        self.transx = block[0];
+                        self.transy = block[1];
+                        // console.log(d);
+                        self.drawwinrate(d.node);
+                        self.render_sankey(d.node);
+                    } else {
+                        block = str2number(
+                            block.split("(")[1].split(")")[0].split(",")
+                        );
+                        self.scale = block[0];
+                        block = block.splice(4, 2);
+                        self.transx = block[0];
+                        self.transy = block[1];
+
+                        block = document.getElementById('loader');
+                        block.style.display = "block";
+                        block = document.getElementById('loaderer');
+                        block.style.display = "block";
+                        console.log('datum: ', d);
+                        self.branchupdate('Customized', 0);
+                    }
                 });
 
             //////////////////////////
