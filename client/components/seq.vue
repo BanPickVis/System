@@ -151,13 +151,15 @@ export default {
             transx: -10,
             transy: 0,
             scale: 1,
+            passed_stage: 0,
+            stage_width: 145
         };
     },
     watch: {
         transx() {
             d3.select("#title_view").attr(
                 "transform",
-                `translate(${this.transx},-440)`
+                `translate(${this.transx - this.passed_stage * this.stage_width},-440)`
             );
         },
         customizedhero(val) {
@@ -944,19 +946,13 @@ export default {
             function main_body_zoomed_func() {
                 main_body.attr("transform", d3.event.transform);
                 var block = $("#main_body").css("transform");
-                block = str2number(
-                    block.split("(")[1].split(")")[0].split(",")
-                );
+                block = str2number(block.split("(")[1].split(")")[0].split(","));
                 self.scale = block[0];
                 block = block.splice(4, 2);
                 self.transx = block[0];
                 self.transy = block[1];
                 // console.log(self.transx);
             }
-
-            // function title_zoomed_func() {
-            //     title_view.attr("transform", d3.event.transform);
-            // }
 
             //////////////////////////////////////////////////////////////////////////////
             //////////////////////////////////////////////////////////////////////////////
@@ -973,8 +969,9 @@ export default {
             var purple_color = ["#542788", "#8073ac", "#b2abd2", "#d8daeb"];
             var orange_color = ["#fdb863", "#e08214", "#b35806", "#d8daeb"];
 
-            var passed_stage = seq_view_data.nodes[0].stage - 1;
-            var stage_width = 145;
+            self.passed_stage = seq_view_data.nodes[0].stage - 1;
+            console.log(self.passed_stage);
+            var stage_width = this.stage_width;
 
             // zoom func
             var main_body_zoomed = d3
@@ -982,17 +979,9 @@ export default {
                 .scaleExtent([1, 1])
                 .translateExtent([
                     [10, 0],
-                    [2556 + 55 - passed_stage * stage_width, 100000],
+                    [2556 + 55 - self.passed_stage * stage_width, 100000],
                 ])
                 .on("zoom", main_body_zoomed_func);
-            // var title_zoomed = d3
-            //     .zoom()
-            //     .scaleExtent([0.561, 10])
-            //     .translateExtent([
-            //         [10, 0],
-            //         [2556 + 55 - passed_stage * stage_width, 100000],
-            //     ])
-            //     .on("zoom", title_zoomed_func);
 
             // prepare
             var main_body_svg = d3
@@ -1004,18 +993,12 @@ export default {
             var main_body = main_body_svg
                 .append("g")
                 .attr("id", "main_body")
-                .attr(
-                    "transform",
-                    `translate(${self.transx},${self.transy}) scale(${self.scale})`
-                );
+                .attr("transform", `translate(${self.transx},${self.transy}) scale(${self.scale})`);
+
             var title_view = title_svg
                 .append("g")
                 .attr("id", "title_view")
-                .attr(
-                    "transform",
-                    `translate(${self.transx - passed_stage * stage_width
-                    }, -440) scale(${self.scale})`
-                );
+                .attr("transform", `translate(${self.transx - self.passed_stage * stage_width}, -440) scale(${self.scale})`);
             var link_svg = main_body.append("g").attr("id", "link_svg");
             var node_svg = main_body.append("g").attr("id", "node_svg");
 
@@ -1163,14 +1146,9 @@ export default {
                 .style("fill", "none")
                 .style("stroke", "#D9D9D9")
                 .on("mouseover", function () {
-                    var score = Number(
-                        d3.select(this).attr("id").split("with")[1]
-                    ).toFixed(2);
+                    var score = Number(d3.select(this).attr("id").split("with")[1]).toFixed(2);
                     // console.log(score, typeof score)
-                    var type =
-                        d3.select(this).attr("type") == 1
-                            ? "recommend"
-                            : "predict";
+                    var type = d3.select(this).attr("type") == 1 ? "recommend" : "predict";
                     mouseover(`${type} score: ${score}`);
                 })
                 .on("mouseout", mouseout);
