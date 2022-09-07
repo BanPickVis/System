@@ -1,7 +1,7 @@
 <template>
     <svg>
         <rect id="hero_sequence1" class="hero_icon" filter="url(#trans-shadow)" x="15" y="5" rx="35" width="70" height="70" fill="url(#pnone)" @click="select(width, 200, 1)" />
-        <rect id="hero_sequence3" filter="url(#trans-shadow)" x="90" y="5" rx="35" width="70" height="70" fill="url(#pnone)" @click="select(175, 200, 3)" />
+        <rect id="hero_sequence3" class="hero_icon" filter="url(#trans-shadow)" x="90" y="5" rx="35" width="70" height="70" fill="url(#pnone)" @click="select(175, 200, 3)" />
 
         <image id="hero_sequence1" class="hero_icon" x="50" y="40" width="40" height="40" :href="require('../../assets/image/ban.png')" @click="select(100, 200, 1)" />
 
@@ -501,20 +501,29 @@
                 <feGaussianBlur result="blurOut" in="offOut" stdDeviation="5"></feGaussianBlur>
                 <feBlend in="SourceGraphic" in2="blurOut" mode="normal"></feBlend>
             </filter>
+
+            
         </defs>
     </svg>
 </template>
 
 <script>
-import requesthelp from "common/utils/request.js";
 export default {
+    // ////////////////////////////////
+    // data() {
+    //     return {
+    //         sequenceSelection: 0,
+    //     };
+    // },
     ////////////////////////////////
-    data() {
-        return {
-            sequence_change: true,
-        };
+    props:{
+        seqr1:{type:Object, default:()=>{}},
+        seqr2:{type:Object, default:()=>{}},
+        seqr3:{type:Object, default:()=>{}},
+        seqr4:{type:Object, default:()=>{}},
+        seqr5:{type:Object, default:()=>{}},
+        seqr6:{type:Object, default:()=>{}},
     },
-    ////////////////////////////////
     computed: {
         team1: function () {
             return this.team1abbr;
@@ -532,36 +541,55 @@ export default {
         this.default_change();
     },
     methods: {
-        async default_change(){
+        default_change(){
             let block;
             let seqn;
-            let preivious_seq = await requesthelp.axiosGet('/selected', {round: "1"} );
+            var highlight;
+            var flag =0;
+            // let preivious_seq = await requesthelp.axiosGet('/selected', {round: "1"} );
+            let preivious_seq = this.seqr1;
             for (var i=0;i<preivious_seq.length;i++){
                 seqn = i+1;
                 block = document.getElementById("hero_sequence"+seqn);
+                // console.log(preivious_seq[i]);
+                // console.log(flag);
+                if (preivious_seq[i]=="none" && flag == 0){
+                    highlight=i+1;
+                    flag = 1;
+                }
                 block.style.fill = "url(#p"+preivious_seq[i]+")";
+                block.style.stroke="none";
             }
+            // console.log(highlight);
+            block = document.getElementById("hero_sequence"+highlight);
+            // console.log(block);
+            block.style.stroke = "#4E6AFF";
             // let block = document.getElementById("hero_sequence"+seq_num);
             // console.log(block);
             // block.style.fill = "url(#p"+hero+")";
         },
-        async select(x, y, num) {
+        select(x, y, num) {
             let block = document.getElementById("selection_view");
             // console.log(x);
             block.style.left = x + "px";
             block.style.top = y + "px";
             block.style.display = "inline-block";
-            await requesthelp.axiosGet('/sequence_number', { sequence_num: num, round_num: 1});
-        ////////////////////////////////
-            this.sequence_change = !this.sequence_change;
-            this.changeSequence(this.sequence_change);
+            // await requesthelp.axiosGet('/sequence_number', { sequence_num: num, round_num: 1});
+            block = document.getElementById("hero_sequence"+num);
+            block.style.stroke = "none";
+            block = document.getElementById("hero_sequence"+(num+1));
+            block.style.stroke = "#4E6AFF";
+            this.changeSequence(num);
+            this.round(1);
         },
         changeSequence(sequence_change){
             // console.log(sequence_change);
-            this.$emit('sequenceChange', sequence_change); 
+            this.$emit('sequenceSelection', sequence_change); 
+        },
+        round(val){
+            // console.log(sequence_change);
+            this.$emit('theround', val); 
         }
-            
-        ////////////////////////////////
 
     },
 };
@@ -570,5 +598,7 @@ export default {
 <style>
 .hero_icon{
     cursor: pointer;
+    stroke: none;
+    stroke-width: 3px;
 }
 </style>

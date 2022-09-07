@@ -5,11 +5,11 @@
         </h1>
         <div class="bp_view">
             <b>BP View</b>
-            <bp :roundnow="roundDefault" :bon="bon" @handleChange1="changeName1" @handleChange2="changeName2" @teamChange1="changeTeam1" @teamChange2="changeTeam2" />
+            <bp :roundnow="roundDefault" :bon="bon" :round1seq="round1seq" :round2seq="round2seq" :round3seq="round3seq" :round4seq="round4seq" :round5seq="round5seq" :round6seq="round6seq" @handleChange1="changeName1" @handleChange2="changeName2" @teamChange1="changeTeam1" @teamChange2="changeTeam2" @seqSelection="select_num" @thisround="curround" />
         </div>
         <div class="seq_view">
             <b>Sequence View</b>
-            <seq :change="sequencechanged" :bon="bon" :branch="n_of_b" :preview="n_of_p" :side="team_side" :team1="Team_1" :team2="Team_2" />
+            <seq :change="sequencechanged" :bon="bon" :branch="n_of_b" :round1seq="round1seq" :round2seq="round2seq" :round3seq="round3seq" :round4seq="round4seq" :round5seq="round5seq" :round6seq="round6seq" :preview="n_of_p" :side="team_side" :team1="Team_1" :team2="Team_2" />
         </div>
         <div class="player_view">
             <b>Player View</b>
@@ -69,7 +69,7 @@
         </div>
 
         <div id="selection_view">
-            <heroS @sequenceChange="squenceChanging" />
+            <heroS :numberseq="selected_sequence_num" :numberround="round_num" :round1seq="round1seq" :round2seq="round2seq" :round3seq="round3seq" :round4seq="round4seq" :round5seq="round5seq" :round6seq="round6seq" @sequenceChange="squenceChanging" @round1sequence="seqr1" @round2sequence="seqr2" @round3sequence="seqr3" @round4sequence="seqr4" @round5sequence="seqr5" @round6sequence="seqr6" />
         </div>
         <div id="multi_selection_view1" class="multi_selection_view1">
             <heroMS1 @heroselected1="keywordsel1" />
@@ -203,7 +203,7 @@
     /* Team */
     position: absolute;
     width: 43%;
-    height: 38%;
+    height: 39%;
     left: 27%;
     bottom: 2%;
 

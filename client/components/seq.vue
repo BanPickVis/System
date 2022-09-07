@@ -147,6 +147,12 @@ export default {
         bon: { type: String, default: "3" },
         team1: { type: String, default: "武汉eStarPro" },
         team2: { type: String, default: "重庆狼队" },
+        round1seq:{type:Object, default:()=>{}},
+        round2seq:{type:Object, default:()=>{}},
+        round3seq:{type:Object, default:()=>{}},
+        round4seq:{type:Object, default:()=>{}},
+        round5seq:{type:Object, default:()=>{}},
+        round6seq:{type:Object, default:()=>{}},
     },
     setup() { },
     data() {
@@ -158,7 +164,8 @@ export default {
             transy: 0,
             scale: 1,
             passed_stage: 0,
-            stage_width: 145
+            stage_width: 145,
+            rawdata: {}
         };
     },
     watch: {
@@ -178,60 +185,11 @@ export default {
                 block.style.display = "block";
                 this.branchupdate(val, this.selectednode);
             }
-            // this.loaddata();
-            // block.style.display="none";
-        },
-        bon(val) {
-            // this.sequence_view_data = await requesthelp.axiosGet('/getSequenceData');
-            var block = document.getElementById('loader');
-            block.style.display = "block";
-            block = document.getElementById('loaderer');
-            block.style.display = "block";
-            this.loaddata();
-            // block.style.display="none";
-        },
-        side(val) {
-            var block = document.getElementById('loader');
-            block.style.display = "block";
-            block = document.getElementById('loaderer');
-            block.style.display = "block";
-            this.loaddata();
-            // block.style.display="none";
-        },
-        preview(val) {
-            var block = document.getElementById('loader');
-            block.style.display = "block";
-            block = document.getElementById('loaderer');
-            block.style.display = "block";
-            this.loaddata();
-            // block.style.display="none";
-        },
-        branch(val) {
-            var block = document.getElementById('loader');
-            block.style.display = "block";
-            block = document.getElementById('loaderer');
-            block.style.display = "block";
-            this.loaddata();
-            // block.style.display="none";
-        },
-        change(val) {
-            var block = document.getElementById('loader');
-            block.style.display = "block";
-            block = document.getElementById('loaderer');
-            block.style.display = "block";
-            this.loaddata();
-            // block.style.display="none";
 
         },
+
     },
     mounted() {
-        // var block = document.getElementById('loader');
-        // block.style.display = "block";
-        // block = document.getElementById('loaderer');
-        // block.style.display = "block";
-        // this.loaddata();
-        // this.render_seq_left_veiw();
-        // this.render_sankey();
     },
     methods: {
         newnode(){
@@ -660,6 +618,13 @@ export default {
                         t1_side: this.side,
                         node: node,
                         hero: hero,
+                        rawdata: JSON.stringify(this.rawdata),
+                        r1: JSON.stringify(this.round1seq),
+                        r2: JSON.stringify(this.round2seq),
+                        r3: JSON.stringify(this.round3seq),
+                        r4: JSON.stringify(this.round4seq),
+                        r5: JSON.stringify(this.round5seq),
+                        r6: JSON.stringify(this.round6seq),
                     }
                 );
                 // console.log(this.sequence_view_data);
@@ -682,16 +647,24 @@ export default {
             block.style.display = "block";
             block = document.getElementById('loaderer');
             block.style.display = "block";
-            this.sequence_view_data = await requesthelp.axiosGet(
+            var alldata = await requesthelp.axiosGet(
                 "/getSequenceData",
                 {
                     bo_n: this.bon,
                     pre_n: this.preview,
                     br_n: this.branch,
                     t1_side: this.side,
+                    r1: JSON.stringify(this.round1seq),
+                    r2: JSON.stringify(this.round2seq),
+                    r3: JSON.stringify(this.round3seq),
+                    r4: JSON.stringify(this.round4seq),
+                    r5: JSON.stringify(this.round5seq),
+                    r6: JSON.stringify(this.round6seq),
                 }
             );
-            // console.log(this.sequence_view_data);
+            this.sequence_view_data = JSON.parse(alldata.output);
+            // console.log(typeof(this.sequence_view_data));
+            this.rawdata = JSON.parse(alldata.raw_data);
             this.render_seq_left_veiw();
             block = document.getElementById('loader');
 
@@ -1826,16 +1799,16 @@ export default {
 
 /* 3D Button */
 #new_button{
-    left: 7%;
+    right: 3%;
 }
 #generate_button{
-    left: 3%;
+    right: 7%;
 }
 button.depth {
     
     margin: -40px;
     position: absolute;
-    bottom: 24%;
+    top: 10%;
     background: rgb(255, 255, 255);
     border: none;
     border-radius: 40px;

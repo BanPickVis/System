@@ -9,7 +9,7 @@
         {{ tab }}
       </button>
       <a class="close-button" @click="close()">Close</a>
-      <component :is="currentTabComponent" class="tab" @sequenceChange="changedSequence"></component>
+      <component :is="currentTabComponent" :seqnum="numberseq" :roundnum="numberround" :round1seq="round1seq" :round2seq="round2seq" :round3seq="round3seq" :round4seq="round4seq" :round5seq="round5seq" :round6seq="round6seq" class="tab" @r1Change="changer1" @r2Change="changer2" @r3Change="changer3" @r4Change="changer4" @r5Change="changer5" @r6Change="changer6"></component>
     </div>
 </template>
 
@@ -34,6 +34,16 @@ export default({
         marksman,
         tank
     },
+    props:{
+      numberseq:{ type: Number, default: 0 },
+      numberround:{ type: Number, default: 0 },
+      round1seq:{type:Object, default:()=>{}},
+      round2seq:{type:Object, default:()=>{}},
+      round3seq:{type:Object, default:()=>{}},
+      round4seq:{type:Object, default:()=>{}},
+      round5seq:{type:Object, default:()=>{}},
+      round6seq:{type:Object, default:()=>{}},
+    },
     setup() {
     },
     data() {
@@ -42,7 +52,6 @@ export default({
             select_hero_job: "all",
             currentTab: "all",
             tabs: ["all","tank","warrior","assassin","mage","marksman","support"],
-            seqchange:"true",
         };
     },
     computed: {
@@ -51,24 +60,31 @@ export default({
           }
         },
     watch: {
-      seqchange(val){
-            this.changeSequencetoIndex(val);
-            // console.log(val);
-        },
     },
     methods:{
       close(){
         var block = document.getElementById('selection_view');
         block.style.display='none';
       },
-      changedSequence(sequence_change){
-          this.seqchange = sequence_change;
-          // console.log(this.seqchange);
+      changer1(val){
+        // console.log('selection:',val);
+        this.$emit('round1sequence', val); 
       },
-      changeSequencetoIndex(sequence_change){
-          // console.log(sequence_change);
-          this.$emit('sequenceChange', sequence_change); 
+      changer2(val){
+        this.$emit('round2sequence', val); 
       },
+      changer3(val){
+        this.$emit('round3sequence', val); 
+      },
+      changer4(val){
+        this.$emit('round4sequence', val); 
+      },
+      changer5(val){
+        this.$emit('round5sequence', val); 
+      },
+      changer6(val){
+        this.$emit('round6sequence', val); 
+      }
     }
 });
 </script>

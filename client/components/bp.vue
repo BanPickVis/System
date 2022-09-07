@@ -120,12 +120,7 @@
             width="640"
             height="675"
             >
-            <component :is="currentTabComponent" class="tab" @sequenceChange="changedSequence"></component>
-            <!-- <round id="round1" class="roundview" style="display: block;" />
-            <round id="round2" class="roundview" style="display: block;" />
-            <round id="round3" class="roundview" style="display: none;" />
-            <round id="round4" class="roundview" style="display: none;" />
-            <round id="round5" class="roundview" style="display: none;" /> -->
+            <component :is="currentTabComponent" :seqr1="round1seq" :seqr2="round2seq" :seqr3="round3seq" :seqr4="round4seq" :seqr5="round5seq" :seqr6="round6seq" class="tab" @sequenceSelection="selectedSequence" @theround="roundthis"></component>
         </svg>
     </div>
 </template>
@@ -152,7 +147,14 @@ export default {
     },
     props: {
         roundnow:{ type: String, default: "" },
-        bon:{ type: String, default: "3" }
+        bon:{ type: String, default: "3" },
+        round1seq:{type:Object, default:()=>{}},
+        round2seq:{type:Object, default:()=>{}},
+        round3seq:{type:Object, default:()=>{}},
+        round4seq:{type:Object, default:()=>{}},
+        round5seq:{type:Object, default:()=>{}},
+        round6seq:{type:Object, default:()=>{}},
+        // [round1seq,round2seq]
     },
     setup() {
         var teams1 = ['武汉eStarPro', '南京Hero久竞', '北京WB', 'XYG', '苏州KSG', '上海EDG.M', '重庆狼队', '佛山DRG.GK', '成都AG超玩会', '广州TTG', '济南RW侠', '厦门VG', '杭州LGD大鹅', '深圳DYG', '长沙TES.A', '西安WE', '上海RNG.M', '火豹'],
@@ -171,9 +173,7 @@ export default {
             teammember2 : ["坦然", "花海", "清融", "易峥", "子阳"],
             player1: "Player 1",
             player2: "Player 2",
-
-            seqchange:"true",
-
+            seqSelect:0,
             nround:5,
             currentTab: "round1",
             tabs: ["round1","round2","round3"],
@@ -191,10 +191,9 @@ export default {
           },
         },
     watch: {
-        // seqchange(val){
-            // this.changeSequencetoIndex(val);
-            // console.log(val);
-        // },
+        seqSelect(val){
+            
+        },
         bon(val,_){
             if (this.bon == "3"){
                 this.tabs=["round1","round2","round3"];
@@ -258,16 +257,20 @@ export default {
 
     },
     mounted() {
+        // console.log(this.round1seq);
         // this.plotPlayerName();
         // console.log(this.roundnow);
     },
     methods: {
-        changedSequence(sequence_change){
-            this.seqchange = sequence_change;
+        roundthis(val){
+            // console.log("round",val);
+            this.$emit('thisround', val); 
         },
-        changeSequencetoIndex(sequence_change){
-            // console.log(sequence_change);s
-            this.$emit('sequenceChange', sequence_change); 
+        selectedSequence(val){
+            // this.$emit('seqSelection', val); 
+            this.seqSelect = val;
+            // console.log(val);
+            this.$emit('seqSelection', val); 
         },
         changePlayer1(name){
             this.$emit('handleChange1', name); 
@@ -532,6 +535,34 @@ export default {
                     .duration(800)
                     .attr("y2",  height * i +250);
                 }
+                player_name_plot
+                    .append("rect")
+                    .attr("x", 200)
+                    .attr("y", 50)
+                    .attr("width",40)
+                    .attr("height",25)
+                    .attr("opacity",0.8)
+                    .attr("fill","#E6F2CD");
+                player_name_plot
+                    .append("text")
+                    .attr("x", 250)
+                    .attr("y", 70)
+                    .text("win")
+                    .attr("font-size",24);
+                player_name_plot
+                    .append("rect")
+                    .attr("x", 350)
+                    .attr("y", 50)
+                    .attr("width",40)
+                    .attr("height",25)
+                    .attr("opacity",0.8)
+                    .attr("fill","#FCC6C6");
+                player_name_plot
+                    .append("text")
+                    .attr("x", 400)
+                    .attr("y", 70)
+                    .text("lose")
+                    .attr("font-size",24);
             }
 
             }

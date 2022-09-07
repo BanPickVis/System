@@ -46,6 +46,7 @@ export default {
             radar_hint:"",
 
             roundDefault:"round",
+            round_num:0,
 
             teamside:["Blue", "Red"],
             team_side:"Blue",
@@ -56,7 +57,15 @@ export default {
             n_of_p_s:["4","5","6","7","8","9","10"],
             n_of_p:"4",
 
-            sequencechanged:true
+            selected_sequence_num:0,
+
+            sequencechanged:true,
+            round1seq:["none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none"],
+            round2seq:["none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none"],
+            round3seq:["none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none"],
+            round4seq:["none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none"],
+            round5seq:["none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none"],
+            round6seq:["none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none","none"],
         };
     },
     computed: {
@@ -560,10 +569,46 @@ export default {
 
             return svg.node();
         }, //RadarChart
+        curround(val) {
+            // console.log("index",val);
+            // this.Player_2 = val;
+            this.round_num = val;
+        },
+        select_num(val) {
+            // console.log("index",val);
+            // this.Player_2 = val;
+            this.selected_sequence_num = val;
+        },
+        seqr1(val){
+            this.round1seq=val;
+            // console.log("index:",typeof(this.round1seq));
+            // console.log(this.round1seq);
+        },
+        seqr2(val){
+            this.round2seq=val;
+            // console.log("index;",this.round1seq);
+        },
+        seqr3(val){
+            this.round3seq=val;
+            // console.log("index;",this.round1seq);
+        },
+        seqr4(val){
+            this.round4seq=val;
+            // console.log("index;",this.round1seq);
+        },
+        seqr5(val){
+            this.round5seq=val;
+            // console.log("index;",this.round1seq);
+        },
+        seqr6(val){
+            this.round6seq=val;
+            // console.log("index;",this.round1seq);
+        },
         changeName1(name) {
             this.Player_1 = name;
         },
         changeName2(name) {
+            // console.log(name);
             this.Player_2 = name;
         },
         changeTeam1(name) {
