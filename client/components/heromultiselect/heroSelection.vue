@@ -1,3 +1,4 @@
+
 <template>
     <div id="dynamic-component-demo" class="demo">
       <button
@@ -8,7 +9,7 @@
       >
         {{ tab }}
       </button>
-      <component :is="currentTabComponent" class="tab" @heroselected="multiheroes"></component>
+      <component :is="currentTabComponent" :keywords="keyword" class="tab" @heroselected="multiheroes"></component>
     </div>
 </template>
 
@@ -33,6 +34,9 @@ export default({
         marksman,
         tank
     },
+    props:{
+      keyword:{type:Object, default:()=>{}}
+    },
     setup() {
     },
     data() {
@@ -45,10 +49,14 @@ export default({
     },
     computed: {
           currentTabComponent: function() {
+            // console.log(this.keyword);
             return this.currentTab;
           }
         },
     watch: {
+    },
+    mounted(){
+      // console.log(this.key);
     },
     methods:{
       multiheroes(multiheroes){

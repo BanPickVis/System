@@ -33,7 +33,8 @@ const cloud = require("d3-cloud");
 import requesthelp from "common/utils/request.js";
 
 export default {
-    props: {},
+    props: {
+    },
     data() {
         return {
             data:[],

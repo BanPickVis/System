@@ -117,6 +117,7 @@
 import requesthelp from "common/utils/request.js";
 export default ({
     props:{
+        keywords:{type:Object, default:()=>{}}
     },
     setup() {
     },
@@ -130,7 +131,10 @@ export default ({
     },
     methods:{
         async default_change(){
-            var selected_1 = await requesthelp.axiosGet('/multiSelect2');
+            // var selected_1 = await requesthelp.axiosGet('/multiSelect1');
+            
+            // console.log(this.keywords);
+            var selected_1=this.keywords;
             // console.log(selected_1);
             for (var i=0;i<selected_1.length;i++){
                 var block=document.getElementById("select2"+selected_1[i]);

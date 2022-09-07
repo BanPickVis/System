@@ -72,10 +72,10 @@
             <heroS :numberseq="selected_sequence_num" :numberround="round_num" :round1seq="round1seq" :round2seq="round2seq" :round3seq="round3seq" :round4seq="round4seq" :round5seq="round5seq" :round6seq="round6seq" @sequenceChange="squenceChanging" @round1sequence="seqr1" @round2sequence="seqr2" @round3sequence="seqr3" @round4sequence="seqr4" @round5sequence="seqr5" @round6sequence="seqr6" />
         </div>
         <div id="multi_selection_view1" class="multi_selection_view1">
-            <heroMS1 @heroselected1="keywordsel1" />
+            <heroMS1 :keyword="keywords_blue" @heroselected1="keywordsel1" />
         </div>
         <div id="multi_selection_view2" class="multi_selection_view2">
-            <heroMS2 @heroselected2="keywordsel2" />
+            <heroMS2 :keyword="keywords_red" @heroselected2="keywordsel2" />
         </div>
         <span id="loader">
             <div id="loaderer"></div>

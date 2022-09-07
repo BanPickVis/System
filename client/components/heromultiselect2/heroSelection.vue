@@ -8,7 +8,7 @@
       >
         {{ tab }}
       </button>
-      <component :is="currentTabComponent" class="tab" @heroselected="multiheroes"></component>
+      <component :is="currentTabComponent" :keywords="keyword" class="tab" @heroselected="multiheroes"></component>
     </div>
 </template>
 
@@ -32,6 +32,9 @@ export default({
         mage,
         marksman,
         tank
+    },
+    props:{
+      keyword:{type:Object, default:()=>{}}
     },
     setup() {
     },

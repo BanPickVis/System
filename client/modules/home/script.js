@@ -105,7 +105,7 @@ export default {
         };
     },
     mounted() {
-        this.default_backend();
+        // this.default_backend();
         this.roundDefault="round1";
         // console.log(this.roundDefault);
         // location.reload();
@@ -123,9 +123,6 @@ export default {
         Team_1(val){
             if (this.Team_2!=""){
                 this.DrawRadar();
-                
-                // this.radar_hint="Info of all battles is shown.";
-
             }
             },
         Team_2(val){
@@ -642,9 +639,10 @@ export default {
                 this.keywords_blue.push(keywords[i]);
                 // console.log(this.keywords_blue);
             this.radarkeylength = keywords.length;
+            
             }
             // console.log(this.radarkeylength);
-            // console.log(this.keywords_blue);
+            console.log(typeof(this.keywords_blue));
         },
         keywordsel2(keywords){
             // console.log(this.keywords_blue);
