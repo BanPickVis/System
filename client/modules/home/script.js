@@ -37,6 +37,8 @@ export default {
             keywords_blue:[],
             Team_1:"",
             Team_2:"",
+            Team_1_abbr:"",
+            Team_2_abbr:"",
 
             radarkeylength:0,
             keywords_red:[],
@@ -166,9 +168,9 @@ export default {
             //////////////////////////////////////////////////////////////
             //////////////////// Plot Radar //////////////////////////////
             //////////////////////////////////////////////////////////////
-            var margin = { top: 45, right: 50, bottom: 50, left: 50 },
+            var margin = { top: 45, right: 50, bottom: 60, left: 50 },
             width = 300,
-            height = 300,
+            height = 290,
             color = d3.scaleOrdinal().range(["#46A4E4","#F76060"]),
             radarChartOptions = {
                 w: width,
@@ -619,6 +621,14 @@ export default {
         },
         changeTeam2(name) {
             this.Team_2 = name;
+        },
+        changeTeam1abbr(name) {
+            // console.log(name);
+            this.Team_1_abbr = name;
+            // console.log(this.Team_1);
+        },
+        changeTeam2abbr(name) {
+            this.Team_2_abbr = name;
         },
         squenceChanging(sequence){
             this.sequencechanged = sequence;

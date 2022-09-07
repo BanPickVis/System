@@ -333,7 +333,7 @@ export default {
                     d3.selectAll("." + d + "text").attr("opacity", 1);
                 })
                 .on("mouseout", function (d) {
-                    d3.selectAll("." + d + "path").attr("stroke-opacity", 0.6);
+                    d3.selectAll("." + d + "path").attr("stroke-opacity", 0.3);
                     d3.selectAll("." + d + "text").attr("opacity", 0);
                 });
             //player text
@@ -373,7 +373,7 @@ export default {
                     d3.selectAll("." + d + "text").attr("opacity", 1);
                 })
                 .on("mouseout", function (d) {
-                    d3.selectAll("." + d + "path").attr("stroke-opacity", 0.6);
+                    d3.selectAll("." + d + "path").attr("stroke-opacity", 0.3);
                     d3.selectAll("." + d + "text").attr("opacity", 0);
                 });
 
@@ -390,7 +390,7 @@ export default {
                     return pathcolor(d.type);
                 })
                 .attr("fill", "none")
-                .attr("stroke-opacity", 0.6)
+                .attr("stroke-opacity", 0.3)
                 .attr("transform", function (d) {
                     return "translate(" + pathwidth(d.value) / 2 + ",0)";
                 })

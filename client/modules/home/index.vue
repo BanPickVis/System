@@ -5,7 +5,7 @@
         </h1>
         <div class="bp_view">
             <b>BP View</b>
-            <bp :roundnow="roundDefault" :bon="bon" :round1seq="round1seq" :round2seq="round2seq" :round3seq="round3seq" :round4seq="round4seq" :round5seq="round5seq" :round6seq="round6seq" @handleChange1="changeName1" @handleChange2="changeName2" @teamChange1="changeTeam1" @teamChange2="changeTeam2" @seqSelection="select_num" @thisround="curround" />
+            <bp :roundnow="roundDefault" :bon="bon" :round1seq="round1seq" :round2seq="round2seq" :round3seq="round3seq" :round4seq="round4seq" :round5seq="round5seq" :round6seq="round6seq" @handleChange1="changeName1" @handleChange2="changeName2" @teamChange1="changeTeam1" @teamChange2="changeTeam2" @teamChange1abbr="changeTeam1abbr" @teamChange2abbr="changeTeam2abbr" @seqSelection="select_num" @thisround="curround" />
         </div>
         <div class="seq_view">
             <b>Sequence View</b>
@@ -43,7 +43,7 @@
         </div>
         <div class="change_view">
             <b>In-game Change View</b><br />
-            <change :team1="Team_1" :team2="Team_2" />
+            <change :team1="Team_1_abbr" :team2="Team_2_abbr" />
         </div>
 
         <div class="control_panal">
@@ -203,7 +203,7 @@
     /* Team */
     position: absolute;
     width: 43%;
-    height: 39%;
+    height: 38%;
     left: 27%;
     bottom: 2%;
 

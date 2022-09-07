@@ -285,7 +285,7 @@ export default {
             // console.log(block);
         },
         async select_team_1(val, _) {
-            console.log(val);
+            // console.log(val);/
             var teamJson = await requesthelp.axiosGet("/loadData", {
                 name: val,
             });
@@ -296,6 +296,7 @@ export default {
             this.player2 = this.teammember2[0]["id"];
             this.plotPlayerName();
             this.changeTeam1(teamJson["team"]);
+            this.changeTeam1abbr(teamJson["abbr"]);
         },
         async select_team_2(val, _) {
             // console.log(val);
@@ -309,6 +310,7 @@ export default {
             this.player2 = this.teammember2[0]["id"];
             this.plotPlayerName();
             this.changeTeam2(teamJson["team"]);
+            this.changeTeam2abbr(teamJson["abbr"]);
         },
         player1(val, _) {
             // console.log(val);
@@ -346,6 +348,12 @@ export default {
         },
         changeTeam2(name) {
             this.$emit("teamChange2", name);
+        },
+        changeTeam1abbr(name) {
+            this.$emit("teamChange1abbr", name);
+        },
+        changeTeam2abbr(name) {
+            this.$emit("teamChange2abbr", name);
         },
         async plotPlayerName() {
             // console.log(data);
