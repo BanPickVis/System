@@ -223,12 +223,12 @@ export default {
 
             var svg = d3.select("#sankeyview");
 
-            var teamJson = await requesthelp.axiosGet("/loadData", {
+            var teamJson = await requesthelp.axiosGet("/loadData2", {
                 name: this.team1,
             });
             // console.log(teamJson);
             var teammember1 = teamJson["player"];
-            teamJson = await requesthelp.axiosGet("/loadData", {
+            teamJson = await requesthelp.axiosGet("/loadData2", {
                 name: this.team2,
             });
             // console.log(teamJson);
@@ -245,6 +245,13 @@ export default {
             // var playernode = ['坦然', '花海', '清融', '易峥', '子阳', '星痕', '无畏', '紫幻', '久酷', '明锅'];
             var heross = await requesthelp.axiosGet("/getSequence", {
                 node: node,
+                r1: JSON.stringify(this.round1seq),
+                r2: JSON.stringify(this.round2seq),
+                r3: JSON.stringify(this.round3seq),
+                r4: JSON.stringify(this.round4seq),
+                r5: JSON.stringify(this.round5seq),
+                r6: JSON.stringify(this.round6seq),
+                rawdata: JSON.stringify(this.rawdata),
             });
             var heronode = heross["sequence"];
             // ['蒙恬','澜','宫本武藏','西施','鲁班大师'];
@@ -272,7 +279,7 @@ export default {
                 .domain(["blue", "red"]);
             var pathwidth = d3
                 .scaleLinear()
-                .range([2, hero_image - 10])
+                .range([2, hero_image - 20])
                 .domain([
                     0,
                     d3.max(data, function (d) {
@@ -628,7 +635,7 @@ export default {
         },
         async branchupdate(hero, node) {
             if (hero != "Customized") {
-                this.sequence_view_data = await requesthelp.axiosGet(
+                var alldata = await requesthelp.axiosGet(
                     "/getBranch",
                     {
                         bo_n: this.bon,
@@ -646,6 +653,10 @@ export default {
                         r6: JSON.stringify(this.round6seq),
                     }
                 );
+                // console.log(alldata);
+                this.sequence_view_data = JSON.parse(alldata.output);
+            // console.log(typeof(this.sequence_view_data));
+                this.rawdata = JSON.parse(alldata.raw_data);
                 // console.log(this.sequence_view_data);
                 this.render_seq_left_veiw();
                 var block = document.getElementById("type");

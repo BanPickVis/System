@@ -295,7 +295,7 @@ export default {
             this.player1 = this.teammember1[0]["id"];
             this.player2 = this.teammember2[0]["id"];
             this.plotPlayerName();
-            this.changeTeam1(val);
+            this.changeTeam1(teamJson["team"]);
         },
         async select_team_2(val, _) {
             // console.log(val);
@@ -308,7 +308,7 @@ export default {
             this.player1 = this.teammember1[0]["id"];
             this.player2 = this.teammember2[0]["id"];
             this.plotPlayerName();
-            this.changeTeam2(val);
+            this.changeTeam2(teamJson["team"]);
         },
         player1(val, _) {
             // console.log(val);

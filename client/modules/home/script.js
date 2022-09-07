@@ -140,6 +140,7 @@ export default {
         },
         async DrawRadar(){
             var data = await requesthelp.axiosGet('/teamView',{ team1: this.Team_1, team2: this.Team_2, keywords_blue:JSON.stringify(this.keywords_blue), keywords_red:JSON.stringify(this.keywords_red)});
+            console.log(data);
             if (data["msg1"]=="team1未使用过此英雄阵容, 默认显示所有英雄场次" && this.radarkeylength!=0 ){
                 if (data["msg2"]=="team2未使用过此英雄阵容, 默认显示所有英雄场次"){
                     this.radar_hint = "No such lineup combinations for both teams. Info of all battles is shown";
@@ -182,7 +183,7 @@ export default {
             var radar_data = [
                 [
                     // team1
-                    { axis: "Winning Rate", value: data[this.Team_1][0],  rvalue: data[this.Team_1][0], },
+                    { axis: "Winning Rate", value: data[this.Team_1][0],  rvalue: data[this.Team_1][0] },
                     { axis: "team KDA ratio", value: data[this.Team_1][1], rvalue: data[this.Team_1][1] },
                     { axis: "# Average Tyrant", value: data[this.Team_1][2], rvalue: data[this.Team_1][2] },
                     { axis: "# Average Dragon", value: data[this.Team_1][3], rvalue: data[this.Team_1][3] },
