@@ -6,16 +6,32 @@
         <div id="seq_view">
             <svg id="main_body_svg"></svg>
             <svg id="title_svg"></svg>
-            <button id="generate_button" class="depth" type="button" @click="loaddata">
+            <button
+                id="generate_button"
+                class="depth"
+                type="button"
+                @click="loaddata"
+            >
                 ↻
             </button>
-            <button id="new_button" class="depth" type="button" @click="newnode">
+            <button
+                id="new_button"
+                class="depth"
+                type="button"
+                @click="newnode"
+            >
                 +
             </button>
         </div>
         <div id="glyph_view"></div>
         <span id="type">
-            <input id="typeinput" v-model="customizedhero" type="text" placeholder="please select" list="typelist" />
+            <input
+                id="typeinput"
+                v-model="customizedhero"
+                type="text"
+                placeholder="please select"
+                list="typelist"
+            />
             <datalist id="typelist">
                 <option>上官婉儿</option>
                 <option>不知火舞</option>
@@ -147,14 +163,14 @@ export default {
         bon: { type: String, default: "3" },
         team1: { type: String, default: "武汉eStarPro" },
         team2: { type: String, default: "重庆狼队" },
-        round1seq:{type:Object, default:()=>{}},
-        round2seq:{type:Object, default:()=>{}},
-        round3seq:{type:Object, default:()=>{}},
-        round4seq:{type:Object, default:()=>{}},
-        round5seq:{type:Object, default:()=>{}},
-        round6seq:{type:Object, default:()=>{}},
+        round1seq: { type: Object, default: () => {} },
+        round2seq: { type: Object, default: () => {} },
+        round3seq: { type: Object, default: () => {} },
+        round4seq: { type: Object, default: () => {} },
+        round5seq: { type: Object, default: () => {} },
+        round6seq: { type: Object, default: () => {} },
     },
-    setup() { },
+    setup() {},
     data() {
         return {
             sequence_view_data: {},
@@ -165,39 +181,37 @@ export default {
             scale: 1,
             passed_stage: 0,
             stage_width: 145,
-            rawdata: {}
+            rawdata: {},
         };
     },
     watch: {
         transx() {
             d3.select("#title_view").attr(
                 "transform",
-                `translate(${this.transx - this.passed_stage * this.stage_width},-440)`
+                `translate(${
+                    this.transx - this.passed_stage * this.stage_width
+                },-440)`
             );
         },
         customizedhero(val) {
             // console.log(val);
-            if (val!=""){
-                var block = document.getElementById('loader');
+            if (val != "") {
+                var block = document.getElementById("loader");
                 block.style.display = "block";
 
-                block = document.getElementById('loaderer');
+                block = document.getElementById("loaderer");
                 block.style.display = "block";
                 this.branchupdate(val, this.selectednode);
             }
-
         },
-
     },
-    mounted() {
-    },
+    mounted() {},
     methods: {
-        newnode(){
+        newnode() {
             this.customize();
-            this.selectednode=0;
-        },  
+            this.selectednode = 0;
+        },
         async render_sankey(node) {
-
             var margin = { top: 100, right: 50, bottom: 30, left: 40 },
                 width = 1430 - margin.left - margin.right,
                 height = 300 - margin.top - margin.bottom;
@@ -270,7 +284,7 @@ export default {
                 .range([
                     heronode_pad,
                     heronode.length * (heronode_pad + hero_image) +
-                    heronode_pad / 2,
+                        heronode_pad / 2,
                 ])
                 .domain(heronode);
 
@@ -279,7 +293,7 @@ export default {
                 .append("rect")
                 .attr(
                     "width",
-                    heronode.length * (heronode_pad + hero_image)-60
+                    heronode.length * (heronode_pad + hero_image) - 60
                 )
                 .attr("height", hero_image * 1.4)
                 .attr("x", heronode_pad / 2 - hero_image / 2 - 5)
@@ -381,13 +395,15 @@ export default {
                         "M" +
                         (rect_x(d.source) +
                             pathwidth(d.sourcealready) +
-                            rect_x.bandwidth() / 2 - name_width / 3) +
+                            rect_x.bandwidth() / 2 -
+                            name_width / 3) +
                         "," +
                         name_height +
                         "C" +
                         (rect_x(d.source) +
                             pathwidth(d.sourcealready) +
-                            rect_x.bandwidth() / 2 - name_width / 3) +
+                            rect_x.bandwidth() / 2 -
+                            name_width / 3) +
                         "," +
                         150 +
                         " " +
@@ -415,7 +431,8 @@ export default {
                     return (
                         rect_x(d.source) +
                         pathwidth(d.sourcealready) +
-                        rect_x.bandwidth() / 2 - name_width / 3
+                        rect_x.bandwidth() / 2 -
+                        name_width / 3
                     );
                 })
                 .attr("y", function (d) {
@@ -436,9 +453,11 @@ export default {
                 .enter()
                 .append("text")
                 .attr("x", function (d) {
-                    return hero_x(d.target) +
+                    return (
+                        hero_x(d.target) +
                         pathwidth(d.targetalready) -
-                        hero_image;
+                        hero_image
+                    );
                 })
                 .attr("y", function (d) {
                     return heronode_y - hero_image / 2;
@@ -635,41 +654,38 @@ export default {
                 this.customize();
                 this.selectednode = node;
             }
-            block = document.getElementById('loader');
+            block = document.getElementById("loader");
             block.style.display = "none";
 
-            block = document.getElementById('loaderer');
+            block = document.getElementById("loaderer");
             block.style.display = "none";
-            this.customizedhero="";
+            this.customizedhero = "";
         },
         async loaddata() {
-            var block = document.getElementById('loader');
+            var block = document.getElementById("loader");
             block.style.display = "block";
-            block = document.getElementById('loaderer');
+            block = document.getElementById("loaderer");
             block.style.display = "block";
-            var alldata = await requesthelp.axiosGet(
-                "/getSequenceData",
-                {
-                    bo_n: this.bon,
-                    pre_n: this.preview,
-                    br_n: this.branch,
-                    t1_side: this.side,
-                    r1: JSON.stringify(this.round1seq),
-                    r2: JSON.stringify(this.round2seq),
-                    r3: JSON.stringify(this.round3seq),
-                    r4: JSON.stringify(this.round4seq),
-                    r5: JSON.stringify(this.round5seq),
-                    r6: JSON.stringify(this.round6seq),
-                }
-            );
+            var alldata = await requesthelp.axiosGet("/getSequenceData", {
+                bo_n: this.bon,
+                pre_n: this.preview,
+                br_n: this.branch,
+                t1_side: this.side,
+                r1: JSON.stringify(this.round1seq),
+                r2: JSON.stringify(this.round2seq),
+                r3: JSON.stringify(this.round3seq),
+                r4: JSON.stringify(this.round4seq),
+                r5: JSON.stringify(this.round5seq),
+                r6: JSON.stringify(this.round6seq),
+            });
             this.sequence_view_data = JSON.parse(alldata.output);
             // console.log(typeof(this.sequence_view_data));
             this.rawdata = JSON.parse(alldata.raw_data);
             this.render_seq_left_veiw();
-            block = document.getElementById('loader');
+            block = document.getElementById("loader");
 
             block.style.display = "none";
-            block = document.getElementById('loaderer');
+            block = document.getElementById("loaderer");
 
             block.style.display = "none";
         },
@@ -679,9 +695,9 @@ export default {
             /////////function/////////
             //////////////////////////
             function mouseover(anytext) {
-                d3.select('body')
-                    .append('div')
-                    .attr('id', 'seq_tooltip')
+                d3.select("body")
+                    .append("div")
+                    .attr("id", "seq_tooltip")
                     .style("opacity", 1)
                     .html(`${anytext}`)
                     .style("left", event.pageX + 10 + "px")
@@ -689,7 +705,7 @@ export default {
             }
 
             function mouseout() {
-                d3.select('#seq_tooltip').remove();
+                d3.select("#seq_tooltip").remove();
             }
 
             function render_barChart(cur_node_svg, barChartData) {
@@ -699,7 +715,7 @@ export default {
                     score: 0.3,
                 };
                 barChartData.push(fourth_item);
-                console.log('barChartData is: ', barChartData);
+                console.log("barChartData is: ", barChartData);
 
                 const barChartWidth = 40;
                 const barChartHeight = 63;
@@ -707,7 +723,13 @@ export default {
 
                 const xScale = d3
                     .scaleLinear()
-                    .domain([0, d3.max(barChartData, (datum) => (datum.score - min_score * 0.9) * 23)])
+                    .domain([
+                        0,
+                        d3.max(
+                            barChartData,
+                            (datum) => (datum.score - min_score * 0.9) * 23
+                        ),
+                    ])
                     .range([0, barChartWidth]);
 
                 const yScale = d3
@@ -721,8 +743,12 @@ export default {
                         .append("rect")
                         .attr("width", function () {
                             if (index != 3) {
-                                console.log(xScale((datum.score - min_score * 0.9) * 10));
-                                return xScale((datum.score - min_score * 0.9) * 10);
+                                console.log(
+                                    xScale((datum.score - min_score * 0.9) * 10)
+                                );
+                                return xScale(
+                                    (datum.score - min_score * 0.9) * 10
+                                );
                             }
                             return 10;
                         })
@@ -738,9 +764,9 @@ export default {
                             self.transx = block[0];
                             self.transy = block[1];
 
-                            block = document.getElementById('loader');
+                            block = document.getElementById("loader");
                             block.style.display = "block";
-                            block = document.getElementById('loaderer');
+                            block = document.getElementById("loaderer");
                             block.style.display = "block";
                             self.branchupdate(datum.hero, data.node);
                             // block.style.display="none";
@@ -854,9 +880,9 @@ export default {
                         // console.log(data.data.group);
                         // console.log(subgroupName);
                         // console.log(node);
-                        block = document.getElementById('loader');
+                        block = document.getElementById("loader");
                         block.style.display = "block";
-                        block = document.getElementById('loaderer');
+                        block = document.getElementById("loaderer");
                         block.style.display = "block";
                         self.branchupdate(subgroupName, node);
                         // block.style.display="none";
@@ -907,7 +933,9 @@ export default {
             function main_body_zoomed_func() {
                 main_body.attr("transform", d3.event.transform);
                 var block = $("#main_body").css("transform");
-                block = str2number(block.split("(")[1].split(")")[0].split(","));
+                block = str2number(
+                    block.split("(")[1].split(")")[0].split(",")
+                );
                 self.scale = block[0];
                 block = block.splice(4, 2);
                 self.transx = block[0];
@@ -955,12 +983,20 @@ export default {
             var main_body = main_body_svg
                 .append("g")
                 .attr("id", "main_body")
-                .attr("transform", `translate(${self.transx},${self.transy}) scale(${self.scale})`);
+                .attr(
+                    "transform",
+                    `translate(${self.transx},${self.transy}) scale(${self.scale})`
+                );
 
             var title_view = title_svg
                 .append("g")
                 .attr("id", "title_view")
-                .attr("transform", `translate(${self.transx - self.passed_stage * stage_width}, -440) scale(${self.scale})`);
+                .attr(
+                    "transform",
+                    `translate(${
+                        self.transx - self.passed_stage * stage_width
+                    }, -440) scale(${self.scale})`
+                );
             var link_svg = main_body.append("g").attr("id", "link_svg");
             var node_svg = main_body.append("g").attr("id", "node_svg");
 
@@ -986,8 +1022,9 @@ export default {
                     // console.log(d);
                     var cur_node_pos = eachPos[d.node];
                     // console.log(cur_node_pos);
-                    return `translate(${left_margin + node_spacing * cur_node_pos[1]
-                        },${top_margin + line_height * cur_node_pos[0]})`;
+                    return `translate(${
+                        left_margin + node_spacing * cur_node_pos[1]
+                    },${top_margin + line_height * cur_node_pos[0]})`;
                 });
 
             // add image for the nodes
@@ -995,22 +1032,15 @@ export default {
                 .append("rect")
                 .attr("class", "nodeImage")
                 .attr("id", function (d) {
-                    if (d.node != -1) {
-                        return "node" + d.hero;
-                    }
+                    return "node" + d.hero;
                 })
                 .attr("fill", function (d) {
-                    if (d.node != -1) {
-                        return `url(#p${d.hero})`;
-                    } else {
-                        return 'transparent';
-                    }
+                    return `url(#p${d.hero})`;
                 })
                 .attr("width", 60)
                 .attr("height", 60)
                 .attr("x", -30)
                 .attr("y", -30);
-
 
             // add image-border
             node_g
@@ -1029,36 +1059,19 @@ export default {
                 .on("mouseout", mouseout)
                 .on("click", function (d) {
                     var block = $("#main_body").css("transform");
-                    if (d.node != -1) {
-                        d3.select("#glyph_view_svg").remove();
-                        self.render_glyph_view(d.hero);
+                    d3.select("#glyph_view_svg").remove();
+                    self.render_glyph_view(d.hero);
 
-                        block = str2number(
-                            block.split("(")[1].split(")")[0].split(",")
-                        );
-                        self.scale = block[0];
-                        block = block.splice(4, 2);
-                        self.transx = block[0];
-                        self.transy = block[1];
-                        // console.log(d);
-                        self.drawwinrate(d.node);
-                        self.render_sankey(d.node);
-                    } else {
-                        block = str2number(
-                            block.split("(")[1].split(")")[0].split(",")
-                        );
-                        self.scale = block[0];
-                        block = block.splice(4, 2);
-                        self.transx = block[0];
-                        self.transy = block[1];
-
-                        block = document.getElementById('loader');
-                        block.style.display = "block";
-                        block = document.getElementById('loaderer');
-                        block.style.display = "block";
-                        console.log('datum: ', d);
-                        self.branchupdate('Customized', 0);
-                    }
+                    block = str2number(
+                        block.split("(")[1].split(")")[0].split(",")
+                    );
+                    self.scale = block[0];
+                    block = block.splice(4, 2);
+                    self.transx = block[0];
+                    self.transy = block[1];
+                    // console.log(d);
+                    self.drawwinrate(d.node);
+                    self.render_sankey(d.node);
                 });
 
             //////////////////////////
@@ -1134,9 +1147,14 @@ export default {
                 .style("fill", "none")
                 .style("stroke", "#D9D9D9")
                 .on("mouseover", function () {
-                    var score = Number(d3.select(this).attr("id").split("with")[1]).toFixed(2);
+                    var score = Number(
+                        d3.select(this).attr("id").split("with")[1]
+                    ).toFixed(2);
                     // console.log(score, typeof score)
-                    var type = d3.select(this).attr("type") == 1 ? "recommend" : "predict";
+                    var type =
+                        d3.select(this).attr("type") == 1
+                            ? "recommend"
+                            : "predict";
                     mouseover(`${type} score: ${score}`);
                 })
                 .on("mouseout", mouseout);
@@ -1312,9 +1330,9 @@ export default {
         },
         async render_glyph_view(chosen_hero) {
             function mouseover(anytext) {
-                d3.select('body')
-                    .append('div')
-                    .attr('id', 'seq_tooltip')
+                d3.select("body")
+                    .append("div")
+                    .attr("id", "seq_tooltip")
                     .style("opacity", 1)
                     .html(`${anytext}`)
                     .style("left", event.pageX + 10 + "px")
@@ -1322,7 +1340,7 @@ export default {
             }
 
             function mouseout() {
-                d3.select('#seq_tooltip').remove();
+                d3.select("#seq_tooltip").remove();
             }
 
             //////////////////////////
@@ -1331,8 +1349,20 @@ export default {
             // green: #C6E4A5  red: #FFBFBF  blue: #9EC6E9
             // DARK:  #9EBC7D       #D79797        #769EC1
             //        #769455       #AF6F6F        #4E7699
-            var glyph_legend_color = ["#E6F2CD", "#C1E877", "#91CF60", "#F76060", "#F76060", "#FF6969", "#BFE5FF", "#86CDFF", "#2BA9FF"];
-            var glyph_legend_opacity = [0.85, 0.80, 0.80, 0.3, 0.6, 1, 0.7, 0.8, 0.8];
+            var glyph_legend_color = [
+                "#E6F2CD",
+                "#C1E877",
+                "#91CF60",
+                "#F76060",
+                "#F76060",
+                "#FF6969",
+                "#BFE5FF",
+                "#86CDFF",
+                "#2BA9FF",
+            ];
+            var glyph_legend_opacity = [
+                0.85, 0.8, 0.8, 0.3, 0.6, 1, 0.7, 0.8, 0.8,
+            ];
 
             var chosen_hero_data = all_glyph_data[chosen_hero];
             console.log(`${chosen_hero}:`, chosen_hero_data);
@@ -1345,8 +1375,8 @@ export default {
                 .attr("id", "glyph_view_svg")
                 .attr("width", 415)
                 .attr("height", 266)
-                .append('g')
-                .attr('id', 'glyph_view_svg_g');
+                .append("g")
+                .attr("id", "glyph_view_svg_g");
 
             //////////////////////////
             /////backgound arc////////
@@ -1356,7 +1386,11 @@ export default {
                 { startAngle: 0.5 * Math.PI, endAngle: Math.PI },
                 { startAngle: 1.5 * Math.PI, endAngle: 2 * Math.PI },
             ];
-            var background_arc_color = [glyph_legend_color[0], glyph_legend_color[6], glyph_legend_color[3]];
+            var background_arc_color = [
+                glyph_legend_color[0],
+                glyph_legend_color[6],
+                glyph_legend_color[3],
+            ];
             var background_arc_opacity = [0.85, 0.7, 0.3];
             var background_arc_outer_r = 106;
             var background_arc_func = d3
@@ -1375,7 +1409,7 @@ export default {
                 .attr("class", "background_arc")
                 .attr("d", (d) => background_arc_func(d))
                 .style("fill", (d, i) => background_arc_color[i])
-                .style('opacity', (d, i) => background_arc_opacity[i])
+                .style("opacity", (d, i) => background_arc_opacity[i])
                 .attr("transform", `translate(${offset_left},${offset_top})`);
             // .attr("opacity", 0.5);
 
@@ -1400,7 +1434,7 @@ export default {
                         { x: line_length, y: 0 },
                     ])
                 )
-                .style('stroke', '#C9C9C9')
+                .style("stroke", "#C9C9C9")
                 .style("stroke-width", 2)
                 .style("fill", "none")
                 .attr(
@@ -1423,18 +1457,22 @@ export default {
                 .attr("stroke-width", 1)
                 .attr("transform", `translate(${offset_left},${offset_top})`);
 
-
-
             //////////////////////////
             ////////circle_scale//////
             //////////////////////////
-            chosen_hero_data['countered_top3'].forEach((ele, index) => {
-                chosen_hero_data['countered_top3'][index][1] = Math.abs(chosen_hero_data['countered_top3'][index][1]);
+            chosen_hero_data["countered_top3"].forEach((ele, index) => {
+                chosen_hero_data["countered_top3"][index][1] = Math.abs(
+                    chosen_hero_data["countered_top3"][index][1]
+                );
             });
-            var all_data = [...chosen_hero_data['counter_top3'], ...chosen_hero_data['countered_top3'], ...chosen_hero_data['team_mate']];
+            var all_data = [
+                ...chosen_hero_data["counter_top3"],
+                ...chosen_hero_data["countered_top3"],
+                ...chosen_hero_data["team_mate"],
+            ];
             console.log(all_data);
-            var min_val = d3.min(all_data, d => d[1]);
-            var max_val = d3.max(all_data, d => d[1]);
+            var min_val = d3.min(all_data, (d) => d[1]);
+            var max_val = d3.max(all_data, (d) => d[1]);
             console.log(min_val, max_val);
             var lower_line = 12;
             var higher_line = 17;
@@ -1442,7 +1480,8 @@ export default {
                 lower_line = (lower_line + higher_line) / 2;
                 higher_line = lower_line;
             }
-            var circle_scale = d3.scaleLinear()
+            var circle_scale = d3
+                .scaleLinear()
                 .domain([min_val, max_val])
                 .range([lower_line, higher_line]);
             console.log(lower_line, higher_line);
@@ -1478,10 +1517,14 @@ export default {
                 .attr("fill", function (d, i) {
                     return `url(#p${d[0]})`;
                 })
-                .on('mouseover', function (d, i) {
-                    mouseover(`Counter Top${i + 1}:` + '<br/>' + `${d[0]}(${d[1].toFixed(2)})`);
+                .on("mouseover", function (d, i) {
+                    mouseover(
+                        `Counter Top${i + 1}:` +
+                            "<br/>" +
+                            `${d[0]}(${d[1].toFixed(2)})`
+                    );
                 })
-                .on('mouseout', mouseout);
+                .on("mouseout", mouseout);
 
             //////////////////////////
             //////countered_top3//////
@@ -1514,10 +1557,14 @@ export default {
                 .attr("fill", function (d, i) {
                     return `url(#p${d[0]})`;
                 })
-                .on('mouseover', function (d, i) {
-                    mouseover(`Countered Top${i + 1}:` + '<br/>' + `${d[0]}(${Math.abs(d[1]).toFixed(2)})`);
+                .on("mouseover", function (d, i) {
+                    mouseover(
+                        `Countered Top${i + 1}:` +
+                            "<br/>" +
+                            `${d[0]}(${Math.abs(d[1]).toFixed(2)})`
+                    );
                 })
-                .on('mouseout', mouseout);
+                .on("mouseout", mouseout);
 
             //////////////////////////
             ////////team_mate/////////
@@ -1549,19 +1596,27 @@ export default {
                 .attr("fill", function (d, i) {
                     return `url(#p${d[0]})`;
                 })
-                .on('mouseover', function (d, i) {
-                    mouseover(`Best Team Mate ${i + 1}:` + '<br/>' + `${d[0]}(${d[1].toFixed(2)})`);
+                .on("mouseover", function (d, i) {
+                    mouseover(
+                        `Best Team Mate ${i + 1}:` +
+                            "<br/>" +
+                            `${d[0]}(${d[1].toFixed(2)})`
+                    );
                 })
-                .on('mouseout', mouseout);
+                .on("mouseout", mouseout);
 
             //////////////////////////
             ////////kda_arc///////////
             //////////////////////////
-            // green: #C6E4A5    red: #FFBFBF  blue: #9EC6E9   
+            // green: #C6E4A5    red: #FFBFBF  blue: #9EC6E9
             // DARK:  #9EBC7D       #D79797        #769EC1
             var kda_percent_list = chosen_hero_data["kda_percent"];
             var kda_arc = glyph_view_svg.append("g").attr("id", "kda_arc");
-            var arcs_color = [glyph_legend_color[2], glyph_legend_color[5], glyph_legend_color[8]];
+            var arcs_color = [
+                glyph_legend_color[2],
+                glyph_legend_color[5],
+                glyph_legend_color[8],
+            ];
             var arcs_opacity = [0.8, 1, 0.8];
             var kda_arc_outer_r = 66;
             var arcs_g_func = d3
@@ -1585,12 +1640,14 @@ export default {
                     return arcs_g_func(cur_arc_data);
                 })
                 .style("fill", (d, i) => arcs_color[i])
-                .style('opacity', (d, i) => arcs_opacity[i])
+                .style("opacity", (d, i) => arcs_opacity[i])
                 .attr("transform", `translate(${offset_left},${offset_top})`)
-                .on('mouseover', function (d, i) {
-                    mouseover(`${'KDA'[i]} percent:` + '<br/>' + `${d.toFixed(2)}`);
+                .on("mouseover", function (d, i) {
+                    mouseover(
+                        `${"KDA"[i]} percent:` + "<br/>" + `${d.toFixed(2)}`
+                    );
                 })
-                .on('mouseout', mouseout);
+                .on("mouseout", mouseout);
 
             //////////////////////////
             ////////win_ban_pick//////
@@ -1604,9 +1661,13 @@ export default {
             var win_ban_pick_g = glyph_view_svg
                 .append("g")
                 .attr("id", "win_ban_pick_g");
-            var win_ban_pick_color = [glyph_legend_color[7], glyph_legend_color[4], glyph_legend_color[1]];
+            var win_ban_pick_color = [
+                glyph_legend_color[7],
+                glyph_legend_color[4],
+                glyph_legend_color[1],
+            ];
             var win_ban_pick_opacity = [0.8, 0.6, 0.8];
-            var win_ban_pick_key = ['win_rate', 'ban_rate', 'pick_rate'];
+            var win_ban_pick_key = ["win_rate", "ban_rate", "pick_rate"];
 
             // background arc
             win_ban_pick_g
@@ -1631,12 +1692,14 @@ export default {
                     return win_ban_pick_arc_func(cur_arc_data);
                 })
                 .style("fill", "#D9D9D9")
-                .style('opacity', .5)
+                .style("opacity", 0.5)
                 .attr("transform", `translate(${offset_left},${offset_top})`)
-                .on('mouseover', function (d, i) {
-                    mouseover(`${win_ban_pick_key[i]}:` + '<br/>' + `${d.toFixed(2)}`);
+                .on("mouseover", function (d, i) {
+                    mouseover(
+                        `${win_ban_pick_key[i]}:` + "<br/>" + `${d.toFixed(2)}`
+                    );
                 })
-                .on('mouseout', mouseout);
+                .on("mouseout", mouseout);
 
             // color arc
             win_ban_pick_g
@@ -1661,14 +1724,14 @@ export default {
                     return win_ban_pick_arc_func(cur_arc_data);
                 })
                 .style("fill", (d, i) => win_ban_pick_color[i])
-                .style('opacity', (d, i) => win_ban_pick_opacity[i])
+                .style("opacity", (d, i) => win_ban_pick_opacity[i])
                 .attr("transform", `translate(${offset_left},${offset_top})`)
-                .on('mouseover', function (d, i) {
-                    mouseover(`${win_ban_pick_key[i]}:` + '<br/>' + `${d.toFixed(2)}`);
+                .on("mouseover", function (d, i) {
+                    mouseover(
+                        `${win_ban_pick_key[i]}:` + "<br/>" + `${d.toFixed(2)}`
+                    );
                 })
-                .on('mouseout', mouseout);
-
-
+                .on("mouseout", mouseout);
 
             ////////////////////////////////////////////////////
             ///////////////////////legend///////////////////////
@@ -1677,11 +1740,11 @@ export default {
             var legend_left = 6;
             var legend_top = 22;
             var glyph_legend_svg_g = glyph_view_svg
-                .append('g')
-                .attr('id', 'glyph_legend_svg_g')
+                .append("g")
+                .attr("id", "glyph_legend_svg_g")
                 .attr("width", 200)
                 .attr("height", 240)
-                .attr('transform', `translate(${legend_left},${legend_top})`);
+                .attr("transform", `translate(${legend_left},${legend_top})`);
 
             var glyph_legend_key = [
                 "Counter Top3",
@@ -1694,10 +1757,8 @@ export default {
 
                 "Best Team Mate",
                 "Win Rate",
-                "Assistant Percent"
+                "Assistant Percent",
             ];
-
-
 
             var glyph_legend_offset_left = 12;
             var offset_circlr_text = 10;
@@ -1714,9 +1775,9 @@ export default {
                 })
                 .attr("r", 7)
                 .style("fill", (d, i) => glyph_legend_color[i])
-                .style('stroke', (d, i) => glyph_legend_color[i])
-                .style('stroke-width', 1.5)
-                .style('opacity', (d, i) => glyph_legend_opacity[i]);
+                .style("stroke", (d, i) => glyph_legend_color[i])
+                .style("stroke-width", 1.5)
+                .style("opacity", (d, i) => glyph_legend_opacity[i]);
 
             glyph_legend_svg_g
                 .selectAll(".glyph_legend_text")
@@ -1729,12 +1790,11 @@ export default {
                     return glyph_legend_offset_top + i * 25;
                 })
                 .style("fill", (d, i) => glyph_legend_color[i])
-                .style('opacity', (d, i) => glyph_legend_opacity[i])
+                .style("opacity", (d, i) => glyph_legend_opacity[i])
                 .html((d) => d)
                 .attr("text-anchor", "left")
                 .style("alignment-baseline", "middle")
                 .style("font-weight", "bold");
-
         },
     },
 };
@@ -1798,62 +1858,54 @@ export default {
 }
 
 /* 3D Button */
-#new_button{
+#new_button {
     right: 3%;
 }
-#generate_button{
+#generate_button {
     right: 7%;
 }
 button.depth {
-    
     margin: -40px;
     position: absolute;
     top: 10%;
     background: rgb(255, 255, 255);
     border: none;
     border-radius: 40px;
-    box-shadow: inset 0 0 2px 0px hsla(0,0%,0%,.2),
-                inset 0 0 2px 2px hsla(0,0%,0%,.2),
-                inset 0 0 2px 2px hsla(0,0%,0%,.2),
-                inset 0 0 1px 2px hsla(0,0%,0%,.5),
-                inset 0 0px 2px 0px hsla(0,0%,0%,.5),
-                inset 0 1px 1px 2px hsla(0,0%,100%,.25),
-                inset 0 -2px 2px hsla(0,0%,0%,.2),
-                0 1px 1px hsla(0,0%,0%,.25),
-                0 0 2px 2px hsla(0,0%,0%,.2),
-                0 0 2px 2px hsla(0,0%,0%,.2),
-                0 0 2px 2px hsla(0,0%,0%,.2),
-                0 0 2px 2px hsla(0,0%,0%,.5),
-                0 1px 2px 2px hsla(0,0%,100%,.25);
+    box-shadow: inset 0 0 2px 0px hsla(0, 0%, 0%, 0.2),
+        inset 0 0 2px 2px hsla(0, 0%, 0%, 0.2),
+        inset 0 0 2px 2px hsla(0, 0%, 0%, 0.2),
+        inset 0 0 1px 2px hsla(0, 0%, 0%, 0.5),
+        inset 0 0px 2px 0px hsla(0, 0%, 0%, 0.5),
+        inset 0 1px 1px 2px hsla(0, 0%, 100%, 0.25),
+        inset 0 -2px 2px hsla(0, 0%, 0%, 0.2), 0 1px 1px hsla(0, 0%, 0%, 0.25),
+        0 0 2px 2px hsla(0, 0%, 0%, 0.2), 0 0 2px 2px hsla(0, 0%, 0%, 0.2),
+        0 0 2px 2px hsla(0, 0%, 0%, 0.2), 0 0 2px 2px hsla(0, 0%, 0%, 0.5),
+        0 1px 2px 2px hsla(0, 0%, 100%, 0.25);
     color: #575757;
     cursor: pointer;
     font: bold 30px/40px sans-serif;
     height: 40px;
     padding: 0;
-    text-shadow: 0 1px 1px hsla(0,0%,100%,.25),
-                 0 -1px 1px hsla(0,0%,0%,.75);
+    text-shadow: 0 1px 1px hsla(0, 0%, 100%, 0.25),
+        0 -1px 1px hsla(0, 0%, 0%, 0.75);
     width: 40px;
 }
 button.depth:hover,
 button.depth:focus {
-    text-shadow: 0 0 20px hsla(240,75%,75%,.5),
-                 0 1px 1px hsla(0,0%,100%,.25),
-                 0 -1px 1px rgba(142, 142, 142, 0.75);
+    text-shadow: 0 0 20px hsla(240, 75%, 75%, 0.5),
+        0 1px 1px hsla(0, 0%, 100%, 0.25), 0 -1px 1px rgba(142, 142, 142, 0.75);
 }
 button.depth:active {
-    box-shadow: inset 0 0 2px 0px hsla(0,0%,0%,.2),
-                inset 0 0 2px 2px hsla(0,0%,0%,.2),
-                inset 0 0 2px 2px hsla(0,0%,0%,.2),
-                inset 0 0 1px 2px hsla(0,0%,0%,.5),
-                inset 0 0px 2px 0px hsla(0,0%,0%,.5),
-                inset 0 1px 1px 2px hsla(0,0%,100%,.25),
-                inset 0 -2px 2px hsla(0,0%,0%,.2),
-                0 1px 1px hsla(0,0%,0%,.25),
-                0 0 2px 2px hsla(0,0%,0%,.2),
-                0 0 2px 2px hsla(0,0%,0%,.2),
-                0 0 2px 2px hsla(0,0%,0%,.2),
-                0 0 2px 2px hsla(0,0%,0%,.5),
-                0 1px 2px 2px hsla(0,0%,100%,.25);
+    box-shadow: inset 0 0 2px 0px hsla(0, 0%, 0%, 0.2),
+        inset 0 0 2px 2px hsla(0, 0%, 0%, 0.2),
+        inset 0 0 2px 2px hsla(0, 0%, 0%, 0.2),
+        inset 0 0 1px 2px hsla(0, 0%, 0%, 0.5),
+        inset 0 0px 2px 0px hsla(0, 0%, 0%, 0.5),
+        inset 0 1px 1px 2px hsla(0, 0%, 100%, 0.25),
+        inset 0 -2px 2px hsla(0, 0%, 0%, 0.2), 0 1px 1px hsla(0, 0%, 0%, 0.25),
+        0 0 2px 2px hsla(0, 0%, 0%, 0.2), 0 0 2px 2px hsla(0, 0%, 0%, 0.2),
+        0 0 2px 2px hsla(0, 0%, 0%, 0.2), 0 0 2px 2px hsla(0, 0%, 0%, 0.5),
+        0 1px 2px 2px hsla(0, 0%, 100%, 0.25);
 }
 
 #title_svg {
