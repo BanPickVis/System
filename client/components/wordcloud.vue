@@ -44,7 +44,7 @@ export default {
     },
 
     mounted() {
-        this.get_data();
+        // this.get_data();
         // this.processDataWeights();
         // console.log('this');
     },
