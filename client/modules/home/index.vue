@@ -17,14 +17,7 @@
         </div>
         <div class="team_view">
             <b>Team View</b>
-            <div style="
-                        font-family: 'Apple Braille';
-                        font-style: normal;
-                        font-weight: 400;
-                        font-size: 19.2982px;
-                        line-height: 10px;
-                        width: 500px;
-                    ">
+            <div style="font-family: 'Apple Braille';font-style: normal;font-weight: 400;font-size: 19.2982px;line-height: 10px;width: 500px;">
                 &nbsp; Blue Side: &nbsp;
                 <button class="radarselect" @click="selectheroes('blue')">
                     {{ keywords_blue_string }}

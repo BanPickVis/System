@@ -6,6 +6,12 @@
         <div id="seq_view">
             <svg id="main_body_svg"></svg>
             <svg id="title_svg"></svg>
+            <button id="generate_button" class="depth" type="button" @click="loaddata">
+                ↻
+            </button>
+            <button id="new_button" class="depth" type="button" @click="newnode">
+                +
+            </button>
         </div>
         <div id="glyph_view"></div>
         <span id="type">
@@ -164,12 +170,14 @@ export default {
         },
         customizedhero(val) {
             // console.log(val);
-            var block = document.getElementById('loader');
-            block.style.display = "block";
+            if (val!=""){
+                var block = document.getElementById('loader');
+                block.style.display = "block";
 
-            block = document.getElementById('loaderer');
-            block.style.display = "block";
-            this.branchupdate(val, this.selectednode);
+                block = document.getElementById('loaderer');
+                block.style.display = "block";
+                this.branchupdate(val, this.selectednode);
+            }
             // this.loaddata();
             // block.style.display="none";
         },
@@ -217,34 +225,20 @@ export default {
         },
     },
     mounted() {
-        var block = document.getElementById('loader');
-        block.style.display = "block";
-        block = document.getElementById('loaderer');
-        block.style.display = "block";
-        this.loaddata();
+        // var block = document.getElementById('loader');
+        // block.style.display = "block";
+        // block = document.getElementById('loaderer');
+        // block.style.display = "block";
+        // this.loaddata();
         // this.render_seq_left_veiw();
         // this.render_sankey();
     },
     methods: {
+        newnode(){
+            this.customize();
+            this.selectednode=0;
+        },  
         async render_sankey(node) {
-            // var data=[
-            //             {"source":"坦然","target":"蒙恬","value":17,"type":"win","sourcealready":0,"targetalready":0},
-            //             {"source":"坦然","target":"蒙恬","value":10,"type":"lose","sourcealready":17,"targetalready":17},
-            //             {"source":"花海","target":"宫本武藏","value":14,"type":"win","sourcealready":0,"targetalready":0},
-            //             {"source":"花海","target":"宫本武藏","value":6,"type":"lose","sourcealready":14,"targetalready":14},
-            //             {"source":"花海","target":"澜","value":10,"type":"win","sourcealready":20,"targetalready":0},
-            //             {"source":"花海","target":"澜","value":2,"type":"lose","sourcealready":30,"targetalready":10},
-            //             {"source":"清融","target":"西施","value":24,"type":"win","sourcealready":0,"targetalready":0},
-            //             {"source":"清融","target":"西施","value":6,"type":"lose","sourcealready":24,"targetalready":24},
-            //             {"source":"星痕","target":"蒙恬","value":7,"type":"win","sourcealready":0,"targetalready":27},
-            //             {"source":"星痕","target":"蒙恬","value":4,"type":"lose","sourcealready":7,"targetalready":34},
-            //             {"source":"无畏","target":"宫本武藏","value":9,"type":"win","sourcealready":0,"targetalready":20},
-            //             {"source":"无畏","target":"宫本武藏","value":3,"type":"lose","sourcealready":9,"targetalready":29},
-            //             {"source":"无畏","target":"澜","value":13,"type":"win","sourcealready":12,"targetalready":12},
-            //             {"source":"无畏","target":"澜","value":4,"type":"lose","sourcealready":25,"targetalready":25},
-            //             {"source":"紫幻","target":"西施","value":12,"type":"win","sourcealready":0,"targetalready":30},
-            //             {"source":"紫幻","target":"西施","value":6,"type":"lose","sourcealready":12,"targetalready":42},
-            //         ];
 
             var margin = { top: 100, right: 50, bottom: 30, left: 40 },
                 width = 1430 - margin.left - margin.right,
@@ -287,9 +281,10 @@ export default {
                 players: JSON.stringify(playernode),
                 sequence: JSON.stringify(heross),
             });
+            // console.log(data);
 
             //defaults
-            var heronode_pad = 92.5;
+            var heronode_pad = 80;
             var heronode_y = 250;
             var hero_image = 60;
 
@@ -305,7 +300,7 @@ export default {
                 .domain(["blue", "red"]);
             var pathwidth = d3
                 .scaleLinear()
-                .range([0, hero_image - 10])
+                .range([2, hero_image - 10])
                 .domain([
                     0,
                     d3.max(data, function (d) {
@@ -326,7 +321,7 @@ export default {
                 .append("rect")
                 .attr(
                     "width",
-                    heronode.length * (heronode_pad + hero_image) - heronode_pad
+                    heronode.length * (heronode_pad + hero_image)-60
                 )
                 .attr("height", hero_image * 1.4)
                 .attr("x", heronode_pad / 2 - hero_image / 2 - 5)
@@ -505,7 +500,7 @@ export default {
             var lineupdata = await requesthelp.axiosGet("/getLineup", {
                 node: node,
             });
-            console.log(lineupdata);
+            // console.log(lineupdata);
             // var lineupdata = {
             //     "lineup_blue": [
             //         "镜",
@@ -667,7 +662,7 @@ export default {
                         hero: hero,
                     }
                 );
-                console.log(this.sequence_view_data);
+                // console.log(this.sequence_view_data);
                 this.render_seq_left_veiw();
                 var block = document.getElementById("type");
                 block.style.display = "none";
@@ -680,8 +675,13 @@ export default {
 
             block = document.getElementById('loaderer');
             block.style.display = "none";
+            this.customizedhero="";
         },
         async loaddata() {
+            var block = document.getElementById('loader');
+            block.style.display = "block";
+            block = document.getElementById('loaderer');
+            block.style.display = "block";
             this.sequence_view_data = await requesthelp.axiosGet(
                 "/getSequenceData",
                 {
@@ -693,7 +693,7 @@ export default {
             );
             // console.log(this.sequence_view_data);
             this.render_seq_left_veiw();
-            var block = document.getElementById('loader');
+            block = document.getElementById('loader');
 
             block.style.display = "none";
             block = document.getElementById('loaderer');
@@ -769,8 +769,6 @@ export default {
                             block.style.display = "block";
                             block = document.getElementById('loaderer');
                             block.style.display = "block";
-                            console.log('datum: ', datum);
-                            console.log('data: ', data);
                             self.branchupdate(datum.hero, data.node);
                             // block.style.display="none";
                         })
@@ -1824,6 +1822,65 @@ export default {
 
 .link {
     cursor: default;
+}
+
+/* 3D Button */
+#new_button{
+    left: 7%;
+}
+#generate_button{
+    left: 3%;
+}
+button.depth {
+    
+    margin: -40px;
+    position: absolute;
+    bottom: 24%;
+    background: rgb(255, 255, 255);
+    border: none;
+    border-radius: 40px;
+    box-shadow: inset 0 0 2px 0px hsla(0,0%,0%,.2),
+                inset 0 0 2px 2px hsla(0,0%,0%,.2),
+                inset 0 0 2px 2px hsla(0,0%,0%,.2),
+                inset 0 0 1px 2px hsla(0,0%,0%,.5),
+                inset 0 0px 2px 0px hsla(0,0%,0%,.5),
+                inset 0 1px 1px 2px hsla(0,0%,100%,.25),
+                inset 0 -2px 2px hsla(0,0%,0%,.2),
+                0 1px 1px hsla(0,0%,0%,.25),
+                0 0 2px 2px hsla(0,0%,0%,.2),
+                0 0 2px 2px hsla(0,0%,0%,.2),
+                0 0 2px 2px hsla(0,0%,0%,.2),
+                0 0 2px 2px hsla(0,0%,0%,.5),
+                0 1px 2px 2px hsla(0,0%,100%,.25);
+    color: #575757;
+    cursor: pointer;
+    font: bold 30px/40px sans-serif;
+    height: 40px;
+    padding: 0;
+    text-shadow: 0 1px 1px hsla(0,0%,100%,.25),
+                 0 -1px 1px hsla(0,0%,0%,.75);
+    width: 40px;
+}
+button.depth:hover,
+button.depth:focus {
+    text-shadow: 0 0 20px hsla(240,75%,75%,.5),
+                 0 1px 1px hsla(0,0%,100%,.25),
+                 0 -1px 1px rgba(142, 142, 142, 0.75);
+}
+button.depth:active {
+    box-shadow: inset 0 0 2px 0px hsla(0,0%,0%,.2),
+                inset 0 0 2px 2px hsla(0,0%,0%,.2),
+                inset 0 0 2px 2px hsla(0,0%,0%,.2),
+                inset 0 0 1px 2px hsla(0,0%,0%,.5),
+                inset 0 0px 2px 0px hsla(0,0%,0%,.5),
+                inset 0 1px 1px 2px hsla(0,0%,100%,.25),
+                inset 0 -2px 2px hsla(0,0%,0%,.2),
+                0 1px 1px hsla(0,0%,0%,.25),
+                0 0 2px 2px hsla(0,0%,0%,.2),
+                0 0 2px 2px hsla(0,0%,0%,.2),
+                0 0 2px 2px hsla(0,0%,0%,.2),
+                0 0 2px 2px hsla(0,0%,0%,.5),
+                0 1px 2px 2px hsla(0,0%,100%,.25);
 }
 
 #title_svg {

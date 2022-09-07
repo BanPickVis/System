@@ -1,17 +1,17 @@
 <template>
     <svg>
         <rect id="hero_sequence1" class="hero_icon" filter="url(#trans-shadow)" x="15" y="5" rx="35" width="70" height="70" fill="url(#pnone)" @click="select(width, 200, 1)" />
-        <rect id="hero_sequence2" filter="url(#trans-shadow)" x="90" y="5" rx="35" width="70" height="70" fill="url(#pnone)" @click="select(175, 200, 2)" />
+        <rect id="hero_sequence3" filter="url(#trans-shadow)" x="90" y="5" rx="35" width="70" height="70" fill="url(#pnone)" @click="select(175, 200, 3)" />
 
         <image id="hero_sequence1" class="hero_icon" x="50" y="40" width="40" height="40" :href="require('../../assets/image/ban.png')" @click="select(100, 200, 1)" />
 
-        <image id="hero_sequence2" class="hero_icon" x="125" y="40" width="40" height="40" :href="require('../../assets/image/ban.png')" @click="select(175, 200, 2)" />
+        <image id="hero_sequence3" class="hero_icon" x="125" y="40" width="40" height="40" :href="require('../../assets/image/ban.png')" @click="select(175, 200, 3)" />
 
-        <rect id="hero_sequence3" class="hero_icon" filter="url(#trans-shadow)" x="475" y="5" rx="35" width="70" height="70" fill="url(#pnone)" @click="select(560, 200, 3)" />
+        <rect id="hero_sequence2" class="hero_icon" filter="url(#trans-shadow)" x="475" y="5" rx="35" width="70" height="70" fill="url(#pnone)" @click="select(560, 200, 2)" />
 
         <rect id="hero_sequence4" class="hero_icon" filter="url(#trans-shadow)" x="550" y="5" rx="35" width="70" height="70" fill="url(#pnone)" @click="select(635, 200, 4)" />
 
-        <image id="hero_sequence3" class="hero_icon" x="510" y="40" width="40" height="40" :href="require('../../assets/image/ban.png')" @click="select(560, 200, 3)" />
+        <image id="hero_sequence2" class="hero_icon" x="510" y="40" width="40" height="40" :href="require('../../assets/image/ban.png')" @click="select(560, 200, 2)" />
 
         <image id="hero_sequence4" class="hero_icon" x="585" y="40" width="40" height="40" :href="require('../../assets/image/ban.png')" @click="select(635, 200, 4)" />
 
@@ -19,9 +19,9 @@
 
         <rect id="hero_sequence6" class="hero_icon" filter="url(#trans-shadow)" x="540" y="95" rx="5" width="80" height="80" fill="url(#pnone)" @click="select(635, 300, 6)" />
 
-        <rect id="hero_sequence7" class="hero_icon" filter="url(#trans-shadow)" x="10" y="195" rx="5" width="80" height="80" fill="url(#pnone)" @click="select(100, 400, 7)" />
+        <rect id="hero_sequence8" class="hero_icon" filter="url(#trans-shadow)" x="10" y="195" rx="5" width="80" height="80" fill="url(#pnone)" @click="select(100, 400, 8)" />
 
-        <rect id="hero_sequence8" class="hero_icon" filter="url(#trans-shadow)" x="540" y="195" rx="5" width="80" height="80" fill="url(#pnone)" @click="select(635, 400, 8)" />
+        <rect id="hero_sequence7" class="hero_icon" filter="url(#trans-shadow)" x="540" y="195" rx="5" width="80" height="80" fill="url(#pnone)" @click="select(635, 400, 7)" />
 
         <rect id="hero_sequence9" class="hero_icon" filter="url(#trans-shadow)" x="10" y="295" rx="5" width="80" height="80" fill="url(#pnone)" @click="select(100, 500, 9)" />
 
@@ -29,28 +29,27 @@
 
         <rect id="hero_sequence11" class="hero_icon" filter="url(#trans-shadow)" x="15" y="390" rx="35" width="70" height="70" fill="url(#pnone)" @click="select(100, 600, 11)" />
 
-        <rect id="hero_sequence12" class="hero_icon" filter="url(#trans-shadow)" x="90" y="390" rx="35" width="70" height="70" fill="url(#pnone)" @click="select(175, 600, 12)" />
+        <rect id="hero_sequence13" class="hero_icon" filter="url(#trans-shadow)" x="90" y="390" rx="35" width="70" height="70" fill="url(#pnone)" @click="select(175, 600, 13)" />
 
         <image id="hero_sequence11" class="hero_icon" x="50" y="425" width="40" height="40" :href="require('../../assets/image/ban.png')" @click="select(100, 600, 11)" />
 
-        <image id="hero_sequence12" class="hero_icon" x="125" y="425" width="40" height="40" :href="require('../../assets/image/ban.png')" @click="select(175, 600, 12)" />
+        <image id="hero_sequence13" class="hero_icon" x="125" y="425" width="40" height="40" :href="require('../../assets/image/ban.png')" @click="select(175, 600, 13)" />
 
-        <rect id="hero_sequence13" class="hero_icon" filter="url(#trans-shadow)" x="475" y="390" rx="35" width="70" height="70" fill="url(#pnone)" @click="select(560, 600, 13)" />
+        <rect id="hero_sequence12" class="hero_icon" filter="url(#trans-shadow)" x="475" y="390" rx="35" width="70" height="70" fill="url(#pnone)" @click="select(560, 600, 12)" />
 
         <rect id="hero_sequence14" class="hero_icon" filter="url(#trans-shadow)" x="550" y="390" rx="35" width="70" height="70" fill="url(#pnone)" @click="select(635, 600, 14)" />
 
-        <image id="hero_sequence13" class="hero_icon" x="510" y="425" width="40" height="40" :href="require('../../assets/image/ban.png')" @click="select(560, 600, 13)" />
+        <image id="hero_sequence12" class="hero_icon" x="510" y="425" width="40" height="40" :href="require('../../assets/image/ban.png')" @click="select(560, 600, 12)" />
 
         <image id="hero_sequence14" class="hero_icon" x="585" y="425" width="40" height="40" :href="require('../../assets/image/ban.png')" @click="select(635, 600, 14)" />
 
-        <rect id="hero_sequence15" class="hero_icon" filter="url(#trans-shadow)" x="10" y="475" rx="5" width="80" height="80" fill="url(#pnone)" @click="select(100, 700, 15)" />
+        <rect id="hero_sequence16" class="hero_icon" filter="url(#trans-shadow)" x="10" y="475" rx="5" width="80" height="80" fill="url(#pnone)" @click="select(100, 700, 16)" />
 
-        <rect id="hero_sequence16" class="hero_icon" filter="url(#trans-shadow)" x="540" y="475" rx="5" width="80" height="80" fill="url(#pnone)" @click="select(635, 700, 16)" />
+        <rect id="hero_sequence15" class="hero_icon" filter="url(#trans-shadow)" x="540" y="475" rx="5" width="80" height="80" fill="url(#pnone)" @click="select(635, 700, 15)" />
 
         <rect id="hero_sequence17" class="hero_icon" filter="url(#trans-shadow)" x="10" y="575" rx="5" width="80" height="80" fill="url(#pnone)" @click="select(100, 800, 17)" />
 
         <rect id="hero_sequence18" class="hero_icon" filter="url(#trans-shadow)" x="540" y="575" rx="5" width="80" height="80" fill="url(#pnone)" @click="select(635, 800, 18)" />
-
         <defs>
             <pattern id="pnone" patternContentUnits="objectBoundingBox" width="1" height="1">
                 <use xlink:href="#none" transform="translate(0 -0.0280033) scale(0.00666667 0.00666667)" />
@@ -503,7 +502,6 @@
                 <feBlend in="SourceGraphic" in2="blurOut" mode="normal"></feBlend>
             </filter>
         </defs>
-
     </svg>
 </template>
 
