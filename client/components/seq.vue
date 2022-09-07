@@ -513,6 +513,35 @@ export default {
             for (var j = l2; j < 5; j++) {
                 red_hero[j] = "none";
             }
+            var tooltip = d3.select("body")
+                .append("div")
+                .style("opacity", 0)
+                .attr("id", "win_tooltip")
+                .style("background-color", "black")
+                .style("border-radius", "5px")
+                .style("padding", "10px")
+                .style("color", "white");
+
+                var showTooltip = function(d,i) {
+                    tooltip
+                    .transition()
+                    .duration(200);
+                    tooltip
+                    .style("opacity", 1)
+                    .html("Winrate: " + winrate[i])
+                    .style("left",  event.pageX + 10 + "px")
+                    .style("top",  event.pageY + 10 + "px");
+                };
+                var moveTooltip = function(d,i) {
+                    tooltip
+                    .style("left",  event.pageX + 10 + "px")
+                    .style("top",  event.pageY + 10 + "px");};
+                var hideTooltip = function(d,i) {
+                    tooltip
+                    .transition()
+                    .duration(200)
+                    .style("opacity", 0);
+                };
 
             var svg = d3.select("#winrateview").append("svg");
             var margin = { top: 50, right: 10, bottom: 10, left: 10 },
@@ -605,7 +634,11 @@ export default {
                 })
                 .attr("y", function (d, i) {
                     return temp_height - y(winrate[i]);
-                });
+                })
+                
+                .on("mouseover", showTooltip )
+                .on("mousemove", moveTooltip )
+                .on("mouseleave", hideTooltip );
 
             svg.append("line")
                 .attr("transform", "translate(285,0)")
@@ -714,7 +747,11 @@ export default {
                     .style("left", event.pageX + 10 + "px")
                     .style("top", event.pageY + 10 + "px");
             }
-
+            
+            var moveTooltip = function(d,i) {
+                d3.select("#seq_tooltip")
+                    .style("left",  event.pageX + 10 + "px")
+                    .style("top",  event.pageY + 10 + "px");};
             function mouseout() {
                 d3.select("#seq_tooltip").remove();
             }
@@ -791,7 +828,8 @@ export default {
                         .on("mouseover", function () {
                             mouseover(`top${index + 1} ${datum.hero}`);
                         })
-                        .on("mouseout", mouseout);
+                        .on("mouseout", mouseout)
+                        .on("mousemove",moveTooltip);
                 });
             }
 
@@ -910,7 +948,8 @@ export default {
                             .datum().key;
                         mouseover(subgroupName);
                     })
-                    .on("mouseout", mouseout);
+                    .on("mouseout", mouseout)
+                    .on("mousemove",moveTooltip);
             }
 
             function checkTrunk(cur_node, source_node) {
@@ -1068,6 +1107,7 @@ export default {
                     mouseover(d.hero);
                 })
                 .on("mouseout", mouseout)
+                .on("mousemove",moveTooltip)
                 .on("click", function (d) {
                     var block = $("#main_body").css("transform");
                     d3.select("#glyph_view_svg").remove();
@@ -1168,7 +1208,8 @@ export default {
                             : "predict";
                     mouseover(`${type} score: ${score}`);
                 })
-                .on("mouseout", mouseout);
+                .on("mouseout", mouseout)
+                .on("mousemove",moveTooltip);
 
             //////////////////////////
             /////////node_chart///////
@@ -1349,6 +1390,11 @@ export default {
                     .style("left", event.pageX + 10 + "px")
                     .style("top", event.pageY + 10 + "px");
             }
+            
+            var moveTooltip = function(d,i) {
+                d3.select("#seq_tooltip")
+                    .style("left",  event.pageX + 10 + "px")
+                    .style("top",  event.pageY + 10 + "px");};
 
             function mouseout() {
                 d3.select("#seq_tooltip").remove();
@@ -1535,6 +1581,7 @@ export default {
                             `${d[0]}(${d[1].toFixed(2)})`
                     );
                 })
+                .on("mousemove",moveTooltip)
                 .on("mouseout", mouseout);
 
             //////////////////////////
@@ -1575,6 +1622,8 @@ export default {
                             `${d[0]}(${Math.abs(d[1]).toFixed(2)})`
                     );
                 })
+                
+                .on("mousemove",moveTooltip)
                 .on("mouseout", mouseout);
 
             //////////////////////////
@@ -1614,6 +1663,7 @@ export default {
                             `${d[0]}(${d[1].toFixed(2)})`
                     );
                 })
+                .on("mousemove",moveTooltip)
                 .on("mouseout", mouseout);
 
             //////////////////////////
@@ -1658,6 +1708,7 @@ export default {
                         `${"KDA"[i]} percent:` + "<br/>" + `${d.toFixed(2)}`
                     );
                 })
+                .on("mousemove",moveTooltip)
                 .on("mouseout", mouseout);
 
             //////////////////////////
@@ -1710,6 +1761,7 @@ export default {
                         `${win_ban_pick_key[i]}:` + "<br/>" + `${d.toFixed(2)}`
                     );
                 })
+                .on("mousemove",moveTooltip)
                 .on("mouseout", mouseout);
 
             // color arc
@@ -1742,6 +1794,7 @@ export default {
                         `${win_ban_pick_key[i]}:` + "<br/>" + `${d.toFixed(2)}`
                     );
                 })
+                .on("mousemove",moveTooltip)
                 .on("mouseout", mouseout);
 
             ////////////////////////////////////////////////////
@@ -1817,11 +1870,16 @@ export default {
 #seq_tooltip {
     position: absolute;
     opacity: 0;
-    background-color: white;
+    background-color: black;
     border: solid;
     border-width: 2px;
     border-radius: 5px;
-    padding: 5px;
+    padding: 10px;
+    color:white;
+}
+#win_tooltip{
+    position: absolute;
+
 }
 
 #seq_view {

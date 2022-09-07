@@ -314,9 +314,19 @@ export default {
         },
         player1(val, _) {
             // console.log(val);
+            d3.selectAll('.name_text').attr("stroke-width",0);
+            
+            d3.select("#"+val).attr("stroke-width",2).attr("stroke","black");
+            
+            d3.select("#"+this.player2).attr("stroke-width",2).attr("stroke","black");
             this.changePlayer1(val);
         },
         player2(val, _) {
+            d3.selectAll('.name_text').attr("stroke-width",0);
+            
+            d3.select("#"+val).attr("stroke-width",2).attr("stroke","black");
+            
+            d3.select("#"+this.player1).attr("stroke-width",2).attr("stroke","black");
             // console.log(val);
             this.changePlayer2(val);
         },
@@ -358,6 +368,36 @@ export default {
         async plotPlayerName() {
             // console.log(data);
             // d3.select("#player_hero_plot").selectAll("text").remove();
+            var tooltip = d3.select("body")
+                .append("div")
+                .style("opacity", 0)
+                .attr("id", "bar_tooltip")
+                .style("background-color", "black")
+                .style("border-radius", "5px")
+                .style("padding", "10px")
+                .style("color", "white");
+
+                function showTooltip(val) {
+                    tooltip
+                    .transition()
+                    .duration(200);
+                    tooltip
+                    .style("opacity", 1)
+                    .html(val)
+                    .style("left",  event.pageX + 10 + "px")
+                    .style("top",  event.pageY + 10 + "px");
+                }
+                var moveTooltip = function() {
+                    tooltip
+                    .style("left",  event.pageX + 10 + "px")
+                    .style("top",  event.pageY + 10 + "px");};
+                var hideTooltip = function() {
+                    tooltip
+                    .transition()
+                    .duration(200)
+                    .style("opacity", 0);
+                };
+
 
             d3.select("#player_hero_plot").selectAll("text").remove();
             d3.select("#player_hero_plot").selectAll(".mybar").remove();
@@ -370,6 +410,7 @@ export default {
                     player_name_plot
                         .append("text")
                         .text(this.teammember1[i]["id"])
+                        .attr("class","name_text")
                         .attr("x", 120)
                         .attr("y", height * i - 5)
                         .attr("dy", "150px")
@@ -384,6 +425,7 @@ export default {
                     player_name_plot
                         .append("text")
                         .text(this.teammember2[i]["id"])
+                        .attr("class","name_text")
                         .attr("x", 510)
                         .attr("y", height * i - 5)
                         .attr("dy", "150px")
@@ -399,6 +441,7 @@ export default {
                     player_name_plot
                         .append("text")
                         .text(this.teammember1[i]["id"])
+                        .attr("class","name_text")
                         .attr("x", 120)
                         .attr("y", height * i - 5 + 80)
                         .attr("dy", "150px")
@@ -413,6 +456,7 @@ export default {
                     player_name_plot
                         .append("text")
                         .text(this.teammember2[i]["id"])
+                        .attr("class","name_text")
                         .attr("x", 510)
                         .attr("y", height * i - 5 + 80)
                         .attr("dy", "150px")
@@ -456,6 +500,7 @@ export default {
                     if (i <= 2) {
                         player_name_plot
                             .append("rect")
+                            .datum(timedata[i]["lose"])
                             .attr("class", "mybar")
                             .attr("x", 330)
                             .attr("y", height * i + 120)
@@ -463,12 +508,16 @@ export default {
                             .attr("height", 40)
                             .attr("fill", "#FCC6C6")
                             .attr("opacity", 0.8)
+                            .on("mouseover", function(d,i){showTooltip(d);} )
+                            .on("mousemove", moveTooltip)
+                            .on("mouseleave", hideTooltip )
                             .transition()
                             .duration(800)
                             .attr("width", x(timedata[i]["lose"]))
                             .attr("x", 330 - x(timedata[i]["lose"]));
                         player_name_plot
                             .append("rect")
+                            .datum(timedata[i]["win"])
                             .attr("class", "mybar")
                             .attr("x", 330)
                             .attr("y", height * i + 120)
@@ -476,6 +525,9 @@ export default {
                             .attr("fill", "#E6F2CD")
                             .attr("opacity", 0.8)
                             .attr("width", 0)
+                            .on("mouseover", function(d,i){showTooltip(d);} )
+                            .on("mousemove", moveTooltip )
+                            .on("mouseleave", hideTooltip )
                             .transition()
                             .duration(800)
                             .attr("width", x(timedata[i]["win"]))
@@ -500,6 +552,7 @@ export default {
                     } else {
                         player_name_plot
                             .append("rect")
+                            .datum(timedata[i]["lose"])
                             .attr("class", "mybar")
                             .attr("x", 330)
                             .attr("y", height * i + 200)
@@ -507,12 +560,16 @@ export default {
                             .attr("height", 40)
                             .attr("fill", "#FCC6C6")
                             .attr("opacity", 0.8)
+                            .on("mouseover", function(d,i){showTooltip(d);} )
+                            .on("mousemove", moveTooltip)
+                            .on("mouseleave", hideTooltip )
                             .transition()
                             .duration(800)
                             .attr("x", 330 - x(timedata[i]["lose"]))
                             .attr("width", x(timedata[i]["lose"]));
                         player_name_plot
                             .append("rect")
+                            .datum(timedata[i]["win"])
                             .attr("class", "mybar")
                             .attr("x", 330)
                             .attr("y", height * i + 200)
@@ -520,6 +577,9 @@ export default {
                             .attr("height", 40)
                             .attr("fill", "#E6F2CD")
                             .attr("opacity", 0.8)
+                            .on("mouseover", function(d,i){showTooltip(d);} )
+                            .on("mousemove", moveTooltip)
+                            .on("mouseleave", hideTooltip )
                             .transition()
                             .duration(800)
                             .attr("width", x(timedata[i]["win"]))
@@ -548,6 +608,7 @@ export default {
                     if (i <= 2) {
                         player_name_plot
                             .append("rect")
+                            .datum(timedata[j]["lose"])
                             .attr("class", "mybar")
                             .attr("x", 330)
                             .attr("y", height * i + 120)
@@ -555,11 +616,15 @@ export default {
                             .attr("height", 40)
                             .attr("fill", "#FCC6C6")
                             .attr("opacity", 0.8)
+                            .on("mouseover", function(d,i){showTooltip(d);} )
+                            .on("mousemove", moveTooltip)
+                            .on("mouseleave", hideTooltip )
                             .transition()
                             .duration(800)
                             .attr("width", x(timedata[j]["lose"]));
                         player_name_plot
                             .append("rect")
+                            .datum(timedata[j]["win"])
                             .attr("class", "mybar")
                             .attr("x", 330)
                             .attr("y", height * i + 120)
@@ -567,6 +632,9 @@ export default {
                             .attr("height", 40)
                             .attr("fill", "#E6F2CD")
                             .attr("opacity", 0.8)
+                            .on("mouseover", function(d,i){showTooltip(d);} )
+                            .on("mousemove", moveTooltip)
+                            .on("mouseleave", hideTooltip )
                             .transition()
                             .duration(800)
                             .attr("x", 330 + x(timedata[j]["lose"]))
@@ -586,6 +654,7 @@ export default {
                     } else {
                         player_name_plot
                             .append("rect")
+                            .datum(timedata[j]["lose"])
                             .attr("class", "mybar")
                             .attr("x", 330)
                             .attr("y", height * i + 200)
@@ -593,11 +662,15 @@ export default {
                             .attr("height", 40)
                             .attr("fill", "#FCC6C6")
                             .attr("opacity", 0.8)
+                            .on("mouseover", function(d,i){showTooltip(d);} )
+                            .on("mousemove", moveTooltip)
+                            .on("mouseleave", hideTooltip )
                             .transition()
                             .duration(800)
                             .attr("width", x(timedata[j]["lose"]));
                         player_name_plot
                             .append("rect")
+                            .datum(timedata[j]["win"])
                             .attr("class", "mybar")
                             .attr("x", 330)
                             .attr("y", height * i + 200)
@@ -605,6 +678,9 @@ export default {
                             .attr("height", 40)
                             .attr("fill", "#E6F2CD")
                             .attr("opacity", 0.8)
+                            .on("mouseover", function(d,i){showTooltip(d);} )
+                            .on("mousemove", moveTooltip)
+                            .on("mouseleave", hideTooltip )
                             .transition()
                             .duration(800)
                             .attr("width", x(timedata[j]["win"]))
@@ -659,6 +735,10 @@ export default {
 };
 </script>
 <style>
+#bar_tooltip{
+    position: absolute;
+}
+
 #times {
     position: absolute;
     width: 45%;
@@ -684,7 +764,9 @@ div.el-select {
 .membername {
     cursor: pointer;
 }
-
+.name_text{
+    cursor: pointer;
+}
 #roundselect {
     position: absolute;
     right: 0.5%;
