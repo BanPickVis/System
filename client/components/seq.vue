@@ -6,32 +6,16 @@
         <div id="seq_view">
             <svg id="main_body_svg"></svg>
             <svg id="title_svg"></svg>
-            <button
-                id="generate_button"
-                class="depth"
-                type="button"
-                @click="loaddata"
-            >
+            <button id="generate_button" class="depth" type="button" @click="loaddata">
                 ↻
             </button>
-            <button
-                id="new_button"
-                class="depth"
-                type="button"
-                @click="newnode"
-            >
+            <button id="new_button" class="depth" type="button" @click="newnode">
                 +
             </button>
         </div>
         <div id="glyph_view"></div>
         <span id="type">
-            <input
-                id="typeinput"
-                v-model="customizedhero"
-                type="text"
-                placeholder="please select"
-                list="typelist"
-            />
+            <input id="typeinput" v-model="customizedhero" type="text" placeholder="please select" list="typelist" />
             <datalist id="typelist">
                 <option>上官婉儿</option>
                 <option>不知火舞</option>
@@ -163,14 +147,14 @@ export default {
         bon: { type: String, default: "3" },
         team1: { type: String, default: "武汉eStarPro" },
         team2: { type: String, default: "重庆狼队" },
-        round1seq: { type: Object, default: () => {} },
-        round2seq: { type: Object, default: () => {} },
-        round3seq: { type: Object, default: () => {} },
-        round4seq: { type: Object, default: () => {} },
-        round5seq: { type: Object, default: () => {} },
-        round6seq: { type: Object, default: () => {} },
+        round1seq: { type: Object, default: () => { } },
+        round2seq: { type: Object, default: () => { } },
+        round3seq: { type: Object, default: () => { } },
+        round4seq: { type: Object, default: () => { } },
+        round5seq: { type: Object, default: () => { } },
+        round6seq: { type: Object, default: () => { } },
     },
-    setup() {},
+    setup() { },
     data() {
         return {
             sequence_view_data: {},
@@ -188,8 +172,7 @@ export default {
         transx() {
             d3.select("#title_view").attr(
                 "transform",
-                `translate(${
-                    this.transx - this.passed_stage * this.stage_width
+                `translate(${this.transx - this.passed_stage * this.stage_width
                 },-440)`
             );
         },
@@ -205,7 +188,7 @@ export default {
             }
         },
     },
-    mounted() {},
+    mounted() { },
     methods: {
         newnode() {
             this.customize();
@@ -291,7 +274,7 @@ export default {
                 .range([
                     heronode_pad,
                     heronode.length * (heronode_pad + hero_image) +
-                        heronode_pad / 2,
+                    heronode_pad / 2,
                 ])
                 .domain(heronode);
 
@@ -481,8 +464,8 @@ export default {
 
         async drawwinrate(node) {
             var chineseTrans = d3.scaleOrdinal()
-                .domain(["Aguto","AKe","Erin","Angela","Bai Qi","Baili Shouyue","Baili Xuance","Bian Que","Mai Shiranui","Cai Wenji","Cao Cao","Chang'e","Genghis Khan","Cheng Yaojin","Dharma","Daji","Da Qiao","Di Renjie","Dian Wei","Diao Chan","Dongfang Yao","Tai Yi","Dun Shan","Fei","Garo","Ganjiang Moye","Gao Jianli","Ge Ya","Gongsun Li","Miyamoto Musashi","Guan Yu","Gui Guzi","Han Xin","Hou Yi","Mulan","Huang Zhong","Jiang Ziya","Jin Chan","Jing","Ukyo Tachibana","Kai","Magnus","Lan Ling Wan","Lam","Fuzi","Li Bai","Li Xin","Lian Po","Liu Bang","Liu Bei","Liu Shan","Luban Master","Luban No. 7","Luna","Lu Bu","Ma Chao","Marco Polo","Meng Tian","Meng Ya","Menki","Milady","Mi Yue","Ming Shiyin","Mozi","Nezha","Nakoruru","Niumo","Nuwa","Pangu","Tigerous","Sang Qi","Shangguan Wan'er","Shen Mengxi","Sikong Zhen","Sima Yi","Su Lie","Sun Bin","Sun Ce","Sun Shangxiang","Sun Wukong","Taiyi Zhenren","Wang Zhaojun","Wu Ze Tian","Xishi","Xiahou Dun","Charlotte","Xiang Yu","Xiao Qiao","Athena","Arthur","Yang Jian","Yang Yuhuan","Yaria","Yi Xing","Ying Zheng","Consort Yu","Yuanfang","Yuan Ge","Yun Zhong Jun","Zhang Fei","Zhang Liang","Zhao Yun","Zhen Ji","Zhong Kui","Wu Yen","Zhou Yu","Kong Ming","Zhu Bajie","Zhuang Zhou","Yun Ying","Li Yunfang"])
-                .range(["阿古朵","阿轲","艾琳","安琪拉","白起","百里守约","百里玄策","扁鹊","不知火舞","蔡文姬","曹操","嫦娥","成吉思汗","程咬金","达摩","妲己","大乔","狄仁杰","典韦","貂蝉","东方曜","东皇太一","盾山","暃","伽罗","干将莫邪","高渐离","戈娅","公孙离","宫本武藏","关羽","鬼谷子","韩信","后羿","花木兰","黄忠","姜子牙","金蝉","镜","橘右京","铠","狂铁","兰陵王","澜","老夫子","李白","李信","廉颇","刘邦","刘备","刘禅","鲁班大师","鲁班七号","露娜","吕布","马超","马可波罗","蒙恬","蒙犽","梦奇","米莱狄","芈月","明世隐","墨子","哪吒","娜可露露","牛魔","女娲","盘古","裴擒虎","桑启","上官婉儿","沈梦溪","司空震","司马懿","苏烈","孙膑","孙策","孙尚香","孙悟空","太乙真人","王昭君","武则天","西施","夏侯惇","夏洛特","项羽","小乔","雅典娜","亚瑟","杨戬","杨玉环","瑶","奕星","嬴政","虞姬","元芳","元歌","云中君","张飞","张良","赵云","甄姬","钟馗","钟无艳","周瑜","诸葛亮","猪八戒","庄周","云缨","李元芳"]);
+                .domain(["Aguto", "AKe", "Erin", "Angela", "Bai Qi", "Baili Shouyue", "Baili Xuance", "Bian Que", "Mai Shiranui", "Cai Wenji", "Cao Cao", "Chang'e", "Genghis Khan", "Cheng Yaojin", "Dharma", "Daji", "Da Qiao", "Di Renjie", "Dian Wei", "Diao Chan", "Dongfang Yao", "Tai Yi", "Dun Shan", "Fei", "Garo", "Ganjiang Moye", "Gao Jianli", "Ge Ya", "Gongsun Li", "Miyamoto Musashi", "Guan Yu", "Gui Guzi", "Han Xin", "Hou Yi", "Mulan", "Huang Zhong", "Jiang Ziya", "Jin Chan", "Jing", "Ukyo Tachibana", "Kai", "Magnus", "Lan Ling Wan", "Lam", "Fuzi", "Li Bai", "Li Xin", "Lian Po", "Liu Bang", "Liu Bei", "Liu Shan", "Luban Master", "Luban No. 7", "Luna", "Lu Bu", "Ma Chao", "Marco Polo", "Meng Tian", "Meng Ya", "Menki", "Milady", "Mi Yue", "Ming Shiyin", "Mozi", "Nezha", "Nakoruru", "Niumo", "Nuwa", "Pangu", "Tigerous", "Sang Qi", "Shangguan Wan'er", "Shen Mengxi", "Sikong Zhen", "Sima Yi", "Su Lie", "Sun Bin", "Sun Ce", "Sun Shangxiang", "Sun Wukong", "Taiyi Zhenren", "Wang Zhaojun", "Wu Ze Tian", "Xishi", "Xiahou Dun", "Charlotte", "Xiang Yu", "Xiao Qiao", "Athena", "Arthur", "Yang Jian", "Yang Yuhuan", "Yaria", "Yi Xing", "Ying Zheng", "Consort Yu", "Yuanfang", "Yuan Ge", "Yun Zhong Jun", "Zhang Fei", "Zhang Liang", "Zhao Yun", "Zhen Ji", "Zhong Kui", "Wu Yen", "Zhou Yu", "Kong Ming", "Zhu Bajie", "Zhuang Zhou", "Yun Ying", "Li Yunfang"])
+                .range(["阿古朵", "阿轲", "艾琳", "安琪拉", "白起", "百里守约", "百里玄策", "扁鹊", "不知火舞", "蔡文姬", "曹操", "嫦娥", "成吉思汗", "程咬金", "达摩", "妲己", "大乔", "狄仁杰", "典韦", "貂蝉", "东方曜", "东皇太一", "盾山", "暃", "伽罗", "干将莫邪", "高渐离", "戈娅", "公孙离", "宫本武藏", "关羽", "鬼谷子", "韩信", "后羿", "花木兰", "黄忠", "姜子牙", "金蝉", "镜", "橘右京", "铠", "狂铁", "兰陵王", "澜", "老夫子", "李白", "李信", "廉颇", "刘邦", "刘备", "刘禅", "鲁班大师", "鲁班七号", "露娜", "吕布", "马超", "马可波罗", "蒙恬", "蒙犽", "梦奇", "米莱狄", "芈月", "明世隐", "墨子", "哪吒", "娜可露露", "牛魔", "女娲", "盘古", "裴擒虎", "桑启", "上官婉儿", "沈梦溪", "司空震", "司马懿", "苏烈", "孙膑", "孙策", "孙尚香", "孙悟空", "太乙真人", "王昭君", "武则天", "西施", "夏侯惇", "夏洛特", "项羽", "小乔", "雅典娜", "亚瑟", "杨戬", "杨玉环", "瑶", "奕星", "嬴政", "虞姬", "元芳", "元歌", "云中君", "张飞", "张良", "赵云", "甄姬", "钟馗", "钟无艳", "周瑜", "诸葛亮", "猪八戒", "庄周", "云缨", "李元芳"]);
             // console.log(node);
             var lineupdata = await requesthelp.axiosGet("/getSequenceAll", {
                 node: node,
@@ -532,26 +515,27 @@ export default {
                 .style("padding", "10px")
                 .style("color", "white");
 
-                var showTooltip = function(d,i) {
-                    tooltip
+            var showTooltip = function (d, i) {
+                tooltip
                     .transition()
                     .duration(200);
-                    tooltip
+                tooltip
                     .style("opacity", 1)
                     .html("Winrate: " + winrate[i])
-                    .style("left",  event.pageX + 10 + "px")
-                    .style("top",  event.pageY + 10 + "px");
-                };
-                var moveTooltip = function(d,i) {
-                    tooltip
-                    .style("left",  event.pageX + 10 + "px")
-                    .style("top",  event.pageY + 10 + "px");};
-                var hideTooltip = function(d,i) {
-                    tooltip
+                    .style("left", event.pageX + 10 + "px")
+                    .style("top", event.pageY + 10 + "px");
+            };
+            var moveTooltip = function (d, i) {
+                tooltip
+                    .style("left", event.pageX + 10 + "px")
+                    .style("top", event.pageY + 10 + "px");
+            };
+            var hideTooltip = function (d, i) {
+                tooltip
                     .transition()
                     .duration(200)
                     .style("opacity", 0);
-                };
+            };
 
             var svg = d3.select("#winrateview").append("svg");
             var margin = { top: 50, right: 10, bottom: 10, left: 10 },
@@ -581,7 +565,7 @@ export default {
                 .append("rect")
                 .attr("fill", function (d, i) {
                     if (red_hero[i] != "none") {
-                        return "url(#p" +red_hero[i] + ")";
+                        return "url(#p" + red_hero[i] + ")";
                     } else {
                         return "#999999";
                     }
@@ -645,10 +629,10 @@ export default {
                 .attr("y", function (d, i) {
                     return temp_height - y(winrate[i]);
                 })
-                
-                .on("mouseover", showTooltip )
-                .on("mousemove", moveTooltip )
-                .on("mouseleave", hideTooltip );
+
+                .on("mouseover", showTooltip)
+                .on("mousemove", moveTooltip)
+                .on("mouseleave", hideTooltip);
 
             svg.append("line")
                 .attr("transform", "translate(285,0)")
@@ -677,7 +661,7 @@ export default {
             block.style.marginTop = event.pageY - 30 + "px";
         },
         async branchupdate(hero, node) {
-            if (hero != "Customized") {
+            if (hero != "customized") {
                 var alldata = await requesthelp.axiosGet(
                     "/getBranch",
                     {
@@ -698,7 +682,7 @@ export default {
                 );
                 // console.log(alldata);
                 this.sequence_view_data = JSON.parse(alldata.output);
-            // console.log(typeof(this.sequence_view_data));
+                // console.log(typeof(this.sequence_view_data));
                 this.rawdata = JSON.parse(alldata.raw_data);
                 // console.log(this.sequence_view_data);
                 this.render_seq_left_veiw();
@@ -747,8 +731,8 @@ export default {
 
         render_seq_left_veiw() {
             var englishTrans = d3.scaleOrdinal()
-                .range(["Aguto","AKe","Erin","Angela","Bai Qi","Baili Shouyue","Baili Xuance","Bian Que","Mai Shiranui","Cai Wenji","Cao Cao","Chang'e","Genghis Khan","Cheng Yaojin","Dharma","Daji","Da Qiao","Di Renjie","Dian Wei","Diao Chan","Dongfang Yao","Tai Yi","Dun Shan","Fei","Garo","Ganjiang Moye","Gao Jianli","Ge Ya","Gongsun Li","Miyamoto Musashi","Guan Yu","Gui Guzi","Han Xin","Hou Yi","Mulan","Huang Zhong","Jiang Ziya","Jin Chan","Jing","Ukyo Tachibana","Kai","Magnus","Lan Ling Wan","Lam","Fuzi","Li Bai","Li Xin","Lian Po","Liu Bang","Liu Bei","Liu Shan","Luban Master","Luban No. 7","Luna","Lu Bu","Ma Chao","Marco Polo","Meng Tian","Meng Ya","Menki","Milady","Mi Yue","Ming Shiyin","Mozi","Nezha","Nakoruru","Niumo","Nuwa","Pangu","Tigerous","Sang Qi","Shangguan Wan'er","Shen Mengxi","Sikong Zhen","Sima Yi","Su Lie","Sun Bin","Sun Ce","Sun Shangxiang","Sun Wukong","Taiyi Zhenren","Wang Zhaojun","Wu Ze Tian","Xishi","Xiahou Dun","Charlotte","Xiang Yu","Xiao Qiao","Athena","Arthur","Yang Jian","Yang Yuhuan","Yaria","Yi Xing","Ying Zheng","Consort Yu","Yuanfang","Yuan Ge","Yun Zhong Jun","Zhang Fei","Zhang Liang","Zhao Yun","Zhen Ji","Zhong Kui","Wu Yen","Zhou Yu","Kong Ming","Zhu Bajie","Zhuang Zhou","Yun Ying","Li Yunfang"])
-                .domain(["阿古朵","阿轲","艾琳","安琪拉","白起","百里守约","百里玄策","扁鹊","不知火舞","蔡文姬","曹操","嫦娥","成吉思汗","程咬金","达摩","妲己","大乔","狄仁杰","典韦","貂蝉","东方曜","东皇太一","盾山","暃","伽罗","干将莫邪","高渐离","戈娅","公孙离","宫本武藏","关羽","鬼谷子","韩信","后羿","花木兰","黄忠","姜子牙","金蝉","镜","橘右京","铠","狂铁","兰陵王","澜","老夫子","李白","李信","廉颇","刘邦","刘备","刘禅","鲁班大师","鲁班七号","露娜","吕布","马超","马可波罗","蒙恬","蒙犽","梦奇","米莱狄","芈月","明世隐","墨子","哪吒","娜可露露","牛魔","女娲","盘古","裴擒虎","桑启","上官婉儿","沈梦溪","司空震","司马懿","苏烈","孙膑","孙策","孙尚香","孙悟空","太乙真人","王昭君","武则天","西施","夏侯惇","夏洛特","项羽","小乔","雅典娜","亚瑟","杨戬","杨玉环","瑶","奕星","嬴政","虞姬","元芳","元歌","云中君","张飞","张良","赵云","甄姬","钟馗","钟无艳","周瑜","诸葛亮","猪八戒","庄周","云缨","李元芳"]);
+                .range(["Aguto", "AKe", "Erin", "Angela", "Bai Qi", "Baili Shouyue", "Baili Xuance", "Bian Que", "Mai Shiranui", "Cai Wenji", "Cao Cao", "Chang'e", "Genghis Khan", "Cheng Yaojin", "Dharma", "Daji", "Da Qiao", "Di Renjie", "Dian Wei", "Diao Chan", "Dongfang Yao", "Tai Yi", "Dun Shan", "Fei", "Garo", "Ganjiang Moye", "Gao Jianli", "Ge Ya", "Gongsun Li", "Miyamoto Musashi", "Guan Yu", "Gui Guzi", "Han Xin", "Hou Yi", "Mulan", "Huang Zhong", "Jiang Ziya", "Jin Chan", "Jing", "Ukyo Tachibana", "Kai", "Magnus", "Lan Ling Wan", "Lam", "Fuzi", "Li Bai", "Li Xin", "Lian Po", "Liu Bang", "Liu Bei", "Liu Shan", "Luban Master", "Luban No. 7", "Luna", "Lu Bu", "Ma Chao", "Marco Polo", "Meng Tian", "Meng Ya", "Menki", "Milady", "Mi Yue", "Ming Shiyin", "Mozi", "Nezha", "Nakoruru", "Niumo", "Nuwa", "Pangu", "Tigerous", "Sang Qi", "Shangguan Wan'er", "Shen Mengxi", "Sikong Zhen", "Sima Yi", "Su Lie", "Sun Bin", "Sun Ce", "Sun Shangxiang", "Sun Wukong", "Taiyi Zhenren", "Wang Zhaojun", "Wu Ze Tian", "Xishi", "Xiahou Dun", "Charlotte", "Xiang Yu", "Xiao Qiao", "Athena", "Arthur", "Yang Jian", "Yang Yuhuan", "Yaria", "Yi Xing", "Ying Zheng", "Consort Yu", "Yuanfang", "Yuan Ge", "Yun Zhong Jun", "Zhang Fei", "Zhang Liang", "Zhao Yun", "Zhen Ji", "Zhong Kui", "Wu Yen", "Zhou Yu", "Kong Ming", "Zhu Bajie", "Zhuang Zhou", "Yun Ying", "Li Yunfang", "customized"])
+                .domain(["阿古朵", "阿轲", "艾琳", "安琪拉", "白起", "百里守约", "百里玄策", "扁鹊", "不知火舞", "蔡文姬", "曹操", "嫦娥", "成吉思汗", "程咬金", "达摩", "妲己", "大乔", "狄仁杰", "典韦", "貂蝉", "东方曜", "东皇太一", "盾山", "暃", "伽罗", "干将莫邪", "高渐离", "戈娅", "公孙离", "宫本武藏", "关羽", "鬼谷子", "韩信", "后羿", "花木兰", "黄忠", "姜子牙", "金蝉", "镜", "橘右京", "铠", "狂铁", "兰陵王", "澜", "老夫子", "李白", "李信", "廉颇", "刘邦", "刘备", "刘禅", "鲁班大师", "鲁班七号", "露娜", "吕布", "马超", "马可波罗", "蒙恬", "蒙犽", "梦奇", "米莱狄", "芈月", "明世隐", "墨子", "哪吒", "娜可露露", "牛魔", "女娲", "盘古", "裴擒虎", "桑启", "上官婉儿", "沈梦溪", "司空震", "司马懿", "苏烈", "孙膑", "孙策", "孙尚香", "孙悟空", "太乙真人", "王昭君", "武则天", "西施", "夏侯惇", "夏洛特", "项羽", "小乔", "雅典娜", "亚瑟", "杨戬", "杨玉环", "瑶", "奕星", "嬴政", "虞姬", "元芳", "元歌", "云中君", "张飞", "张良", "赵云", "甄姬", "钟馗", "钟无艳", "周瑜", "诸葛亮", "猪八戒", "庄周", "云缨", "李元芳", "customized"]);
             //////////////////////////
             /////////function/////////
             //////////////////////////
@@ -761,19 +745,18 @@ export default {
                     .style("left", event.pageX + 10 + "px")
                     .style("top", event.pageY + 10 + "px");
             }
-            
-            var moveTooltip = function(d,i) {
+            var moveTooltip = function (d, i) {
                 d3.select("#seq_tooltip")
-                    .style("left",  event.pageX + 10 + "px")
-                    .style("top",  event.pageY + 10 + "px");};
+                    .style("left", event.pageX + 10 + "px")
+                    .style("top", event.pageY + 10 + "px");
+            };
             function mouseout() {
                 d3.select("#seq_tooltip").remove();
             }
-
             function render_barChart(cur_node_svg, barChartData) {
                 // console.log(barChartData);
                 var fourth_item = {
-                    hero: "Customized",
+                    hero: "customized",
                     score: 0.3,
                 };
                 barChartData.push(fourth_item);
@@ -838,15 +821,14 @@ export default {
                         .attr("fill", function () {
                             return purple_color[index];
                         })
-                        // .attr('opacity', '0.8')
                         .on("mouseover", function () {
+                            console.log(datum);
                             mouseover(`top${index + 1} ${englishTrans(datum.hero)}`);
                         })
                         .on("mouseout", mouseout)
-                        .on("mousemove",moveTooltip);
+                        .on("mousemove", moveTooltip);
                 });
             }
-
             function render_percentChart(cur_node_svg, percentChartData) {
                 const percent_width = 25,
                     percent_height = 62;
@@ -897,8 +879,8 @@ export default {
                         d[uname] = (d[uname] / tot) * 85;
                     }
                 });
-                percentChartData[0]["top4 Customized"] = 15;
-                subgroups.unshift("top4 Customized");
+                percentChartData[0]["top4 customized"] = 15;
+                subgroups.unshift("top4 customized");
 
                 //stack the data? --> stack per subgroup
                 var stackedData = d3.stack().keys(subgroups)(percentChartData);
@@ -960,12 +942,12 @@ export default {
                         var subgroupName = d3
                             .select(this.parentNode)
                             .datum().key;
-                        mouseover(subgroupName);
+                        var subgroupName_list = subgroupName.split(' ');
+                        mouseover(`${subgroupName_list[0]} ${englishTrans(subgroupName_list[1])}`);
                     })
                     .on("mouseout", mouseout)
-                    .on("mousemove",moveTooltip);
+                    .on("mousemove", moveTooltip);
             }
-
             function checkTrunk(cur_node, source_node) {
                 if (cur_node.hero == source_node.top_heroes[0].hero) {
                     return true;
@@ -1057,8 +1039,7 @@ export default {
                 .attr("id", "title_view")
                 .attr(
                     "transform",
-                    `translate(${
-                        self.transx - self.passed_stage * stage_width
+                    `translate(${self.transx - self.passed_stage * stage_width
                     }, -440) scale(${self.scale})`
                 );
             var link_svg = main_body.append("g").attr("id", "link_svg");
@@ -1086,9 +1067,8 @@ export default {
                     // console.log(d);
                     var cur_node_pos = eachPos[d.node];
                     // console.log(cur_node_pos);
-                    return `translate(${
-                        left_margin + node_spacing * cur_node_pos[1]
-                    },${top_margin + line_height * cur_node_pos[0]})`;
+                    return `translate(${left_margin + node_spacing * cur_node_pos[1]
+                        },${top_margin + line_height * cur_node_pos[0]})`;
                 });
 
             // add image for the nodes
@@ -1121,7 +1101,7 @@ export default {
                     mouseover(englishTrans(d.hero));
                 })
                 .on("mouseout", mouseout)
-                .on("mousemove",moveTooltip)
+                .on("mousemove", moveTooltip)
                 .on("click", function (d) {
                     var block = $("#main_body").css("transform");
                     d3.select("#glyph_view_svg").remove();
@@ -1223,7 +1203,7 @@ export default {
                     mouseover(`${type} score: ${score}`);
                 })
                 .on("mouseout", mouseout)
-                .on("mousemove",moveTooltip);
+                .on("mousemove", moveTooltip);
 
             //////////////////////////
             /////////node_chart///////
@@ -1396,8 +1376,8 @@ export default {
         },
         async render_glyph_view(chosen_hero) {
             var englishTrans = d3.scaleOrdinal()
-                .range(["Aguto","AKe","Erin","Angela","Bai Qi","Baili Shouyue","Baili Xuance","Bian Que","Mai Shiranui","Cai Wenji","Cao Cao","Chang'e","Genghis Khan","Cheng Yaojin","Dharma","Daji","Da Qiao","Di Renjie","Dian Wei","Diao Chan","Dongfang Yao","Tai Yi","Dun Shan","Fei","Garo","Ganjiang Moye","Gao Jianli","Ge Ya","Gongsun Li","Miyamoto Musashi","Guan Yu","Gui Guzi","Han Xin","Hou Yi","Mulan","Huang Zhong","Jiang Ziya","Jin Chan","Jing","Ukyo Tachibana","Kai","Magnus","Lan Ling Wan","Lam","Fuzi","Li Bai","Li Xin","Lian Po","Liu Bang","Liu Bei","Liu Shan","Luban Master","Luban No. 7","Luna","Lu Bu","Ma Chao","Marco Polo","Meng Tian","Meng Ya","Menki","Milady","Mi Yue","Ming Shiyin","Mozi","Nezha","Nakoruru","Niumo","Nuwa","Pangu","Tigerous","Sang Qi","Shangguan Wan'er","Shen Mengxi","Sikong Zhen","Sima Yi","Su Lie","Sun Bin","Sun Ce","Sun Shangxiang","Sun Wukong","Taiyi Zhenren","Wang Zhaojun","Wu Ze Tian","Xishi","Xiahou Dun","Charlotte","Xiang Yu","Xiao Qiao","Athena","Arthur","Yang Jian","Yang Yuhuan","Yaria","Yi Xing","Ying Zheng","Consort Yu","Yuanfang","Yuan Ge","Yun Zhong Jun","Zhang Fei","Zhang Liang","Zhao Yun","Zhen Ji","Zhong Kui","Wu Yen","Zhou Yu","Kong Ming","Zhu Bajie","Zhuang Zhou","Yun Ying","Li Yunfang"])
-                .domain(["阿古朵","阿轲","艾琳","安琪拉","白起","百里守约","百里玄策","扁鹊","不知火舞","蔡文姬","曹操","嫦娥","成吉思汗","程咬金","达摩","妲己","大乔","狄仁杰","典韦","貂蝉","东方曜","东皇太一","盾山","暃","伽罗","干将莫邪","高渐离","戈娅","公孙离","宫本武藏","关羽","鬼谷子","韩信","后羿","花木兰","黄忠","姜子牙","金蝉","镜","橘右京","铠","狂铁","兰陵王","澜","老夫子","李白","李信","廉颇","刘邦","刘备","刘禅","鲁班大师","鲁班七号","露娜","吕布","马超","马可波罗","蒙恬","蒙犽","梦奇","米莱狄","芈月","明世隐","墨子","哪吒","娜可露露","牛魔","女娲","盘古","裴擒虎","桑启","上官婉儿","沈梦溪","司空震","司马懿","苏烈","孙膑","孙策","孙尚香","孙悟空","太乙真人","王昭君","武则天","西施","夏侯惇","夏洛特","项羽","小乔","雅典娜","亚瑟","杨戬","杨玉环","瑶","奕星","嬴政","虞姬","元芳","元歌","云中君","张飞","张良","赵云","甄姬","钟馗","钟无艳","周瑜","诸葛亮","猪八戒","庄周","云缨","李元芳"]);
+                .range(["Aguto", "AKe", "Erin", "Angela", "Bai Qi", "Baili Shouyue", "Baili Xuance", "Bian Que", "Mai Shiranui", "Cai Wenji", "Cao Cao", "Chang'e", "Genghis Khan", "Cheng Yaojin", "Dharma", "Daji", "Da Qiao", "Di Renjie", "Dian Wei", "Diao Chan", "Dongfang Yao", "Tai Yi", "Dun Shan", "Fei", "Garo", "Ganjiang Moye", "Gao Jianli", "Ge Ya", "Gongsun Li", "Miyamoto Musashi", "Guan Yu", "Gui Guzi", "Han Xin", "Hou Yi", "Mulan", "Huang Zhong", "Jiang Ziya", "Jin Chan", "Jing", "Ukyo Tachibana", "Kai", "Magnus", "Lan Ling Wan", "Lam", "Fuzi", "Li Bai", "Li Xin", "Lian Po", "Liu Bang", "Liu Bei", "Liu Shan", "Luban Master", "Luban No. 7", "Luna", "Lu Bu", "Ma Chao", "Marco Polo", "Meng Tian", "Meng Ya", "Menki", "Milady", "Mi Yue", "Ming Shiyin", "Mozi", "Nezha", "Nakoruru", "Niumo", "Nuwa", "Pangu", "Tigerous", "Sang Qi", "Shangguan Wan'er", "Shen Mengxi", "Sikong Zhen", "Sima Yi", "Su Lie", "Sun Bin", "Sun Ce", "Sun Shangxiang", "Sun Wukong", "Taiyi Zhenren", "Wang Zhaojun", "Wu Ze Tian", "Xishi", "Xiahou Dun", "Charlotte", "Xiang Yu", "Xiao Qiao", "Athena", "Arthur", "Yang Jian", "Yang Yuhuan", "Yaria", "Yi Xing", "Ying Zheng", "Consort Yu", "Yuanfang", "Yuan Ge", "Yun Zhong Jun", "Zhang Fei", "Zhang Liang", "Zhao Yun", "Zhen Ji", "Zhong Kui", "Wu Yen", "Zhou Yu", "Kong Ming", "Zhu Bajie", "Zhuang Zhou", "Yun Ying", "Li Yunfang"])
+                .domain(["阿古朵", "阿轲", "艾琳", "安琪拉", "白起", "百里守约", "百里玄策", "扁鹊", "不知火舞", "蔡文姬", "曹操", "嫦娥", "成吉思汗", "程咬金", "达摩", "妲己", "大乔", "狄仁杰", "典韦", "貂蝉", "东方曜", "东皇太一", "盾山", "暃", "伽罗", "干将莫邪", "高渐离", "戈娅", "公孙离", "宫本武藏", "关羽", "鬼谷子", "韩信", "后羿", "花木兰", "黄忠", "姜子牙", "金蝉", "镜", "橘右京", "铠", "狂铁", "兰陵王", "澜", "老夫子", "李白", "李信", "廉颇", "刘邦", "刘备", "刘禅", "鲁班大师", "鲁班七号", "露娜", "吕布", "马超", "马可波罗", "蒙恬", "蒙犽", "梦奇", "米莱狄", "芈月", "明世隐", "墨子", "哪吒", "娜可露露", "牛魔", "女娲", "盘古", "裴擒虎", "桑启", "上官婉儿", "沈梦溪", "司空震", "司马懿", "苏烈", "孙膑", "孙策", "孙尚香", "孙悟空", "太乙真人", "王昭君", "武则天", "西施", "夏侯惇", "夏洛特", "项羽", "小乔", "雅典娜", "亚瑟", "杨戬", "杨玉环", "瑶", "奕星", "嬴政", "虞姬", "元芳", "元歌", "云中君", "张飞", "张良", "赵云", "甄姬", "钟馗", "钟无艳", "周瑜", "诸葛亮", "猪八戒", "庄周", "云缨", "李元芳"]);
             function mouseover(anytext) {
                 d3.select("body")
                     .append("div")
@@ -1407,11 +1387,12 @@ export default {
                     .style("left", event.pageX + 10 + "px")
                     .style("top", event.pageY + 10 + "px");
             }
-            
-            var moveTooltip = function(d,i) {
+
+            var moveTooltip = function (d, i) {
                 d3.select("#seq_tooltip")
-                    .style("left",  event.pageX + 10 + "px")
-                    .style("top",  event.pageY + 10 + "px");};
+                    .style("left", event.pageX + 10 + "px")
+                    .style("top", event.pageY + 10 + "px");
+            };
 
             function mouseout() {
                 d3.select("#seq_tooltip").remove();
@@ -1594,11 +1575,11 @@ export default {
                 .on("mouseover", function (d, i) {
                     mouseover(
                         `Counter Top${i + 1}:` +
-                            "<br/>" +
-                            `${englishTrans(d[0])}(${d[1].toFixed(2)})`
+                        "<br/>" +
+                        `${englishTrans(d[0])}(${d[1].toFixed(2)})`
                     );
                 })
-                .on("mousemove",moveTooltip)
+                .on("mousemove", moveTooltip)
                 .on("mouseout", mouseout);
 
             //////////////////////////
@@ -1635,12 +1616,12 @@ export default {
                 .on("mouseover", function (d, i) {
                     mouseover(
                         `Countered Top${i + 1}:` +
-                            "<br/>" +
-                            `${englishTrans(d[0])}(${Math.abs(d[1]).toFixed(2)})`
+                        "<br/>" +
+                        `${englishTrans(d[0])}(${Math.abs(d[1]).toFixed(2)})`
                     );
                 })
-                
-                .on("mousemove",moveTooltip)
+
+                .on("mousemove", moveTooltip)
                 .on("mouseout", mouseout);
 
             //////////////////////////
@@ -1676,11 +1657,11 @@ export default {
                 .on("mouseover", function (d, i) {
                     mouseover(
                         `Best Team Mate ${i + 1}:` +
-                            "<br/>" +
-                            `${englishTrans(d[0])}(${d[1].toFixed(2)})`
+                        "<br/>" +
+                        `${englishTrans(d[0])}(${d[1].toFixed(2)})`
                     );
                 })
-                .on("mousemove",moveTooltip)
+                .on("mousemove", moveTooltip)
                 .on("mouseout", mouseout);
 
             //////////////////////////
@@ -1725,7 +1706,7 @@ export default {
                         `${"KDA"[i]} percent:` + "<br/>" + `${d.toFixed(2)}`
                     );
                 })
-                .on("mousemove",moveTooltip)
+                .on("mousemove", moveTooltip)
                 .on("mouseout", mouseout);
 
             //////////////////////////
@@ -1778,7 +1759,7 @@ export default {
                         `${win_ban_pick_key[i]}:` + "<br/>" + `${d.toFixed(2)}`
                     );
                 })
-                .on("mousemove",moveTooltip)
+                .on("mousemove", moveTooltip)
                 .on("mouseout", mouseout);
 
             // color arc
@@ -1811,7 +1792,7 @@ export default {
                         `${win_ban_pick_key[i]}:` + "<br/>" + `${d.toFixed(2)}`
                     );
                 })
-                .on("mousemove",moveTooltip)
+                .on("mousemove", moveTooltip)
                 .on("mouseout", mouseout);
 
             ////////////////////////////////////////////////////
@@ -1892,11 +1873,10 @@ export default {
     border-width: 2px;
     border-radius: 5px;
     padding: 10px;
-    color:white;
+    color: white;
 }
-#win_tooltip{
+#win_tooltip {
     position: absolute;
-
 }
 
 #seq_view {
