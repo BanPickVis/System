@@ -59,6 +59,8 @@ export default {
             n_of_p_s:["4","5","6","7","8","9","10"],
             n_of_p:"4",
 
+            teamselection:[0,0,0,0,0,0],
+
             selected_sequence_num:0,
 
             sequencechanged:true,
@@ -603,6 +605,10 @@ export default {
         seqr6(val){
             this.round6seq=val;
             // console.log("index;",this.round1seq);
+        },
+        teamsideselection(val){
+            this.teamselection = val;
+            // console.log("index",this.teamselection);
         },
         changeName1(name) {
             this.Player_1 = name;

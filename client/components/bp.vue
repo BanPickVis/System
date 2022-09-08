@@ -84,6 +84,14 @@
                 />
             </defs>
         </svg>
+        <span class="team_blue">
+            <input id="checkbox_blue" v-model="checked_blue" type="checkbox">
+            <label for="checkbox">Blue</label>
+        </span>
+        <span class="team_red">
+            <input id="checkbox_red" v-model="checked_red" type="checkbox">
+            <label for="checkbox">Red</label>
+        </span>
         <!--Team selector-->
         <span class="team_select">
             <el-select
@@ -231,6 +239,9 @@ export default {
             nround: 5,
             currentTab: "round1",
             tabs: ["round1", "round2", "round3"],
+            checked_red: false,
+            checked_blue: false,
+            teamside_selection:[0,0,0,0,0,0]
         };
     },
     computed: {
@@ -245,6 +256,22 @@ export default {
         },
     },
     watch: {
+        checked_blue(val){
+            if (val==true){
+                this.checked_red=false;
+                this.teamside_selection[parseInt(this.currentTab[5])-1]=1;
+                // console.log(this.teamside_selection);
+                this.sideselection(this.teamside_selection);
+            }
+        },
+        checked_red(val){
+            if (val==true){
+                this.checked_blue=false;
+                this.teamside_selection[parseInt(this.currentTab[5])-1]=2;
+                // console.log(this.teamside_selection);
+                this.sideselection(this.teamside_selection);
+            }
+        },
         seqSelect(val) {},
         bon(val, _) {
             if (this.bon == "3") {
@@ -340,6 +367,10 @@ export default {
         roundthis(val) {
             // console.log("round",val);
             this.$emit("thisround", val);
+        },
+        sideselection(val) {
+            // console.log("round",val);
+            this.$emit("yourteamside", val);
         },
         selectedSequence(val) {
             // this.$emit('seqSelection', val);
@@ -766,6 +797,19 @@ div.el-select {
 }
 .name_text{
     cursor: pointer;
+}
+.team_blue{
+    position: absolute;
+    left:30%;
+    top:7%;
+    width: auto;
+}
+
+.team_red{
+    position: absolute;
+    left:55%;
+    top:7%;
+    width: auto;
 }
 #roundselect {
     position: absolute;

@@ -5,11 +5,11 @@
         </h1>
         <div class="bp_view">
             <a>BP View</a>
-            <bp :roundnow="roundDefault" :bon="bon" :round1seq="round1seq" :round2seq="round2seq" :round3seq="round3seq" :round4seq="round4seq" :round5seq="round5seq" :round6seq="round6seq" @handleChange1="changeName1" @handleChange2="changeName2" @teamChange1="changeTeam1" @teamChange2="changeTeam2" @teamChange1abbr="changeTeam1abbr" @teamChange2abbr="changeTeam2abbr" @seqSelection="select_num" @thisround="curround" />
+            <bp :roundnow="roundDefault" :bon="bon" :round1seq="round1seq" :round2seq="round2seq" :round3seq="round3seq" :round4seq="round4seq" :round5seq="round5seq" :round6seq="round6seq" @yourteamside="teamsideselection" @handleChange1="changeName1" @handleChange2="changeName2" @teamChange1="changeTeam1" @teamChange2="changeTeam2" @teamChange1abbr="changeTeam1abbr" @teamChange2abbr="changeTeam2abbr" @seqSelection="select_num" @thisround="curround" />
         </div>
         <div class="seq_view">
             <a>Drafting Sequence View</a>
-            <seq :change="sequencechanged" :bon="bon" :branch="n_of_b" :round1seq="round1seq" :round2seq="round2seq" :round3seq="round3seq" :round4seq="round4seq" :round5seq="round5seq" :round6seq="round6seq" :preview="n_of_p" :side="team_side" :team1="Team_1" :team2="Team_2" />
+            <seq :change="sequencechanged" :bon="bon" :branch="n_of_b" :round1seq="round1seq" :round2seq="round2seq" :round3seq="round3seq" :round4seq="round4seq" :round5seq="round5seq" :round6seq="round6seq" :preview="n_of_p" :side="team_side" :team1="Team_1" :team2="Team_2" :allroundside="teamselection" />
         </div>
         <div class="player_view">
             <a>Player View</a>

@@ -140,6 +140,7 @@ import requesthelp from "common/utils/request.js";
 import $ from "jquery";
 export default {
     props: {
+        allroundside: {type: Object, default: ()=>{}},
         change: { type: Boolean, default: true },
         branch: { type: String, default: "1" },
         preview: { type: String, default: "4" },
@@ -677,7 +678,7 @@ export default {
                         r3: JSON.stringify(this.round3seq),
                         r4: JSON.stringify(this.round4seq),
                         r5: JSON.stringify(this.round5seq),
-                        r6: JSON.stringify(this.round6seq),
+                        r6: JSON.stringify(this.round6seq), sides: JSON.stringify(this.allroundside)
                     }
                 );
                 // console.log(alldata);
@@ -716,6 +717,7 @@ export default {
                 r4: JSON.stringify(this.round4seq),
                 r5: JSON.stringify(this.round5seq),
                 r6: JSON.stringify(this.round6seq),
+                sides: JSON.stringify(this.allroundside)
             });
             this.sequence_view_data = JSON.parse(alldata.output);
             // console.log(typeof(this.sequence_view_data));
