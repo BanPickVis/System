@@ -4,19 +4,19 @@
             BPCoach
         </h1>
         <div class="bp_view">
-            <b>BP View</b>
+            <a>BP View</a>
             <bp :roundnow="roundDefault" :bon="bon" :round1seq="round1seq" :round2seq="round2seq" :round3seq="round3seq" :round4seq="round4seq" :round5seq="round5seq" :round6seq="round6seq" @handleChange1="changeName1" @handleChange2="changeName2" @teamChange1="changeTeam1" @teamChange2="changeTeam2" @teamChange1abbr="changeTeam1abbr" @teamChange2abbr="changeTeam2abbr" @seqSelection="select_num" @thisround="curround" />
         </div>
         <div class="seq_view">
-            <b>Sequence View</b>
+            <a>Drafting Sequence View</a>
             <seq :change="sequencechanged" :bon="bon" :branch="n_of_b" :round1seq="round1seq" :round2seq="round2seq" :round3seq="round3seq" :round4seq="round4seq" :round5seq="round5seq" :round6seq="round6seq" :preview="n_of_p" :side="team_side" :team1="Team_1" :team2="Team_2" />
         </div>
         <div class="player_view">
-            <b>Player View</b>
+            <a>Player View</a>
             <player id="playerview" :playername1="Player_1" :playername2="Player_2" />
         </div>
         <div class="team_view">
-            <b>Team View</b>
+            <a>Team View</a>
             <div style="font-family: 'Apple Braille';font-style: normal;font-weight: 400;font-size: 19.2982px;line-height: 10px;width: 500px;">
                 &nbsp; Blue Side: &nbsp;
                 <button class="radarselect" @click="selectheroes('blue')">
@@ -42,7 +42,7 @@
             <word-cloud />
         </div>
         <div class="change_view">
-            <b>In-game Change View</b><br />
+            <a>In-game Change View</a><br />
             <change :team1="Team_1_abbr" :team2="Team_2_abbr" />
         </div>
 
@@ -85,6 +85,13 @@
 <script src="./script.js"></script>
 
 <style>
+a{
+    font-size: 30px;
+    padding: 10px;
+    font-family: sans-serif;
+    color:dimgrey;
+}
+
 #loader {
     position: absolute;
     width: 55%;
@@ -120,8 +127,11 @@
     position: absolute;
     width: 5%;
     height: 3%;
-    right: 12.5%;
-    top: 0%;
+    right: 13%;
+    top: -0.5%;
+    font-size: 35px;
+    font-family: sans-serif;
+
 }
 .bp_view {
     /* BANPICK */
@@ -138,7 +148,7 @@
 }
 #selection_view {
     position: absolute;
-    width: 23%;
+    width: 23.5%;
     height: 25%;
     border: 1px solid #9a9a9a;
     border-radius: 15px;

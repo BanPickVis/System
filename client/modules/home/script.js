@@ -658,11 +658,22 @@ export default {
         },
         selectheroes(side){
             var block;
+            var englishTrans = d3.scaleOrdinal()
+                .range(["Aguto","AKe","Erin","Angela","Bai Qi","Baili Shouyue","Baili Xuance","Bian Que","Mai Shiranui","Cai Wenji","Cao Cao","Chang'e","Genghis Khan","Cheng Yaojin","Dharma","Daji","Da Qiao","Di Renjie","Dian Wei","Diao Chan","Dongfang Yao","Tai Yi","Dun Shan","Fei","Garo","Ganjiang Moye","Gao Jianli","Ge Ya","Gongsun Li","Miyamoto Musashi","Guan Yu","Gui Guzi","Han Xin","Hou Yi","Mulan","Huang Zhong","Jiang Ziya","Jin Chan","Jing","Ukyo Tachibana","Kai","Magnus","Lan Ling Wan","Lam","Fuzi","Li Bai","Li Xin","Lian Po","Liu Bang","Liu Bei","Liu Shan","Luban Master","Luban No. 7","Luna","Lu Bu","Ma Chao","Marco Polo","Meng Tian","Meng Ya","Menki","Milady","Mi Yue","Ming Shiyin","Mozi","Nezha","Nakoruru","Niumo","Nuwa","Pangu","Tigerous","Sang Qi","Shangguan Wan'er","Shen Mengxi","Sikong Zhen","Sima Yi","Su Lie","Sun Bin","Sun Ce","Sun Shangxiang","Sun Wukong","Taiyi Zhenren","Wang Zhaojun","Wu Ze Tian","Xishi","Xiahou Dun","Charlotte","Xiang Yu","Xiao Qiao","Athena","Arthur","Yang Jian","Yang Yuhuan","Yaria","Yi Xing","Ying Zheng","Consort Yu","Yuanfang","Yuan Ge","Yun Zhong Jun","Zhang Fei","Zhang Liang","Zhao Yun","Zhen Ji","Zhong Kui","Wu Yen","Zhou Yu","Kong Ming","Zhu Bajie","Zhuang Zhou","Yun Ying","Li Yunfang"])
+                .domain(["阿古朵","阿轲","艾琳","安琪拉","白起","百里守约","百里玄策","扁鹊","不知火舞","蔡文姬","曹操","嫦娥","成吉思汗","程咬金","达摩","妲己","大乔","狄仁杰","典韦","貂蝉","东方曜","东皇太一","盾山","暃","伽罗","干将莫邪","高渐离","戈娅","公孙离","宫本武藏","关羽","鬼谷子","韩信","后羿","花木兰","黄忠","姜子牙","金蝉","镜","橘右京","铠","狂铁","兰陵王","澜","老夫子","李白","李信","廉颇","刘邦","刘备","刘禅","鲁班大师","鲁班七号","露娜","吕布","马超","马可波罗","蒙恬","蒙犽","梦奇","米莱狄","芈月","明世隐","墨子","哪吒","娜可露露","牛魔","女娲","盘古","裴擒虎","桑启","上官婉儿","沈梦溪","司空震","司马懿","苏烈","孙膑","孙策","孙尚香","孙悟空","太乙真人","王昭君","武则天","西施","夏侯惇","夏洛特","项羽","小乔","雅典娜","亚瑟","杨戬","杨玉环","瑶","奕星","嬴政","虞姬","元芳","元歌","云中君","张飞","张良","赵云","甄姬","钟馗","钟无艳","周瑜","诸葛亮","猪八戒","庄周","云缨","李元芳"]);
+
+            var englishsequence_blue=[];
+            var englishsequence_red=[];
+            
             if (side=="blue"){
                 block = document.getElementById("multi_selection_view1");
                 if (block.style.display=="block"){
                     block.style.display="none";
-                    this.keywords_blue_string = this.keywords_blue.toString();
+                    for (var i=0;i<this.keywords_blue.length;i++){
+                        englishsequence_blue[i]=englishTrans(this.keywords_blue[i]);
+                    }
+
+                    this.keywords_blue_string = englishsequence_blue.toString();
                     if (this.keywords_blue.length==0){
                         this.keywords_blue_string = "Please select heroes ⇪";
                     }
@@ -680,7 +691,11 @@ export default {
                 block = document.getElementById("multi_selection_view2");
                 if (block.style.display=="block"){
                     block.style.display="none";
-                    this.keywords_red_string = this.keywords_red.toString();
+                    for (i=0;i<this.keywords_red.length;i++){
+                        englishsequence_red[i]=englishTrans(this.keywords_red[i]);
+                    }
+
+                    this.keywords_red_string = englishsequence_red.toString();
                     if (this.keywords_red.length==0){
                         this.keywords_red_string = "Please select heroes ⇪";
                     }

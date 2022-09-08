@@ -343,7 +343,7 @@ export default {
                 .enter()
                 .append("text")
                 .attr("x", function (d) {
-                    return rect_x(d) + name_width / 2 - 20;
+                    return rect_x(d) + name_width / 2 - 30;
                 })
                 .attr("y", name_height / 2 + 5)
                 .text(function (d) {
@@ -480,11 +480,21 @@ export default {
         },
 
         async drawwinrate(node) {
+            var chineseTrans = d3.scaleOrdinal()
+                .domain(["Aguto","AKe","Erin","Angela","Bai Qi","Baili Shouyue","Baili Xuance","Bian Que","Mai Shiranui","Cai Wenji","Cao Cao","Chang'e","Genghis Khan","Cheng Yaojin","Dharma","Daji","Da Qiao","Di Renjie","Dian Wei","Diao Chan","Dongfang Yao","Tai Yi","Dun Shan","Fei","Garo","Ganjiang Moye","Gao Jianli","Ge Ya","Gongsun Li","Miyamoto Musashi","Guan Yu","Gui Guzi","Han Xin","Hou Yi","Mulan","Huang Zhong","Jiang Ziya","Jin Chan","Jing","Ukyo Tachibana","Kai","Magnus","Lan Ling Wan","Lam","Fuzi","Li Bai","Li Xin","Lian Po","Liu Bang","Liu Bei","Liu Shan","Luban Master","Luban No. 7","Luna","Lu Bu","Ma Chao","Marco Polo","Meng Tian","Meng Ya","Menki","Milady","Mi Yue","Ming Shiyin","Mozi","Nezha","Nakoruru","Niumo","Nuwa","Pangu","Tigerous","Sang Qi","Shangguan Wan'er","Shen Mengxi","Sikong Zhen","Sima Yi","Su Lie","Sun Bin","Sun Ce","Sun Shangxiang","Sun Wukong","Taiyi Zhenren","Wang Zhaojun","Wu Ze Tian","Xishi","Xiahou Dun","Charlotte","Xiang Yu","Xiao Qiao","Athena","Arthur","Yang Jian","Yang Yuhuan","Yaria","Yi Xing","Ying Zheng","Consort Yu","Yuanfang","Yuan Ge","Yun Zhong Jun","Zhang Fei","Zhang Liang","Zhao Yun","Zhen Ji","Zhong Kui","Wu Yen","Zhou Yu","Kong Ming","Zhu Bajie","Zhuang Zhou","Yun Ying","Li Yunfang"])
+                .range(["阿古朵","阿轲","艾琳","安琪拉","白起","百里守约","百里玄策","扁鹊","不知火舞","蔡文姬","曹操","嫦娥","成吉思汗","程咬金","达摩","妲己","大乔","狄仁杰","典韦","貂蝉","东方曜","东皇太一","盾山","暃","伽罗","干将莫邪","高渐离","戈娅","公孙离","宫本武藏","关羽","鬼谷子","韩信","后羿","花木兰","黄忠","姜子牙","金蝉","镜","橘右京","铠","狂铁","兰陵王","澜","老夫子","李白","李信","廉颇","刘邦","刘备","刘禅","鲁班大师","鲁班七号","露娜","吕布","马超","马可波罗","蒙恬","蒙犽","梦奇","米莱狄","芈月","明世隐","墨子","哪吒","娜可露露","牛魔","女娲","盘古","裴擒虎","桑启","上官婉儿","沈梦溪","司空震","司马懿","苏烈","孙膑","孙策","孙尚香","孙悟空","太乙真人","王昭君","武则天","西施","夏侯惇","夏洛特","项羽","小乔","雅典娜","亚瑟","杨戬","杨玉环","瑶","奕星","嬴政","虞姬","元芳","元歌","云中君","张飞","张良","赵云","甄姬","钟馗","钟无艳","周瑜","诸葛亮","猪八戒","庄周","云缨","李元芳"]);
             // console.log(node);
-            var lineupdata = await requesthelp.axiosGet("/getLineup", {
+            var lineupdata = await requesthelp.axiosGet("/getSequenceAll", {
                 node: node,
+                r1: JSON.stringify(this.round1seq),
+                r2: JSON.stringify(this.round2seq),
+                r3: JSON.stringify(this.round3seq),
+                r4: JSON.stringify(this.round4seq),
+                r5: JSON.stringify(this.round5seq),
+                r6: JSON.stringify(this.round6seq),
+                rawdata: JSON.stringify(this.rawdata),
             });
-            // console.log(lineupdata);
+            console.log(lineupdata);
             // var lineupdata = {
             //     "lineup_blue": [
             //         "镜",
@@ -571,7 +581,7 @@ export default {
                 .append("rect")
                 .attr("fill", function (d, i) {
                     if (red_hero[i] != "none") {
-                        return "url(#p" + red_hero[i] + ")";
+                        return "url(#p" +red_hero[i] + ")";
                     } else {
                         return "#999999";
                     }
@@ -706,6 +716,7 @@ export default {
             this.customizedhero = "";
         },
         async loaddata() {
+
             var block = document.getElementById("loader");
             block.style.display = "block";
             block = document.getElementById("loaderer");
@@ -735,6 +746,9 @@ export default {
         },
 
         render_seq_left_veiw() {
+            var englishTrans = d3.scaleOrdinal()
+                .range(["Aguto","AKe","Erin","Angela","Bai Qi","Baili Shouyue","Baili Xuance","Bian Que","Mai Shiranui","Cai Wenji","Cao Cao","Chang'e","Genghis Khan","Cheng Yaojin","Dharma","Daji","Da Qiao","Di Renjie","Dian Wei","Diao Chan","Dongfang Yao","Tai Yi","Dun Shan","Fei","Garo","Ganjiang Moye","Gao Jianli","Ge Ya","Gongsun Li","Miyamoto Musashi","Guan Yu","Gui Guzi","Han Xin","Hou Yi","Mulan","Huang Zhong","Jiang Ziya","Jin Chan","Jing","Ukyo Tachibana","Kai","Magnus","Lan Ling Wan","Lam","Fuzi","Li Bai","Li Xin","Lian Po","Liu Bang","Liu Bei","Liu Shan","Luban Master","Luban No. 7","Luna","Lu Bu","Ma Chao","Marco Polo","Meng Tian","Meng Ya","Menki","Milady","Mi Yue","Ming Shiyin","Mozi","Nezha","Nakoruru","Niumo","Nuwa","Pangu","Tigerous","Sang Qi","Shangguan Wan'er","Shen Mengxi","Sikong Zhen","Sima Yi","Su Lie","Sun Bin","Sun Ce","Sun Shangxiang","Sun Wukong","Taiyi Zhenren","Wang Zhaojun","Wu Ze Tian","Xishi","Xiahou Dun","Charlotte","Xiang Yu","Xiao Qiao","Athena","Arthur","Yang Jian","Yang Yuhuan","Yaria","Yi Xing","Ying Zheng","Consort Yu","Yuanfang","Yuan Ge","Yun Zhong Jun","Zhang Fei","Zhang Liang","Zhao Yun","Zhen Ji","Zhong Kui","Wu Yen","Zhou Yu","Kong Ming","Zhu Bajie","Zhuang Zhou","Yun Ying","Li Yunfang"])
+                .domain(["阿古朵","阿轲","艾琳","安琪拉","白起","百里守约","百里玄策","扁鹊","不知火舞","蔡文姬","曹操","嫦娥","成吉思汗","程咬金","达摩","妲己","大乔","狄仁杰","典韦","貂蝉","东方曜","东皇太一","盾山","暃","伽罗","干将莫邪","高渐离","戈娅","公孙离","宫本武藏","关羽","鬼谷子","韩信","后羿","花木兰","黄忠","姜子牙","金蝉","镜","橘右京","铠","狂铁","兰陵王","澜","老夫子","李白","李信","廉颇","刘邦","刘备","刘禅","鲁班大师","鲁班七号","露娜","吕布","马超","马可波罗","蒙恬","蒙犽","梦奇","米莱狄","芈月","明世隐","墨子","哪吒","娜可露露","牛魔","女娲","盘古","裴擒虎","桑启","上官婉儿","沈梦溪","司空震","司马懿","苏烈","孙膑","孙策","孙尚香","孙悟空","太乙真人","王昭君","武则天","西施","夏侯惇","夏洛特","项羽","小乔","雅典娜","亚瑟","杨戬","杨玉环","瑶","奕星","嬴政","虞姬","元芳","元歌","云中君","张飞","张良","赵云","甄姬","钟馗","钟无艳","周瑜","诸葛亮","猪八戒","庄周","云缨","李元芳"]);
             //////////////////////////
             /////////function/////////
             //////////////////////////
@@ -826,7 +840,7 @@ export default {
                         })
                         // .attr('opacity', '0.8')
                         .on("mouseover", function () {
-                            mouseover(`top${index + 1} ${datum.hero}`);
+                            mouseover(`top${index + 1} ${englishTrans(datum.hero)}`);
                         })
                         .on("mouseout", mouseout)
                         .on("mousemove",moveTooltip);
@@ -1104,7 +1118,7 @@ export default {
                 .attr("stroke", "black")
                 .attr("stroke-width", 3)
                 .on("mouseover", function (d) {
-                    mouseover(d.hero);
+                    mouseover(englishTrans(d.hero));
                 })
                 .on("mouseout", mouseout)
                 .on("mousemove",moveTooltip)
@@ -1381,6 +1395,9 @@ export default {
             render_title();
         },
         async render_glyph_view(chosen_hero) {
+            var englishTrans = d3.scaleOrdinal()
+                .range(["Aguto","AKe","Erin","Angela","Bai Qi","Baili Shouyue","Baili Xuance","Bian Que","Mai Shiranui","Cai Wenji","Cao Cao","Chang'e","Genghis Khan","Cheng Yaojin","Dharma","Daji","Da Qiao","Di Renjie","Dian Wei","Diao Chan","Dongfang Yao","Tai Yi","Dun Shan","Fei","Garo","Ganjiang Moye","Gao Jianli","Ge Ya","Gongsun Li","Miyamoto Musashi","Guan Yu","Gui Guzi","Han Xin","Hou Yi","Mulan","Huang Zhong","Jiang Ziya","Jin Chan","Jing","Ukyo Tachibana","Kai","Magnus","Lan Ling Wan","Lam","Fuzi","Li Bai","Li Xin","Lian Po","Liu Bang","Liu Bei","Liu Shan","Luban Master","Luban No. 7","Luna","Lu Bu","Ma Chao","Marco Polo","Meng Tian","Meng Ya","Menki","Milady","Mi Yue","Ming Shiyin","Mozi","Nezha","Nakoruru","Niumo","Nuwa","Pangu","Tigerous","Sang Qi","Shangguan Wan'er","Shen Mengxi","Sikong Zhen","Sima Yi","Su Lie","Sun Bin","Sun Ce","Sun Shangxiang","Sun Wukong","Taiyi Zhenren","Wang Zhaojun","Wu Ze Tian","Xishi","Xiahou Dun","Charlotte","Xiang Yu","Xiao Qiao","Athena","Arthur","Yang Jian","Yang Yuhuan","Yaria","Yi Xing","Ying Zheng","Consort Yu","Yuanfang","Yuan Ge","Yun Zhong Jun","Zhang Fei","Zhang Liang","Zhao Yun","Zhen Ji","Zhong Kui","Wu Yen","Zhou Yu","Kong Ming","Zhu Bajie","Zhuang Zhou","Yun Ying","Li Yunfang"])
+                .domain(["阿古朵","阿轲","艾琳","安琪拉","白起","百里守约","百里玄策","扁鹊","不知火舞","蔡文姬","曹操","嫦娥","成吉思汗","程咬金","达摩","妲己","大乔","狄仁杰","典韦","貂蝉","东方曜","东皇太一","盾山","暃","伽罗","干将莫邪","高渐离","戈娅","公孙离","宫本武藏","关羽","鬼谷子","韩信","后羿","花木兰","黄忠","姜子牙","金蝉","镜","橘右京","铠","狂铁","兰陵王","澜","老夫子","李白","李信","廉颇","刘邦","刘备","刘禅","鲁班大师","鲁班七号","露娜","吕布","马超","马可波罗","蒙恬","蒙犽","梦奇","米莱狄","芈月","明世隐","墨子","哪吒","娜可露露","牛魔","女娲","盘古","裴擒虎","桑启","上官婉儿","沈梦溪","司空震","司马懿","苏烈","孙膑","孙策","孙尚香","孙悟空","太乙真人","王昭君","武则天","西施","夏侯惇","夏洛特","项羽","小乔","雅典娜","亚瑟","杨戬","杨玉环","瑶","奕星","嬴政","虞姬","元芳","元歌","云中君","张飞","张良","赵云","甄姬","钟馗","钟无艳","周瑜","诸葛亮","猪八戒","庄周","云缨","李元芳"]);
             function mouseover(anytext) {
                 d3.select("body")
                     .append("div")
@@ -1578,7 +1595,7 @@ export default {
                     mouseover(
                         `Counter Top${i + 1}:` +
                             "<br/>" +
-                            `${d[0]}(${d[1].toFixed(2)})`
+                            `${englishTrans(d[0])}(${d[1].toFixed(2)})`
                     );
                 })
                 .on("mousemove",moveTooltip)
@@ -1619,7 +1636,7 @@ export default {
                     mouseover(
                         `Countered Top${i + 1}:` +
                             "<br/>" +
-                            `${d[0]}(${Math.abs(d[1]).toFixed(2)})`
+                            `${englishTrans(d[0])}(${Math.abs(d[1]).toFixed(2)})`
                     );
                 })
                 
@@ -1660,7 +1677,7 @@ export default {
                     mouseover(
                         `Best Team Mate ${i + 1}:` +
                             "<br/>" +
-                            `${d[0]}(${d[1].toFixed(2)})`
+                            `${englishTrans(d[0])}(${d[1].toFixed(2)})`
                     );
                 })
                 .on("mousemove",moveTooltip)
@@ -1948,9 +1965,9 @@ button.depth {
         inset 0 1px 1px 2px hsla(0, 0%, 100%, 0.25),
         inset 0 -2px 2px hsla(0, 0%, 0%, 0.2), 0 1px 1px hsla(0, 0%, 0%, 0.25),
         0 0 2px 2px hsla(0, 0%, 0%, 0.2), 0 0 2px 2px hsla(0, 0%, 0%, 0.2),
-        0 0 2px 2px hsla(0, 0%, 0%, 0.2), 0 0 2px 2px hsla(0, 0%, 0%, 0.5),
+        0 0 2px 2px hsla(0, 0%, 18%, 0.2), 0 0 2px 2px hsla(0, 0%, 0%, 0.5),
         0 1px 2px 2px hsla(0, 0%, 100%, 0.25);
-    color: #575757;
+    color: #999999;
     cursor: pointer;
     font: bold 30px/40px sans-serif;
     height: 40px;
@@ -1969,7 +1986,7 @@ button.depth:active {
         inset 0 0 2px 2px hsla(0, 0%, 0%, 0.2),
         inset 0 0 2px 2px hsla(0, 0%, 0%, 0.2),
         inset 0 0 1px 2px hsla(0, 0%, 0%, 0.5),
-        inset 0 0px 2px 0px hsla(0, 0%, 0%, 0.5),
+        inset 0 0px 2px 0px hsla(0, 0%, 55%, 0.5),
         inset 0 1px 1px 2px hsla(0, 0%, 100%, 0.25),
         inset 0 -2px 2px hsla(0, 0%, 0%, 0.2), 0 1px 1px hsla(0, 0%, 0%, 0.25),
         0 0 2px 2px hsla(0, 0%, 0%, 0.2), 0 0 2px 2px hsla(0, 0%, 0%, 0.2),

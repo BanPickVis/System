@@ -125,8 +125,8 @@ background: #e0e0e0;
 }
 
 .square( @size ){
-  width: @size;
-  height: @size;
+  width: 10px;
+  height: 10px;
 }
 
 @black : #000;

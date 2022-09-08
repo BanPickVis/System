@@ -5,7 +5,7 @@
             <el-select
                 v-model="select_hero"
                 placeholder="Select"
-                style="width: 90px"
+                style="width: 110px"
             >
             <el-option
                 v-for="item in heroselection"
@@ -20,7 +20,7 @@
             <el-select
                 v-model="select_team"
                 placeholder="Select"
-                style="width: 90px"
+                style="width: 110px"
             >
             <el-option
                 v-for="item in teamselection"
@@ -420,7 +420,7 @@ export default {
 .selectButton {
     position: absolute;
     top: 25%;
-    left: 2%;
+    left: 1%;
     opacity: 100%;
     display: block;
     font-size: 14px;
@@ -429,7 +429,7 @@ export default {
 .selectTeam {
     position: absolute;
     top: 33%;
-    left: 2%;
+    left: 1%;
     opacity: 100%;
     display: block;
     font-size: 14px;
