@@ -45,13 +45,12 @@
             <a>In-game Change View</a><br />
             <change :team1="Team_1_abbr" :team2="Team_2_abbr" />
         </div>
+        <div class="hero_glyph">
+            <a>Hero View</a><br />
+            <glyph />
+        </div>
 
         <div class="control_panal">
-            &nbsp; Side of your team:
-            <el-select v-model="team_side" placeholder="Select" style="width: 90px">
-                <el-option v-for="item in teamside" :key="item" :label="item" :value="item" />
-            </el-select>
-            <br />
             &nbsp; BO-N:
             <el-select v-model="bon" placeholder="Select" style="width: 90px">
                 <el-option v-for="item in bon_select" :key="item" :label="item" :value="item" />
@@ -166,7 +165,7 @@ a{
     border-radius: 15px;
     overflow-x: auto;
     background: white;
-    left: 700px;
+    left: 950px;
     top: 520px;
     opacity: 1;
     display: none;
@@ -179,7 +178,7 @@ a{
     border-radius: 15px;
     overflow-x: auto;
     background: white;
-    left: 700px;
+    left: 950px;
     top: 565px;
     display: none;
 }
@@ -212,11 +211,22 @@ a{
 .team_view {
     /* Team */
     position: absolute;
-    width: 43%;
+    width: 30%;
+    height: 38%;
+    right: 30%;
+    bottom: 2%;
+
+    border: 1px solid #9a9a9a;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+.hero_glyph{
+    position: absolute;
+    position: absolute;
+    width: 12.8%;
     height: 38%;
     left: 27%;
     bottom: 2%;
-
     border: 1px solid #9a9a9a;
     box-sizing: border-box;
     border-radius: 5px;
@@ -235,7 +245,7 @@ a{
 .control_panal {
     position: absolute;
     width: 17.2%;
-    height: 11%;
+    height: 8%;
     right: 1.2%;
     top: 5%;
     box-sizing: border-box;
@@ -256,7 +266,7 @@ button {
     border-radius: 2px;
     font-size: 12pt;
     outline: none;
-    width: 60%;
+    width: 50%;
 }
 
 button:hover {

@@ -86,11 +86,11 @@
         </svg>
         <span class="team_blue">
             <input id="checkbox_blue" v-model="checked_blue" type="checkbox">
-            <label for="checkbox">Blue</label>
+            <label for="checkbox_blue">Blue</label>
         </span>
         <span class="team_red">
             <input id="checkbox_red" v-model="checked_red" type="checkbox">
-            <label for="checkbox">Red</label>
+            <label for="checkbox_red">Red</label>
         </span>
         <!--Team selector-->
         <span class="team_select">
@@ -442,7 +442,7 @@ export default {
                         .append("text")
                         .text(this.teammember1[i]["id"])
                         .attr("class","name_text")
-                        .attr("x", 120)
+                        .attr("x", 100)
                         .attr("y", height * i - 5)
                         .attr("dy", "150px")
                         .attr("text-anchor", "start")
@@ -457,7 +457,7 @@ export default {
                         .append("text")
                         .text(this.teammember2[i]["id"])
                         .attr("class","name_text")
-                        .attr("x", 510)
+                        .attr("x", 530)
                         .attr("y", height * i - 5)
                         .attr("dy", "150px")
                         .attr("text-anchor", "end")
@@ -473,7 +473,7 @@ export default {
                         .append("text")
                         .text(this.teammember1[i]["id"])
                         .attr("class","name_text")
-                        .attr("x", 120)
+                        .attr("x", 100)
                         .attr("y", height * i - 5 + 80)
                         .attr("dy", "150px")
                         .attr("text-anchor", "start")
@@ -488,7 +488,7 @@ export default {
                         .append("text")
                         .text(this.teammember2[i]["id"])
                         .attr("class","name_text")
-                        .attr("x", 510)
+                        .attr("x", 530)
                         .attr("y", height * i - 5 + 80)
                         .attr("dy", "150px")
                         .attr("text-anchor", "end")

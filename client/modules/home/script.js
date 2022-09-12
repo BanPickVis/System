@@ -6,6 +6,7 @@ import seq from '@/components/seq.vue';
 import player from '@/components/player.vue';
 import change from '@/components/change.vue';
 import wordcloud from '@/components/wordcloud.vue';
+import glyph from "@/components/glyph.vue";
 // import inputtag from '@/components/inputtag.vue';
 import heroS from "@/components/heroselect/heroSelection.vue";
 import heroMS1 from "@/components/heromultiselect/heroSelection.vue";
@@ -55,7 +56,7 @@ export default {
             bon:"3",
             bon_select:["3","5","7"],
             n_of_b_s:["1","2","3"],
-            n_of_b:"1",
+            n_of_b:"2",
             n_of_p_s:["4","5","6","7","8","9","10"],
             n_of_p:"4",
 
@@ -77,7 +78,7 @@ export default {
     components: {
         // ElTable,
         // ElTableColumn,
-        bp, seq,
+        bp, seq,glyph,
         player,
         // "input-tag": inputtag,
         "word-cloud": wordcloud,
@@ -141,7 +142,7 @@ export default {
         },
         async DrawRadar(){
             var data = await requesthelp.axiosGet('/teamView',{ team1: this.Team_1, team2: this.Team_2, keywords_blue:JSON.stringify(this.keywords_blue), keywords_red:JSON.stringify(this.keywords_red)});
-            console.log(data);
+            // console.log(data);
             if (data["msg1"]=="team1未使用过此英雄阵容, 默认显示所有英雄场次" && this.radarkeylength!=0 ){
                 if (data["msg2"]=="team2未使用过此英雄阵容, 默认显示所有英雄场次"){
                     this.radar_hint = "No such lineup combinations for both teams. Info of all battles is shown";
@@ -224,8 +225,8 @@ export default {
         RadarChart(id, data, options) {
             // console.log(this.keywords_blue);
             var cfg = {
-                w: 600, //Width of the circle
-                h: 600, //Height of the circle
+                w: 560, //Width of the circle
+                h: 560, //Height of the circle
                 margin: { top: 20, right: 20, bottom: 20, left: 20 }, //The margins of the SVG
                 levels: 5, //How many levels or inner circles should there be drawn
                 maxValue: 0, //What is the value that the biggest circle will represent
@@ -292,7 +293,7 @@ export default {
                 .attr(
                     "transform",
                     "translate(" +
-                    (cfg.w / 2 + cfg.margin.left +50) +
+                    (cfg.w / 2 + cfg.margin.left - 20) +
                     "," +
                     (cfg.h / 2 + cfg.margin.top) +
                     ")"
@@ -665,7 +666,7 @@ export default {
         selectheroes(side){
             var block;
             var englishTrans = d3.scaleOrdinal()
-                .range(["Aguto","AKe","Erin","Angela","Bai Qi","Baili Shouyue","Baili Xuance","Bian Que","Mai Shiranui","Cai Wenji","Cao Cao","Chang'e","Genghis Khan","Cheng Yaojin","Dharma","Daji","Da Qiao","Di Renjie","Dian Wei","Diao Chan","Dongfang Yao","Tai Yi","Dun Shan","Fei","Garo","Ganjiang Moye","Gao Jianli","Ge Ya","Gongsun Li","Miyamoto Musashi","Guan Yu","Gui Guzi","Han Xin","Hou Yi","Mulan","Huang Zhong","Jiang Ziya","Jin Chan","Jing","Ukyo Tachibana","Kai","Magnus","Lan Ling Wan","Lam","Fuzi","Li Bai","Li Xin","Lian Po","Liu Bang","Liu Bei","Liu Shan","Luban Master","Luban No. 7","Luna","Lu Bu","Ma Chao","Marco Polo","Meng Tian","Meng Ya","Menki","Milady","Mi Yue","Ming Shiyin","Mozi","Nezha","Nakoruru","Niumo","Nuwa","Pangu","Tigerous","Sang Qi","Shangguan Wan'er","Shen Mengxi","Sikong Zhen","Sima Yi","Su Lie","Sun Bin","Sun Ce","Sun Shangxiang","Sun Wukong","Taiyi Zhenren","Wang Zhaojun","Wu Ze Tian","Xishi","Xiahou Dun","Charlotte","Xiang Yu","Xiao Qiao","Athena","Arthur","Yang Jian","Yang Yuhuan","Yaria","Yi Xing","Ying Zheng","Consort Yu","Yuanfang","Yuan Ge","Yun Zhong Jun","Zhang Fei","Zhang Liang","Zhao Yun","Zhen Ji","Zhong Kui","Wu Yen","Zhou Yu","Kong Ming","Zhu Bajie","Zhuang Zhou","Yun Ying","Li Yunfang"])
+                .range(["Aguto","AKe","Erin","Angela","Bai Qi","Baili Shouyue","Baili Xuance","Bian Que","Mai Shiranui","Cai Wenji","Cao Cao","Chang'e","Genghis Khan","Cheng Yaojin","Dharma","Daji","Da Qiao","Di Renjie","Dian Wei","Diao Chan","Dongfang Yao","Tai Yi","Dun Shan","Fei","Garo","Ganjiang Moye","Gao Jianli","Ge Ya","Gongsun Li","Miyamoto Musashi","Guan Yu","Gui Guzi","Han Xin","Hou Yi","Mulan","Huang Zhong","Jiang Ziya","Jin Chan","Jing","Ukyo Tachibana","Kai","Magnus","Lan Ling Wan","Lam","Fuzi","Li Bai","Li Xin","Lian Po","Liu Bang","Liu Bei","Liu Shan","Luban Master","Luban No. 7","Luna","Lu Bu","Ma Chao","Marco Polo","Meng Tian","Meng Ya","Menki","Milady","Mi Yue","Ming Shiyin","Mozi","Nezha","Nakoruru","Niumo","Nuwa","Pangu","Tigerous","Sang Qi","Shangguan Wan'er","Shen Mengxi","Sikong Zhen","Sima Yi","Su Lie","Sun Bin","Sun Ce","Sun Shangxiang","Sun Wukong","Taiyi Zhenren","Wang Zhaojun","Wu Ze Tian","Xishi","Xiahou Dun","Charlotte","Xiang Yu","Xiao Qiao","Athena","Arthur","Yang Jian","Yang Yuhuan","Yaria","Yi Xing","Ying Zheng","Consort Yu","Yuanfang","Yuan Ge","Yun Zhong Jun","Zhang Fei","Zhang Liang","Zhao Yun","Zhen Ji","Zhong Kui","Wu Yen","Zhou Yu","Kong Ming","Zhu Bajie","Zhuang Zhou","Yun Ying","Li Yuanfang"])
                 .domain(["阿古朵","阿轲","艾琳","安琪拉","白起","百里守约","百里玄策","扁鹊","不知火舞","蔡文姬","曹操","嫦娥","成吉思汗","程咬金","达摩","妲己","大乔","狄仁杰","典韦","貂蝉","东方曜","东皇太一","盾山","暃","伽罗","干将莫邪","高渐离","戈娅","公孙离","宫本武藏","关羽","鬼谷子","韩信","后羿","花木兰","黄忠","姜子牙","金蝉","镜","橘右京","铠","狂铁","兰陵王","澜","老夫子","李白","李信","廉颇","刘邦","刘备","刘禅","鲁班大师","鲁班七号","露娜","吕布","马超","马可波罗","蒙恬","蒙犽","梦奇","米莱狄","芈月","明世隐","墨子","哪吒","娜可露露","牛魔","女娲","盘古","裴擒虎","桑启","上官婉儿","沈梦溪","司空震","司马懿","苏烈","孙膑","孙策","孙尚香","孙悟空","太乙真人","王昭君","武则天","西施","夏侯惇","夏洛特","项羽","小乔","雅典娜","亚瑟","杨戬","杨玉环","瑶","奕星","嬴政","虞姬","元芳","元歌","云中君","张飞","张良","赵云","甄姬","钟馗","钟无艳","周瑜","诸葛亮","猪八戒","庄周","云缨","李元芳"]);
 
             var englishsequence_blue=[];

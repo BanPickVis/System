@@ -427,6 +427,10 @@
                 <use xlink:href="#云中君" transform="translate(0 -0.0280033) scale(0.00666667 0.00666667)" />
             </pattern>
             <image id="云中君" width="150" height="160" :href="require('../../assets/image/icon/云中君.jpg')" />
+            <pattern id="p东方曜" patternContentUnits="objectBoundingBox" width="1" height="1">
+                <use xlink:href="#东方曜" transform="translate(0 -0.0280033) scale(0.00666667 0.00666667)" />
+            </pattern>
+            <image id="东方曜" width="150" height="160" :href="require('../../assets/image/icon/曜.jpg')" />
             <pattern id="p曜" patternContentUnits="objectBoundingBox" width="1" height="1">
                 <use xlink:href="#曜" transform="translate(0 -0.0280033) scale(0.00666667 0.00666667)" />
             </pattern>

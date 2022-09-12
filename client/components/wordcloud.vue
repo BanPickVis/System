@@ -55,7 +55,7 @@ export default {
                     this.word_list_cloud.splice(i,1);
                 }
             }
-            console.log(this.word_list_cloud);
+            // console.log(this.word_list_cloud);
             this.data= await requesthelp.axiosGet('/wordcloud_fr',{word_list:JSON.stringify(this.word_list_cloud)});
             // console.log(this.data);
             this.drawWordCloud();
@@ -100,7 +100,7 @@ export default {
                 width = svgDom.clientWidth,
                 height = svgDom.clientHeight;
             var layout = cloud()
-                .size([width, height-30]) //size([x,y]) 词云显示的大小
+                .size([width-5, height-30]) //size([x,y]) 词云显示的大小
                 .words(this.data)
                 .padding(2) // between words
                 .rotate(function () {
@@ -158,37 +158,38 @@ export default {
     position: absolute;
     width: 35.5%;
     height: 14%;
-    left:50%;
+    left:55%;
     top: 7%;
     font-size: 125%;
 }
 #enter{
     position: absolute;
-    width: 20%;
-    left:85%;
+    width: 18%;
+    right:-8%;
     top: 7%;
     font-size: 125%;
 }
 #word_cloud{
     position: absolute;
     top:23%;
-    right:1%;
+    right:2%;
     height: 80%;
-    width: 53%;
+    width: 45%;
 }
 #tags{
     position: absolute;
     top:15%;
-    left:50%;
+    left:55%;
     width: 50%;
-    height: 12.5%;
+    height: 10%;
     cursor: pointer;
+    overflow-x: auto;
 }
 .wordtag{
     float: left;
     /* padding: 6px 10px; */
     margin-right: 25px;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     /* width:80px; */
     font-size: 120%;
     border-radius: 10px;
