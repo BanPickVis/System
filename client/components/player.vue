@@ -262,7 +262,7 @@ export default {
             for (var i in d3.range(5)) {
                 // plot i-th box
                 this.plotBox([player_data_b[i], player_data_r[i]], i);
-                this.plotDot([player_data_b_s[i], player_data_r_s[i]], i);
+                this.plotDot([player_data_b[i], player_data_r[i]], [player_data_b_s[i], player_data_r_s[i]], i);
             }
         },
         plotTitle(titles) {
@@ -415,7 +415,7 @@ export default {
                     .attr("class","allinfo");
             }
         },
-        plotDot(double_data, box_id) {
+        plotDot(double_data1, double_data, box_id) {
             const box_plot = d3.select("#player_box_plot");
             const margin = { top: 18, right: 20, bottom: 8, left: 160 },
                 width = box_plot.attr("width") - margin.left - margin.right,
@@ -438,18 +438,18 @@ export default {
 
             // init scale
             var data_min = d3.min([
-                    d3.min(double_data[0]),
-                    d3.min(double_data[1]),
+                    d3.min(double_data1[0]),
+                    d3.min(double_data1[1]),
                 ]),
                 data_max = d3.max([
-                    d3.max(double_data[0]),
-                    d3.max(double_data[1]),
+                    d3.max(double_data1[0]),
+                    d3.max(double_data1[1]),
                 ]);
 
             // calculate & update scale
             let boxs = [];
             for (var i in d3.range(2)) {
-                var data = double_data[i];
+                var data = double_data1[i];
                 // console.log(data);
 
                 // Compute summary statistics used for the box:
