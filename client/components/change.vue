@@ -440,10 +440,12 @@ export default {
     top: 26%;
     left: 20%;
     width:70%;
+    height: 15%;
     opacity: 100%;
     display: block;
     font-size: 14px;
     margin-bottom: 20px;
+    overflow-x:auto;
 }
 .myCircle{
     cursor: pointer;
