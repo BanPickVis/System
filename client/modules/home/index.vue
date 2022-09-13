@@ -9,7 +9,7 @@
         </div>
         <div class="seq_view">
             <a>Drafting Sequence View</a>
-            <seq :change="sequencechanged" :bon="bon" :branch="n_of_b" :round1seq="round1seq" :round2seq="round2seq" :round3seq="round3seq" :round4seq="round4seq" :round5seq="round5seq" :round6seq="round6seq" :preview="n_of_p" :side="team_side" :team1="Team_1" :team2="Team_2" :allroundside="teamselection" />
+            <seq :change="sequencechanged" :bon="bon" :branch="n_of_b" :round1seq="round1seq" :round2seq="round2seq" :round3seq="round3seq" :round4seq="round4seq" :round5seq="round5seq" :round6seq="round6seq" :preview="n_of_p" :side="team_side" :team1="Team_1" :team2="Team_2" :allroundside="teamselection" :curround="round_num" />
         </div>
         <div class="player_view">
             <a>Player View</a>

@@ -1,5 +1,8 @@
 <template>
     <div>
+         <span id="warning">
+            ⚠️Please select your team side!!
+        </span>
         <div>
             <svg id="sankeyview"></svg>
         </div>
@@ -135,10 +138,15 @@
 
 
 <script>
-import all_glyph_data from "../assets/json/glyph_view_output_2022.json";
+// import all_glyph_data from "../assets/json/glyph_view_output_2022.json";
 import requesthelp from "common/utils/request.js";
 import $ from "jquery";
+// import Vue from "vue";
+// import VueSimpleAlert from "vue-simple-alert";
+// Vue.use(VueSimpleAlert);
+// import VueBasicAlert from 'vue-basic-alert';
 export default {
+    // components:{VueBasicAlert},
     props: {
         allroundside: { type: Object, default: () => { } },
         change: { type: Boolean, default: true },
@@ -154,6 +162,7 @@ export default {
         round4seq: { type: Object, default: () => { } },
         round5seq: { type: Object, default: () => { } },
         round6seq: { type: Object, default: () => { } },
+        curround: {type: Number, default: 0},
     },
     setup() { },
     data() {
@@ -704,8 +713,16 @@ export default {
             this.customizedhero = "";
         },
         async loaddata() {
+            var block = document.getElementById("warning");
+                block.style.display = "none";
+            if (this.allroundside[this.curround]==0){
+                // this.$alert("Please select your side!");
+                block = document.getElementById("warning");
+                block.style.display = "block";
+                return;
+            }
 
-            var block = document.getElementById("loader");
+            block = document.getElementById("loader");
             block.style.display = "block";
             block = document.getElementById("loaderer");
             block.style.display = "block";
@@ -1535,4 +1552,13 @@ button.depth:active {
     bottom: 0%;
     display: block;
 }
+#warning{
+    position: absolute;
+    top: 35%;
+    font-size: 30px;
+    background: coral;
+    left: 47%;
+    display: none;
+}
+
 </style>
