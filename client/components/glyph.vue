@@ -87,7 +87,7 @@
             <button
                 v-for="hero in hero_list_cloud"
                 :key="hero"
-                :class="['selected']"
+                :class="['selectedgl']"
                 @click="render_glyph_view(hero)"
             >
                 {{ hero }}
@@ -668,7 +668,7 @@ export default {
     border-radius: 3px;
 }
 
-.selected{
+.selectedgl{
     float: left;
     /* padding: 6px 10px; */
     margin-right: 25px;
@@ -681,10 +681,10 @@ export default {
     width:fit-content;
     background: #fcfcfc;
 }
-.selected:hover {
+.selectedgl:hover {
 background: #f0f0f0;
 }
-.selected.active {
+.selectedgl.active {
 background: #f0f0f0;
 }
 #recent{

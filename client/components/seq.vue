@@ -13,6 +13,8 @@
                 +
             </button>
         </div>
+        <div id="winrateview"></div>
+        
         <span id="type">
             <input id="typeinput" v-model="customizedhero" type="text" placeholder="please select" list="typelist" />
             <datalist id="typelist">
@@ -128,7 +130,6 @@
                 <option>庄周</option>
             </datalist>
         </span>
-        <div id="winrateview"></div>
     </div>
 </template>
 
@@ -178,21 +179,24 @@ export default {
         },
         customizedhero(val) {
             // console.log(val);
-            if (val != "") {
-                var block = document.getElementById("loader");
-                block.style.display = "block";
+            var all = ["阿古朵", "阿轲", "艾琳", "安琪拉", "白起", "百里守约", "百里玄策", "扁鹊", "不知火舞", "蔡文姬", "曹操", "嫦娥", "成吉思汗", "程咬金", "达摩", "妲己", "大乔", "狄仁杰", "典韦", "貂蝉", "东方曜", "东皇太一", "盾山", "暃", "伽罗", "干将莫邪", "高渐离", "戈娅", "公孙离", "宫本武藏", "关羽", "鬼谷子", "韩信", "后羿", "花木兰", "黄忠", "姜子牙", "金蝉", "镜", "橘右京", "铠", "狂铁", "兰陵王", "澜", "老夫子", "李白", "李信", "廉颇", "刘邦", "刘备", "刘禅", "鲁班大师", "鲁班七号", "露娜", "吕布", "马超", "马可波罗", "蒙恬", "蒙犽", "梦奇", "米莱狄", "芈月", "明世隐", "墨子", "哪吒", "娜可露露", "牛魔", "女娲", "盘古", "裴擒虎", "桑启", "上官婉儿", "沈梦溪", "司空震", "司马懿", "苏烈", "孙膑", "孙策", "孙尚香", "孙悟空", "太乙真人", "王昭君", "武则天", "西施", "夏侯惇", "夏洛特", "项羽", "小乔", "雅典娜", "亚瑟", "杨戬", "杨玉环", "瑶", "弈星", "嬴政", "虞姬", "李元芳", "元歌", "云中君", "张飞", "张良", "赵云", "甄姬", "钟馗", "钟无艳", "周瑜", "诸葛亮", "猪八戒", "庄周", "云缨", "李元芳", "customized"];
+            for (var i=0;i<all.length;i++){
+                if (val==all[i]){
+                    var block = document.getElementById("loader");
+                    block.style.display = "block";
 
-                block = document.getElementById("loaderer");
-                block.style.display = "block";
-                this.branchupdate(val, this.selectednode);
+                    block = document.getElementById("loaderer");
+                    block.style.display = "block";
+                    this.branchupdate(val, this.selectednode);
+                }
             }
         },
     },
     mounted() { },
     methods: {
         newnode() {
-            this.customize();
             this.selectednode = 0;
+            this.customize();
         },
         async render_sankey(node) {
             var margin = { top: 100, right: 50, bottom: 30, left: 40 },
@@ -1105,8 +1109,8 @@ export default {
                 .on("mousemove", moveTooltip)
                 .on("click", function (d) {
                     var block = $("#main_body").css("transform");
-                    d3.select("#glyph_view_svg").remove();
-                    self.render_glyph_view(d.hero);
+                    // d3.select("#glyph_view_svg").remove();
+                    // self.render_glyph_view(d.hero);
 
                     block = str2number(
                         block.split("(")[1].split(")")[0].split(",")
