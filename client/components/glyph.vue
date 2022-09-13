@@ -641,7 +641,6 @@ export default {
     position: absolute;
     width: 100%;
     height: 100%;
-    overflow-x: auto;
     /* background: rgba(243, 243, 243, 0.5); */
     left: 0%;
     top: 0%;
