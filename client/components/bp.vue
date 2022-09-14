@@ -256,6 +256,17 @@ export default {
         },
     },
     watch: {
+        currentTab(val){
+            this.checked_red=false;
+            this.checked_blue=false;
+            if (this.teamside_selection[parseInt(this.currentTab[5])-1]==1){
+                this.checked_blue=true;
+            }
+            if (this.teamside_selection[parseInt(this.currentTab[5])-1]==2){
+                this.checked_red=true;
+            }
+
+        },
         checked_blue(val){
             if (val==true){
                 this.checked_red=false;
