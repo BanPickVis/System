@@ -162,7 +162,7 @@ export default {
         round4seq: { type: Object, default: () => { } },
         round5seq: { type: Object, default: () => { } },
         round6seq: { type: Object, default: () => { } },
-        curround: {type: Number, default: 0},
+        curround: {type: Number, default: 1},
     },
     setup() { },
     data() {
@@ -715,7 +715,10 @@ export default {
         async loaddata() {
             var block = document.getElementById("warning");
                 block.style.display = "none";
-            if (this.allroundside[this.curround]==0){
+                
+            console.log(this.allroundside);
+            console.log(this.curround);
+            if (this.allroundside[this.curround-1]==0){
                 // this.$alert("Please select your side!");
                 block = document.getElementById("warning");
                 block.style.display = "block";
