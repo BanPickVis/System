@@ -49,7 +49,7 @@ export default {
             radar_hint:"",
 
             roundDefault:"round",
-            round_num:0,
+            round_num:1,
 
             teamside:["Blue", "Red"],
             team_side:"Blue",

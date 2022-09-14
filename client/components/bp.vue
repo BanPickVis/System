@@ -265,7 +265,6 @@ export default {
             if (this.teamside_selection[parseInt(this.currentTab[5])-1]==2){
                 this.checked_red=true;
             }
-
         },
         checked_blue(val){
             if (val==true){

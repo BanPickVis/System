@@ -275,7 +275,7 @@ export default {
                 .domain(["blue", "red"]);
             var pathwidth = d3
                 .scaleLinear()
-                .range([2, hero_image - 20])
+                .range([5, hero_image - 10])
                 .domain([
                     0,
                     d3.max(data, function (d) {
@@ -388,7 +388,7 @@ export default {
                 .attr("fill", "none")
                 .attr("stroke-opacity", 0.3)
                 .attr("transform", function (d) {
-                    return "translate(" + pathwidth(d.value) / 2 + ",0)";
+                    return "translate(" + pathwidth(d.value)  + ",0)";
                 })
                 .attr("class", function (d) {
                     return d.source + "path" + " " + d.target + "path";
@@ -438,6 +438,7 @@ export default {
                         name_width / 3
                     );
                 })
+                .attr("padding",2)
                 .attr("y", function (d) {
                     return name_height + 15;
                 })
