@@ -579,8 +579,10 @@ export default {
             // await requesthelp.axiosGet('/sequence_number', { sequence_num: num, round_num: 1});
             block = document.getElementById("hero_sequence"+num);
             block.style.stroke = "none";
-            block = document.getElementById("hero_sequence"+(num+1));
-            block.style.stroke = "#4E6AFF";
+            if (num!=18){
+                block = document.getElementById("hero_sequence"+(num+1));
+                block.style.stroke = "#4E6AFF";
+            }
             this.changeSequence(num);
             this.round(6);
         },
