@@ -275,11 +275,11 @@ export default {
                 .domain(["blue", "red"]);
             var pathwidth = d3
                 .scaleLinear()
-                .range([5, hero_image - 10])
+                .range([5, hero_image])
                 .domain([
                     0,
                     d3.max(data, function (d) {
-                        return d.targetalready;
+                        return d.targetalready*2;
                     }),
                 ]);
             var hero_x = d3
@@ -388,7 +388,7 @@ export default {
                 .attr("fill", "none")
                 .attr("stroke-opacity", 0.3)
                 .attr("transform", function (d) {
-                    return "translate(" + pathwidth(d.value)  + ",0)";
+                    return "translate(" + (pathwidth(d.value)+ pathwidth(d.sourcealready)) + ",0)";
                 })
                 .attr("class", function (d) {
                     return d.source + "path" + " " + d.target + "path";
@@ -404,7 +404,7 @@ export default {
                         name_height +
                         "C" +
                         (rect_x(d.source) +
-                            pathwidth(d.sourcealready) +
+                            pathwidth(d.sourcealready)+
                             rect_x.bandwidth() / 2 -
                             name_width / 3) +
                         "," +
@@ -417,7 +417,7 @@ export default {
                         150 +
                         " " +
                         (hero_x(d.target) +
-                            pathwidth(d.targetalready) -
+                            pathwidth(d.targetalready)-
                             hero_image) +
                         "," +
                         (heronode_y - hero_image / 2)
@@ -430,15 +430,17 @@ export default {
                 .data(data)
                 .enter()
                 .append("text")
+                .attr("transform", function (d) {
+                    return "translate(" + (pathwidth(d.value)+ pathwidth(d.sourcealready)) + ",0)";
+                })
                 .attr("x", function (d) {
                     return (
                         rect_x(d.source) +
                         pathwidth(d.sourcealready) +
                         rect_x.bandwidth() / 2 -
-                        name_width / 3
+                        name_width / 3 -5
                     );
                 })
-                .attr("padding",2)
                 .attr("y", function (d) {
                     return name_height + 15;
                 })
@@ -451,29 +453,29 @@ export default {
                     return d.source + "text" + " " + d.target + "text";
                 });
 
-            svg.append("g")
-                .selectAll("path")
-                .data(data)
-                .enter()
-                .append("text")
-                .attr("x", function (d) {
-                    return (
-                        hero_x(d.target) +
-                        pathwidth(d.targetalready) -
-                        hero_image
-                    );
-                })
-                .attr("y", function (d) {
-                    return heronode_y - hero_image / 2;
-                })
-                .text(function (d) {
-                    return d.value;
-                })
-                .attr("font-size", "10px")
-                .attr("opacity", 0)
-                .attr("class", function (d) {
-                    return d.source + "text" + " " + d.target + "text";
-                });
+            // svg.append("g")
+            //     .selectAll("path")
+            //     .data(data)
+            //     .enter()
+            //     .append("text")
+            //     .attr("x", function (d) {
+            //         return (
+            //             hero_x(d.target) +
+            //             pathwidth(d.targetalready) -
+            //             hero_image
+            //         );
+            //     })
+            //     .attr("y", function (d) {
+            //         return heronode_y - hero_image / 2;
+            //     })
+            //     .text(function (d) {
+            //         return d.value;
+            //     })
+            //     .attr("font-size", "10px")
+            //     .attr("opacity", 0)
+            //     .attr("class", function (d) {
+            //         return d.source + "text" + " " + d.target + "text";
+            //     });
         },
 
         async drawwinrate(node) {

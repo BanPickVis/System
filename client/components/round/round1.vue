@@ -27,21 +27,21 @@
 
         <rect id="hero_sequence10" class="hero_icon" filter="url(#trans-shadow)" x="540" y="295" rx="5" width="80" height="80" fill="url(#pnone)" @click="select(635, 500, 10)" />
 
-        <rect id="hero_sequence11" class="hero_icon" filter="url(#trans-shadow)" x="15" y="390" rx="35" width="70" height="70" fill="url(#pnone)" @click="select(100, 600, 11)" />
+        <rect id="hero_sequence12" class="hero_icon" filter="url(#trans-shadow)" x="15" y="390" rx="35" width="70" height="70" fill="url(#pnone)" @click="select(100, 600, 12)" />
 
-        <rect id="hero_sequence13" class="hero_icon" filter="url(#trans-shadow)" x="90" y="390" rx="35" width="70" height="70" fill="url(#pnone)" @click="select(175, 600, 13)" />
+        <rect id="hero_sequence14" class="hero_icon" filter="url(#trans-shadow)" x="90" y="390" rx="35" width="70" height="70" fill="url(#pnone)" @click="select(175, 600, 14)" />
 
-        <image id="hero_sequence11" class="hero_icon" x="50" y="425" width="40" height="40" :href="require('../../assets/image/ban.png')" @click="select(100, 600, 11)" />
+        <image id="hero_sequence12" class="hero_icon" x="50" y="425" width="40" height="40" :href="require('../../assets/image/ban.png')" @click="select(100, 600, 12)" />
 
-        <image id="hero_sequence13" class="hero_icon" x="125" y="425" width="40" height="40" :href="require('../../assets/image/ban.png')" @click="select(175, 600, 13)" />
+        <image id="hero_sequence14" class="hero_icon" x="125" y="425" width="40" height="40" :href="require('../../assets/image/ban.png')" @click="select(175, 600, 14)" />
 
-        <rect id="hero_sequence12" class="hero_icon" filter="url(#trans-shadow)" x="475" y="390" rx="35" width="70" height="70" fill="url(#pnone)" @click="select(560, 600, 12)" />
+        <rect id="hero_sequence11" class="hero_icon" filter="url(#trans-shadow)" x="475" y="390" rx="35" width="70" height="70" fill="url(#pnone)" @click="select(560, 600, 11)" />
 
-        <rect id="hero_sequence14" class="hero_icon" filter="url(#trans-shadow)" x="550" y="390" rx="35" width="70" height="70" fill="url(#pnone)" @click="select(635, 600, 14)" />
+        <rect id="hero_sequence13" class="hero_icon" filter="url(#trans-shadow)" x="550" y="390" rx="35" width="70" height="70" fill="url(#pnone)" @click="select(635, 600, 13)" />
 
-        <image id="hero_sequence12" class="hero_icon" x="510" y="425" width="40" height="40" :href="require('../../assets/image/ban.png')" @click="select(560, 600, 12)" />
+        <image id="hero_sequence11" class="hero_icon" x="510" y="425" width="40" height="40" :href="require('../../assets/image/ban.png')" @click="select(560, 600, 11)" />
 
-        <image id="hero_sequence14" class="hero_icon" x="585" y="425" width="40" height="40" :href="require('../../assets/image/ban.png')" @click="select(635, 600, 14)" />
+        <image id="hero_sequence13" class="hero_icon" x="585" y="425" width="40" height="40" :href="require('../../assets/image/ban.png')" @click="select(635, 600, 13)" />
 
         <rect id="hero_sequence16" class="hero_icon" filter="url(#trans-shadow)" x="10" y="475" rx="5" width="80" height="80" fill="url(#pnone)" @click="select(100, 700, 16)" />
 

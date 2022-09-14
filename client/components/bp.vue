@@ -298,7 +298,6 @@ export default {
                     "round4",
                     "round5",
                     "round6",
-                    "round7",
                 ];
             }
         },
