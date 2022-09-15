@@ -275,7 +275,7 @@ export default {
                 .domain(["blue", "red"]);
             var pathwidth = d3
                 .scaleLinear()
-                .range([5, hero_image])
+                .range([5, hero_image+20])
                 .domain([
                     0,
                     d3.max(data, function (d) {
@@ -388,7 +388,7 @@ export default {
                 .attr("fill", "none")
                 .attr("stroke-opacity", 0.3)
                 .attr("transform", function (d) {
-                    return "translate(" + (pathwidth(d.value)+ pathwidth(d.sourcealready)) + ",0)";
+                    return "translate("+ (pathwidth(d.sourcealready)-pathwidth(d.value)) + ",0)";
                 })
                 .attr("class", function (d) {
                     return d.source + "path" + " " + d.target + "path";
@@ -397,7 +397,8 @@ export default {
                     return (
                         "M" +
                         (rect_x(d.source) +
-                            pathwidth(d.sourcealready) +
+                            pathwidth(d.sourcealready)  +
+                            pathwidth(d.value)+
                             rect_x.bandwidth() / 2 -
                             name_width / 3) +
                         "," +
@@ -405,18 +406,21 @@ export default {
                         "C" +
                         (rect_x(d.source) +
                             pathwidth(d.sourcealready)+
+                            pathwidth(d.value)+
                             rect_x.bandwidth() / 2 -
                             name_width / 3) +
                         "," +
                         150 +
                         " " +
                         (hero_x(d.target) +
+                            pathwidth(d.value)+
                             pathwidth(d.targetalready) -
                             hero_image) +
                         "," +
                         150 +
                         " " +
                         (hero_x(d.target) +
+                            pathwidth(d.value)+
                             pathwidth(d.targetalready)-
                             hero_image) +
                         "," +
@@ -431,11 +435,11 @@ export default {
                 .enter()
                 .append("text")
                 .attr("transform", function (d) {
-                    return "translate(" + (pathwidth(d.value)+ pathwidth(d.sourcealready)) + ",0)";
+                    return "translate("+ (pathwidth(d.sourcealready)-pathwidth(d.value)) + ",0)";
                 })
                 .attr("x", function (d) {
                     return (
-                        rect_x(d.source) +
+                        rect_x(d.source) +pathwidth(d.value)+
                         pathwidth(d.sourcealready) +
                         rect_x.bandwidth() / 2 -
                         name_width / 3 -5
