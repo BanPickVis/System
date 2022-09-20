@@ -1,99 +1,94 @@
 <template>
     <div>
-    <div id="glyph_view"></div>
-    <span id="hero_glyph_select">
-        <input id="glyphinput" v-model="glyphselect" type="text" placeholder="please select" list="typelist2" />
-        <datalist id="typelist2">
-            <option>阿古朵</option>
-            <option>白起</option>
-            <option>百里守约</option>
-            <option>不知火舞</option>
-            <option>蔡文姬</option>
-            <option>曹操</option>
-            <option>嫦娥</option>
-            <option>成吉思汗</option>
-            <option>大乔</option>
-            <option>狄仁杰</option>
-            <option>东皇太一</option>
-            <option>盾山</option>
-            <option>暃</option>
-            <option>伽罗</option>
-            <option>干将莫邪</option>
-            <option>戈娅</option>
-            <option>公孙离</option>
-            <option>宫本武藏</option>
-            <option>关羽</option>
-            <option>鬼谷子</option>
-            <option>后羿</option>
-            <option>花木兰</option>
-            <option>黄忠</option>
-            <option>姜子牙</option>
-            <option>金蝉</option>
-            <option>镜</option>
-            <option>橘右京</option>
-            <option>铠</option>
-            <option>兰陵王</option>
-            <option>澜</option>
-            <option>老夫子</option>
-            <option>李元芳</option>
-            <option>廉颇</option>
-            <option>刘邦</option>
-            <option>露娜</option>
-            <option>鲁班大师</option>
-            <option>鲁班七号</option>
-            <option>吕布</option>
-            <option>马超</option>
-            <option>马可波罗</option>
-            <option>蒙恬</option>
-            <option>蒙犽</option>
-            <option>梦奇</option>
-            <option>芈月</option>
-            <option>明世隐</option>
-            <option>墨子</option>
-            <option>娜可露露</option>
-            <option>牛魔</option>
-            <option>盘古</option>
-            <option>裴擒虎</option>
-            <option>桑启</option>
-            <option>上官婉儿</option>
-            <option>沈梦溪</option>
-            <option>孙膑</option>
-            <option>孙尚香</option>
-            <option>太乙真人</option>
-            <option>王昭君</option>
-            <option>西施</option>
-            <option>夏侯惇</option>
-            <option>夏洛特</option>
-            <option>项羽</option>
-            <option>瑶</option>
-            <option>曜</option>
-            <option>弈星</option>
-            <option>虞姬</option>
-            <option>嬴政</option>
-            <option>云缨</option>
-            <option>张飞</option>
-            <option>张良</option>
-            <option>赵云</option>
-            <option>周瑜</option>
-            <option>猪八戒</option>
-            <option>庄周</option>
-        </datalist>
-    </span>
-    <span id="recent">
-    <br />
-        Recent selected:
-    </span>
-    <div id="selectedglyph">
-            <button
-                v-for="hero in hero_list_cloud"
-                :key="hero"
-                :class="['selectedgl']"
-                @click="render_glyph_view(hero)"
-            >
+        <div id="glyph_view"></div>
+        <span id="hero_glyph_select">
+            <input id="glyphinput" v-model="glyphselect" type="text" placeholder="please select" list="typelist2" />
+            <datalist id="typelist2">
+                <option>阿古朵</option>
+                <option>白起</option>
+                <option>百里守约</option>
+                <option>不知火舞</option>
+                <option>蔡文姬</option>
+                <option>曹操</option>
+                <option>嫦娥</option>
+                <option>成吉思汗</option>
+                <option>大乔</option>
+                <option>狄仁杰</option>
+                <option>东皇太一</option>
+                <option>盾山</option>
+                <option>暃</option>
+                <option>伽罗</option>
+                <option>干将莫邪</option>
+                <option>戈娅</option>
+                <option>公孙离</option>
+                <option>宫本武藏</option>
+                <option>关羽</option>
+                <option>鬼谷子</option>
+                <option>后羿</option>
+                <option>花木兰</option>
+                <option>黄忠</option>
+                <option>姜子牙</option>
+                <option>金蝉</option>
+                <option>镜</option>
+                <option>橘右京</option>
+                <option>铠</option>
+                <option>兰陵王</option>
+                <option>澜</option>
+                <option>老夫子</option>
+                <option>李元芳</option>
+                <option>廉颇</option>
+                <option>刘邦</option>
+                <option>露娜</option>
+                <option>鲁班大师</option>
+                <option>鲁班七号</option>
+                <option>吕布</option>
+                <option>马超</option>
+                <option>马可波罗</option>
+                <option>蒙恬</option>
+                <option>蒙犽</option>
+                <option>梦奇</option>
+                <option>芈月</option>
+                <option>明世隐</option>
+                <option>墨子</option>
+                <option>娜可露露</option>
+                <option>牛魔</option>
+                <option>盘古</option>
+                <option>裴擒虎</option>
+                <option>桑启</option>
+                <option>上官婉儿</option>
+                <option>沈梦溪</option>
+                <option>孙膑</option>
+                <option>孙尚香</option>
+                <option>太乙真人</option>
+                <option>王昭君</option>
+                <option>西施</option>
+                <option>夏侯惇</option>
+                <option>夏洛特</option>
+                <option>项羽</option>
+                <option>瑶</option>
+                <option>曜</option>
+                <option>弈星</option>
+                <option>虞姬</option>
+                <option>嬴政</option>
+                <option>云缨</option>
+                <option>张飞</option>
+                <option>张良</option>
+                <option>赵云</option>
+                <option>周瑜</option>
+                <option>猪八戒</option>
+                <option>庄周</option>
+            </datalist>
+        </span>
+        <span id="recent">
+            <br />
+            Recent selected:
+        </span>
+        <div id="selectedglyph">
+            <button v-for="hero in hero_list_cloud" :key="hero" :class="['selectedgl']" @click="render_glyph_view(hero)">
                 {{ hero }}
-        </button>
+            </button>
         </div>
-</div>
+    </div>
 </template>
 
 <script>
@@ -106,24 +101,29 @@ export default {
     setup() { },
     data() {
         return {
-            glyphselect:"",
-            hero_list_cloud:[]
+            glyphselect: "",
+            hero_list_cloud: []
         };
     },
     watch: {
-        glyphselect(val){
-        
-            // console.log(val);
+        glyphselect(val) {
+
+
+
             var allhero = ["阿古朵", "白起", "百里守约", "不知火舞", "蔡文姬", "曹操", "嫦娥", "成吉思汗", "大乔", "狄仁杰", "貂蝉", "曜", "东皇太一", "盾山", "暃", "伽罗", "干将莫邪", "戈娅", "公孙离", "宫本武藏", "关羽", "鬼谷子", "后羿", "花木兰", "黄忠", "姜子牙", "金蝉", "镜", "橘右京", "铠", "狂铁", "兰陵王", "澜", "老夫子", "廉颇", "刘邦", "鲁班大师", "鲁班七号", "露娜", "吕布", "马超", "马可波罗", "蒙恬", "蒙犽", "梦奇", "米莱狄", "芈月", "明世隐", "墨子", "哪吒", "娜可露露", "牛魔", "女娲", "盘古", "裴擒虎", "桑启", "上官婉儿", "沈梦溪", "司空震", "司马懿", "苏烈", "孙膑", "孙策", "孙尚香", "孙悟空", "太乙真人", "王昭君", "武则天", "西施", "夏侯惇", "夏洛特", "项羽", "小乔", "雅典娜", "亚瑟", "杨戬", "杨玉环", "瑶", "弈星", "嬴政", "虞姬", "李元芳", "元歌", "云中君", "张飞", "张良", "赵云", "甄姬", "钟馗", "钟无艳", "周瑜", "诸葛亮", "猪八戒", "庄周", "云缨"];
 
             var englishTrans = d3.scaleOrdinal()
-                .range(["Aguto", "AKe", "Erin", "Angela", "Bai Qi", "Baili Shouyue", "Baili Xuance", "Bian Que", "Mai Shiranui", "Cai Wenji", "Cao Cao", "Chang'e", "Genghis Khan", "Cheng Yaojin", "Dharma", "Daji", "Da Qiao", "Di Renjie", "Dian Wei", "Diao Chan", "Dongfang Yao", "Tai Yi", "Dun Shan", "Fei", "Garo", "Ganjiang Moye", "Gao Jianli", "Ge Ya", "Gongsun Li", "Miyamoto Musashi", "Guan Yu", "Gui Guzi", "Han Xin", "Hou Yi", "Mulan", "Huang Zhong", "Jiang Ziya", "Jin Chan", "Jing", "Ukyo Tachibana", "Kai", "Magnus", "Lan Ling Wan", "Lam", "Fuzi", "Li Bai", "Li Xin", "Lian Po", "Liu Bang", "Liu Bei", "Liu Shan", "Luban Master", "Luban No. 7", "Luna", "Lu Bu", "Ma Chao", "Marco Polo", "Meng Tian", "Meng Ya", "Menki", "Milady", "Mi Yue", "Ming Shiyin", "Mozi", "Nezha", "Nakoruru", "Niumo", "Nuwa", "Pangu", "Tigerous", "Sang Qi", "Shangguan Wan'er", "Shen Mengxi", "Sikong Zhen", "Sima Yi", "Su Lie", "Sun Bin", "Sun Ce", "Sun Shangxiang", "Sun Wukong", "Taiyi Zhenren", "Wang Zhaojun", "Wu Ze Tian", "Xishi", "Xiahou Dun", "Charlotte", "Xiang Yu", "Xiao Qiao", "Athena", "Arthur", "Yang Jian", "Yang Yuhuan", "Yaria", "Yi Xing", "Ying Zheng", "Consort Yu", "Yuanfang", "Yuan Ge", "Yun Zhong Jun", "Zhang Fei", "Zhang Liang", "Zhao Yun", "Zhen Ji", "Zhong Kui", "Wu Yen", "Zhou Yu", "Kong Ming", "Zhu Bajie", "Zhuang Zhou", "Yun Ying", "Li Yuanfang"])
-                .domain(["阿古朵", "阿轲", "艾琳", "安琪拉", "白起", "百里守约", "百里玄策", "扁鹊", "不知火舞", "蔡文姬", "曹操", "嫦娥", "成吉思汗", "程咬金", "达摩", "妲己", "大乔", "狄仁杰", "典韦", "貂蝉", "曜", "东皇太一", "盾山", "暃", "伽罗", "干将莫邪", "高渐离", "戈娅", "公孙离", "宫本武藏", "关羽", "鬼谷子", "韩信", "后羿", "花木兰", "黄忠", "姜子牙", "金蝉", "镜", "橘右京", "铠", "狂铁", "兰陵王", "澜", "老夫子", "李白", "李信", "廉颇", "刘邦", "刘备", "刘禅", "鲁班大师", "鲁班七号", "露娜", "吕布", "马超", "马可波罗", "蒙恬", "蒙犽", "梦奇", "米莱狄", "芈月", "明世隐", "墨子", "哪吒", "娜可露露", "牛魔", "女娲", "盘古", "裴擒虎", "桑启", "上官婉儿", "沈梦溪", "司空震", "司马懿", "苏烈", "孙膑", "孙策", "孙尚香", "孙悟空", "太乙真人", "王昭君", "武则天", "西施", "夏侯惇", "夏洛特", "项羽", "小乔", "雅典娜", "亚瑟", "杨戬", "杨玉环", "瑶", "奕星", "嬴政", "虞姬", "李元芳", "元歌", "云中君", "张飞", "张良", "赵云", "甄姬", "钟馗", "钟无艳", "周瑜", "诸葛亮", "猪八戒", "庄周", "云缨", "李元芳"]);
-            for (var i=0;i<allhero.length;i++){
-                if (val==allhero[i]){
+                .range(["Aguto", "AKe", "Erin", "Angela", "Bai Qi", "Baili Shouyue", "Baili Xuance", "Bian Que", "Mai Shiranui", "Cai Wenji", "Cao Cao", "Chang'e", "Genghis Khan", "Cheng Yaojin", "Dharma", "Daji", "Da Qiao", "Di Renjie", "Dian Wei", "Diao Chan", "Dongfang Yao", "Tai Yi", "Dun Shan", "Fei", "Garo", "Ganjiang Moye", "Gao Jianli", "Ge Ya", "Gongsun Li", "Miyamoto Musashi", "Guan Yu", "Gui Guzi", "Han Xin", "Hou Yi", "Mulan", "Huang Zhong", "Jiang Ziya", "Jin Chan", "Jing", "Ukyo Tachibana", "Kai", "Magnus", "Lan Ling Wan", "Lam", "Fuzi", "Li Bai", "Li Xin", "Lian Po", "Liu Bang", "Liu Bei", "Liu Shan", "Luban Master", "Luban No. 7", "Luna", "Lu Bu", "Ma Chao", "Marco Polo", "Meng Tian", "Meng Ya", "Menki", "Milady", "Mi Yue", "Ming Shiyin", "Mozi", "Nezha", "Nakoruru", "Niumo", "Nuwa", "Pangu", "Tigerous", "Sang Qi", "Shangguan Wan'er", "Shen Mengxi", "Sikong Zhen", "Sima Yi", "Su Lie", "Sun Bin", "Sun Ce", "Sun Shangxiang", "Sun Wukong", "Taiyi Zhenren", "Wang Zhaojun", "Wu Ze Tian", "Xishi", "Xiahou Dun", "Charlotte", "Xiang Yu", "Xiao Qiao", "Athena", "Arthur", "Yang Jian", "Yang Yuhuan", "Yaria", "Yi Xing", "Ying Zheng", "Consort Yu", "Li Yuanfang", "Yuan Ge", "Yun Zhong Jun", "Zhang Fei", "Zhang Liang", "Zhao Yun", "Zhen Ji", "Zhong Kui", "Wu Yen", "Zhou Yu", "Kong Ming", "Zhu Bajie", "Zhuang Zhou", "Yun Ying"])
+                .domain(["阿古朵", "阿轲", "艾琳", "安琪拉", "白起", "百里守约", "百里玄策", "扁鹊", "不知火舞", "蔡文姬", "曹操", "嫦娥", "成吉思汗", "程咬金", "达摩", "妲己", "大乔", "狄仁杰", "典韦", "貂蝉", "曜", "东皇太一", "盾山", "暃", "伽罗", "干将莫邪", "高渐离", "戈娅", "公孙离", "宫本武藏", "关羽", "鬼谷子", "韩信", "后羿", "花木兰", "黄忠", "姜子牙", "金蝉", "镜", "橘右京", "铠", "狂铁", "兰陵王", "澜", "老夫子", "李白", "李信", "廉颇", "刘邦", "刘备", "刘禅", "鲁班大师", "鲁班七号", "露娜", "吕布", "马超", "马可波罗", "蒙恬", "蒙犽", "梦奇", "米莱狄", "芈月", "明世隐", "墨子", "哪吒", "娜可露露", "牛魔", "女娲", "盘古", "裴擒虎", "桑启", "上官婉儿", "沈梦溪", "司空震", "司马懿", "苏烈", "孙膑", "孙策", "孙尚香", "孙悟空", "太乙真人", "王昭君", "武则天", "西施", "夏侯惇", "夏洛特", "项羽", "小乔", "雅典娜", "亚瑟", "杨戬", "杨玉环", "瑶", "弈星", "嬴政", "虞姬", "李元芳", "元歌", "云中君", "张飞", "张良", "赵云", "甄姬", "钟馗", "钟无艳", "周瑜", "诸葛亮", "猪八戒", "庄周", "云缨"]);
+            console.log('####');
+            console.log('val is: ', val);
+            console.log('englishTrans(val) is: ', englishTrans(val));
+            console.log('####');
+            for (var i = 0; i < allhero.length; i++) {
+                if (val == allhero[i]) {
                     this.render_glyph_view(englishTrans(val));
-                    this.add(englishTrans(val)); 
-                    this.glyphselect="";
+                    this.add(englishTrans(val));
+                    this.glyphselect = "";
                 }
             }
         }
@@ -133,19 +133,19 @@ export default {
     },
     methods: {
 
-        
-        async add(hero){
-            for (var i=this.hero_list_cloud.length;i>0;i--){
-                this.hero_list_cloud[i]=this.hero_list_cloud[i-1];
+
+        async add(hero) {
+            for (var i = this.hero_list_cloud.length; i > 0; i--) {
+                this.hero_list_cloud[i] = this.hero_list_cloud[i - 1];
             }
-            this.hero_list_cloud[0]=hero;
+            this.hero_list_cloud[0] = hero;
         },
         render_glyph_view(chosen_hero) {
-            // console.log(chosen_hero);
+
             d3.select("#glyph_view").selectAll('*').remove();
             var englishTrans = d3.scaleOrdinal()
-                .range(["Aguto", "AKe", "Erin", "Angela", "Bai Qi", "Baili Shouyue", "Baili Xuance", "Bian Que", "Mai Shiranui", "Cai Wenji", "Cao Cao", "Chang'e", "Genghis Khan", "Cheng Yaojin", "Dharma", "Daji", "Da Qiao", "Di Renjie", "Dian Wei", "Diao Chan", "Dongfang Yao", "Tai Yi", "Dun Shan", "Fei", "Garo", "Ganjiang Moye", "Gao Jianli", "Ge Ya", "Gongsun Li", "Miyamoto Musashi", "Guan Yu", "Gui Guzi", "Han Xin", "Hou Yi", "Mulan", "Huang Zhong", "Jiang Ziya", "Jin Chan", "Jing", "Ukyo Tachibana", "Kai", "Magnus", "Lan Ling Wan", "Lam", "Fuzi", "Li Bai", "Li Xin", "Lian Po", "Liu Bang", "Liu Bei", "Liu Shan", "Luban Master", "Luban No. 7", "Luna", "Lu Bu", "Ma Chao", "Marco Polo", "Meng Tian", "Meng Ya", "Menki", "Milady", "Mi Yue", "Ming Shiyin", "Mozi", "Nezha", "Nakoruru", "Niumo", "Nuwa", "Pangu", "Tigerous", "Sang Qi", "Shangguan Wan'er", "Shen Mengxi", "Sikong Zhen", "Sima Yi", "Su Lie", "Sun Bin", "Sun Ce", "Sun Shangxiang", "Sun Wukong", "Taiyi Zhenren", "Wang Zhaojun", "Wu Ze Tian", "Xishi", "Xiahou Dun", "Charlotte", "Xiang Yu", "Xiao Qiao", "Athena", "Arthur", "Yang Jian", "Yang Yuhuan", "Yaria", "Yi Xing", "Ying Zheng", "Consort Yu", "Yuanfang", "Yuan Ge", "Yun Zhong Jun", "Zhang Fei", "Zhang Liang", "Zhao Yun", "Zhen Ji", "Zhong Kui", "Wu Yen", "Zhou Yu", "Kong Ming", "Zhu Bajie", "Zhuang Zhou", "Yun Ying", "Li Yuanfang"])
-                .domain(["阿古朵", "阿轲", "艾琳", "安琪拉", "白起", "百里守约", "百里玄策", "扁鹊", "不知火舞", "蔡文姬", "曹操", "嫦娥", "成吉思汗", "程咬金", "达摩", "妲己", "大乔", "狄仁杰", "典韦", "貂蝉", "曜", "东皇太一", "盾山", "暃", "伽罗", "干将莫邪", "高渐离", "戈娅", "公孙离", "宫本武藏", "关羽", "鬼谷子", "韩信", "后羿", "花木兰", "黄忠", "姜子牙", "金蝉", "镜", "橘右京", "铠", "狂铁", "兰陵王", "澜", "老夫子", "李白", "李信", "廉颇", "刘邦", "刘备", "刘禅", "鲁班大师", "鲁班七号", "露娜", "吕布", "马超", "马可波罗", "蒙恬", "蒙犽", "梦奇", "米莱狄", "芈月", "明世隐", "墨子", "哪吒", "娜可露露", "牛魔", "女娲", "盘古", "裴擒虎", "桑启", "上官婉儿", "沈梦溪", "司空震", "司马懿", "苏烈", "孙膑", "孙策", "孙尚香", "孙悟空", "太乙真人", "王昭君", "武则天", "西施", "夏侯惇", "夏洛特", "项羽", "小乔", "雅典娜", "亚瑟", "杨戬", "杨玉环", "瑶", "奕星", "嬴政", "虞姬", "李元芳", "元歌", "云中君", "张飞", "张良", "赵云", "甄姬", "钟馗", "钟无艳", "周瑜", "诸葛亮", "猪八戒", "庄周", "云缨", "李元芳"]);
+                .range(["Aguto", "AKe", "Erin", "Angela", "Bai Qi", "Baili Shouyue", "Baili Xuance", "Bian Que", "Mai Shiranui", "Cai Wenji", "Cao Cao", "Chang'e", "Genghis Khan", "Cheng Yaojin", "Dharma", "Daji", "Da Qiao", "Di Renjie", "Dian Wei", "Diao Chan", "Dongfang Yao", "Tai Yi", "Dun Shan", "Fei", "Garo", "Ganjiang Moye", "Gao Jianli", "Ge Ya", "Gongsun Li", "Miyamoto Musashi", "Guan Yu", "Gui Guzi", "Han Xin", "Hou Yi", "Mulan", "Huang Zhong", "Jiang Ziya", "Jin Chan", "Jing", "Ukyo Tachibana", "Kai", "Magnus", "Lan Ling Wan", "Lam", "Fuzi", "Li Bai", "Li Xin", "Lian Po", "Liu Bang", "Liu Bei", "Liu Shan", "Luban Master", "Luban No. 7", "Luna", "Lu Bu", "Ma Chao", "Marco Polo", "Meng Tian", "Meng Ya", "Menki", "Milady", "Mi Yue", "Ming Shiyin", "Mozi", "Nezha", "Nakoruru", "Niumo", "Nuwa", "Pangu", "Tigerous", "Sang Qi", "Shangguan Wan'er", "Shen Mengxi", "Sikong Zhen", "Sima Yi", "Su Lie", "Sun Bin", "Sun Ce", "Sun Shangxiang", "Sun Wukong", "Taiyi Zhenren", "Wang Zhaojun", "Wu Ze Tian", "Xishi", "Xiahou Dun", "Charlotte", "Xiang Yu", "Xiao Qiao", "Athena", "Arthur", "Yang Jian", "Yang Yuhuan", "Yaria", "Yi Xing", "Ying Zheng", "Consort Yu", "Yuan Ge", "Yun Zhong Jun", "Zhang Fei", "Zhang Liang", "Zhao Yun", "Zhen Ji", "Zhong Kui", "Wu Yen", "Zhou Yu", "Kong Ming", "Zhu Bajie", "Zhuang Zhou", "Yun Ying", "Li Yuanfang"])
+                .domain(["阿古朵", "阿轲", "艾琳", "安琪拉", "白起", "百里守约", "百里玄策", "扁鹊", "不知火舞", "蔡文姬", "曹操", "嫦娥", "成吉思汗", "程咬金", "达摩", "妲己", "大乔", "狄仁杰", "典韦", "貂蝉", "曜", "东皇太一", "盾山", "暃", "伽罗", "干将莫邪", "高渐离", "戈娅", "公孙离", "宫本武藏", "关羽", "鬼谷子", "韩信", "后羿", "花木兰", "黄忠", "姜子牙", "金蝉", "镜", "橘右京", "铠", "狂铁", "兰陵王", "澜", "老夫子", "李白", "李信", "廉颇", "刘邦", "刘备", "刘禅", "鲁班大师", "鲁班七号", "露娜", "吕布", "马超", "马可波罗", "蒙恬", "蒙犽", "梦奇", "米莱狄", "芈月", "明世隐", "墨子", "哪吒", "娜可露露", "牛魔", "女娲", "盘古", "裴擒虎", "桑启", "上官婉儿", "沈梦溪", "司空震", "司马懿", "苏烈", "孙膑", "孙策", "孙尚香", "孙悟空", "太乙真人", "王昭君", "武则天", "西施", "夏侯惇", "夏洛特", "项羽", "小乔", "雅典娜", "亚瑟", "杨戬", "杨玉环", "瑶", "弈星", "嬴政", "虞姬", "元歌", "云中君", "张飞", "张良", "赵云", "甄姬", "钟馗", "钟无艳", "周瑜", "诸葛亮", "猪八戒", "庄周", "云缨", "李元芳"]);
             function mouseover(anytext) {
                 d3.select("body")
                     .append("div")
@@ -187,14 +187,16 @@ export default {
                 0.85, 0.8, 0.8, 0.3, 0.6, 1, 0.7, 0.8, 0.8,
             ];
             var chineseTrans = d3.scaleOrdinal()
-                .domain(["Aguto", "AKe", "Erin", "Angela", "Bai Qi", "Baili Shouyue", "Baili Xuance", "Bian Que", "Mai Shiranui", "Cai Wenji", "Cao Cao", "Chang'e", "Genghis Khan", "Cheng Yaojin", "Dharma", "Daji", "Da Qiao", "Di Renjie", "Dian Wei", "Diao Chan", "Dongfang Yao", "Tai Yi", "Dun Shan", "Fei", "Garo", "Ganjiang Moye", "Gao Jianli", "Ge Ya", "Gongsun Li", "Miyamoto Musashi", "Guan Yu", "Gui Guzi", "Han Xin", "Hou Yi", "Mulan", "Huang Zhong", "Jiang Ziya", "Jin Chan", "Jing", "Ukyo Tachibana", "Kai", "Magnus", "Lan Ling Wan", "Lam", "Fuzi", "Li Bai", "Li Xin", "Lian Po", "Liu Bang", "Liu Bei", "Liu Shan", "Luban Master", "Luban No. 7", "Luna", "Lu Bu", "Ma Chao", "Marco Polo", "Meng Tian", "Meng Ya", "Menki", "Milady", "Mi Yue", "Ming Shiyin", "Mozi", "Nezha", "Nakoruru", "Niumo", "Nuwa", "Pangu", "Tigerous", "Sang Qi", "Shangguan Wan'er", "Shen Mengxi", "Sikong Zhen", "Sima Yi", "Su Lie", "Sun Bin", "Sun Ce", "Sun Shangxiang", "Sun Wukong", "Taiyi Zhenren", "Wang Zhaojun", "Wu Ze Tian", "Xishi", "Xiahou Dun", "Charlotte", "Xiang Yu", "Xiao Qiao", "Athena", "Arthur", "Yang Jian", "Yang Yuhuan", "Yaria", "Yi Xing", "Ying Zheng", "Consort Yu", "Yuanfang", "Yuan Ge", "Yun Zhong Jun", "Zhang Fei", "Zhang Liang", "Zhao Yun", "Zhen Ji", "Zhong Kui", "Wu Yen", "Zhou Yu", "Kong Ming", "Zhu Bajie", "Zhuang Zhou", "Yun Ying", "Li Yuanfang"])
-                .range(["阿古朵", "阿轲", "艾琳", "安琪拉", "白起", "百里守约", "百里玄策", "扁鹊", "不知火舞", "蔡文姬", "曹操", "嫦娥", "成吉思汗", "程咬金", "达摩", "妲己", "大乔", "狄仁杰", "典韦", "貂蝉", "曜", "东皇太一", "盾山", "暃", "伽罗", "干将莫邪", "高渐离", "戈娅", "公孙离", "宫本武藏", "关羽", "鬼谷子", "韩信", "后羿", "花木兰", "黄忠", "姜子牙", "金蝉", "镜", "橘右京", "铠", "狂铁", "兰陵王", "澜", "老夫子", "李白", "李信", "廉颇", "刘邦", "刘备", "刘禅", "鲁班大师", "鲁班七号", "露娜", "吕布", "马超", "马可波罗", "蒙恬", "蒙犽", "梦奇", "米莱狄", "芈月", "明世隐", "墨子", "哪吒", "娜可露露", "牛魔", "女娲", "盘古", "裴擒虎", "桑启", "上官婉儿", "沈梦溪", "司空震", "司马懿", "苏烈", "孙膑", "孙策", "孙尚香", "孙悟空", "太乙真人", "王昭君", "武则天", "西施", "夏侯惇", "夏洛特", "项羽", "小乔", "雅典娜", "亚瑟", "杨戬", "杨玉环", "瑶", "奕星", "嬴政", "虞姬", "李元芳", "元歌", "云中君", "张飞", "张良", "赵云", "甄姬", "钟馗", "钟无艳", "周瑜", "诸葛亮", "猪八戒", "庄周", "云缨", "李元芳"]);
+                .domain(["Aguto", "AKe", "Erin", "Angela", "Bai Qi", "Baili Shouyue", "Baili Xuance", "Bian Que", "Mai Shiranui", "Cai Wenji", "Cao Cao", "Chang'e", "Genghis Khan", "Cheng Yaojin", "Dharma", "Daji", "Da Qiao", "Di Renjie", "Dian Wei", "Diao Chan", "Dongfang Yao", "Tai Yi", "Dun Shan", "Fei", "Garo", "Ganjiang Moye", "Gao Jianli", "Ge Ya", "Gongsun Li", "Miyamoto Musashi", "Guan Yu", "Gui Guzi", "Han Xin", "Hou Yi", "Mulan", "Huang Zhong", "Jiang Ziya", "Jin Chan", "Jing", "Ukyo Tachibana", "Kai", "Magnus", "Lan Ling Wan", "Lam", "Fuzi", "Li Bai", "Li Xin", "Lian Po", "Liu Bang", "Liu Bei", "Liu Shan", "Luban Master", "Luban No. 7", "Luna", "Lu Bu", "Ma Chao", "Marco Polo", "Meng Tian", "Meng Ya", "Menki", "Milady", "Mi Yue", "Ming Shiyin", "Mozi", "Nezha", "Nakoruru", "Niumo", "Nuwa", "Pangu", "Tigerous", "Sang Qi", "Shangguan Wan'er", "Shen Mengxi", "Sikong Zhen", "Sima Yi", "Su Lie", "Sun Bin", "Sun Ce", "Sun Shangxiang", "Sun Wukong", "Taiyi Zhenren", "Wang Zhaojun", "Wu Ze Tian", "Xishi", "Xiahou Dun", "Charlotte", "Xiang Yu", "Xiao Qiao", "Athena", "Arthur", "Yang Jian", "Yang Yuhuan", "Yaria", "Yi Xing", "Ying Zheng", "Consort Yu", "Yuan Ge", "Yun Zhong Jun", "Zhang Fei", "Zhang Liang", "Zhao Yun", "Zhen Ji", "Zhong Kui", "Wu Yen", "Zhou Yu", "Kong Ming", "Zhu Bajie", "Zhuang Zhou", "Yun Ying", "Li Yuanfang"])
+                .range(["阿古朵", "阿轲", "艾琳", "安琪拉", "白起", "百里守约", "百里玄策", "扁鹊", "不知火舞", "蔡文姬", "曹操", "嫦娥", "成吉思汗", "程咬金", "达摩", "妲己", "大乔", "狄仁杰", "典韦", "貂蝉", "曜", "东皇太一", "盾山", "暃", "伽罗", "干将莫邪", "高渐离", "戈娅", "公孙离", "宫本武藏", "关羽", "鬼谷子", "韩信", "后羿", "花木兰", "黄忠", "姜子牙", "金蝉", "镜", "橘右京", "铠", "狂铁", "兰陵王", "澜", "老夫子", "李白", "李信", "廉颇", "刘邦", "刘备", "刘禅", "鲁班大师", "鲁班七号", "露娜", "吕布", "马超", "马可波罗", "蒙恬", "蒙犽", "梦奇", "米莱狄", "芈月", "明世隐", "墨子", "哪吒", "娜可露露", "牛魔", "女娲", "盘古", "裴擒虎", "桑启", "上官婉儿", "沈梦溪", "司空震", "司马懿", "苏烈", "孙膑", "孙策", "孙尚香", "孙悟空", "太乙真人", "王昭君", "武则天", "西施", "夏侯惇", "夏洛特", "项羽", "小乔", "雅典娜", "亚瑟", "杨戬", "杨玉环", "瑶", "弈星", "嬴政", "虞姬", "元歌", "云中君", "张飞", "张良", "赵云", "甄姬", "钟馗", "钟无艳", "周瑜", "诸葛亮", "猪八戒", "庄周", "云缨", "李元芳"]);
 
-            chosen_hero=chineseTrans(chosen_hero);
-            
+            chosen_hero = chineseTrans(chosen_hero);
+
             // console.log(chosen_hero);
             var chosen_hero_data = all_glyph_data[chosen_hero];
             // console.log(`${chosen_hero}:`, chosen_hero_data);
+            console.log('chosen_hero is: ', chosen_hero);
+            console.log('chosen+her_data is:', chosen_hero_data);
 
             var offset_left = 165;
             var offset_top = 185;
@@ -631,7 +633,7 @@ export default {
                 .attr("text-anchor", "left")
                 .style("alignment-baseline", "middle")
                 .style("font-weight", "bold")
-                .attr("stroke","gray")
+                .attr("stroke", "gray")
                 .style("stroke-width", 0.2);
         },
     },
@@ -658,7 +660,7 @@ export default {
     cursor: pointer;
 }
 
-#glyphinput{
+#glyphinput {
     position: absolute;
     width: 40%;
     height: 5%;
@@ -669,7 +671,7 @@ export default {
     border-radius: 3px;
 }
 
-.selectedgl{
+.selectedgl {
     float: left;
     /* padding: 6px 10px; */
     margin-right: 25px;
@@ -679,16 +681,16 @@ export default {
     border-radius: 10px;
     border: 1px solid #ccc;
     cursor: pointer;
-    width:fit-content;
+    width: fit-content;
     background: #fcfcfc;
 }
 .selectedgl:hover {
-background: #f0f0f0;
+    background: #f0f0f0;
 }
 .selectedgl.active {
-background: #f0f0f0;
+    background: #f0f0f0;
 }
-#recent{
+#recent {
     position: absolute;
     width: 40%;
     height: 37%;
@@ -698,7 +700,7 @@ background: #f0f0f0;
     border-inline-color: lightgray;
     border-radius: 3px;
 }
-#selectedglyph{
+#selectedglyph {
     position: absolute;
     width: 40%;
     height: 29%;

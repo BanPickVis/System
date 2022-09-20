@@ -5,11 +5,14 @@
         </h1>
         <div class="bp_view">
             <a>BP View</a>
-            <bp :roundnow="roundDefault" :bon="bon" :round1seq="round1seq" :round2seq="round2seq" :round3seq="round3seq" :round4seq="round4seq" :round5seq="round5seq" :round6seq="round6seq" @yourteamside="teamsideselection" @handleChange1="changeName1" @handleChange2="changeName2" @teamChange1="changeTeam1" @teamChange2="changeTeam2" @teamChange1abbr="changeTeam1abbr" @teamChange2abbr="changeTeam2abbr" @seqSelection="select_num" @thisround="curround" />
+            <bp :roundnow="roundDefault" :bon="bon" :round1seq="round1seq" :round2seq="round2seq" :round3seq="round3seq" :round4seq="round4seq" :round5seq="round5seq" :round6seq="round6seq" @yourteamside="teamsideselection"
+                @handleChange1="changeName1" @handleChange2="changeName2" @teamChange1="changeTeam1" @teamChange2="changeTeam2" @teamChange1abbr="changeTeam1abbr" @teamChange2abbr="changeTeam2abbr" @seqSelection="select_num"
+                @thisround="curround" />
         </div>
         <div class="seq_view">
             <a>Drafting Sequence View</a>
-            <seq :change="sequencechanged" :bon="bon" :branch="n_of_b" :round1seq="round1seq" :round2seq="round2seq" :round3seq="round3seq" :round4seq="round4seq" :round5seq="round5seq" :round6seq="round6seq" :preview="n_of_p" :side="team_side" :team1="Team_1" :team2="Team_2" :allroundside="teamselection" :curround="round_num" />
+            <seq :change="sequencechanged" :bon="bon" :branch="n_of_b" :round1seq="round1seq" :round2seq="round2seq" :round3seq="round3seq" :round4seq="round4seq" :round5seq="round5seq" :round6seq="round6seq" :preview="n_of_p"
+                :side="team_side" :team1="Team_1" :team2="Team_2" :allroundside="teamselection" :curround="round_num" />
         </div>
         <div class="player_view">
             <a>Player View</a>
@@ -68,7 +71,8 @@
         </div>
 
         <div id="selection_view">
-            <heroS :numberseq="selected_sequence_num" :numberround="round_num" :round1seq="round1seq" :round2seq="round2seq" :round3seq="round3seq" :round4seq="round4seq" :round5seq="round5seq" :round6seq="round6seq" @sequenceChange="squenceChanging" @round1sequence="seqr1" @round2sequence="seqr2" @round3sequence="seqr3" @round4sequence="seqr4" @round5sequence="seqr5" @round6sequence="seqr6" />
+            <heroS :numberseq="selected_sequence_num" :numberround="round_num" :round1seq="round1seq" :round2seq="round2seq" :round3seq="round3seq" :round4seq="round4seq" :round5seq="round5seq" :round6seq="round6seq"
+                @sequenceChange="squenceChanging" @round1sequence="seqr1" @round2sequence="seqr2" @round3sequence="seqr3" @round4sequence="seqr4" @round5sequence="seqr5" @round6sequence="seqr6" />
         </div>
         <div id="multi_selection_view1" class="multi_selection_view1">
             <heroMS1 :keyword="keywords_blue" @heroselected1="keywordsel1" />
@@ -84,19 +88,19 @@
 <script src="./script.js"></script>
 
 <style>
-a{
+a {
     font-size: 30px;
     padding: 10px;
     font-family: sans-serif;
-    color:dimgrey;
+    color: dimgrey;
 }
 
 #loader {
     position: absolute;
-    width: 55%;
+    width: 54.5%;
     height: 54%;
-    top: 4%;
-    right: 18%;
+    top: 5.2%;
+    right: 18.5%;
     background: #c6c6c6;
     opacity: 30%;
     display: none;
@@ -130,7 +134,6 @@ a{
     top: -0.5%;
     font-size: 35px;
     font-family: sans-serif;
-
 }
 .bp_view {
     /* BANPICK */
@@ -220,7 +223,7 @@ a{
     box-sizing: border-box;
     border-radius: 5px;
 }
-.hero_glyph{
+.hero_glyph {
     position: absolute;
     position: absolute;
     width: 12.8%;
